@@ -1,0 +1,42 @@
+%%% The following code demonstrates the ``other list'' facility. A new
+%%% command \otherlist is defined for the List of Programs. Programs
+%%% are defined as floating environments of type 3 (1 is used for figures,
+%%% 2 for tables) and the information about them is stored in an
+%%% auxiliary file with .lop extension. You can use this method to
+%%% define several types of ``other lists,'' but in that case you'll
+%%% need to add appropriate code to \lists in the csthesis.sty
+%%% package.
+%%% Note: It's better to move this code into your own mythesis.sty
+%%% package. If you do that, you should get rid of the \makeatletter,
+%%% \makeatother commands.
+\makeatletter
+\newcommand\otherlist{%
+    \addcontentsline{toc}{chapter}{\otherlistname}
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \chapter*{\otherlistname
+      \@mkboth{\MakeUppercase\otherlistname}%
+              {\MakeUppercase\otherlistname}}%
+    \@starttoc{lop}%
+    \if@restonecol\twocolumn\fi
+    }
+\newcommand*\l@program{\@dottedtocline{1}{1.5em}{2.3em}}
+\newcommand\otherlistname{List of Programs}
+\newcommand\programname{Program}
+\newcounter{program}[chapter]
+\renewcommand\theprogram{\thechapter.\@arabic\c@program}
+\def\fps@program{tbp}
+\def\ftype@program{3}
+\def\ext@program{lop}
+\def\fnum@program{\programname~\theprogram}
+\newenvironment{program}
+               {\@float{program}}
+               {\end@float}
+\newenvironment{program*}
+               {\@dblfloat{program}}
+               {\end@dblfloat}
+\makeatother
+%%% end of ``other list'' code

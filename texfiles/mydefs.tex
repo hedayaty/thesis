@@ -1,0 +1,94 @@
+\usepackage{amssymb,amsmath,mathrsfs}
+\usepackage{verbatim}
+\usepackage{paralist}
+\usepackage{algorithm,algorithmic}
+\newcommand{\pname}[1]{\textsc{#1}}
+\newcommand{\ccsp}{\#CSP}
+\newcommand{\cbis}{\#BIS}
+\newcommand{\chom}{\#Hom}
+\newcommand{\cds}{\pname{\#Downsets}}
+\newcommand{\cp}{\#P}
+\newcommand{\npc}{NP-complete}
+\newcommand{\npC}{NP-Complete}
+\newcommand{\cpC}{\#P-Complete}
+\newcommand{\cpc}{\#P-complete}
+\newcommand{\csat}{\#SAT}
+\newcommand{\dsat}{2-SAT}
+\newcommand{\ctsat}{\#3-SAT}
+\newcommand{\cdsat}{\#2-SAT}
+\newcommand{\tcoloring}{\pname{3-Coloring}}
+\newcommand{\ctcol}{\pname{\#3-Col}}
+\newcommand{\cdcol}{\pname{\#2-Col}}
+\newcommand{\cis}{\#IS}
+\newcommand{\impl}{\mathcal{P}}
+\newcommand{\aple}{\le_{AP}}
+\newcommand{\apge}{\ge_{AP}}
+\newcommand{\apeq}{\equiv_{AP}}
+\newcommand{\setof}[1]{\{#1\}}
+\newcommand{\oneto}[1]{{1,2,\dotsc,#1}}
+\newcommand{\zto}[1]{{0,1,\dotsc,#1}}
+\newcommand{\zo}{{0,1}}
+\newcommand{\oneoeps}{\frac{1}{\epsilon}}
+\newcommand{\oneoepsp}{\frac{1}{\epsilon'}}
+\newcommand{\eps}{\epsilon}
+\def\dom{{\sf dom}}
+\newcommand{\apxalg}{Alg}
+\newcommand{\probi}{\mathcal{P}}
+\newcommand{\relset}{\Gamma}
+\newcommand{\mrelset}{\(\relset\)}
+\newcommand{\ba}{\textbf{a}}
+\newcommand{\rA}{\mathbb{A}}
+\newcommand{\rB}{\mathbb{B}}
+\newcommand{\probL}{\mathcal{L}}
+\newcommand{\cprobL}{\#\mathcal{L}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\pow}[1]{2^{#1}}
+\newcommand{\const}[1]{\langle #1 \rangle}
+\newcommand{\clone}[1]{\langle\langle #1 \rangle\rangle}
+\newcommand{\wclone}[1]{\langle #1 \rangle}
+%\newcommand{\varset}[1]{\overline{#1}}
+\newcommand{\varset}[1]{\textbf{#1}}
+\newcommand{\mR}{\(R\)}
+\newcommand{\mD}{\(D\)}
+\newcommand{\mG}{\(G\)}
+\newcommand{\mH}{\(H\)}
+\newcommand{\mf}{\(f\)}
+\newcommand{\mg}{\(g\)}
+\newcommand{\mn}{\(n\)}
+\newcommand{\mm}{\(m\)}
+\newcommand{\fA}{\sigma}
+\newcommand{\gB}{\tau}
+\newcommand{\bl}{\mathbf{\Lambda}}
+\newcommand{\bG}{\mathbf{G}}
+%\newcommand{\todo}[1]{\textbf{TODO #1}}
+\newcommand{\pdef}[3]{
+\noindent \textbf{Name}: {#1}\\
+\noindent \textbf{Instance}: {#2} \\
+\noindent \textbf{Output}: {#3} \\
+
+}
+
+\newcommand{\pnndef}[2]{
+\noindent \textbf{Instance}: {#1} \\
+\noindent \textbf{Output}: {#2} \\
+
+}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{example}{Example}
+\newtheorem{defi}{Definition}
+\newtheorem{obs}{Observation}
+\newtheorem{cor}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{problem}{Problem}
+\newenvironment{proof}{{\bf Proof:\ }}{\hfill $\Box$\linebreak\vskip2mm}
+
+
+% For TODO
+\newcommand{\todo}[1]{
+\addcontentsline{tdo}{todo}{\protect{#1}}
+\marginpar{#1}
+}
+\makeatletter \newcommand \listoftodos{\section*{Todo list} \@starttoc{tdo}}
+\newcommand\l@todo[2]
+{\par\noindent \textit{#2}, \parbox{10cm}{#1}\par} \makeatother

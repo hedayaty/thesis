@@ -1,0 +1,64 @@
+\documentclass[11pt]{report}
+%\documentclass[11pt,twoside]{report}%% for two-sided printing
+\usepackage{csthesis}
+\usepackage{makeidx}  %%% standard INDEX
+\usepackage[titletoc]{appendix}%%Ensure word appendix appears in toc
+\makeindex
+
+\input{mydefs}
+\input{graph}
+%\input{sfudefs}
+
+\begin{document}
+%%% set switches
+%\contentspagefalse  
+%\figurespagetrue
+%\tablespagetrue
+%\dedicationpagetrue
+%\quotationpagetrue
+%\otherlistpagetrue
+
+%%% front matter 
+\include{titapp} %% title, approval
+\include{abstract} %% abstract
+%\include{dedquot} %% dedication and quotation, if any 
+%\include{ack} %%  acknowledgments
+
+%%%  generate contents, lists of figures, etc.
+\lists
+
+%% preface (foreword), if any
+%\include{preface} 
+
+%%% prepare main section
+\beforetext
+
+%%% main matter
+\include{intro}
+\include{minor}
+\include{results}
+
+%%%  appendices, if any
+\begin{appendices}
+%\include{appone}
+%\include{apptwo}
+\end{appendices}
+
+%%%%%%  bibliography
+\include{bibl}
+
+%%%%%%  index
+\include{ind}
+
+\end{document}
+
+
+
+
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

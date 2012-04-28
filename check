@@ -1,0 +1,13 @@
+#!/bin/bash
+
+NAME=$1
+cat bibtex.log | grep --color Warning
+cat "$NAME.log" | grep --color Warning 
+cat "$NAME.log" | grep --color Overfull
+
+shift
+#exit #TODO remove this after aspell is fixed
+for word in $(cat $* | aspell -t -p ./mydict.txt list | uniq )
+do 
+	grep -w -n --color $word $*
+done

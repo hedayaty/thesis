@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cat $* | aspell -t -p ./mydict.txt list | sort | uniq >> mydict.txt
