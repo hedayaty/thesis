@@ -1,4 +1,4 @@
-FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample
+FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar
 
 MAG = -m 1.3
 

@@ -11,7 +11,7 @@ Let \(\probi = (V, C)\) be an instance of \ccsp(\mrelset)\@. Let H(\(\probi\)) b
 with the vertex set \mV\ and it contains an edge \(\setof{u,v}\) if and only if 
 \(u\) and \(v\) appear in the same scope for a constraint in \(\probi\)\@.
 We say an instance \(\probi\) is connected if and only if \(H(\probi)\) is a connected graph.
-Let \cccsp(\mrelset) denote the problem \ccsp(\mrelset) to connected instances.
+Let \cccsp(\mrelset) denote the problem \ccsp(\mrelset) limited to connected instances.
 
 \begin{lemma} \label{lemma:connected}
 For any constraint language \mrelset\ the problem \ccsp(\mrelset) is AP-interreducible with
@@ -26,7 +26,7 @@ the algorithm for \cccsp(\mrelset) on instances \((\probi_1,\delta), \dotsc,(\pr
 and outputs \(N = N_1 \dotsm N_r\),
 where \(N_i\) is the answer given by the oracle on \((\probi_i,\delta)\)\@.
 
-We claim that the above reduction is an AP-reduction. First of all, observe that is is polynomial
+We claim that the above reduction is an AP-reduction. First of all, observe that it is polynomial
 time, and the instances it produces satisfy the conditions of AP-reductions. It remains to show
 that if the oracle approximates the solutions with relative error \(\delta\) then the reduction 
 provides approximation within \(\eps\)\@.
@@ -35,13 +35,14 @@ Since we can assume \(\eps\) is small, we have \((1 - \delta)^r \ge 1 - 2r\delta
 \( ( 1 + \delta)^r \le 1 + 2r\delta = 1 + \eps\)\@. Now if 
 the actual solution to \(\probi, \probi_1,\dotsc,\probi_r\) are \(N',N_1,\dotsc,N'_r\), then 
 we obviously have \(N'=N'_1\dotsm N'_r\)\@. Also
-\[1\delta < \frac{N_1}{N'_1} < 1 + \delta,\]
+\[1-\delta < \frac{N_1}{N'_1} < 1 + \delta,\]
 Therefore,
-\[\frac{N}{N'} < \frac{N_1 \dotsm N_r}{N'_1\dotsm N'_r} < (1 + \delta)^r \le 1 + \eps.\]
+\[\frac{N}{N'} = \frac{N_1 \dotsm N_r}{N'_1\dotsm N'_r} < (1 + \delta)^r \le 1 + \eps.\]
 The lower bound is proved in the same manner.
 \end{proof}
 
-Hence, from now on in all the proves we can presume that the input structures are connected.
+Hence, we can presume that the input structures are connected.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Linear relationship
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,23 +55,23 @@ Let \(\varphi\) be a polynomial time computable function that maps every instanc
 counting problem \(A\) to an instance of a counting problem problem \(B\) in such a way that
 there are constants \(d > 0\) and \(c\) (not necessarily positive)such that
 for any \(A\)-instance \(\probi\) we have
-\(\#\probi = d\cdot \#\varphi(\probi) + c)\)\@. Then in any instance of \(A\)
+\(\#\probi = d\cdot \#\varphi(\probi) + c\)\@. Then if any instance of \(A\)
 has at least one solution 
 (in case \(c < 0\)), or every instance of \(B\) has at least one solution (in case \(c>0\)), then
 there is an AP-reduction from \(A\) to \(B\)\@.
 \end{lemma}
 \begin{proof}
 The AP-reduction works as follows: On an instance \(\probi\) of \(A\) and \(\eps > 0\) it makes 
-an oracle call \(\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\eps}{p}\) and 
+an oracle call \((\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\eps}{p}\) and 
 \(p = 1 + |c|/d\) if \(|c|/d\) is integer, and \(p = 1 + \frac{|C|}{d\ceil{|c|/d}-c/d}\) otherwise,
 and if the oracle's reply is \(N\), it returns \(dN + c\)\@. Clearly the algorithm make polynomially 
-many stores and oracle call, and the oracle request is of the correct form.
+many steps and oracle calls, and the oracle request is of the correct form.
 Thus, it suffices to show that if the oracles's solution is within relative error of \(\delta\) then
 the algorithm gives an \(1+\eps\)-approximation of \(\#\probi\)\@.
 
 Let the exact and approximation solutions for \(\varphi(\probi)\) be \(N'\) and \(N\), respectively;
 then the exact and approximation solutions for \(\probi\) are \(\frac{dN'}{dN'+c} \le p\)\@.
-Indeed,if \(c > 0\) this fraction does not exceed 1\@. If \(c < 0\) then 
+Indeed, if \(c > 0\) this fraction does not exceed 1\@. If \(c < 0\) then 
 it follows from the assumption \(dN' + c > 0\) which implies \(N' > |c|/d\)\@.
 Thus the relative error can be bounded by 
 \[\frac{dN + c}{dN' + c} \le \frac{(1+\delta)dN' + c}{dN'+c} = 1 + \frac{\delta d N'}{d N' + c} \le 1 + \frac{\eps}{p}p = 1 + \eps.\]
@@ -114,13 +115,13 @@ can be extended to a solution of \(\probi'\) in a unique way. The lemma is prove
 % Pinning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We will need several auxiliary statements. The first of them generalizes the Pinning Lemma from
+Next lemma generalizes the Pinning Lemma from
 \cite{Trichotomy}. This lemma allows one to add an extra unary relation to the constraint language.
 The proof of Lemma~\ref{lem:pinning} also follows closely the proof in \cite{Trichotomy}. 
 This is why we omit a portion of computation in our proof. It is convenient to consider a subset of the domain as a unary relation.
 
 \begin{lemma}[Extended Pinning]\label{lem:pinning}
-Let \(\relset\) be a constraint language over the set \(D=\setof{k-1}\)\@,
+Let \(\relset\) be a constraint language over the set \(D=\setof{0,1,\dotsc,k-1}\)\@,
 and let for a certain subset \(S \subset D\) 
 there be an \(l\)-ary relation \(R \in \relset\) and a coordinate position \(j\),
 \(1 \le j \le l\), such that for any \(a\in S\) the relation \mR\ has more tuples
@@ -144,7 +145,7 @@ Construct an instance \(\probi'\) of \(\ccsp(\relset)\) as follows:
 \item
 The set of variables of \(\probi'\) includes all variables from \(\probi\),
 and also, for each variable \(x \in N_S\), any \(u \in \setof{\oneto m}\), and any
-\(v\in\setof{k}-\{j\}\) a fresh variable \(x_{u,v}\)\@. 
+\(v\in\setof{0,1,\dotsc,k}-\{j\}\) a fresh variable \(x_{u,v}\)\@. 
 \item 
 Include all constraints from \(\probi\) other than those involving \(S\)\@. 
 \item
@@ -159,7 +160,7 @@ take values from \(S\)\@. On the other hand, every assignment that does not sati
 condition can be extended in at most \(w^{m(n_S-1)}w^{\prime m}\) ways.
 There exist no more than \(k^n\) such solutions. Therefore if \(N\) and \(N'\)
 denote the number of solutions to \(\probi\) and \(\probi'\), respectively, then
-\[Nw^{mn_S} \le N' \le Nw^{mn_S} + k^nw^{m(n_s-1)}w'^m.\]
+\[N\cdot w^{mn_S} \le N' \le Nw^{mn_S} + k^nw^{m(n_s-1)}w'^m.\]
 So, for a properly chosen \mm, 
 \[N \le \frac{N'}{w^{mn_S}} \le N + \frac{1}{4},\]
 which implies
@@ -167,6 +168,7 @@ which implies
 Now we can complete the proof in exactly the same way as in \cite{Trichotomy}.
 \todo{Write up this part}
 \end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Maximization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,7 +199,36 @@ construct instance \(\probi_2 = (V_2,\mathcal{C}_2)\) of  \ccsp(\mrelset) as fol
 \item Let \(C_1,\dotsc,C_l\in\mathcal{C}_1\) be constraints from \(\probi_1\)involving
 \mR, \(C_i=\const{s_i,R }\)\@. Set \(V_2 =V_1\cup(V_1^i\cup\dotsb \cup V_m^i)\), where \(V_j^i\)
 is a fresh copy of \(V_y\) from Definition~\ref{def:max}\@.
-\item Let \(\mathcal{C}\) be the set of constraints from \(\
+\item Let \(\mathcal{C}\) be the set of constraints from \(\probi_1\). Set 
+\(\mathcal{C}_2 = (\mathcal{C}_1 - \setof{C_1,\dotsc,C_l}) \cup 
+\bigcap_{i=1}^{l}(C_1^i\cup\dotsb C_m^i)\), where each \(C_j^i\) is a copy of \(C\) defined
+as follows. For each \(\const{s,Q}\in \mathcal{C}\) we include \(\const{s_j^i,Q}\) into 
+\(C_j^i\), where \(\const{s_j^i,Q}\) is obtained from \(s\) replacing every variable from 
+\(V_y\) with its copy from \(V_j^i\)\@.
+
+Now, it is easily seen, every solution of \(\probi_1\) can be extended to a solution of \(\probi_2\)
+in the \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
+of \(\probi_2\) to \(V_1\) is not a solution of \(\probi_1\)\@. Indeed, it may happen that
+although \(\psi\) satisfies every copy \(C_j^i\)of \(\probi\), its restriction to \(s_j^i\)
+does not belong to \mR, simply because this restriction does not have sufficiently many extensions 
+to solutions of \(\probi\)\@. However, any assignment to \(V_1\) that is not a solution to
+\(\probi_1\) can be extended to a solution of \(\probi_2\) in at most \((M-1)^m\cdot M^{(l-1)m}\)
+ways. Hence, 
+\begin{align*}
+M^{lm}\cdot \#\probi_1 & \le  \probi_2  & \\
+& \le  M^{lm}	\cdot \#\probi_1 + |V(\probi_1)|^{|D|} \cdot (M-1)^m \cdot M^{(l-1)m} & \\
+\end{align*}
+
+The we output \(\#\probi_2/M^{lm}\)\@.
+
+Let \(|V(\probi_1)| = k \) and \(D=d\)\@. Given a desired relative error \(\eps\) we have to find \mm\ 
+such that 
+\[\frac{\probi_2}{M^{lm}} - \#\probi_1 \le \eps.\]
+A straitforward computation shows any 
+\[m > \frac{\log \eps - d \log k}{\log M - log(M-1)}\]
+achieves the goal.
+
+
 \end{itemize}
 \end{proof}
 

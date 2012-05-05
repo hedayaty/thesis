@@ -1,4 +1,303 @@
 \chapter{Results on Complexity of \cbis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Monotone Graphs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monotone Relations}
+\begin{defi}
+A set of relations(\(\relset\))  is monotone if there is distributive
+lattice \mD\ such that every relation \(R \in \relset\) is closed under
+operations \(\vee\) and \(\wedge\) defined by \(D\)\@.
+\end{defi}
+
+Every distributive lattice is isomorphic to a induced subset of k-cube for 
+some k and every node of the k-cube (also distributive lattice) can be 
+addressed using a binary code.
+Let \(\cube(v)\) be as the binary address of vertex \(v\) also
+\(\recube(\bar t)\) is vertex at address \(\bar t\)\@.
+\(\cube\) and \(\recube\) can be extended to vectors as
+\(\cube(\bar x) = (\cube(\bar x_1),\cube(\bar x_2), \cdots, \cube(\bar x_l))\) 
+and \(\bar x = \recube(\cube(\bar x))\).
+
+\begin{theorem} \label{theorem:binary}
+If a set of relations \mrelset\ is monotone then \(\ccsp(\relset) \aple \cbis\)
+\end{theorem}
+
+\begin{proof}
+First consider the functions \(\cube\) and \(\recube\) used for
+binary encoding of the domain \mrelset\ using \(k\) bits
+Construct \(\relset'\) by replacing each relation \mR\ in \mrelset\ with a new 
+relation \(R'\)\@.
+Domain of \(R'\) will be \(\setof \zo\)\@. Arity of \(R'\) will be \(k\) times
+arity of \(R'\)(k is the lenght of encoding) and:
+\[\bar x \in R \Leftrightarrow \cube(\bar x)\in R'\]
+
+\begin{eqnarray*}
+\left. \begin{array}{l} \bar x_i \in R' \\ \bar x_j \in R'  \end{array}\right \} 
+\Rightarrow  \\
+\left \{ \begin{array}{l} \recube(\bar x_i) \in R \\ \recube(\bar x_j) \in R \end{array} \right \}
+\Rightarrow \\
+\left \{ \begin{array}{l} \recube(\bar x_i) \vee \recube(\bar x_j) \in R \\ \recube(\bar x_i) \wedge \recube(\bar x_j) \in R \end{array} \right \}
+\Rightarrow  \\
+\left \{ \begin{array}{l} \cube(\recube(\bar x_i) \vee \recube(\bar x_j)) \in R' \\ \cube(\recube(\bar x_i) \wedge \recube(\bar x_j)) \in R' \end{array} \right \} 
+\Rightarrow  \\
+\left \{ \begin{array}{l} \bar x_i \vee \bar x_j \in R' \\ \bar x_i \wedge \bar x_j \in R' \end{array} \right \} 
+\end{eqnarray*}
+\(\relset'\) is  monotone; thus by \cite{Tricotomy}
+\(\ccsp(\relset') \aple \cbis\)\@. On the other side it is easy to see 
+\(\ccsp(G,\relset) = \ccsp(\cube(G), \relset')\) hence 
+\(\ccsp(\relset) \aple \cbis\)\@.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BiMonotone Graphs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{BiMonotone Graphs}
+TODO: extend the results to bipartite graphs.
+Let \mG\ be a bipartite graph such that if the graph resulted by orientation of edges
+from one component to other is monotone then \ccsp(\mG) \(\aple\) \cbis\@. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RBA Relations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{RBA Relations}
+\begin{defi} [\RBA]
+A relations \mR\ is said to be \RBA\ if and only if \mR\ is binary, reflexive, and asymmetric.
+\end{defi} 
+
+In other word, the relation is isomorphic to a reflexive oriented digraph. Let \mH\ be a 
+graph isomorph to an \RBA\ relation; for each \(v \in V(H)\), we have \((v,v) \in E(H)\)
+and \((u,v)\in E(H)\) and \((v,u) \in E(H)\) implies \(u=v\)\@.
+\begin{figure}[h]
+\center{\input{figs/rba.pdftex}}
+\caption{An RBA relation}
+\end{figure}
+Let \(\nplus a\) be the set of out-neighbours of \(a\) and let \(\nminus b\) be
+the set of in-neighbours of \(a\). Note that, \(a\in \nplus a,\nminus a\). 
+Denote neighbours of \(a\) common with \(b\) by notations \(\naplus a b\) and \(\naminus a b\)
+where,
+\[\naplus a b = \nplus a \cap \nplus b\]
+and 
+\[\naminus a b = \nplus a \cap \nminus b.\]
+Denote in-degree and out-degree of \(a\) with commonly used notations \(d^+(a)=|\nplus a|\)
+and \(d^-(a)=|\nminus a|\)\@. Extend the notations for degree with 
+\(d^+_a(b)=|\naplus a b|\) and \(\dmab=|\naminus a b|\)\@.
+
+Let \(H_{a,b}\) be the subgraph of \mH\ induced by \(\naplus a b]\)\@.
+
+\begin{defi}[Magnitude]
+For a \RBA\ \mR, \emph{magnitude} of \mR\ represented by 
+\(\magf(R)\) is defined as 
+\(\magf(R) = \max \limits_{a,b \in V(R)} \setof{\dmab}\)\@.
+\end{defi}
+
+\begin{lemma} \label{lem:triangle-free}
+For all \RBA\ \mR\ with \(\magf(R)=2\), \ccsp(\mR) \(\apge\) \cbis\@.
+\end{lemma}
+\begin{figure}[h]
+\center{\input{figs/rbak2.pdftex}}
+\caption{An RBA relation \mR\ such that \(\magf(R)=2\)}
+\end{figure}
+
+\begin{defi} [\(Pol(G)\)]\label{def:pol}
+Let \(\probi=(V,\mathcal{C})\) be a \ccsp\ instance with constraint language  \(\setof R\)\@.
+\(Pol(\probi)\) is an instance \(\probi'(V',\mathcal{C}')\) of \ccsp(\mR) such that
+\(V' = V \cup \setof{u,v}\) and \(\mathcal{C}' = \mathcal{C} \cup \setof{\const{(u,v), R}} \cup
+\setof{\const{(u,x), R}, \const{(x,v),R} \mid x \in V}\)\@.
+\end{defi}
+
+\begin{proof}
+Let \mR\ be a an \RBA\ relation such that \(\magf(R)=2\), 
+we reduce \cds\ problem to \ccsp(\mR)\@.
+Let \(\probi(V,\mathcal{C}\) be an instance of \(\cds\) problem expressed as a \ccsp instance,
+and \(\probi'(V',\mathcal{C}' = Pol(\probi')\)\@.
+Denote variables in \(V'- V\) by \(u\) and \(v\) such that \(\const{(u,v),R}\in \mathcal{C}'\)\@.
+
+Let \(\varphi\) be assignment of \(\probi'\)\@. If we have \(\varphi(u)=\varphi(v)=s\) 
+for some \(s\) in \(D(R)\) then \(\varphi(x)=s\) for all variables \(x\in V\).
+The number of such assignments is equal to the size of domain of \mR\@.
+
+Now let \(\varphi\) be an assignment such that \(\varphi(u) \neq \varphi(v)\).
+Since \(\const{(u,v),R}\) is a constraint in \(C'\) then
+\((\varphi(u),\varphi(v)) \in R\) \@.
+This implies that there will be a one-to-one correspondence between possible assignments 
+\(\varphi\) for \(\probi'\) with \(\varphi(u) \neq \varphi(v)\)  and downsets in \(\probi\)\@; 
+\[\#\probi' = |D(R)| + |R|\cdot \#\probi \]
+which implies \ccsp(\mR) \(\apge\) \cds\@.
+\end{proof}
+
+\begin{defi} [Polar Relation]
+Let \mR\ be an \RBA\ relation. We say that \mR\ is a 
+\emph{Polar} if there exists elements \(a\) and \(b\) 
+such that \((a,x), (x,b) \in R\) for all elements \(x\) in \(D(R)\) (including \(a\) and \(b\))
+In other words \(\nplus a = \nminus b = D(R)\) or \(\magf(R)=|V(R)|\)\@.
+\end{defi}
+
+\begin{figure}[h]
+\center{\input{figs/polar.pdftex}}
+\caption{A Polar relation}
+\end{figure}
+
+\begin{lemma} \label{lem:k-fixing}
+If \mR\ is an \RBA\ relation  such that \(k(R) > 2\) there is a \RBA\ 
+\(R'\) such that  each connected component of \(R'\) is a
+polar relation, and \(\magf(R) = \magf(R')\), and
+\ccsp(\mR) \(\apge\) \ccsp(\(R'\)).
+\end{lemma}
+
+\begin{proof}
+Let \(\probi(V,\mathcal{C})\) be an instance of \ccsp(\mR) and let \(Y\) be a set of variables 
+with size \(t\) (the value of \(t\) will be determined later), and 
+\(\probi'(V',\mathcal{C}') = Pol((V+Y,\mathcal{C}))\).
+Denote variables in \(V' - V - Y\) by \(u\) and \(v\) such that \(\const{(u,v),R}\in \mathcal{C}'\)\@.
+
+Denote the instance of \ccsp(\(R'\) all constraint of the form \(\const{S,R}\)
+replaced with \(\const{S,R'}\) by \(\probi(R')\)\@.
+
+Considering possible assignment \(\varphi\) for \(\probi'\) with
+\(a = \varphi(u)\) and \(b = \varphi(v)\) we have:
+\begin{eqnarray*}
+\#\probi' &=& 
+\sum_{a,b\in D(R))}\left(\dmab\right)^ t \cdot
+\#\probi(R_{a,b})\\
+ &=& 
+\bigsum{\substack{a,b\in D(R) \\
+\magf(R_{a,b})=\magf(R)}} 
+\magf^t(R) \cdot \#\probi(R_{a,b})+
+\bigsum{\substack{a,b\in D(R) \\ \magf(R_{a,b})  < \magf(R)}}k^t
+(R_{a,b})\cdot\#\probi(R_{a,b})
+\end{eqnarray*}
+
+Choose \(t\) large enough, i.e., \(\Omega(n^2)\) where \(n=|V|\) and divide both
+sides of the previous formula by \(k^t(R)\)\@. We have
+\[\frac{\#\probi}{\magf^t(R)} =  
+\bigsum{\substack{a,b\in D(R) \\ \magf(R_{a,b})=\magf(R)}} 
+\#\probi(R_{a,b}) + 
+\bigsum{\substack{a,b\in D(R) \\\magf(R_{a,b})<\magf(R)}}
+\left(\frac{\magf(R_{a,b})}{\magf(R)} \right )^t
+\cdot\#\probi(R_{a,b})
+\]
+
+The second part of the summation has a value less than \(1\). 
+\todo{Need more proof for \(<1\)}
+We will be counting the solutions for 
+\[R'=\bigcup_{\substack{a,b\in D(R) \\
+\magf(R_{a,b})=\magf(R)}} R_{a,b}\]
+Let \(R'\) be an \RBA\ relation such that each component of \(R'\) 
+is \(R_{a,b}\) for some \(a\) and \(b\) hence satisfies the conditions.
+\end{proof}
+
+
+\begin{lemma} \label{lem:connected}
+If \mR\ is a non-connected \RBA\ relation and every component of 
+\mR\ is a polar relation then there is a component \(R'\) of \mR\ 
+such that \ccsp(\mR) \(\apge\) \ccsp(\(R'\)).
+\end{lemma}
+
+
+
+\begin{proof}
+We consider two cases: First presume all components of \mR\ are isomorphic.
+\todo{Maybe easier argument for this case}
+Let \(\probi(V,\mathcal{C})\) be an instance of \ccsp(\mR)\@.
+Let \(Y\) be a set of variables of size \(t\)(the value of \(t\) will be determined later) 
+and \(\probi'(V', mathcal{C}') = Pol((V \cup Y , \mathcal{C}))\).
+Denote variables in \(V' - V - Y\) by \(u\) and \(v\) such that \(\const{(u,v),R}\in \mathcal{C}'\)\@.
+
+Denote the instance of \ccsp(\(R'\) all constraint of the form \(\const{S,R}\)
+replaced with \(\const{S,R'}\) by \(\probi(R')\)\@.
+
+Considering possible assignment \(\varphi\) for \(\probi'\) with
+\(a = \varphi(u)\) and \(b = \varphi(v)\) we have:
+
+\begin{eqnarray*}
+\#\probi' &=& \sum_{a,b\in D(R)} \#\probi(R_{a,b}) \cdot (\dmab)^t \\
+&=&C \cdot\#\probi(R') \cdot k^t(R) + 
+\sum_{\substack{a,b\in D(R)\\ \dmab < \magf(R)}} 
+\#\probi(R_{a,b}) \cdot (\dmab)^t
+\end{eqnarray*}
+
+
+where \(C = |\setof{(a,b): \dmab=\magf(R)}|\) and \(R'\) is a
+connected component of \mR\@. Note that the choice of \(R'\) is not significant 
+because in this case all components of \mR\ are isomorphic.
+
+By choosing \(t\) sufficiently large, i.e., \(\Omega(n^2)\) where \(n=|V|\) implies
+that \ccsp(\mR) \(\apge\) \ccsp(\(R'\))\@. 
+Since \(R'\) is a connected component of \mR, this case is proved.
+
+For the second case, presume there are two components \(C_1\) and \(C_2\) of
+\mR\ such that they are not isomorphic. By Lovasz Theorem there
+is a connected instance \(Z\) such that \(\#Z(C_1) \neq \#Z(C_2)\)\@. 
+Let \(\probi'(V',\mathcal{C}' = Pol((V+m \times Z, \mathcal{C})\). Here we mean 
+\(m\) copies of \(Z\) for an integer \(m\) whose value will be
+decided later. Let \(q\) be \(\max_{a,b \in D(R)} \#Z(R_{a,b})\).
+
+Considering possible assignment \(\varphi\) for \(\probi'\) with
+\(a = \varphi(u)\) and \(b = \varphi(v)\) we have:
+
+
+\begin{eqnarray*}
+\#\probi'(R')&=&\sum_{a,b\in D(R)} \#\probi(R_{a,b}) 
+\cdot \#Z^m(R_{a,b}) \\
+&=&\probi(R') \cdot q^m + 
+\sum_{\substack{a,b\in D(R)\\ \#Z(R_{a,b}) < q}} 
+\#\probi(R_{a,b}) \cdot \#Z^m(R_{a,b})
+\end{eqnarray*}
+
+where \[
+R'=\bigcup_{\substack{a,b\in D(R) \\ 
+\#Z(R_{a,b})=q}} R_{a,b}\]
+Choosing \(m\) large enough, i.e., \(\Omega(n^2)\) where \(n=|V|\) 
+and dividing TODO by \(q^m\) implies \ccsp(\mR) \(\apge\) \ccsp(\(R'\)). 
+Here \(R'\) is derived from \mR\ by removing some of the components. 
+
+Consider the latter case using \(R'\) instead of \mR\
+until all remaining components of \mR\ are isomorphic.
+\end{proof}
+
+
+By combining lemme \ref{lem:connected} and \ref{lem:k-fixing} 
+we derive the following lemma:
+
+\begin{lemma} \label{lem:k-reduction}
+For any polar relation \mR\ such that \(\magf(R) > 2\),
+there is an \RBA\ relation \(R'\) such that \(\magf(R') < \magf(R)\)
+and \ccsp(\mR) \(\apge\) \ccsp(\(R'\))\@.
+\end{lemma}
+
+
+\begin{proof}
+Let \(a\) be an element in \mR\ such that \(\nplus a = D(R))\)\@.
+We know \(d^-(a)=1\) 
+For all other elements in \(D(R)\) \(w\), 
+we have \(d^-(w) > 1\) (\(a,w\in \nminus w\)). So, \mR\
+implements unary relation.
+\(S = D(R)\setminus \setof a\) also
+implements the binary relation 
+\(R'=R \land S(x) \land S(y) = 
+R[D(R) \setminus \setof a]\).
+\(R'\) is an \RBA\ relation that \(\magf(R') < \magf(R)\) 
+and \ccsp(\mR) \(\apge\) \ccsp(\(R'\))\@.
+\end{proof}
+
+\begin{theorem}
+For every non-empty \RBA\ relation \mR, \ccsp(\mR) is \cbis-hard.
+\end{theorem}
+
+
+\begin{proof}
+By contradiction, consider a \RBA\ relation \mR\ with the least magnitude
+such that \mR\ is not \cbis-hard. By Lemma \ref{lem:triangle-free},
+\(\magf(R) > 2\)\@. 
+By lemma \ref{lem:k-fixing}, there exists a \RBA\ relation \(R'\) such that 
+\ccsp(\(R'\)) \(\aple\) \ccsp(\mR) and  
+and \(\magf(R)=\magf(R')\) and each component of \(R'\) is a polar relation. 
+By lemma \ref{lem:connected} there is a connected component \(R''\)
+of \(R'\) such that \ccsp(\(R''\)) \(aple\) \ccsp(\(R'\)) \(\aple\) \ccsp(\mR).
+Finally  by lemma \ref{k-reduction} 
+there exists a \RBA\ \(R'''\) such that 
+\ccsp(\(R'''\)) \(aple\) \ccsp(\(R''\)) \(aple\) \ccsp(\(R'\)) \(\aple\) \ccsp(\mR).
+and \(\magf(R''') < \magf(R)\); this contradicts with \mR\ having the minimum magnitude.
+\end{proof}
