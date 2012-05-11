@@ -1,6 +1,6 @@
 \chapter{Introduction}
 Constraint Satisfaction is a powerful framework to express many combinatorial problems.
-Constraint Satisfaction Problem (CSP) is the problem of deciding if it is possible to
+The Constraint Satisfaction Problem (CSP) is the problem of deciding if it is possible to
 assign values to some variables such that given constraints are satisfied. \ccsp\ 
 is the problem of finding the number of possible assignments for a set of constraints.
 Consider the following example:
@@ -13,26 +13,26 @@ Let \(V=\setof{v_1,v_2,\dotsc,v_n}\)
 be a set of variables where each variable corresponds to a vertex of
 the input graph \(G\)\@. The goal is to find a function
 \(f:V\to \setof{r,g,b}\) such that for each edge \((u,v)\) of \(G\), \(f(u)\neq f(v)\) holds.
-
+\end{example}
 %In this formulation for any two adjacent vertices \(u\) and \(v\) in the graph,
 %\(f(u)\neq f(v)\) holds. 
-The CSP is the problem of deciding
-if there is a function \(f\) satisfying all the given constraints. \ccsp\ is the
+In the above example,
+the CSP is the problem of deciding
+if there is a function satisfying all the given constraints. \ccsp\ is the
 problem of finding the number of such functions. Note that any CSP can be expressed as 
 deciding if the answer for \ccsp\ with the same set of constraints is greater zero.
-\end{example}
+
 
 Many computational problems in statistical physics, mathematics, and economy
 can be expressed by \ccsp\@. Graph homomorphism, sampling,
 and partition functions are among notions in mathematics
 that are closely related to \ccsp\@. 
-In this work we are going to study the complexity of finding approximate solutions for \ccsp\@.
-Just a few number of problems in real world applications
-are efficiently solvable; however, for many of them approximate
-solution is satisfactory. 
-In order to find out which problems can be solved efficiently, we classify them
-by their complexity of approximation. We also mention some of
-the methods commonly used to approximate counting problems. 
+In real world applications, just few problems are efficiently solvable;
+however, for many of them approximate solution is satisfactory. 
+In order to find out which problems can be dealt with efficiently, we classify them
+by their complexity of approximation. In this work we are going to study the complexity
+of finding approximate solutions for \ccsp\@. For that, we will mention some of
+the methods commonly used to approximate counting problems.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,16 +40,16 @@ the methods commonly used to approximate counting problems.
 Let \(D\) be a set of elements; any subset of \(D^k\) is a relation of arity \(k\) with
 domain \(D\)\@. A \emph{constraint language} with domain \(D\) is a set of
 relations with domain \(D\)\@.
-In this work domain and relations are always finite.
+In this work domains and relations are always finite.
 
 A CSP instance \(\mathcal{P}\) with constraint language \mrelset\ is a tuple 
-\((V,D,C)\) where:
+\((D,V,C)\) where:
 \begin{itemize}
-\item \(V\) is a set of variables
-\item \(D\) is a set of values which is the domain of \mrelset\
+\item \(D\) is a set of values which is the domain of \mrelset,
+\item \(V\) is a set of variables,
 \item \(C\) is a collection of constraints where each constraint consists of a scope \(\varrho\),
-which is a tuple of variables from \(V\) and a relation \(R\) of the same arity as \(\varrho\)
-from \mrelset\@. A constraint is represented as \(\const{\varrho,R}\)\@.
+which is a tuple of variables from \(V\) and a relation \(R\) from \mrelset\
+of the same arity as \(\varrho\)\@. A constraint is represented as \(\const{R, \varrho}\)\@.
 \end{itemize}
 
 An assignment for \(\mathcal{P}\) is a function \(\varphi\) from \(V\) to \(D\)\@. The assignment
@@ -66,22 +66,22 @@ For a constraint language \mrelset\ that consists of only a single relation \(R\
 we use CSP(\(R)\) instead of CSP(\mrelset) for simplicity.
 
 \begin{example}[\tcoloring]\label{exm:3colcsp}
-We continue with \tcoloring\ problem from Example~\ref{exm:3col}.
+We continue with the \tcoloring\ problem from Example~\ref{exm:3col}.
 One way to formulate \tcoloring\ problem using a CSP(\mrelset) is as follows.
 Let  \(D=\setof{r,g,b}\) be the domain and
 let \(\varphi\) be an assignment which is a function from vertices of the input graph \mG\ to \mD\@.
 Since for each edge \((u,v)\) of the graph \mG\ \(\varphi(u)\neq\varphi(v)\) holds,
-we use \(NEQ_{rgb}\) the binary dis-equality relation on domain \(D\)\@. Relation \(NEQ_{rgb}\) is the set of all tuples from 
+we use \(NEQ_{rgb}\), the binary dis-equality relation on domain \(D\)\@. Relation \(NEQ_{rgb}\) is the set of all tuples from 
 \(D^2\) except the ones whose elements are equal, that is
 \[NEQ_{rgb}=\setof{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)}\]
 Let \mG\ be the graph in Figure~\ref{fig:sample}. The instance of 
-CSP for 3-coloring on \mG\ is as follows. The set of variables is the set of vertices of \mG,
+CSP for \tcoloring\ on \mG\ is as follows. The set of variables is the set of vertices of \mG,
 and for each edge of \mG\ a constraint with relation \(NEQ_{rgb}\) is placed.
 \begin{align*}
 \mathcal{P}=(&D=\setof{1,2,3},V=\setof{v_1,v_2,v_3,v_4,v_5}, \\
-&C=\{\const{(v_1,v_2),NEQ}, \const{(v_2,v_3),NEQ},\const{(v_3,v_4),NEQ},\\
-&\const{(v_4,v_5),NEQ}, \const{(v_5,v_1),NEQ},
-\const{(v_2,v_3),NEQ}\})
+&C=\{\const{(v_1,v_2),NEQ_{rgb}}, \const{(v_2,v_3),NEQ_{rgb}},\const{(v_3,v_4),NEQ_{rgb}},\\
+&\const{(v_4,v_5),NEQ_{rgb}}, \const{(v_5,v_1),NEQ_{rgb}},
+\const{(v_2,v_3),NEQ_{rgb}}\})
 \end{align*}
 \end{example}
 \begin{figure}
@@ -100,10 +100,12 @@ such as partition functions which are mentioned in Section~\ref{sec:appl}.
 
 \begin{defi}[\ccsp(\mrelset)] 
 For a constraint language \mrelset,
-\ccsp(\mrelset) is the problem of finding the number of assignments for a
+\ccsp(\mrelset) is the problem of finding the number of satisfying assignments for a
 given CSP instance with \mrelset\ as the constraint language.
 \end{defi}
 
+Here are two examples of counting problems which can be expressed as \ccsp(\mrelset) for some
+constraint language \mrelset\@.
 \begin{example}[\ctcol]
 We continue with the \(NEQ_{rgb}\) relation from Example~\ref{exm:3colcsp}\@.
 The problem of finding the number of 3-Colorings of a given graph denoted by 
@@ -134,8 +136,7 @@ and give examples of partition functions in two common models in statistical phy
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Graph Homomorphism}
-Let \mG\ and \mH\ be two graphs, 
-a homomorphism from \mG\ to \mH\ is a mapping \(h\) from
+Let \mG\ and \mH\ be two graphs. A homomorphism from \mG\ to \mH\ is a mapping \(h\) from
 vertices of \mG\ to vertices of \mH\ such that for every edge \((u,v)\) of \mG,
 \((h(u),h(v))\) is an edge of \mH\@. If there is homomorphism from \mG\ to \mH\ 
 we shall write \(G\to H\), and \(G \not\to H\) means that there is no homomorphism from
@@ -169,13 +170,13 @@ if \(u\neq v\)\@. This shows that \(Hom(K_k)\) is the same as
 the k-coloring problem. As a special case, \(\chom(K_3)\) is the same as \tcoloring\ problem.
 \end{example}
 
-Let \pname{NoRB-3-Coloring} be \pname{3-Coloring} problem with an additional
+Let \pname{NoRB-3-Coloring} be the \pname{3-Coloring} problem with an additional
 restriction that the vertices colored blue are not allowed to be connected 
-to the vertices colored red. In order to formulate this problem with graph homomorphism,
+to the vertices colored red. In order to formulate this problem with graph homomorphisms,
 obtain \mH\ from \(K_3\) as follows. Label the vertices with \(\setof{r,g,b}\)\@.
 Delete the edge between \(r\) and \(b\). The Hom(\mH) problem is the same as
-the \pname{NORB-3-Coloring} problem.
-This example shows that graph homomorphism generalizes graph coloring. This is why
+the \pname{N0RB-3-Coloring} problem.
+This example shows that graph homomorphism problem generalizes graph coloring problem. This is why
 the Hom(\mH) problem is also called the \pname{H-Coloring} problem.
 More details and examples on graph homomorphism 
 can be found in the book ~\cite{hellbook} by Hell and Ne\v{s}et\v{r}il.
@@ -201,6 +202,13 @@ For a graph \mH,
 input graph \mG\ to \mH.
 \end{defi}
 
+Dyer and Greenhill proved the following dichotomy for the \chom(\mH)\ problem.
+\begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
+For a graph \mH, if each component of \mH\ is an isolated vertex, a complete reflexive graph,
+or a complete irreflexive bipartite graph then the \chom(\mH) problem 
+is polynomial time solvable; otherwise, it is \cpc\@.
+\end{theorem}
+
 Hom(\mH) and \chom(\mH) are special cases of CSP(\mrelset) and \ccsp(\mrelset),
 respectively. In both cases, \mrelset\ consists of a single binary relation which is the
 edge set of \mH\ with vertex set of \mH\ as the domain.
@@ -210,7 +218,7 @@ the corresponding CSP and \ccsp, respectively.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Lov\'{a}sz Vectors}
 The number of homomorphisms from \mG\ to \mH\ is denoted by \(\hom(G,H)\); this function
-defines the \emph{Lov\'{a}sz vector} which is used to characterize graphs.
+can be used to define the \emph{Lov\'{a}sz vector} which is used to characterize graphs.
 Lovasz \cite{lovasz} proved that
 two graphs \(H_1\) and \(H_2\) are isomorphic if and only if for any graph \mG,
 \(\hom(G,H_1)=\hom(G,H_2)\). 
@@ -219,7 +227,7 @@ the Lovasz vector of a graph \mH\ is the infinite sequence consisting of the num
 homomorphisms from graphs in the sequence to \mH\ 
 \((\hom(G_1,H), \hom(G_2,H), \dotsc)\)\@. 
 In other words Lovasz's theorem indicates two graphs are isomorphic if and only if
-they have the same Lovasz vector.  \todo{Check}
+they have the same Lovasz vector.  
 
 For graphs with sufficiently many edges,
 Lov\'{a}sz vector can be used for \emph{Edge Reconstruction}.
@@ -227,13 +235,14 @@ Lov\'{a}sz vector is also used in the {\em Property Testing} area.
 In this model there is usually a huge graph and at each step only small sample of vertices
 can be examined. The goal is to infer parameters of the graph using small samples of it. 
 A good example of such a graph one might want to find the properties is the Internet.
+\todo{Add cites}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Partition Functions}
 Let \mG\ and \mH\ be two graphs and let \(w: V_H \cup E_H\to \mathbb{R}\) be a weight function
 on graph \mH. Each configuration of \mG\ is a mapping \(\sigma\) from \(V_G\) to
 \(V_H\). For each configuration \(\sigma\), the weight of the configuration is
-\[w(\sigma)=\prod_{uv\in E_G}w_H(\sigma(u)\sigma(v))\prod_{v\in V_G}w_H(\sigma(v))\]
+\[w(\sigma)=\prod_{uv\in E_G}w(\sigma(u)\sigma(v))\prod_{v\in V_G}w(\sigma(v))\]
 The partition function \(Z_{H,w}(G)\) is the sum of the weights for all the configurations:
 \[Z_{H,w}(G)=\sum_{\sigma:V_G\to V_H}w(\sigma)\]
 
@@ -245,26 +254,28 @@ The \pname{H-Partition} Problem is defined as:
 {A graph \(G\)}
 {The value of partition function \(Z_{H,w}(G)\)}
 
-Note that, the \pname{H-Partition} problem is a special case of weighted \ccsp(\mrelset)\@.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Sampling}
-A \emph{Uniform Generation} problem is a problem that its goal is to find a
-uniformly random solution for a given instance.
-An \emph{Almost Uniform Generation} is a problem that 
-its goal is to find a solution for a given instance such that
+A \emph{Uniform Generation} problem involves finding a
+random solution for a given instance such that for any two possible solutions
+the probabilities if being chosen are the same.
+An \emph{Almost Uniform Generation} involves finding 
+a solution for a given instance such that
 for any two possible solutions the probabilities if being chosen are approximately the same.
 For practical purposes, it is impossible to distinguish
 Almost Uniform Generation from Uniform Generation by experiments running in polynomial time.
 
-Intuitively, a self-reducible problem is a problem that solutions for an instance can be
+Intuitively, a problem is said to be self-reducible if solutions for an instance can be
 expressed in terms of solutions for a number of smaller instances of the same problem.
+An approximate counting problem involves finding an answer for a given
+instance within an acceptable range of the actual number of solutions.
 Jerrum et al. \cite{JVV} proved that 
 for self-reducible problems, Almost Uniform Generation and approximate counting 
 are interreducible.
 
 \emph{Sampling} is an extension of the Uniform Generation; given a
 distribution \(\pi\) over solutions, the goal is to find a solution \(\sigma \)
-with distribution \(\pi\)\@.
+from distribution \(\pi\)\@.
 Let's get back to graph homomorphism problem. 
 The Gibbs distribution on homomorphisms from \mG\ to \mH\ is
 the distribution that each homomorphism \(h\) has a probability proportional to its weight.
@@ -283,15 +294,15 @@ can also be approximated by a randomized algorithm in polynomial time.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Statistical Mechanics}
 Statistical Mechanics is a branch of physics that applies probability theory to
-predict the behaviour of a system in a given temperature. Usually there is a complex system
+predict the behaviour of a system at a given temperature. Usually there is a complex system
 consisting of many microscopic elements. A state or configuration \(\sigma\) is an assignment of
 parameters of the microscopic elements. 
 \emph{Hamiltonian} \(H(\sigma)\) is energy of the system in state \(\sigma\)\@. 
-Let \(\beta\) be the inverse temperature. 
-{\em Partition function} at a given temperature is defined as
+Let \(\beta\) be the inverse(one over) temperature. 
+The {\em Partition function} at a given temperature is defined as
 \[Z=\sum_\sigma e^{-\beta H(\sigma)}\]
-Partition function encodes the statical properties of the system in thermodynamic equilibrium.
-Given a model of the system and the temperature,
+Partition function can be used to estimate the statical properties of the system such as entropy 
+and energy. Given a model of the system and the temperature,
 partition function can be used to evaluate many of the important properties of the system
 such as the free energy, the entropy, the specific heat, and the location of phase transition. 
 
@@ -324,12 +335,12 @@ Z(G,\lambda,\mu)&=\sum_{\sigma :V\to\setof{-1,+1}} \prod_{(u,v)\in E} \lambda_{u
 The system is \emph{ferromagnetic} if each interaction energy \(J_{u,v}\) is non-negative; 
 which implies for all \(u,v\) in \(V\), we have \(\lambda_{u,v} \ge 1\)\@.
 A system is consistent if
-either for all \(v\), \(\mu_v\) is at least one or for all \(v\), \(\mu_v\) is at most one.
-Jerrum and Sinclair \cite{Jer93} have proved that exact computation of problem in
-the Ising model is hard to compute.
+either for all \(v\), \(\mu_v\ge 1\) or for all \(v\), \(\mu_v \le 1\)\@.
+Jerrum and Sinclair \cite{Jer93} have proved that the problem of finding the partition
+function for the Ising model is hard to compute.
 
 The next commonly studied model is the Ashkin-Teller model.
-This model is a generalization of the Ising model to four-component systems.
+This model is a generalization of the Ising model to four possible states
 The next and more common model is the Potts model which
 is the  generalization of the Ising model to \(q\) possible spins.
 In the Potts model there is an underlying graph \(G(V,E)\) and 
@@ -351,6 +362,7 @@ Problems of computing partition functions in the Ising and Potts models can be
 reduced to a \ccsp(\mrelset) for some constraint language \mrelset; however, the reduction
 may not be straightforward.
 
+\todo{Add Results and summary for future}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
