@@ -420,8 +420,8 @@ Let \(NEQ_{01}=\setof{(0,1),(1,0)}\) be a binary relation over the set
 CSP(\(NEQ_{01}\)) :
 \[\mathcal{P}=(D=\setof{0,1},V=\setof{x,y,z},
  C=\setof{\const{NEQ_{01},(x,z)},\const{NEQ_{01}(y,z)}}\]
-There is no explicit relation with scope \((x,y)\)\@. However, implicitly
-the relation \(EQV=\setof{(0,0),(1,1)}\) is forced on scope \((x,y)\)\@.
+There is no explicit constraint with scope \((x,y)\)\@; however, there is the implicit 
+constraint \(\const{EQV_{01},(x,y)}\) where \(EQV=\setof{(0,0),(1,1)}\)\@.
 \end{example}
 
 \begin{defi}[pp-definition]
