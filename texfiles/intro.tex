@@ -112,7 +112,7 @@ The problem of finding the number of 3-Colorings of a given graph denoted by
 \ctcol, can be expressed as the \ccsp(\(NEQ_{rgb}\)) problem.
 \end{example}
 
-\begin{example}%[\ctsat]
+\begin{example}\label{example:c3sat}
 The \ctsat\ problem is defined as:\\
 \pnndef%{\ctsat}
 {A Boolean CNF (Conjunctive Normal Form) formula \(\varphi\) 
@@ -316,7 +316,8 @@ vertices of \mG. Each configuration is associated with energy:
 the partition function for the Ising model is:
 \begin{align*}
 Z(G,\beta,J,l)&=\sum_{\sigma:V\to\setof{-1,+1}}e^{-\beta H(\sigma)}\\
-&=\sum_{\sigma:V\to\setof{-1,+1}} \prod_{(u,v)\in E} e^{\beta J_{u,v}\sigma(u)\sigma(v)} \prod_{v\in V} 
+&=\sum_{\sigma:V\to\setof{-1,+1}} \prod_{(u,v)\in E}
+e^{\beta J_{u,v}\sigma(u)\sigma(v)} \prod_{v\in V} 
 e^{\beta l_v\sigma(v)}
 \end{align*}
 
@@ -372,10 +373,10 @@ and mention clones and polymorphisms and their connection with
 the complexity of the CSP and \ccsp\@. We will also mention partial clones and
 their relation with the complexity of approximation of the \ccsp\@.
 
-Two important sets of functions we are interested in are FP and \cp\@.
-FP is the set of functions computable in polynomial time and \cp\ is
-the set of function that can be expressed as the
-number of accepting paths of a non-deterministic polynomial time running Turing machine. 
+Two important classes of functions we are interested in are FP and \cp\@.
+FP is the class of functions computable in polynomial time and \cp\ is
+the class of function that can be expressed as the
+number of accepting paths of a non-deterministic polynomial time Turing machine. 
 
 Let \(f,g:\Sigma^*\to\mathbb{N}\) be two functions. A \emph{parsimonious} reduction 
 from \mf\ to \mg\ is a polynomial time computable function
@@ -385,11 +386,14 @@ A Turing reduction from \mf\ to \mg\ is an polynomial time running algorithm
 that computes \mf\ using an oracle of \mg\@.
 
 \begin{defi}[\cpC ness] 
-A problem is \cpc\ if it is a member of \cp\ and every problem in \cp\ is 
-Turing reducible to it in polynomial time.
+A problem \(f\) is \cpc\ if it is a member of \cp\ and every problem in \cp\ is 
+Turing reducible to \(f\) in polynomial time.
 \end{defi}
 
-Consider the SAT and \csat\ problems defined as follows:
+Consider the SAT and \csat\ problems defined as follows.
+Note that, previously in Example~\ref{exm:c3sat} we discussed the \ctsat\ problem
+which is a special case of the \csat\ problem.
+
 
 \pdef{SAT}
 {A CNF formula \(\varphi\)}
@@ -399,24 +403,23 @@ Consider the SAT and \csat\ problems defined as follows:
 {A CNF formula \(\varphi\)}
 {The number of truth assignments that satisfy \(\varphi\)}
 
-In the same way that Cook \cite{cook1971} proved SAT is NP-complete,
-Valiant \cite{Valiant1979} proved \csat\ is \cpc\@. It is easy to see that 
+In the same way that Cook \cite{cook1971} proved that SAT is NP-complete,
+Valiant \cite{Valiant1979} showed that \csat\ is \cpc\@. It is easy to see that 
 Cook's reduction is a parsimonious reduction; hence, it works for counting problems
 as well. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Clones}
-In instances of CSP, some relations are explicitly forced on a scope of variables by 
-given constraints, while interactions of constraints can implicitly force other relations
-on other scopes of variables.
+In instances of CSP, constraints can be expressed either explicitly or implicitly by 
+interactions of other constraints. Consider the following example.
 
 \begin{example}
-Let \(NEQ=\setof{(0,1),(1,0)}\) be a binary relation over the set
+Let \(NEQ_{01}=\setof{(0,1),(1,0)}\) be a binary relation over the set
 \(\setof{0,1}\)\@. Consider the following instance of 
-CSP(\(NEQ\)) :
-\[\mathcal{P}=(V=\setof{x,y,z}, D=\setof{0,1},
- C=\setof{\const{(x,z),NEQ},\const{(y,z),NEQ}}\]
+CSP(\(NEQ_{01}\)) :
+\[\mathcal{P}=(D=\setof{0,1},V=\setof{x,y,z},
+ C=\setof{\const{NEQ_{01},(x,z)},\const{NEQ_{01}(y,z)}}\]
 There is no explicit relation with scope \((x,y)\)\@. However, implicitly
 the relation \(EQV=\setof{(0,0),(1,1)}\) is forced on scope \((x,y)\)\@.
 \end{example}
