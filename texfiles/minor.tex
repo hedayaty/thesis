@@ -121,12 +121,88 @@ Furthermore, the condition \(|\proj S R|=|R|\) implies that any solution of \(\p
 can be extended to a solution of \(\probi'\) in a unique way.
 \end{proof}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Maximization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The next technique is a strong tool which generalizes above theorems. \todo{Mention More}
+
+\begin{defi}[Max-definable]\label{def:max}
+Let \mrelset\ be a set of relations on a set \mD, and \mR\ be an \mn-ary relation on the same 
+domain. Also let \(\varphi\) be a predicate that takes \(n+k\) variables and
+consists of relations from \mrelset\ and the relation
+\(EQV_D\) which is the equality binary relation over \mD\@.
+For any tuple \mn\ with \mn\ elements, denote function
+\(f_\varphi(\varset{x})=\#\setof{\varset{y}\mid \varphi(\varset{x},\varset{y})}\)\@.
+Denote \(\max_{\varset{x}} f_\varphi(\varset{x})\) by \(M\)\@.
+If  \(R=\setof{\varset{x} \mid f_\varphi(\varset{x}) = M}\) then
+relation \mR\ is said to be \emph{max-definable} by \mrelset\@.
+\end{defi} \todo{If there exists \(\varphi\)}
+
+\begin{theorem}\label{theo:max}
+If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\(\aple\)~
+\ccsp(\mrelset)\@.
+\end{theorem}
+
+\begin{proof}
+For any instance \(\probi = (D,V,\conset)\) of  \ccsp(\(\relset \cup \setof R\)) we
+construct instance \(\probi' = (D, V',\conset')\) of  \ccsp(\mrelset) by using 
+predicate \(\varphi\) and numbers \(M\) and \(k\) from Definition~\ref{def:max} as follows:
+\begin{itemize}
+\item 
+Choose sufficiently large integer \mm(to be determined later)
+\item
+Let \(C_1,\dotsc,C_l\in\conset\) be the constraints with relation \mR\@. Each \(C_i\) is
+in form \(C_i=\const{R,S_i}\)\@. For each \(1\le i \le l\) we create \(\probi_i=(D,V_i,\conset_i)\)\@.
+\item \(V_i\) consists \(S_i\) and \(k\) fresh variables \(v_{i,1},\dotsc,v_{i,k}\)\@.
+\item \(\conset_i\) is formed by \(\varphi(S_i,V_i)\)
+\item \(\probi'\) is formed from \(\probi\) and \mm\ copies of each of \(\probi_i\) denoted by
+\(\probi^1_i,\dotsc,\probi^m_i\)
+\item Set \(V'=V \cup \bigcup_{1\le j \le m} \bigcup_{1\le i\le k} V^j_i\)
+\item Set \(\conset' = \conset - \setof{C_1,\dotsc,C_l} \cup 
+\bigcup_{1\le j \le m} \bigcup_{1\le i\le k} \conset^j_i\)
+
+Now, it is easily seen, every solution of \(\probi\) can be extended to a solution of \(\probi'\)
+in the \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
+of \(\probi'\) to \(V\) is not a solution of \(\probi\)\@. Indeed, it may happen that
+although \(\psi\) satisfies every constraint from \(\conset' = \conset - \setof{C_1,\dotsc,C_l})\),
+its restriction to \(s^i\) does not belong to \mR, simply because this restriction does not have
+sufficiently many extensions to solutions of \(\probi\)\@.
+However, any assignment to \(V\) that is not a solution to
+\(\probi\) can be extended to a solution of \(\probi\) in at most \((M-1)^m\cdot M^{(l-1)m}\)
+ways. Hence, 
+
+\[M^{lm}\cdot \#\probi \le  \#\probi'  
+ \le  M^{lm}	\cdot \#\probi + |V|^{|D|} \cdot (M-1)^{lm}
+ \]
+The we output \(\lfloor N \rfloor\), where \(N=\#\probi'/M^{lm}\)\@.
+
+We want to choose large enough such that
+\begin{eqnarray*}
+|V|^{|D|} \cdot \left(\frac{M-1}{M}\right)^{lm} & \le & 1 \\
+\log (|V|^{|D|}) + \log\left( \left(1-\frac{1}{M}\right)^{lm} \right) & \le &  0 \\
+|D| \cdot \log |V| + lm \cdot \log \left(1-\frac{1}{M}\right) & \le & 0 \\ 
+|D| \cdot \log |V| & \le & lm \cdot -\log \left(1-\frac{1}{M}\right) \\ 
+\frac{|D| \cdot \log |V|}{l\cdot -\log \left(1-\frac{1}{M}\right)} & \le & m \\
+\end{eqnarray*}
+For any \(0<x<1\) we have \(\-log (1-x) > x \); hence, 
+\[
+\frac{|D| \cdot \log |V|}{l\cdot -\log \left(1-\frac{1}{M}\right)} \le 
+\frac{M \cdot |D| \cdot \log |V|}{l}
+\]
+This implies for \(m \ge \frac{M \cdot |D| \cdot \log |V|}{l}\), we have 
+\(\#P=\lfloor N \rfloor\)
+
+\end{itemize}
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pinning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Next lemma generalizes the Pinning Lemma from
-\cite{Trichotomy}. This lemma allows one to add an extra unary relation to the constraint language.
+\cite{Trichotomy}. This lemma allows one to add an extra unary relation to the constraint language. \todo{Refer to proof in our paper and proof using maximization}
 The proof of Lemma~\ref{lem:pinning} also follows closely the proof in \cite{Trichotomy}. 
 
 \begin{lemma}[Extended Pinning]\label{lem:pinning}
@@ -138,7 +214,7 @@ there be an \(l\)-ary relation \(R \in \relset\) and a coordinate position \(j\)
 \(\varb[j] \notin S\)\@. Then \(\ccsp(\relset \cup \setof{S}) \aple \ccsp(\relset)\)\@.
 \end{lemma}
 
-\begin{proof}
+\begin{proof} 
 Fix an \(l\)-ary relation \(R \in \relset\)\@, and 
 a coordinate position \(j\) such that \mR\ and \(j\) satisfy the conditions of the lemma.
 Let also \(w\) be the minimal (over elements \(a\in S\)) number of tuples \(\vara\)
@@ -178,70 +254,18 @@ By Lemma~\ref{lem:linear} the linear transformations preserve AP-reduction
 and this completes the proof.
 \end{proof}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Maximization
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\todo{These two need replacing and heavy modification}
+\begin{cor}  \label{cor:degree}
+Let \(\relset\) be a constraint language over the set \mD\@,
+and let for a certain subset \(S \subset D\) 
+there be an \(l\)-ary relation \(R \in \relset\) and a sequence of real numbers
+\(a_1,\dotsc ,a_l\) such that for \(x\) in \(S\), sum over dimension of \mR\
+the tuples with \(x\) at that row times \(a_i\) is more than same sum for
+all elements not in \(S\).
+Then \(\ccsp(\relset \cup \setof{S}) \aple \ccsp(\relset)\)\@.
+\end{cor}
 
-The next technique is a strong tool which generalizes above theorems. \todo{Mention More}
-
-\begin{defi}[Max-definable]\label{def:max}
-Let \mrelset\ be a set of relations on a set \mD, and \mR\ be an \mn-ary relation on the same 
-domain. Also let \(\varphi\) be a predicate that takes \(n+k\) variables and
-consists of relations from \mrelset\ and the relation
-\(EQV_D\) which is the equality binary relation over \mD\@.
-For any tuple \mn\ with \mn\ elements, denote function
-\(f_\varphi(\varset{x})=\#\setof{\varset{y}\mid \varphi(\varset{x},\varset{y})}\)\@.
-Denote \(\max_{\varset{x}} f_\varphi(\varset{x})\) by \(M\)\@.
-If  \(R=\setof{\varset{x} \mid f_\varphi(\varset{x}) = M}\) then
-relation \mR\ is said to be \emph{max-definable} by \mrelset\@.
-\end{defi} \todo{If there exists \(\varphi\)}
-
-\begin{theorem}\label{theo:max}
-If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\(\aple\)~
-\ccsp(\mrelset)\@.
-
-\begin{proof}
-For any instance \(\probi = (D,V,\conset)\) of  \ccsp(\(\relset \cup \setof R\)) we
-construct instance \(\probi' = (D, V',\conset')\) of  \ccsp(\mrelset) by using 
-predicate \(\varphi\) and numbers \(M\) and \(k\) from Definition~\ref{def:max} as follows:
-\begin{itemize}
-\item 
-Choose sufficiently large integer \mm(to be determined later)
-\item
-Let \(C_1,\dotsc,C_l\in\conset\) be the constraints with relation \mR\@. Each \(C_i\) is
-in form \(C_i=\const{R,S_i}\)\@. For each \(1\le i \le l\) we create \(\probi_i=(D,V_i,\conset_i)\)\@.
-\item \(V_i\) consists \(S_i\) and \(k\) fresh variables \(v_{i,1},\dotsc,v_{i,k}\)\@.
-\item \(\conset_i\) is formed by \(\varphi(S_i,V_i)\)
-\item \(\probi'\) is formed from \(\probi\) and \mm\ copies of each of \(\probi_i\) denoted by
-\(\probi^1_i,\dotsc,\probi^m_i\)
-\item Set \(V'=V \cup \bigcup_{1\le j \le m} \bigcup_{1\le i\le k} V^j_i\)
-\item Set \(\conset' = \conset - \setof{C_1,\dotsc,C_l} \cup 
-\bigcup_{1\le j \le m} \bigcup_{1\le i\le k} \conset^j_i\)
-
-Now, it is easily seen, every solution of \(\probi\) can be extended to a solution of \(\probi'\)
-in the \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
-of \(\probi'\) to \(V\) is not a solution of \(\probi\)\@. Indeed, it may happen that
-although \(\psi\) satisfies every constraint from \(\conset' = \conset - \setof{C_1,\dotsc,C_l})\),
-its restriction to \(s^i\) does not belong to \mR, simply because this restriction does not have
-sufficiently many extensions to solutions of \(\probi\)\@.
-However, any assignment to \(V\) that is not a solution to
-\(\probi\) can be extended to a solution of \(\probi\) in at most \((M-1)^m\cdot M^{(l-1)m}\)
-ways. Hence, 
-
-\[M^{lm}\cdot \#\probi \le  \probi'  
- \le  M^{lm}	\cdot \#\probi + |V|^{|D|} \cdot (M-1)^m \cdot M^{(l-1)m} 
- \]
-The we output \(\#\probi'/M^{lm}\)\@.
-
-Given a desired relative error \(\eps\) we have to find \mm\ such that 
-\[\frac{\probi_2}{M^{lm}} - \#\probi_1 \le \eps.\]
-A straitforward computation shows any 
-\[m > \frac{\log \eps - d \log k}{\log M - log(M-1)}\]
-achieves the goal.
-
-
-\end{itemize}
-\end{proof}
-
-
-\end{theorem}
+\begin{cor}
+Let \mrelset\ be a set of relations on a set \mD, and \mR\ a reflexive relation on the same domain. If there is a relation \(R'\) in \mrelset, such that \mR\ is restriction of
+\(R'\) to reflexive elements then \ccsp(\(\relset \cup \setof R\)) \(\aple\) \ccsp(\mrelset)\@.
+\end{cor}
