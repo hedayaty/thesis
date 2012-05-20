@@ -1,17 +1,23 @@
-\chapter{Approximated Reductions}\todo{Change Title}
-In this chapter we will provide a number of lemmas used for approximated counting. \todo{Write More}
+\chapter{Techniques sued for Approximation Preserving Reductions}
+In this chapter we will provide a number of lemmas used for approximated reductions.
+First, we show that we can limit the input problem to connected structures. 
+Next, we show reductions is possible when solutions for two problem are related by a 
+linear transformation. Next, we introduce a few techniques used for pinning, which is
+implementations of unary relations. At the end, we introduce the max-definability, which 
+is a strong tool for approximate preserving reductions. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Connected Components
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 First, we show that by restricting the input to connected structures the complexity of 
-\ccsp(\mrelset) does not change. We extend the definition of connectedness for structures more general 
-than graphs as follows.
+\ccsp(\mrelset) does not change. We extend the definition of connectedness in graphs
+to general structures.
 
-Let \(\probi = (D, V, \conset)\) be an instance of \ccsp(\mrelset)\@. Let H(\(\probi\)) be a graph
-with the vertex set \mV, and containing an edge \(\setof{u,v}\) if and only if 
+Let \(\probi = (D, V, \conset)\) be an instance of \ccsp(\mrelset)\@.
+Let H(\(\probi\)) be a graph
+with the vertex set \mV, and it contains an edge \(\setof{u,v}\) if and only if 
 \(u\) and \(v\) appear in the same scope for a constraint in \(\probi\)\@.
-We say an instance \(\probi\) is connected if and only if \(H(\probi)\) is a connected graph.
+We say an instance \(\probi\) is connected if and only if \(H(\probi)\) is connected.
 Let \cccsp(\mrelset) denote the problem \ccsp(\mrelset) limited to connected instances.
 
 \begin{lemma} \label{lem:connected}
@@ -46,16 +52,14 @@ we obviously have \(N'=N'_1\dotsm N'_r\)\@. The rest of the proof goes as follow
 &\left|\frac{N'-N}{N}\right|&\le \eps\\
 \end{eqnarray*}
 \end{proof}
-
 Hence, we can presume that the input structures are connected.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Linear relationship
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\todo{Write something involving adding constant and multiplication by a constant factor}
-Next, we observed that if the solution of \ccsp(\mrelset) and \ccsp(\(\relset'\))
-differ by a constant number or a constant factor, they are AP-interreducible. The observation
-can be generalized to any linear transformation. 
+Next, we observed that if the answer for any \ccsp(\mrelset) instance and a corresponding
+instance of \ccsp(\(\relset'\)) differ by a constant number or a constant factor,
+they are AP-interreducible. This observation can be generalized
+to linear transformations. 
 
 \begin{lemma}\label{lem:linear}
 Let \(\varphi\) be a polynomial time computable function that maps every instance of a
@@ -71,22 +75,33 @@ there is an AP-reduction from \(A\) to \(B\)\@.
 \begin{proof}
 The AP-reduction works as follows: On an instance \(\probi\) of \(A\) and \(\eps > 0\) it makes 
 an oracle call \((\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\eps}{p}\) and 
-\(p = 1 + |c|/d\) if \(|c|/d\) is integer, and \(p = 1 + \frac{|c|}{d\ceil{|c|/d}-c/d}\) otherwise,
+\(p = 1\) if \(c > 0\), and \(p = \frac{d}{d-c}\) otherwise,
 and if the oracle's reply is \(N\), it returns \(dN + c\)\@. Clearly the algorithm make polynomially 
 many steps and oracle calls, and the oracle request is of the correct form.
 Thus, it suffices to show that if the oracles's solution is within relative error of \(\delta\) then
 the algorithm gives an \(1+\eps\)-approximation of \(\#\probi\)\@.
 
 Let the exact and approximation solutions for \(\varphi(\probi)\) be \(N'\) and \(N\), respectively;
-then the exact and approximation solutions for \(\probi\) are 
-\(dN' +c\) and \(dN + c\), respectively. Since \(\#\probi > 0\), we can 
-assume \(dN+c,dN'+c,N,N'>0\)\@. Observe that \(\frac{dN'}{dN'+c} \le p\)\@.
-Indeed, if \(c > 0\) this fraction does not exceed 1\@. If \(c < 0\) then 
-it follows from the assumption \(dN' + c > 0\) which implies \(N' > |c|/d\)\@.
-Thus the relative error can be bounded by 
-\[\frac{dN + c}{dN' + c} \le \frac{(1+\delta)dN' + c}{dN'+c} = 1 + \frac{\delta d N'}{d N' + c} \le 1 + \frac{\eps}{p}p = 1 + \eps.\]
-
-The inequality \(1-\eps \le \frac{dN + c}{dN' + c}\) is similar.
+then the exact and approximation solutions for \(\probi\) are  
+\(dN' +c\) and \(dN + c\), respectively. Since \(N' > 0\), we can 
+assume \(dN+c,dN'+c,N,N'>0\)\@. With the choice of \(p\), it is trivial that
+ \(\frac{dN}{dN+c} \le p\)\@. Thus we have \(\frac{dN}{dN+c}\delta \le \eps\).
+All we need to show is that if \(\left|\frac{N-N'}{N}\right|<\delta\) holds then
+\(\left|\frac{dN-dN'}{dN+c}\right|<\eps\) holds as well.
+\begin{eqnarray*}
+\frac{dN}{dN+c}\delta & \le & \eps \\
+1 + \frac{dN}{dN+c}\delta & \le & 1 + \eps \\
+\frac{d N (1+\delta)+c}{d N + c} & \le & \eps \\
+\end{eqnarray*}
+The inequality \(\eps \le \frac{d N (1-\delta)+c}{d N + c}\) is similar.
+Combining these with the assumption that \(1-\delta \le \frac{N'}{N} \le 1 + \delta \),
+we get \(1-\eps \le \frac{dN'+c}{dN+c} \le 1 + \eps\). We continue with the proof as:
+\begin{eqnarray*}
+1-\eps \le \frac{dN'+c}{dN+c} & \le & 1 + \eps \\
+\left|1 + \frac{dN' + c}{dN + c}\right| &\le & \eps \\
+\left| \frac{dN-dN'}{dN+c}\right| & \le& \eps
+\end{eqnarray*}
+This completes the proof.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,25 +109,25 @@ The inequality \(1-\eps \le \frac{dN + c}{dN' + c}\) is similar.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Let \mR\ be a \(k\)-ary relation and \(S=\setof{i_1,\dotsc,i_l} \subseteq \setof{1,\dotsc,k}\)\@.
 By \(\proj S R\) we denote the \emph{projection} of \mR\ onto the set \(S\) of its coordinate
-positions, that is, the relation \(\setof{(a_{i_1},\dotsc,a_{i_l}) \mid (a_1,\dotsc,a_k)\in R}\)\@.
-Observe that \(\proj S R\) can be pp-defined in \mR\ by quantifying away all coordinate positions of
-\mR\ except for those in \(S\)\@.
+positions, that is, the relation \(\{(a_{i_1},\dotsc,a_{i_l}) \mid (a_1,\dotsc,a_k)\in R\}\)\@.
+Observe that \(\proj S R\) is pp-definable in \mR\ by quantifying away all coordinate
+positions of \mR\ except for those in \(S\)\@.
 Although existential quantification is not known to give rise to AP-reducible problems, in some
 cases it does.
 
 \begin{lemma}\label{lem:projection}
 If \mrelset\ is a constraint language and for some \(k\)-ary relation \(R\in\relset\)
 there is a set \(S\subset \setof{k-1}\) such that \(|\proj S R|=|R|\) then 
-\(\ccsp(\relset \cup \setof{\proj S R}) \aple \ccsp(\relset)\).
+\ccsp(\(\relset \cup \setof{\proj S R}\)) \(\aple\) \ccsp(\mrelset)\@.
 \end{lemma}
 
 \begin{proof}
 The AP-reduction is constructed as follows: Given an instance \(\probi=(D,V,\conset)\)
-of \(\ccsp(\relset\cup \{\proj S R\})\),) we define an 
+of \ccsp(\(\relset\cup \{\proj S R\}\)), we define an 
 instance \(\probi'=(D,V',\conset')\) of \(\ccsp(\relset)\) with the same number of solutions.
 Let \(m=k=|S|\)\@. \(V'\) includes all the variables of \(V\) and
 \(\conset'\) includes all constraints from \mconset\ except for those with \(\proj S R\). For each
-constraint \(C=\const{\proj S R,(v_1,\dotsc,v_l)})\) in \mconset\ 
+constraint \(C=\const{\proj S R,(v_1,\dotsc,v_l)}\) in \mconset\ 
 we include a new constraint \(C'=\const{R,(w_1,\dotsc,w_k)}\) in \(\conset'\), where 
 \(w_i=v_{i_j}\) if \(i\in S\) and \(i=i_j\), otherwise a fresh variable.
 
@@ -123,90 +138,38 @@ can be extended to a solution of \(\probi'\) in a unique way.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Maximization
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The next technique is a strong tool which generalizes above theorems. \todo{Mention More}
-
-\begin{defi}[Max-definable]\label{def:max}
-Let \mrelset\ be a set of relations on a set \mD, and \mR\ be an \mn-ary relation on the same 
-domain. Also let \(\varphi\) be a predicate that takes \(n+k\) variables and
-consists of relations from \mrelset\ and the relation
-\(EQV_D\) which is the equality binary relation over \mD\@.
-For any tuple \mn\ with \mn\ elements, denote function
-\(f_\varphi(\varset{x})=\#\setof{\varset{y}\mid \varphi(\varset{x},\varset{y})}\)\@.
-Denote \(\max_{\varset{x}} f_\varphi(\varset{x})\) by \(M\)\@.
-If  \(R=\setof{\varset{x} \mid f_\varphi(\varset{x}) = M}\) then
-relation \mR\ is said to be \emph{max-definable} by \mrelset\@.
-\end{defi} \todo{If there exists \(\varphi\)}
-
-\begin{theorem}\label{theo:max}
-If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\(\aple\)~
-\ccsp(\mrelset)\@.
-\end{theorem}
-
-\begin{proof}
-For any instance \(\probi = (D,V,\conset)\) of  \ccsp(\(\relset \cup \setof R\)) we
-construct instance \(\probi' = (D, V',\conset')\) of  \ccsp(\mrelset) by using 
-predicate \(\varphi\) and numbers \(M\) and \(k\) from Definition~\ref{def:max} as follows:
-\begin{itemize}
-\item 
-Choose sufficiently large integer \mm(to be determined later)
-\item
-Let \(C_1,\dotsc,C_l\in\conset\) be the constraints with relation \mR\@. Each \(C_i\) is
-in form \(C_i=\const{R,S_i}\)\@. For each \(1\le i \le l\) we create \(\probi_i=(D,V_i,\conset_i)\)\@.
-\item \(V_i\) consists \(S_i\) and \(k\) fresh variables \(v_{i,1},\dotsc,v_{i,k}\)\@.
-\item \(\conset_i\) is formed by \(\varphi(S_i,V_i)\)
-\item \(\probi'\) is formed from \(\probi\) and \mm\ copies of each of \(\probi_i\) denoted by
-\(\probi^1_i,\dotsc,\probi^m_i\)
-\item Set \(V'=V \cup \bigcup_{1\le j \le m} \bigcup_{1\le i\le k} V^j_i\)
-\item Set \(\conset' = \conset - \setof{C_1,\dotsc,C_l} \cup 
-\bigcup_{1\le j \le m} \bigcup_{1\le i\le k} \conset^j_i\)
-
-Now, it is easily seen, every solution of \(\probi\) can be extended to a solution of \(\probi'\)
-in the \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
-of \(\probi'\) to \(V\) is not a solution of \(\probi\)\@. Indeed, it may happen that
-although \(\psi\) satisfies every constraint from \(\conset' = \conset - \setof{C_1,\dotsc,C_l})\),
-its restriction to \(s^i\) does not belong to \mR, simply because this restriction does not have
-sufficiently many extensions to solutions of \(\probi\)\@.
-However, any assignment to \(V\) that is not a solution to
-\(\probi\) can be extended to a solution of \(\probi\) in at most \((M-1)^m\cdot M^{(l-1)m}\)
-ways. Hence, 
-
-\[M^{lm}\cdot \#\probi \le  \#\probi'  
- \le  M^{lm}	\cdot \#\probi + |V|^{|D|} \cdot (M-1)^{lm}
- \]
-The we output \(\lfloor N \rfloor\), where \(N=\#\probi'/M^{lm}\)\@.
-
-We want to choose large enough such that
-\begin{eqnarray*}
-|V|^{|D|} \cdot \left(\frac{M-1}{M}\right)^{lm} & \le & 1 \\
-\log (|V|^{|D|}) + \log\left( \left(1-\frac{1}{M}\right)^{lm} \right) & \le &  0 \\
-|D| \cdot \log |V| + lm \cdot \log \left(1-\frac{1}{M}\right) & \le & 0 \\ 
-|D| \cdot \log |V| & \le & lm \cdot -\log \left(1-\frac{1}{M}\right) \\ 
-\frac{|D| \cdot \log |V|}{l\cdot -\log \left(1-\frac{1}{M}\right)} & \le & m \\
-\end{eqnarray*}
-For any \(0<x<1\) we have \(\-log (1-x) > x \); hence, 
-\[
-\frac{|D| \cdot \log |V|}{l\cdot -\log \left(1-\frac{1}{M}\right)} \le 
-\frac{M \cdot |D| \cdot \log |V|}{l}
-\]
-This implies for \(m \ge \frac{M \cdot |D| \cdot \log |V|}{l}\), we have 
-\(\#P=\lfloor N \rfloor\)
-
-\end{itemize}
-\end{proof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pinning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Theorem \label{trm:partial} states that if relation \mR\ can be expressed as conjunctions 
+of relations from \mrelset, \ccsp(\(\relset \cup \setof R\)) \(\aple\) \ccsp(\mrelset)\@.
+The conditions for this theorem, even for parsimonious reductions, are too strict. 
+In the rest of this chapter we provide several more lenient conditions.
 
-Next lemma generalizes the Pinning Lemma from
-\cite{Trichotomy}. This lemma allows one to add an extra unary relation to the constraint language. \todo{Refer to proof in our paper and proof using maximization}
+The ability to tie certain CSP variables to specific values in hardness proofs is 
+\emph{pinning}\@. The idea was introduced by Creignou and Hermann \cite{Nadia}. The idea
+is also used in many other proofs \cite{bulatov07,Dyer,Trichotomy,madu}. Pinning can be
+viewed as showing for a constraint language \mrelset\ and a set \(S\), 
+\ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset) holds.
+
+\begin{lemma} [Pinning and reflexive elements] \label{lem:refpin}
+Let \mrelset\ be a set of relations on a set \mD, and let for a certain subset \(S \subset D\)
+there be a relation \mR\ such that \(x\in S\) if and only if 
+\((x,x,\dotsc,x)\in R\)\@. If such a relation \mR\ exists in \mrelset\ then
+\ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset)\@.
+\end{lemma}
+
+\begin{proof}
+\(S\) can be viewed as a unary relation and can be expressed as a predicate 
+\(\varphi(x) = R(x,x,\dotsc,x)\)\@. Hence, according to Theorem~\ref{trm:partial}
+\ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset)\@.
+\end{proof}
+
+Next lemma generalizes the Pinning Lemma from \cite{Trichotomy}.
+This lemma allows one to add an extra unary relation to the constraint language. 
 The proof of Lemma~\ref{lem:pinning} also follows closely the proof in \cite{Trichotomy}. 
 
 \begin{lemma}[Extended Pinning]\label{lem:pinning}
-Let \(\relset\) be a constraint language over the set \(D=\setof{0,1,\dotsc,k-1}\)\@,
+Let \(\relset\) be a constraint language over the set \mD\ of size \(k\)\@,
 and let for a certain subset \(S \subset D\) 
 there be an \(l\)-ary relation \(R \in \relset\) and a coordinate position \(j\),
 \(1 \le j \le l\), such that for any \(a\in S\) the relation \mR\ has more tuples
@@ -221,9 +184,9 @@ Let also \(w\) be the minimal (over elements \(a\in S\)) number of tuples \(\var
 such that \(\vara[j]=a\), and let \(w'\) be the number of tuples \(\varb\) with
 \(\vara[j] \notin S\). By the conditions of the lemma \(w'<w\)\@.
 
-Consider an instance \(\probi=(D,V,\conset)\) of \(\ccsp(\relset \cup \setof{S})\)
+Consider an instance \(\probi=(D,V,\conset)\) of \ccsp(\(\relset \cup \setof{S}\))
 with \mn\ variables. Let \(N_S\) be the set of
-variables which occur in the scope of constraints of \(\conset\) with relation \(\S\)\@. 
+variables which occur in the scope of constraints of \(\conset\) with relation \(S\)\@. 
 Set \(n_S = |N_S|\) and \(m = \ceil{\frac{n+2}{\lg{\frac{w}{w'}}}}\)\@.
 Construct an instance \(\probi'=(D,V',\conset')\) of \(\ccsp(\relset)\) as follows:
 \begin{itemize}
@@ -254,7 +217,88 @@ By Lemma~\ref{lem:linear} the linear transformations preserve AP-reduction
 and this completes the proof.
 \end{proof}
 
-\todo{These two need replacing and heavy modification}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Maximization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The next technique is a powerful tool to prove hardness results among many \ccsp\ problems.
+Later, this technique may play a role in proving a classification theorem for \ccsp(\mrelset)
+problem.
+
+\begin{defi}[Max-definable]\label{def:max}
+Let \mrelset\ be a set of relations over the domain \mD,
+and \mR\ be an \mn-ary relation on the same domain. 
+For any predicate \(\varphi\), define the function
+\(f_\varphi\) as \(f_\varphi(x_1,x_2,\dotsc,x_n)=\#\setof{(y_1,y_2,\dotsc,y_k) \mid
+\varphi(x_1,x_2,\dotsc,x_n,y_1,y_2,\dotsc,y_k)}\)\@. Also denote the value of
+\(\max_{x_1,\dotsc,x_n} f_\varphi(x_1,\dotsc,x_n)\) by \(M_\varphi\)
+If there is predicate \(\varphi(x_1,\dotsc,x_n,y_1,\dotsc,y_k)\) 
+consisting of conjunctions of relations from \mrelset\ such that
+ \(R=\{(x_1,\dotsc,x_n) \mid f_\varphi(x_1,\dotsc,x_n) = M_\varphi\}\) then
+relation \mR\ is said to be \emph{max-definable} by \mrelset\@.
+\end{defi} 
+
+Given a scope of variables \(\varrho\) and a predicate \(\varphi\) expressed as above definition
+\(\varphi\) we can be also viewed as a set of constraints.
+
+\begin{theorem}[Maximization]\label{theo:max}
+Let \mrelset\ be a set of relations over the domain \mD,
+and \mR\ be an \mn-ary relation on the same domain. 
+If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\(\aple\)~
+\ccsp(\mrelset)\@.
+\end{theorem}
+
+\begin{proof}
+For any instance \(\probi = (D,V,\conset)\) of  \ccsp(\(\relset \cup \setof R\)) we
+construct instance \(\probi' = (D, V',\conset')\) of  \ccsp(\mrelset) by using 
+predicate \(\varphi\) and numbers \(M(M_\varphi)\) and \(k\) from Definition~\ref{def:max} as follows:
+\begin{itemize}
+\item 
+Choose sufficiently large integer \mm(to be determined later)
+\item
+Let \(C_1,\dotsc,C_l\in\conset\) be the constraints with \mR\@. For each
+\(C_i=\const{R,\varrho_i}\)\@. For each \(1\le i \le l\) and for each \(1\le j\le m\), set
+\(V^j_i = \{v^j_{i,1},\dotsc,v^j_{i,k}\}\) and \(\conset^j_i\) is a set of constraints
+corresponding \(\varphi\) as mentioned before with the scope \(\varrho_{i,1},\dotsc,\varrho_{i,n},
+v^j_{i,1},\dotsc,v^j_{i,k}\)\@.
+\item Set \(V'=V \cup \bigcup_{1\le j \le m} \bigcup_{1\le i\le l} V^j_i\)
+\item Set \(\conset' = \conset - \setof{C_1,\dotsc,C_l} \cup 
+\bigcup_{1\le j \le m} \bigcup_{1\le i\le l} \conset^j_i\)
+
+Now, it is easily seen, every solution of \(\probi\) can be extended to a solution of \(\probi'\)
+in the \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
+of \(\probi'\) to \(V\) is not a solution of \(\probi\)\@. Indeed, it may happen that
+although \(\psi\) satisfies every constraint from \(\conset - \setof{C_1,\dotsc,C_l}\),
+its restriction to \(\varrho_i\) does not belong to \mR; however, this restriction does not have
+sufficiently many extensions to solutions of \(\probi'\)\@.
+On the other hand, any assignment to \(V\) that is not a solution to
+\(\probi\) can be extended to a solution of \(\probi\) in at most \((M-1)^m\cdot M^{(l-1)m}\)
+ways. Hence, 
+\[M^{lm}\cdot \#\probi \le  \#\probi'  
+ \le  M^{lm} \cdot \#\probi + |V|^{|D|} \cdot (M-1)^{m} \cdot M ^{(l-1)m}
+ \]
+The we output \(\lfloor N \rfloor\), where \(N=\#\probi'/M^{lm}\)\@.
+
+We want to choose large enough such that
+\begin{eqnarray*}
+|V|^{|D|} \cdot \left(\frac{M-1}{M}\right)^{m} & \le & 1 \\
+\log (|V|^{|D|}) + \log\left( \left(1-\frac{1}{M}\right)^{m} \right) & \le &  0 \\
+|D| \cdot \log |V| + m \cdot \log \left(1-\frac{1}{M}\right) & \le & 0 \\ 
+|D| \cdot \log |V| & \le & m \cdot -\log \left(1-\frac{1}{M}\right) \\ 
+\frac{|D| \cdot \log |V|}{-\log \left(1-\frac{1}{M}\right)} & \le & m \\
+\end{eqnarray*}
+For any \(0<x<1\) we have \(\-log (1-x) > x \); hence, 
+\[
+\frac{|D| \cdot \log |V|}{-\log \left(1-\frac{1}{M}\right)} \le 
+M \cdot |D| \cdot \log |V|
+\]
+This implies for \(m \ge M \cdot |D| \cdot \log |V|\), we have 
+\(\#P=\lfloor N \rfloor\)
+
+\end{itemize}
+\end{proof}
+
+As an example of the applications of the theorem consider the following corollary. 
 \begin{cor}  \label{cor:degree}
 Let \(\relset\) be a constraint language over the set \mD\@,
 and let for a certain subset \(S \subset D\) 
@@ -265,7 +309,3 @@ all elements not in \(S\).
 Then \(\ccsp(\relset \cup \setof{S}) \aple \ccsp(\relset)\)\@.
 \end{cor}
 
-\begin{cor}
-Let \mrelset\ be a set of relations on a set \mD, and \mR\ a reflexive relation on the same domain. If there is a relation \(R'\) in \mrelset, such that \mR\ is restriction of
-\(R'\) to reflexive elements then \ccsp(\(\relset \cup \setof R\)) \(\aple\) \ccsp(\mrelset)\@.
-\end{cor}
