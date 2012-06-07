@@ -1,4 +1,4 @@
-FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar
+FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar shade2
 
 MAG = -m 1.3
 
@@ -17,6 +17,11 @@ LIST3=p4
 DLIST3=$(addsuffix .pdftex, $(LIST3)) $(addsuffix .pdf, $(LIST3)) 
 ELIST3=$(addprefix figs/,$(DLIST3))
 $(ELIST3) $(DLIST3): override MAG = -m 1.1
+
+LIST4=shade2 rba
+DLIST4=$(addsuffix .pdftex, $(LIST4)) $(addsuffix .pdf, $(LIST4)) 
+ELIST4=$(addprefix figs/,$(DLIST4))
+$(ELIST4) $(DLIST4): override MAG = -m 2
 
 FIGS=$(addsuffix .fig, $(FIGLIST))
 PDFS=$(addsuffix .pdf, $(FIGLIST))

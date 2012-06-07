@@ -1,303 +1,367 @@
 \chapter{Results on Complexity of \cbis}
+In this chapter, we mention our major results on the complexity 
+of the \ccsp(\mrelset) problem. First, we show that for monotone relations, there is an
+approximation preserving reduction from the \ccsp(\mrelset) problem to the \cbis\ problem.
+Next, we show a connection between the complexity of the \chom(\mH) problem on bipartite graphs
+and directed graphs.
+At the end, we show that there is an approximation preserving reduction from the \cbis\ problem 
+to the \ccsp(\mrelset) problem if \mrelset\ consists of an \emph{\RBA} relation.
+
+For constraint languages consisting of a binary relation, the \ccsp(\mrelset) problem is
+the same as the \chom(\mH) problem; hence, we use them interchangeably depending on the on the context.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Monotone Graphs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monotone Relations}
+In this section, we extend the definition of \emph{monotone} constraint languages defined in
+\cite{Trichotomy} from Boolean domains to multi-valued domains and show that for
+any monotone relation \mrelset\ there is an AP-reduction from the \ccsp(\mrelset) problem to
+the \cbis\ problem.
+
 \begin{defi}
-A set of relations(\(\relset\))  is monotone if there is distributive
-lattice \mD\ such that every relation \(R \in \relset\) is closed under
-operations \(\vee\) and \(\wedge\) defined by \(D\)\@.
+Let \mrelset\ be a constraint language over the domain \mD; \mrelset\ is \emph{monotone}
+if there exists distributive lattice \(L\) with over universe \mD\ such that every relation 
+in \mrelset\ is closed under operations \(vee\) and \(\wedge\) defined by \(L\)\@.
 \end{defi}
 
-Every distributive lattice is isomorphic to a induced subset of k-cube for 
-some k and every node of the k-cube (also distributive lattice) can be 
-addressed using a binary code.
-Let \(\cube(v)\) be as the binary address of vertex \(v\) also
-\(\recube(\bar t)\) is vertex at address \(\bar t\)\@.
-\(\cube\) and \(\recube\) can be extended to vectors as
-\(\cube(\bar x) = (\cube(\bar x_1),\cube(\bar x_2), \cdots, \cube(\bar x_l))\) 
-and \(\bar x = \recube(\cube(\bar x))\).
+After studying the complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
+and the \chom(\mH) problem on 3-vertex graphs, we observed that \ccsp(\mrelset) over 
+monotone relations are AP-reducible to the \cds\ problem. We generalize them by
+Theorem~\ref{theorem:monotone}\@.
 
-\begin{theorem} \label{theorem:binary}
-If a set of relations \mrelset\ is monotone then \(\ccsp(\relset) \aple \cbis\)
+\begin{theorem} \label{theorem:monotone}
+Let \mrelset\ be a constraint language over a domain \mD, if 
+\mrelset\ is monotone then \ccsp(\mrelset) \maple\ \cbis\@.
 \end{theorem}
 
 \begin{proof}
-First consider the functions \(\cube\) and \(\recube\) used for
-binary encoding of the domain \mrelset\ using \(k\) bits
-Construct \(\relset'\) by replacing each relation \mR\ in \mrelset\ with a new 
-relation \(R'\)\@.
-Domain of \(R'\) will be \(\setof \zo\)\@. Arity of \(R'\) will be \(k\) times
-arity of \(R'\)(k is the lenght of encoding) and:
-\[\bar x \in R \Leftrightarrow \cube(\bar x)\in R'\]
+For any monotone constraint language \mrelset, there is a distributive lattice \(L\) with operations
+\(\vee\) and \(\wedge\)\@. By the Birkhoff's Representation Theorem, every finite distributive lattice
+is isomorphic to a lattice ordered Boolean vector space of dimension \(k\)\@.
+Denote the isomorphism functions by \(\cube: D \to \setof{0,1}^k\) and 
+\(\recube : \setof{0,1}^k\to D\)\@. The definition of the \(\cube\) function
+is extended to tuples, as \(\cube(x_1,\dotsc,x_l)=(\cube(x_1),\dotsc,\cube(x_l))\)\@.
+The definition of \(\cube\) is further extended to relations as 
+\(\cube(R) = \setof{\cube(\varrho) \mid \varrho \in R}\)\@.
 
+Take \(\relset'=\setof{\cube(R)\mid R\in \relset}\)\@. The functions \(\cube\) and
+\(\recube\) form a bijection between the solutions for any CSP(\mrelset) instance and the 
+corresponding CSP(\(\relset'\)) instance. Hence, there is a parsimonious reduction between 
+the \ccsp(\mrelset) problem and the \ccsp(\(\relset'\)) problem. Now, we prove that
+\(\relset'\) is monotone. For any relation \(R' \in \relset'\) we have:
+\[\vx \in R \Leftrightarrow \cube(\vx) \in R'\]
+We show that for any two tuples \(\vx,\vy\in R'\) we have 
+\(\vx \vee \vy, \vx\wedge\vy\in R'\).
 \begin{eqnarray*}
-\left. \begin{array}{l} \bar x_i \in R' \\ \bar x_j \in R'  \end{array}\right \} 
-\Rightarrow  \\
-\left \{ \begin{array}{l} \recube(\bar x_i) \in R \\ \recube(\bar x_j) \in R \end{array} \right \}
-\Rightarrow \\
-\left \{ \begin{array}{l} \recube(\bar x_i) \vee \recube(\bar x_j) \in R \\ \recube(\bar x_i) \wedge \recube(\bar x_j) \in R \end{array} \right \}
-\Rightarrow  \\
-\left \{ \begin{array}{l} \cube(\recube(\bar x_i) \vee \recube(\bar x_j)) \in R' \\ \cube(\recube(\bar x_i) \wedge \recube(\bar x_j)) \in R' \end{array} \right \} 
-\Rightarrow  \\
-\left \{ \begin{array}{l} \bar x_i \vee \bar x_j \in R' \\ \bar x_i \wedge \bar x_j \in R' \end{array} \right \} 
+\vx,\vy \in R'  \\
+\recube(\vx),\recube(\vy)\in R  \\
+\recube(\vx) \vee \recube(\vy) \in R  \\
+\cube(\recube(\vx)\wedge\recube(\vy))\in R' \\
+\vx \wedge \vy \in R' \\
 \end{eqnarray*}
-\(\relset'\) is  monotone; thus by \cite{Tricotomy}
-\(\ccsp(\relset') \aple \cbis\)\@. On the other side it is easy to see 
-\(\ccsp(G,\relset) = \ccsp(\cube(G), \relset')\) hence 
-\(\ccsp(\relset) \aple \cbis\)\@.
+Similarly \(\vx \vee \vy \in R'\)\@.
+\(\relset'\) is monotone and by Theorem~\ref{theorem:thrichotomy}, we have 
+\ccsp(\(\relset'\))\maple\ \cbis\@. Consequently, \ccsp(\mrelset) \maple\ \cbis\@.
 \end{proof}
 
+Originally, we came up with a different reduction from the \ccsp(\(\relset'\)) problem
+to the \cds\ problem. However, the proof used in \cite{Thrichotomy} for
+Theorem~\ref{theorem:thrichotomy} is simpler than our proof; hence, there is need to mention it.
+\begin{comment}
+The reduction uses Theorem~\ref{theorem:majority} to break arbitrary relation to binary relation.
+A function \(m: D^3\to D\) is said to be a \emph{majority function}, if for any \(x,y\in D\) we have
+\(m(x,x,y) = m(x,y,x) = m(y, x, x) = x\)\@. We denote the projection of \mR\ on coordinates \(i\) and \(j\) by \(R_{1,2}\) and projections of \mR\ on coordinates from \(i\) to \(j\) by \(R_{i-j}\)\@.
+
+
+\begin{theorem} [Bergman's Double-projection Theorem (Unpublished)]\label{theorem:majority}
+Let \mR\ be a relation of arity \mn\ on domain \(D\) and
+\(m\) be a majority function on the same domain.
+If \mm\ is a polymorphism for \mR, then \mR\ can be expressed by all 
+its binary projections as \(R(x_1,\dotsc,x_n) = \bigwedge_{i,j} R_{i,j}(x_i,x_j)\)\@.
+\end{theorem}
+
+We provide our own proof for this theorem.
+
+\begin{proof}
+It is trivial that \mR\ implies all its binary projection. We  prove that
+binary projections of \mR\ implies \mR\@.
+We proceed by induction on \(t\) the arity of the relation \mR\@.
+For \(t=2\), the statement is trivial. We show that
+if the statement is true for \(t=n-1\) it is also true for \(t=n\)\@.
+We want to prove \(\bigwedge_{i,j} R_{i,j}(x_i,x_j) \implies R(x_1,\dotsc, x_n)\).
+By induction hypothesis \(R_{1-(n-1)}(x_1,\dotsc,x_{n-1})\) and \(R_{2-n}(x_2,\dots,x_n)\)
+is true because \(R_{1-(n-1)}\) and \(R_{2-n})\) are closed under \mm\@.
+By hypothesis, \(R_{1,n}(x_1,x_n)\) is also true. Since these relations are projection of \mR,
+there are \(y_1,\dotsc,y_n \in D\) such that 
+\(R(x_1,\dotsc,x_{n-1},y_n)\), \(R(y_1,x_2,\dotsc,x_n)\), and \(R(x_1,y_2,\dotsc,y_{n-1},x_n)\)
+are true. Since \mm\ is a polymorphism of \mR, \(R(x_1,\dotsc,x_n)\) is true.
+\end{proof}
+
+For every monotone
+relation, we can find a majority projection using \(\vee\) and \(\wedge\) operators. One
+example would be \(m(x,y,z)=(x \vee y) \wedge (x \vee z) \wedge (y \vee z)\)\@. 
+Thus, every instance of the \ccsp(\(\relset'\)) problem can be parsimoniously reduced to
+a \ccsp(\\)) instance, where \(\relset''\) is the binary monotone constraint language.
+Finally, \ccsp(\(\relset''\)
+\end{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BiMonotone Graphs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{BiMonotone Graphs}
-TODO: extend the results to bipartite graphs.
-Let \mG\ be a bipartite graph such that if the graph resulted by orientation of edges
-from one component to other is monotone then \ccsp(\mG) \(\aple\) \cbis\@. 
+\section{Bimonotone Graphs}
+In this part, we extend the results from the previous section to bipartite
+graphs and show that the for any \emph{bimonotone} graph \mH, there is AP-reduction from the \chom(H)
+problem to the \cbis\ problem.
 
+\begin{theorem} [Bipartite Orientation] \label{theorem:bior}
+Let \mH\ be a bipartite graph and let \(A\) and \(B\) be an arbitrary
+bipartition of \mH\@. For \(H'\) the directed graph obtained from
+\mH\ by orienting the edges from \(A\) to \(B\), we have \chom(\mH) \maple \chom(\(H'\)).
+\end{theorem}
+
+\begin{proof}
+Let \mG\ be an input graph for the \chom(\mH) problem. If \mG\ is not bipartite then 
+\(\hom(G,H)=0\). Restrict \mG\ to bipartite graphs also restrict \mG\ to connected graphs
+by Lemma~\ref{lem:connected}\@. Let \(X\) and \(Y\) be bipartition of \mG\ and let \(G_1\) 
+and \(G_2\) be the graphs obtained from \mG\ by orienting all edges from \(X\) to \(Y\) and
+from \(Y\) to \(X\), receptively. We claim that \(\hom(G,H) = \hom(G_1, H') + \hom(G_2, H')\).
+Every homomorphism from \mG\ to \mH\ has to either map all the vertices in
+\(X\) to \(A\) and all the vertices in \(Y\) to \(B\) or vice-versa. The homomorphisms that
+map \(X\) to \(A\) and \(Y\) to \(B\) are exactly the same as homomorphisms from \(G_1\) to
+\(H'\) and similarly the homomorphisms that map \(Y\) to \(A\) and \(X\) to \(B\)
+are exactly the same as homomorphisms from \(G_2\) to \(H'\)\@. This implies that
+\chom(\mH) \maple\ \chom(\(H'\))\@.
+\end{proof}
+
+Typically bipartite graphs are not monotone; however, if they are oriented as above,
+we may get monotone graph.
+
+\begin{defi} [Bimonotone Graphs]
+Let \(H\) be a bipartite graph and let \(A\) and \(B\) be an arbitrary
+bipartition of \(H\). Let \(H'\) be the directed graph obtained from
+\(H\) by orienting the edges from \(A\) to \(B\)\@. The graph \mH\ is said to be \emph{bimonotone}
+if \(H'\) is monotone.
+\end{defi}
+
+Note that, choice for bipartition does not affect \(H'\) being monotone or not.
+
+\begin{theorem} [Bimonotone]
+For any bimonotone graph \mH, we have \chom(\mH) \maple \cbis\@.
+\end{theorem}
+
+\begin{proof}
+For any bimonotone graph \mH, by Theorem~\ref{theorem:bior} there is a directed monotone 
+graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{theorem:monotone},
+\chom(\(H'\) \maple \cbis\@. Thus, \chom(\mH) \maple \cbis\@.
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % RBA Relations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{RBA Relations}
+In this section we will introduce a family of relations called \RBA\ relations and show that
+approximately solving the \ccsp(\mrelset) problem over an \RBA\ relations is harder than
+approximately solving the \cbis problem. These relations
+can be seen as graphs; since most of the proofs are better expressed by graphs,
+we will mostly use the graph notations.
+
 \begin{defi} [\RBA]
-A relations \mR\ is said to be \RBA\ if and only if \mR\ is binary, reflexive, and asymmetric.
+A relations is \RBA\ if it is binary, reflexive, and asymmetric.
 \end{defi} 
 
-In other word, the relation is isomorphic to a reflexive oriented digraph. Let \mH\ be a 
-graph isomorph to an \RBA\ relation; for each \(v \in V(H)\), we have \((v,v) \in E(H)\)
-and \((u,v)\in E(H)\) and \((v,u) \in E(H)\) implies \(u=v\)\@.
+As digraphs, the \RBA\ relations are reflexive oriented digraphs. Let \(H=(V,E)\) be 
+an \RBA\ graph; for each \(v \in V\), we have \((v,v) \in E\)
+and \((u,v) \in E\) and \((v,u) \in E\) implies \(u=v\)\@.
+
 \begin{figure}[h]
 \center{\input{figs/rba.pdftex}}
 \caption{An RBA relation}
 \end{figure}
-Let \(\nplus a\) be the set of out-neighbours of \(a\) and let \(\nminus b\) be
-the set of in-neighbours of \(a\). Note that, \(a\in \nplus a,\nminus a\). 
-Denote neighbours of \(a\) common with \(b\) by notations \(\naplus a b\) and \(\naminus a b\)
-where,
-\[\naplus a b = \nplus a \cap \nplus b\]
-and 
-\[\naminus a b = \nplus a \cap \nminus b.\]
-Denote in-degree and out-degree of \(a\) with commonly used notations \(d^+(a)=|\nplus a|\)
-and \(d^-(a)=|\nminus a|\)\@. Extend the notations for degree with 
-\(d^+_a(b)=|\naplus a b|\) and \(\dmab=|\naminus a b|\)\@.
 
-Let \(H_{a,b}\) be the subgraph of \mH\ induced by \(\naplus a b]\)\@.
+Let \(\NHab Hab\) be vertices that are both in out-neighbours of \(a\) and in-neighbours of \(b\).
+Note that if \mH\ is reflexive and \((a,b)\in E(H)\),
+\(a,b\in \NHab Hab\)\@. Let \(\Hab\) be the subgraph of \mH\ induced by \(\NHab Hab\),
+\emph{Magnitude} of \mH\ represented as \(\magf(H)\) is defined as
+\(\magf(H) = \max \limits_{(a,b) \in E(H)} \setof{|\NHab Hab}|\)\@.
 
-\begin{defi}[Magnitude]
-For a \RBA\ \mR, \emph{magnitude} of \mR\ represented by 
-\(\magf(R)\) is defined as 
-\(\magf(R) = \max \limits_{a,b \in V(R)} \setof{\dmab}\)\@.
-\end{defi}
-
-\begin{lemma} \label{lem:triangle-free}
-For all \RBA\ \mR\ with \(\magf(R)=2\), \ccsp(\mR) \(\apge\) \cbis\@.
-\end{lemma}
 \begin{figure}[h]
-\center{\input{figs/rbak2.pdftex}}
-\caption{An RBA relation \mR\ such that \(\magf(R)=2\)}
+\center{\input{figs/shade2.pdftex}}
+\caption{An RBA graph \mH\ such that \(\magf(H)=2\)}
 \end{figure}
 
-\begin{defi} [\(Pol(G)\)]\label{def:pol}
-Let \(\probi=(V,\mathcal{C})\) be a \ccsp\ instance with constraint language  \(\setof R\)\@.
-\(Pol(\probi)\) is an instance \(\probi'(V',\mathcal{C}')\) of \ccsp(\mR) such that
-\(V' = V \cup \setof{u,v}\) and \(\mathcal{C}' = \mathcal{C} \cup \setof{\const{(u,v), R}} \cup
-\setof{\const{(u,x), R}, \const{(x,v),R} \mid x \in V}\)\@.
-\end{defi}
+\begin{lemma} \label{lem:triangle-free}
+For an \RBA\ graph \mH, if \(\magf(H)=2\) then \chom(\mH) \mapge\ \cbis\@.
+\end{lemma}
 
 \begin{proof}
-Let \mR\ be a an \RBA\ relation such that \(\magf(R)=2\), 
-we reduce \cds\ problem to \ccsp(\mR)\@.
-Let \(\probi(V,\mathcal{C}\) be an instance of \(\cds\) problem expressed as a \ccsp instance,
-and \(\probi'(V',\mathcal{C}' = Pol(\probi')\)\@.
-Denote variables in \(V'- V\) by \(u\) and \(v\) such that \(\const{(u,v),R}\in \mathcal{C}'\)\@.
+Let \mH\ be a an \RBA\ graph such that \(\magf(H)=2\), 
+we reduce \cds\ problem to \chom(\mH)\@.
+For given partial order \((P,\preceq)\), let \(G=(V,E)\) be the corresponding directed (acyclic) graph.
+Take \(G'=(V',E')\) as \(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
+\setof{(u,x),(x,v) \mid x\in V}\)\@.
 
-Let \(\varphi\) be assignment of \(\probi'\)\@. If we have \(\varphi(u)=\varphi(v)=s\) 
-for some \(s\) in \(D(R)\) then \(\varphi(x)=s\) for all variables \(x\in V\).
-The number of such assignments is equal to the size of domain of \mR\@.
+For any homomorphism \(h: G' \to H\), if \(h(u)=h(v)=s\), then \(h(x)=s\) for all \(x\in V\);
+otherwise, \((h(u),h(v))\in E(H)\) and \(h\) corresponds to a DownSet in \((P,\preceq)\)\@.
 
-Now let \(\varphi\) be an assignment such that \(\varphi(u) \neq \varphi(v)\).
-Since \(\const{(u,v),R}\) is a constraint in \(C'\) then
-\((\varphi(u),\varphi(v)) \in R\) \@.
-This implies that there will be a one-to-one correspondence between possible assignments 
-\(\varphi\) for \(\probi'\) with \(\varphi(u) \neq \varphi(v)\)  and downsets in \(\probi\)\@; 
-\[\#\probi' = |D(R)| + |R|\cdot \#\probi \]
-which implies \ccsp(\mR) \(\apge\) \cds\@.
+The number of homomorphism with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
+the number of homomorphism with \(h(u)\neq h(v)\) is equal to \(|E(H)|\) times the 
+number of DownSets in \((P,\preceq)\)\@. Hence,
+\[\hom(G',H) = |V(H)| + |E(H)|\cdot \#ds(P,\preceq).\]
+This implies that \chom(\mH) \mapge\ \cds\@.
 \end{proof}
 
-\begin{defi} [Polar Relation]
-Let \mR\ be an \RBA\ relation. We say that \mR\ is a 
-\emph{Polar} if there exists elements \(a\) and \(b\) 
-such that \((a,x), (x,b) \in R\) for all elements \(x\) in \(D(R)\) (including \(a\) and \(b\))
-In other words \(\nplus a = \nminus b = D(R)\) or \(\magf(R)=|V(R)|\)\@.
+\begin{defi} [Polar Graph]
+Let \mH\ be an \RBA\ graph. \mH\ is \emph{polar}
+if there exists vertices \(a,b\in V(H)\),
+such that \((a,x), (x,b) \in E(H)\) for all vertices \(x \in V(H)\) (including \(a\) and \(b\)).
 \end{defi}
+
+Note that, for a polar graph \mH, we have \(\NHab Hab = V(H)\) and \(\magf(H)=|V(H)|\)\@.
 
 \begin{figure}[h]
 \center{\input{figs/polar.pdftex}}
-\caption{A Polar relation}
+\caption{A polar graph}
 \end{figure}
 
 \begin{lemma} \label{lem:k-fixing}
-If \mR\ is an \RBA\ relation  such that \(k(R) > 2\) there is a \RBA\ 
-\(R'\) such that  each connected component of \(R'\) is a
-polar relation, and \(\magf(R) = \magf(R')\), and
-\ccsp(\mR) \(\apge\) \ccsp(\(R'\)).
+For any \RBA\ graph \mH\ that \(k(H) > 2\), there is an \RBA\ graph
+\(H'\) such that  each connected component of \(H'\) is a
+polar graph, \(\magf(H) = \magf(H')\), and
+\chom(\mH) \mapge\ \chom(\(H'\)).
 \end{lemma}
 
 \begin{proof}
-Let \(\probi(V,\mathcal{C})\) be an instance of \ccsp(\mR) and let \(Y\) be a set of variables 
-with size \(t\) (the value of \(t\) will be determined later), and 
-\(\probi'(V',\mathcal{C}') = Pol((V+Y,\mathcal{C}))\).
-Denote variables in \(V' - V - Y\) by \(u\) and \(v\) such that \(\const{(u,v),R}\in \mathcal{C}'\)\@.
+Let \(G=(V,E)\) be a graph and \(Y\) be a set of \(t\) fresh vertices
+(the value of \(t\) will be determined later), and let \(G'=(V',E')\) be
+graph such that \(V'=V \cup Y \cup \setof{u,v}\) and \(E'=E \cup \setof{(u,v)} \cup
+\setof{(u,x),(x,v) \mid x\in V \cup Y}\)\@.
 
-Denote the instance of \ccsp(\(R'\) all constraint of the form \(\const{S,R}\)
-replaced with \(\const{S,R'}\) by \(\probi(R')\)\@.
-
-Considering possible assignment \(\varphi\) for \(\probi'\) with
-\(a = \varphi(u)\) and \(b = \varphi(v)\) we have:
+For any two vertices \(a,b \in V(H)\) that \((a,b)\in E(H)\), consider a homomorphisms
+\(h: G'\to H\) that \(h(u)=a\) and \(h(v)=b\). Since for any vertex \(x\) in \(V\) or \(Y\),
+\((u,x)\) and \((x,v)\) are edges in \(G'\), as a result \(x\) has to be mapped to \(\NHab Hab\)\@.
+Any vertex in \(Y\) can be freely mapped to any vertex in \(\NHab Hab\)\@. Thus, we have:
 \begin{eqnarray*}
-\#\probi' &=& 
-\sum_{a,b\in D(R))}\left(\dmab\right)^ t \cdot
-\#\probi(R_{a,b})\\
- &=& 
-\bigsum{\substack{a,b\in D(R) \\
-\magf(R_{a,b})=\magf(R)}} 
-\magf^t(R) \cdot \#\probi(R_{a,b})+
-\bigsum{\substack{a,b\in D(R) \\ \magf(R_{a,b})  < \magf(R)}}k^t
-(R_{a,b})\cdot\#\probi(R_{a,b})
+\hom(G',H) &=&  
+\sum_{(a,b)\in E(H)}\left|\NHab Hab\right|^ t \cdot
+\hom(G,\Hab)\\
+&=& 
+\bigsum{\substack{a,b\in V(H) \\
+\magf(H_{a,b})=\magf(H)}} 
+\magf^t(H) \cdot \hom(G,H_{a,b})+
+\bigsum{\substack{a,b\in V(H) \\ \magf(H_{a,b}) < \magf(H)}}k^t
+(H_{a,b})\cdot \hom(G,H_{a,b})
 \end{eqnarray*}
 
-Choose \(t\) large enough, i.e., \(\Omega(n^2)\) where \(n=|V|\) and divide both
-sides of the previous formula by \(k^t(R)\)\@. We have
-\[\frac{\#\probi}{\magf^t(R)} =  
-\bigsum{\substack{a,b\in D(R) \\ \magf(R_{a,b})=\magf(R)}} 
-\#\probi(R_{a,b}) + 
-\bigsum{\substack{a,b\in D(R) \\\magf(R_{a,b})<\magf(R)}}
-\left(\frac{\magf(R_{a,b})}{\magf(R)} \right )^t
-\cdot\#\probi(R_{a,b})
+Divide both sides of the formula by \(k^t(H)\)\@. We have
+\[\frac{\chom(G',H)}{\magf^t(H)} =  
+\bigsum{\substack{a,b\in V(H) \\ \magf(H_{a,b})=\magf(H)}} 
+\hom(G',H_{a,b}) + 
+\bigsum{\substack{a,b\in V(H) \\ \magf(H_{a,b})<\magf(H)}}
+\left(\frac{\magf(H_{a,b})}{\magf(H)} \right )^t
+\cdot\hom(G',H_{a,b})
 \]
-
-The second part of the summation has a value less than \(1\). 
-\todo{Need more proof for \(<1\)}
-We will be counting the solutions for 
-\[R'=\bigcup_{\substack{a,b\in D(R) \\
-\magf(R_{a,b})=\magf(R)}} R_{a,b}\]
-Let \(R'\) be an \RBA\ relation such that each component of \(R'\) 
-is \(R_{a,b}\) for some \(a\) and \(b\) hence satisfies the conditions.
+Let \(n=|V|\) and let \(m=|V(H)|\). We have \(\frac{\magf(\Hab)}{\magf(H)} \le \frac{m-1}{m}\)
+and \(\hom(G,H_{a,b}) \le n^m\). \((\frac{m-1}{m})^t \approx e^{\frac{-t}{m}}\)
+and \(n^m = e^{m\log n}\)\@. The number of such tuples is at most \(n^2 = e^{2\log n}\).
+For \(t > (m^2+2m) \log n\), the second part of the summation is less the \(1\).
+Thus, we have a reduction from \chom(\mH) to \chom(\(H'\)), where \(H'\) is defined as:
+\[H'=\bigcup_{\substack{a,b\in V(H) \\
+\magf(H_{a,b})=\magf(H)}} H_{a,b}.\]
+\(H'\) is an \RBA\ graph and each component of \(H'\) 
+is \(H_{a,b}\) for some \(a\) and \(b\) hence satisfies the conditions.
 \end{proof}
-
 
 \begin{lemma} \label{lem:connected}
-If \mR\ is a non-connected \RBA\ relation and every component of 
-\mR\ is a polar relation then there is a component \(R'\) of \mR\ 
-such that \ccsp(\mR) \(\apge\) \ccsp(\(R'\)).
+For an \RBA\ graph \mH, if every connected component of 
+\mH\ is a polar graph then there is a component \(H'\) of \mH\ 
+such that \chom(\mH) \mapge \chom(\(H'\)).
 \end{lemma}
 
-
-
 \begin{proof}
-We consider two cases: First presume all components of \mR\ are isomorphic.
-\todo{Maybe easier argument for this case}
-Let \(\probi(V,\mathcal{C})\) be an instance of \ccsp(\mR)\@.
-Let \(Y\) be a set of variables of size \(t\)(the value of \(t\) will be determined later) 
-and \(\probi'(V', mathcal{C}') = Pol((V \cup Y , \mathcal{C}))\).
-Denote variables in \(V' - V - Y\) by \(u\) and \(v\) such that \(\const{(u,v),R}\in \mathcal{C}'\)\@.
+There are two cases:
+\begin{itemize}
+\item All components of \mH\ are isomorphic. Let \(H'\) be a connected component of \mH\ and
+\mm\ be the number of components of \mH\@. For any graph \mG\ as input for the
+\chom(\mH) problem, \(\hom(G,H)=\hom^m(G,H')\). Hence, \chom(H) \mapge \chom(\(H'\))\@.
+\item Let \(H_1\) and \(H_2\) be two connected components for \mH\ that are not isomorphic.
+By Lov\'{a}sz's Theorem there is a connected graph \(Z\) such that \(\hom(Z,H_1) \neq \hom(Z,H_2)\)\@.
+Let \(Z_1,\dotsc,Z_t\) be \(t\) fresh copies of \(Z\), where \(t\) is a large number to be 
+define later.
+Let \(G=(V',E')\) be a graph with \(V'=V \cup V(Z_1)\cup \dotsb \cup V(Z_t) \cup \setof{u,v} \)
+and \(E'=E \cup \setof{(u,v)} \cup \setof{(u,x),(x,v) \mid x \in V \cup  Z_1 \cup \dotsb \cup Z_t} \cup
+E(Z_1)\cup \dotsb \cup E(Z_t)\)\@. Let \(q\) be \(\max_{a,b \in V(H)} \hom(Z,H_{a,b})\) and
+let \(H'=\bigcup_{\substack{a,b\in V(H) \\ 
+\hom(G,H_{a,b})=q}} H_{a,b}\)
 
-Denote the instance of \ccsp(\(R'\) all constraint of the form \(\const{S,R}\)
-replaced with \(\const{S,R'}\) by \(\probi(R')\)\@.
 
-Considering possible assignment \(\varphi\) for \(\probi'\) with
-\(a = \varphi(u)\) and \(b = \varphi(v)\) we have:
-
+For any homomorphism \(h: G'\to H\), consider \(a=h(u)\)  and \(b=h(v)\). We have:
 \begin{eqnarray*}
-\#\probi' &=& \sum_{a,b\in D(R)} \#\probi(R_{a,b}) \cdot (\dmab)^t \\
-&=&C \cdot\#\probi(R') \cdot k^t(R) + 
-\sum_{\substack{a,b\in D(R)\\ \dmab < \magf(R)}} 
-\#\probi(R_{a,b}) \cdot (\dmab)^t
+\hom(G',H) &=&
+\sum_{a,b\in V(H)} \hom(G,H_{a,b}) \cdot \hom^t(Z, H_{a,b}) \\
+&=&
+\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} \hom(G, H_{a,b}) \cdot q^t + 
+\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
+\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b})\\
+&=&
+\hom(G',H') \cdot q^t + \bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
+\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b})
 \end{eqnarray*}
-
-
-where \(C = |\setof{(a,b): \dmab=\magf(R)}|\) and \(R'\) is a
-connected component of \mR\@. Note that the choice of \(R'\) is not significant 
-because in this case all components of \mR\ are isomorphic.
-
-By choosing \(t\) sufficiently large, i.e., \(\Omega(n^2)\) where \(n=|V|\) implies
-that \ccsp(\mR) \(\apge\) \ccsp(\(R'\))\@. 
-Since \(R'\) is a connected component of \mR, this case is proved.
-
-For the second case, presume there are two components \(C_1\) and \(C_2\) of
-\mR\ such that they are not isomorphic. By Lovasz Theorem there
-is a connected instance \(Z\) such that \(\#Z(C_1) \neq \#Z(C_2)\)\@. 
-Let \(\probi'(V',\mathcal{C}' = Pol((V+m \times Z, \mathcal{C})\). Here we mean 
-\(m\) copies of \(Z\) for an integer \(m\) whose value will be
-decided later. Let \(q\) be \(\max_{a,b \in D(R)} \#Z(R_{a,b})\).
-
-Considering possible assignment \(\varphi\) for \(\probi'\) with
-\(a = \varphi(u)\) and \(b = \varphi(v)\) we have:
-
-
+Divide both sides by \(q^t\), and let \(n=|V|\) and \(m=\magf(H)\)\@. We have:
+\[
+\frac{\hom(G',H)}{q^t} = 
+\hom(G',H') + \hom(G, H_{a,b}) \cdot 
+\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
+\left(\frac{\hom(Z,H_{a,b})}{q}\right)^t 
+\]
+The second part of right hand side can be bounded as:
 \begin{eqnarray*}
-\#\probi'(R')&=&\sum_{a,b\in D(R)} \#\probi(R_{a,b}) 
-\cdot \#Z^m(R_{a,b}) \\
-&=&\probi(R') \cdot q^m + 
-\sum_{\substack{a,b\in D(R)\\ \#Z(R_{a,b}) < q}} 
-\#\probi(R_{a,b}) \cdot \#Z^m(R_{a,b})
+\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
+\left(\frac{\hom(Z,H_{a,b})}{q}\right)^t  &\le &
+\sum_{a,b\in V(H)} m\cdot \left(1-\frac{1}{q}\right)^t \\
+&\approx & n^2 \cdot m \cdot e^{\frac{t}{q}} \\
 \end{eqnarray*}
-
-where \[
-R'=\bigcup_{\substack{a,b\in D(R) \\ 
-\#Z(R_{a,b})=q}} R_{a,b}\]
-Choosing \(m\) large enough, i.e., \(\Omega(n^2)\) where \(n=|V|\) 
-and dividing TODO by \(q^m\) implies \ccsp(\mR) \(\apge\) \ccsp(\(R'\)). 
-Here \(R'\) is derived from \mR\ by removing some of the components. 
-
-Consider the latter case using \(R'\) instead of \mR\
-until all remaining components of \mR\ are isomorphic.
+Similar evaluation indicates that
+for \(t=2q\log(nm)\) the right hand is smaller than \(1\); hence, \chom(\mH) \mapge\ \chom(\(H'\)). 
+Now \(H'\) consists of some of the components of \mH; reconsidering cases results a single component
+of \mH\@.
+\end{itemize}
 \end{proof}
 
-
-By combining lemme \ref{lem:connected} and \ref{lem:k-fixing} 
-we derive the following lemma:
+By combining Lemme \ref{lem:connected} and \ref{lem:k-fixing} 
+we derive the following lemma:\todo{??}
 
 \begin{lemma} \label{lem:k-reduction}
-For any polar relation \mR\ such that \(\magf(R) > 2\),
-there is an \RBA\ relation \(R'\) such that \(\magf(R') < \magf(R)\)
-and \ccsp(\mR) \(\apge\) \ccsp(\(R'\))\@.
+Let \mH\ be a polar graph, if \(\magf(H) > 2\), then
+there is an \RBA\ graph \(H'\) such that \(\magf(H') < \magf(H)\)
+and \chom(\mH) \mapge\ \chom(\(H'\))\@.
 \end{lemma}
 
-
 \begin{proof}
-Let \(a\) be an element in \mR\ such that \(\nplus a = D(R))\)\@.
-We know \(d^-(a)=1\) 
-For all other elements in \(D(R)\) \(w\), 
-we have \(d^-(w) > 1\) (\(a,w\in \nminus w\)). So, \mR\
-implements unary relation.
-\(S = D(R)\setminus \setof a\) also
-implements the binary relation 
-\(R'=R \land S(x) \land S(y) = 
-R[D(R) \setminus \setof a]\).
-\(R'\) is an \RBA\ relation that \(\magf(R') < \magf(R)\) 
-and \ccsp(\mR) \(\apge\) \ccsp(\(R'\))\@.
+Let \(a\) be a vertex in \mH\ such that for all \(x\in V(G)\), \((a,x)\in E(H)\) and
+let \(S = V(H) \setminus \setof a\).
+For any other vertex \(w \in S\), we have \(d^-(w) > 1\); on the other hand \(d^-(a)=1\),
+by Lemma~\ref{lem:pinning}, \chom(\mH) \mapge\ \chom(\(H'\)) where \(H'\) is 
+the induced sub-graph by \(S\)\@.
 \end{proof}
 
 \begin{theorem}
-For every non-empty \RBA\ relation \mR, \ccsp(\mR) is \cbis-hard.
+For every non-empty \RBA\ graph \mH, \chom(\mH) \mapge \cbis\@.
 \end{theorem}
 
 
 \begin{proof}
-By contradiction, consider a \RBA\ relation \mR\ with the least magnitude
-such that \mR\ is not \cbis-hard. By Lemma \ref{lem:triangle-free},
-\(\magf(R) > 2\)\@. 
-By lemma \ref{lem:k-fixing}, there exists a \RBA\ relation \(R'\) such that 
-\ccsp(\(R'\)) \(\aple\) \ccsp(\mR) and  
-and \(\magf(R)=\magf(R')\) and each component of \(R'\) is a polar relation. 
-By lemma \ref{lem:connected} there is a connected component \(R''\)
-of \(R'\) such that \ccsp(\(R''\)) \(aple\) \ccsp(\(R'\)) \(\aple\) \ccsp(\mR).
-Finally  by lemma \ref{k-reduction} 
-there exists a \RBA\ \(R'''\) such that 
-\ccsp(\(R'''\)) \(aple\) \ccsp(\(R''\)) \(aple\) \ccsp(\(R'\)) \(\aple\) \ccsp(\mR).
-and \(\magf(R''') < \magf(R)\); this contradicts with \mR\ having the minimum magnitude.
+By contradiction, consider a \RBA\ graph \mH\ with the least magnitude
+such that \mH\ is not \cbis -hard. By Lemma~\ref{lem:triangle-free}, \(\magf(H) > 2\)\@. 
+By lemma~\ref{lem:k-fixing}, there exists a \RBA\ graph \(H'\) such that 
+\chom(\(H_1\)) \maple \chom(\mH) and  
+and \(\magf(H)=\magf(H_1)\) and each component of \(H_1\) is a polar graph. 
+By lemma \ref{lem:connected}, there is a connected component \(H_2\)
+of \(H_1\) such that \chom(\(H_2\)) \maple\ \chom(\(H_1\)) \maple\ \chom(\mH)\@.
+Finally  by Lemma~\ref{k-reduction}, there exists an \RBA\ graph \(H_3\) such that 
+\chom(\(R_3\)) \maple\ \chom(\(H_2\)) \maple\ \chom(\mH) 
+and \(\magf(H_3) < \magf(H)\); this contradicts with \mH\ having the minimum magnitude.
 \end{proof}
+
+\section{Conclusion and Future works}
+TODO
