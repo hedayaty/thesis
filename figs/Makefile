@@ -1,8 +1,8 @@
-FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar shade2
+FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar shade2 n5 m5 c6
 
 MAG = -m 1.3
 
-LIST1= approxible hom sample
+LIST1= approxible hom sample n5 c6
 DLIST1=$(addsuffix .pdftex, $(LIST1)) $(addsuffix .pdf, $(LIST1)) 
 ELIST1=$(addprefix figs/,$(DLIST1))
 $(ELIST1) $(DLIST1): override MAG = -m 0.7

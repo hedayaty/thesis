@@ -78,7 +78,7 @@ an oracle call \((\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\ep
 \(p = 1\) if \(c > 0\), and \(p = \frac{d}{d-c}\) otherwise,
 and if the oracle's reply is \(N\), it returns \(dN + c\)\@. Clearly the algorithm make polynomially 
 many steps and oracle calls, and the oracle request is of the correct form.
-Thus, it suffices to show that if the oracles's solution is within relative error of \(\delta\) then
+Thus, it suffices to show that if the oracle's solution is within relative error of \(\delta\) then
 the algorithm gives an \(1+\eps\)-approximation of \(\#\probi\)\@.
 
 Let the exact and approximation solutions for \(\varphi(\probi)\) be \(N'\) and \(N\), respectively;
@@ -101,6 +101,41 @@ we get \(1-\eps \le \frac{dN'+c}{dN+c} \le 1 + \eps\). We continue with the proo
 \left|1 + \frac{dN' + c}{dN + c}\right| &\le & \eps \\
 \left| \frac{dN-dN'}{dN+c}\right| & \le& \eps
 \end{eqnarray*}
+This completes the proof.
+\end{proof}
+
+\begin{lemma}\label{lem:logarithm}
+Let \(\varphi\) be a polynomial time computable function that maps every instance of a
+counting problem \(A\) to an instance of a counting problem problem \(B\) in such a way that
+there is a constant \(m>0\) such that
+for any \(A\)-instance \(\probi\) we have
+\(\#\probi = (\#\varphi(\probi))^m\)\@.
+There is an AP-reduction from \(A\) to \(B\)\@.
+\end{lemma}
+
+\begin{proof}
+The AP-reduction works as follows: On an instance \(\probi\) of \(A\) and \(\eps > 0\) it makes 
+an oracle call \((\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\eps}{m}\) and 
+and if the oracle's reply is \(N\), it returns \(N^m\)\@. Clearly the algorithm make polynomially 
+many steps and oracle calls, and the oracle request is of the correct form.
+Thus, it suffices to show that if the oracle's solution is within relative error of \(\delta\) then
+the algorithm gives an \(1+\eps\)-approximation of \(\#\probi\)\@.
+
+Let the exact and approximation solutions for \(\varphi(\probi)\) be \(N'\) and \(N\), respectively;
+then the exact and approximation solutions for \(\probi\) are  
+\(N'^m\) and \(N^m\), respectively.
+All we need to show is that if \(\left|\frac{N-N'}{N}\right|<\delta\) holds then
+\(\left|\frac{N^m-N'^m}{N^m}\right|<\eps\) holds as well. Without loss of generality we assume
+\(N>N'\).
+\begin{eqnarray*}
+\frac{|N-N'|}{N} & \le & \delta \\
+\frac{N'}{N} & \le & 1 + \delta \\
+\frac{N'^m}{N^m} & \le & (1 + \delta) ^ m\\
+\frac{N'^m}{N^m} & \le & 1 + m\cdot\delta \\
+\frac{N'^m}{N^m} & \le & 1 + \eps \\
+\frac{N^m - N'^m}{N^m} & \le & \eps
+\end{eqnarray*}
+The inequality \(\eps \le \frac{N'^m - N^m}{N^m}\) is similar.
 This completes the proof.
 \end{proof}
 
@@ -140,7 +175,7 @@ can be extended to a solution of \(\probi'\) in a unique way.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pinning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Theorem \label{trm:partial} states that if relation \mR\ can be expressed as conjunctions 
+Theorem \ref{trm:partial} states that if relation \mR\ can be expressed as conjunctions 
 of relations from \mrelset, \ccsp(\(\relset \cup \setof R\)) \(\aple\) \ccsp(\mrelset)\@.
 The conditions for this theorem, even for parsimonious reductions, are too strict. 
 In the rest of this chapter we provide several more lenient conditions.

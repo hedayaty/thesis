@@ -61,17 +61,18 @@ We show that for any two tuples \(\vx,\vy\in R'\) we have
 \vx \wedge \vy \in R' \\
 \end{eqnarray*}
 Similarly \(\vx \vee \vy \in R'\)\@.
-\(\relset'\) is monotone and by Theorem~\ref{theorem:thrichotomy}, we have 
+\(\relset'\) is monotone and by Theorem~\ref{theorem:trichotomy}, we have 
 \ccsp(\(\relset'\))\maple\ \cbis\@. Consequently, \ccsp(\mrelset) \maple\ \cbis\@.
 \end{proof}
 
 Originally, we came up with a different reduction from the \ccsp(\(\relset'\)) problem
-to the \cds\ problem. However, the proof used in \cite{Thrichotomy} for
-Theorem~\ref{theorem:thrichotomy} is simpler than our proof; hence, there is need to mention it.
+to the \cds\ problem. However, the proof used in \cite{Trichotomy} for
+Theorem~\ref{theorem:trichotomy} is simpler than our proof; hence, there is need to mention it.
 \begin{comment}
 The reduction uses Theorem~\ref{theorem:majority} to break arbitrary relation to binary relation.
 A function \(m: D^3\to D\) is said to be a \emph{majority function}, if for any \(x,y\in D\) we have
-\(m(x,x,y) = m(x,y,x) = m(y, x, x) = x\)\@. We denote the projection of \mR\ on coordinates \(i\) and \(j\) by \(R_{1,2}\) and projections of \mR\ on coordinates from \(i\) to \(j\) by \(R_{i-j}\)\@.
+\(m(x,x,y) = m(x,y,x) = m(y, x, x) = x\)\@. We denote the projection of \mR\ on coordinates \(i\) and
+ \(j\) by \(R_{1,2}\) and projections of \mR\ on coordinates from \(i\) to \(j\) by \(R_{i-j}\)\@.
 
 
 \begin{theorem} [Bergman's Double-projection Theorem (Unpublished)]\label{theorem:majority}
@@ -153,24 +154,23 @@ For any bimonotone graph \mH, we have \chom(\mH) \maple \cbis\@.
 \begin{proof}
 For any bimonotone graph \mH, by Theorem~\ref{theorem:bior} there is a directed monotone 
 graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{theorem:monotone},
-\chom(\(H'\) \maple \cbis\@. Thus, \chom(\mH) \maple \cbis\@.
+\chom(\(H'\)) \maple \cbis\@. Thus, \chom(\mH) \maple \cbis\@.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % RBA Relations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{RBA Relations}
-In this section we will introduce a family of relations called \RBA\ relations and show that
-approximately solving the \ccsp(\mrelset) problem over an \RBA\ relations is harder than
-approximately solving the \cbis problem. These relations
-can be seen as graphs; since most of the proofs are better expressed by graphs,
-we will mostly use the graph notations.
+In this section,  we introduce the family of \RBA\ relations and show that
+for any \RBA\ relation \mR, \cbis \maple \ccsp(\mR)\@.
+\RBA\ relations can be also interpreted as graphs; since most of the proofs in this part
+are better expressed by graphs, we mostly focus on graph notations.
 
 \begin{defi} [\RBA]
 A relations is \RBA\ if it is binary, reflexive, and asymmetric.
 \end{defi} 
 
-As digraphs, the \RBA\ relations are reflexive oriented digraphs. Let \(H=(V,E)\) be 
+A \RBA\ relation can be seen as a reflexive oriented digraph. Let \(H=(V,E)\) be 
 an \RBA\ graph; for each \(v \in V\), we have \((v,v) \in E\)
 and \((u,v) \in E\) and \((v,u) \in E\) implies \(u=v\)\@.
 
@@ -181,9 +181,10 @@ and \((u,v) \in E\) and \((v,u) \in E\) implies \(u=v\)\@.
 
 Let \(\NHab Hab\) be vertices that are both in out-neighbours of \(a\) and in-neighbours of \(b\).
 Note that if \mH\ is reflexive and \((a,b)\in E(H)\),
-\(a,b\in \NHab Hab\)\@. Let \(\Hab\) be the subgraph of \mH\ induced by \(\NHab Hab\),
+both \(a\) and \(b\) are in \(\NHab Hab\)\@.
+Let \(\Hab\) be the subgraph of \mH\ induced by \(\NHab Hab\).
 \emph{Magnitude} of \mH\ represented as \(\magf(H)\) is defined as
-\(\magf(H) = \max \limits_{(a,b) \in E(H)} \setof{|\NHab Hab}|\)\@.
+\(\max \limits_{(a,b) \in E(H)} \setof{|\NHab Hab|}\)\@.
 
 \begin{figure}[h]
 \center{\input{figs/shade2.pdftex}}
@@ -196,24 +197,28 @@ For an \RBA\ graph \mH, if \(\magf(H)=2\) then \chom(\mH) \mapge\ \cbis\@.
 
 \begin{proof}
 Let \mH\ be a an \RBA\ graph such that \(\magf(H)=2\), 
-we reduce \cds\ problem to \chom(\mH)\@.
-For given partial order \((P,\preceq)\), let \(G=(V,E)\) be the corresponding directed (acyclic) graph.
-Take \(G'=(V',E')\) as \(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
+we reduce the \cds\ problem to the \chom(\mH) problem\@.
+For a given partial order \((P,\preceq)\), let \(G=(V,E)\) be the corresponding directed
+(acyclic) graph. Take \(G'=(V',E')\) where
+\(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
 \setof{(u,x),(x,v) \mid x\in V}\)\@.
 
-For any homomorphism \(h: G' \to H\), if \(h(u)=h(v)=s\), then \(h(x)=s\) for all \(x\in V\);
-otherwise, \((h(u),h(v))\in E(H)\) and \(h\) corresponds to a DownSet in \((P,\preceq)\)\@.
+For any homomorphism \(h: G' \to H\), if \(h(u)=h(v)=s\), \(h(x)=s\) for all \(x\in V\);
+otherwise, \((h(u),h(v))\in E(H)\) and for all \(x\in V\), \(h(x)=h(u)\) or \(h(x)=h(v)\); thus,
+\(h\) corresponds to a DownSet in \((P,\preceq)\)\@.
 
-The number of homomorphism with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
-the number of homomorphism with \(h(u)\neq h(v)\) is equal to \(|E(H)|\) times the 
+The number of homomorphisms with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
+the number of homomorphisms with \(h(u)\neq h(v)\) is equal to \(|E(H)|\) times the 
 number of DownSets in \((P,\preceq)\)\@. Hence,
 \[\hom(G',H) = |V(H)| + |E(H)|\cdot \#ds(P,\preceq).\]
-This implies that \chom(\mH) \mapge\ \cds\@.
+In other words:
+\[\#ds(P,\preceq) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\]
+Thus, by Lemma~\ref{lem:linear}, we have \chom(\mH) \mapge\ \cds\@.
 \end{proof}
 
 \begin{defi} [Polar Graph]
 Let \mH\ be an \RBA\ graph. \mH\ is \emph{polar}
-if there exists vertices \(a,b\in V(H)\),
+if there are vertices \(a,b\in V(H)\),
 such that \((a,x), (x,b) \in E(H)\) for all vertices \(x \in V(H)\) (including \(a\) and \(b\)).
 \end{defi}
 
@@ -226,123 +231,149 @@ Note that, for a polar graph \mH, we have \(\NHab Hab = V(H)\) and \(\magf(H)=|V
 
 \begin{lemma} \label{lem:k-fixing}
 For any \RBA\ graph \mH\ that \(k(H) > 2\), there is an \RBA\ graph
-\(H'\) such that  each connected component of \(H'\) is a
+\(H'\) such that each connected component of \(H'\) is a
 polar graph, \(\magf(H) = \magf(H')\), and
 \chom(\mH) \mapge\ \chom(\(H'\)).
 \end{lemma}
 
 \begin{proof}
-Let \(G=(V,E)\) be a graph and \(Y\) be a set of \(t\) fresh vertices
-(the value of \(t\) will be determined later), and let \(G'=(V',E')\) be
-graph such that \(V'=V \cup Y \cup \setof{u,v}\) and \(E'=E \cup \setof{(u,v)} \cup
+Take the graph \(H'\) as union of \(\Hab\) for all \((a,b)\in E(H)\) and
+\(\magf(H_{a,b})=\magf(H)\)\@. Note that, each component of \(H'\) is \(\Hab\) for 
+some \(a\) and \(b\); thus, each component of \(H'\) is a polar graph.
+All remains is proving that \chom(\(H'\)) \maple \chom(H)\@.
+
+Let \(G=(V,E)\) be the input graph for the \chom(\(H'\)) problem 
+and let \(Y\) be a set of \(t\) fresh vertices
+(the value of \(t\) will be determined later). Take graph \(G'=(V',E')\) where
+\(V'=V \cup Y \cup \setof{u,v}\) and \(E'=E \cup \setof{(u,v)} \cup
 \setof{(u,x),(x,v) \mid x\in V \cup Y}\)\@.
 
-For any two vertices \(a,b \in V(H)\) that \((a,b)\in E(H)\), consider a homomorphisms
-\(h: G'\to H\) that \(h(u)=a\) and \(h(v)=b\). Since for any vertex \(x\) in \(V\) or \(Y\),
-\((u,x)\) and \((x,v)\) are edges in \(G'\), as a result \(x\) has to be mapped to \(\NHab Hab\)\@.
-Any vertex in \(Y\) can be freely mapped to any vertex in \(\NHab Hab\)\@. Thus, we have:
+Consider all homomorphisms \(h: G'\to H\)\@.
+For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\) also
+for any vertex \(x\) in \(V\) or \(Y\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
+\(x\) has to be mapped to \(\NHab Hab\)\@. Note that, any vertex in \(Y\) can be freely mapped
+to any vertex in \(\NHab Hab\); however, mapping of the vertices of \(V\) should preserve the edges 
+of \mG\@. Thus, we have:
 \begin{eqnarray*}
 \hom(G',H) &=&  
 \sum_{(a,b)\in E(H)}\left|\NHab Hab\right|^ t \cdot
 \hom(G,\Hab)\\
 &=& 
-\bigsum{\substack{a,b\in V(H) \\
+\bigsum{\substack{(a,b)\in E(H) \\
 \magf(H_{a,b})=\magf(H)}} 
 \magf^t(H) \cdot \hom(G,H_{a,b})+
-\bigsum{\substack{a,b\in V(H) \\ \magf(H_{a,b}) < \magf(H)}}k^t
+\bigsum{\substack{(a,b)\in E(H) \\ \magf(H_{a,b}) < \magf(H)}}k^t
 (H_{a,b})\cdot \hom(G,H_{a,b})
 \end{eqnarray*}
 
-Divide both sides of the formula by \(k^t(H)\)\@. We have
-\[\frac{\chom(G',H)}{\magf^t(H)} =  
-\bigsum{\substack{a,b\in V(H) \\ \magf(H_{a,b})=\magf(H)}} 
-\hom(G',H_{a,b}) + 
-\bigsum{\substack{a,b\in V(H) \\ \magf(H_{a,b})<\magf(H)}}
+Divide both sides of the formula by \(k^t(H)\)\@. We have:
+\begin{eqnarray*}
+\frac{\chom(G',H)}{\magf^t(H)} &=& 
+\bigsum{\substack{(a,b)\in E(H) \\ \magf(H_{a,b})=\magf(H)}} 
+\hom(G,H_{a,b}) + 
+\bigsum{\substack{(a,b)\in E(H) \\ \magf(H_{a,b})<\magf(H)}}
 \left(\frac{\magf(H_{a,b})}{\magf(H)} \right )^t
-\cdot\hom(G',H_{a,b})
-\]
-Let \(n=|V|\) and let \(m=|V(H)|\). We have \(\frac{\magf(\Hab)}{\magf(H)} \le \frac{m-1}{m}\)
-and \(\hom(G,H_{a,b}) \le n^m\). \((\frac{m-1}{m})^t \approx e^{\frac{-t}{m}}\)
-and \(n^m = e^{m\log n}\)\@. The number of such tuples is at most \(n^2 = e^{2\log n}\).
+\cdot\hom(G,H_{a,b})\\
+\frac{\chom(G',H)}{\magf^t(H)} &=& 
+\hom(G,H') + \bigsum{\substack{(a,b)\in E(H) \\ \magf(H_{a,b})<\magf(H)}}
+\left(\frac{\magf(H_{a,b})}{\magf(H)} \right )^t
+\cdot\hom(G,H_{a,b})\\
+\end{eqnarray*}
+Let \(n=|V|\) and let \(m=|V(H)|\). We have \(\frac{\magf(\Hab)}{\magf(H)} \le \frac{m-1}{m}\),
+\(E(H)\le n^2\), and \(\hom(G,H_{a,b}) \le n^m\).
+We can simplify the formulas as \((\frac{m-1}{m})^t \approx e^{\frac{-t}{m}}\),
+\(n^m = e^{m\log n}\), and \(n^2 = e^{2\log n}\).
 For \(t > (m^2+2m) \log n\), the second part of the summation is less the \(1\).
-Thus, we have a reduction from \chom(\mH) to \chom(\(H'\)), where \(H'\) is defined as:
-\[H'=\bigcup_{\substack{a,b\in V(H) \\
-\magf(H_{a,b})=\magf(H)}} H_{a,b}.\]
-\(H'\) is an \RBA\ graph and each component of \(H'\) 
-is \(H_{a,b}\) for some \(a\) and \(b\) hence satisfies the conditions.
+Thus, by Lemma~\ref{lem:linear} \chom(\mH) \mapge \chom(\(H'\)).
 \end{proof}
 
-\begin{lemma} \label{lem:connected}
-For an \RBA\ graph \mH, if every connected component of 
-\mH\ is a polar graph then there is a component \(H'\) of \mH\ 
-such that \chom(\mH) \mapge \chom(\(H'\)).
+\begin{lemma} \label{lem:onecomp}
+Let \mH\ be an \RBA\ graph such that each connected component of \mH\ is a polar graph.
+There is connected component \(H'\) of \mH, such that \chom(\(H'\)) \maple \chom(\mH)\@.
 \end{lemma}
 
 \begin{proof}
 There are two cases:
 \begin{itemize}
-\item All components of \mH\ are isomorphic. Let \(H'\) be a connected component of \mH\ and
-\mm\ be the number of components of \mH\@. For any graph \mG\ as input for the
-\chom(\mH) problem, \(\hom(G,H)=\hom^m(G,H')\). Hence, \chom(H) \mapge \chom(\(H'\))\@.
+\item All connected components of \mH\ are isomorphic.
+Let \(H'\) be a connected component of \mH\ and
+\mm\ be the number of connected components of \mH\@.
+For any graph \mG\ as input for the \chom(\mH) problem, \(\hom(G,H)=\hom^m(G,H')\).
+By Lemma~\ref{lem:logarithm}, \chom(H) \mapge \chom(\(H'\))\@.
+
 \item Let \(H_1\) and \(H_2\) be two connected components for \mH\ that are not isomorphic.
-By Lov\'{a}sz's Theorem there is a connected graph \(Z\) such that \(\hom(Z,H_1) \neq \hom(Z,H_2)\)\@.
+By Lov\'{a}sz's Theorem, there is a connected graph \(Z\) such that \(\hom(Z,H_1) \neq \hom(Z,H_2)\)\@.
 Let \(Z_1,\dotsc,Z_t\) be \(t\) fresh copies of \(Z\), where \(t\) is a large number to be 
 define later.
-Let \(G=(V',E')\) be a graph with \(V'=V \cup V(Z_1)\cup \dotsb \cup V(Z_t) \cup \setof{u,v} \)
+Take the graph \(G=(V',E')\) where \(V'=V \cup V(Z_1)\cup \dotsb \cup V(Z_t) \cup \setof{u,v} \)
 and \(E'=E \cup \setof{(u,v)} \cup \setof{(u,x),(x,v) \mid x \in V \cup  Z_1 \cup \dotsb \cup Z_t} \cup
-E(Z_1)\cup \dotsb \cup E(Z_t)\)\@. Let \(q\) be \(\max_{a,b \in V(H)} \hom(Z,H_{a,b})\) and
-let \(H'=\bigcup_{\substack{a,b\in V(H) \\ 
-\hom(G,H_{a,b})=q}} H_{a,b}\)
+E(Z_1)\cup \dotsb \cup E(Z_t)\)\@. Take \(q\) as \[\max \limits_{(a,b) \in E(H)} \hom(Z,H_{a,b})\] and
+take \[H'=\bigcup_{\substack{(a,b)\in E(H) \\ 
+\hom(G,H_{a,b})=q}} H_{a,b}\]
 
-
-For any homomorphism \(h: G'\to H\), consider \(a=h(u)\)  and \(b=h(v)\). We have:
+Consider all homomorphisms \(h: G'\to H\)\@.
+For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\) also
+for any vertex \(x\) in \(V\) or \(Z_i\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
+\(x\) has to be mapped to \(\NHab Hab\)\@. Thus, we have:
 \begin{eqnarray*}
 \hom(G',H) &=&
 \sum_{a,b\in V(H)} \hom(G,H_{a,b}) \cdot \hom^t(Z, H_{a,b}) \\
 &=&
-\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} \hom(G, H_{a,b}) \cdot q^t + 
-\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
+\bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) = q}} \hom(G, H_{a,b}) \cdot q^t + 
+\bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
 \hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b})\\
 &=&
-\hom(G',H') \cdot q^t + \bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
+\hom(G,H') \cdot q^t + \bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
 \hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b})
 \end{eqnarray*}
 Divide both sides by \(q^t\), and let \(n=|V|\) and \(m=\magf(H)\)\@. We have:
 \[
 \frac{\hom(G',H)}{q^t} = 
-\hom(G',H') + \hom(G, H_{a,b}) \cdot 
-\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
-\left(\frac{\hom(Z,H_{a,b})}{q}\right)^t 
+\hom(G,H') + 
+\bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
+\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b}) \cdot (\frac{1}{q})^t
 \]
 The second part of right hand side can be bounded as:
 \begin{eqnarray*}
-\bigsum{\substack{a,b\in V(H)\\ \hom(Z, H_{a,b}) < q}} 
-\left(\frac{\hom(Z,H_{a,b})}{q}\right)^t  &\le &
-\sum_{a,b\in V(H)} m\cdot \left(1-\frac{1}{q}\right)^t \\
-&\approx & n^2 \cdot m \cdot e^{\frac{t}{q}} \\
+\bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
+\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b}) \cdot (\frac{1}{q})^t & \le &
+n^2 \cdot n^m \cdot \left(\frac{q-1}{q}\right)^t\\
+& \approx & e ^ {2\log n} \cdot e^{m\log n} \cdot e^{-\frac{t}{q}} \\
 \end{eqnarray*}
-Similar evaluation indicates that
-for \(t=2q\log(nm)\) the right hand is smaller than \(1\); hence, \chom(\mH) \mapge\ \chom(\(H'\)). 
-Now \(H'\) consists of some of the components of \mH; reconsidering cases results a single component
-of \mH\@.
+For \(t > q \cdot (m+2)\log n\), it is less then one; hence, we have
+\(hom(G,H')=\frac{\hom(G',H)}{q^t}\)\@. By Lemma~\ref{lem:linear},
+we have \chom(\mH) \mapge\ \chom(\(H'\)). 
 \end{itemize}
+\(H'\) is a subgraph of \mH, with \(\magf(H')=\magf(H)\) and connected components of \(H'\)
+are proper subsets of components of \mH\@. After considering the cases multiple times,
+\(H'\) will consist of only a single component.
 \end{proof}
 
-By combining Lemme \ref{lem:connected} and \ref{lem:k-fixing} 
-we derive the following lemma:\todo{??}
+Using Lemme \ref{lem:onecomp} and \ref{lem:k-fixing} we show that we can reduce the 
+\(\magf(H)\) function without making the problem easier.
 
 \begin{lemma} \label{lem:k-reduction}
-Let \mH\ be a polar graph, if \(\magf(H) > 2\), then
+Let \mH\ be an \RBA\ graph, if \(\magf(H) > 2\), then
 there is an \RBA\ graph \(H'\) such that \(\magf(H') < \magf(H)\)
 and \chom(\mH) \mapge\ \chom(\(H'\))\@.
 \end{lemma}
 
 \begin{proof}
-Let \(a\) be a vertex in \mH\ such that for all \(x\in V(G)\), \((a,x)\in E(H)\) and
-let \(S = V(H) \setminus \setof a\).
-For any other vertex \(w \in S\), we have \(d^-(w) > 1\); on the other hand \(d^-(a)=1\),
-by Lemma~\ref{lem:pinning}, \chom(\mH) \mapge\ \chom(\(H'\)) where \(H'\) is 
-the induced sub-graph by \(S\)\@.
+By Lemma~\ref{lem:k-fixing}, there is an \RBA\ graph \(H_1\) such that
+every component of \(H_1\) is a polar graph, \(\magf(H_1)=\magf(H)\), and 
+\chom(\(H_1\)) \maple \chom(\mH)\@.
+
+By Lemma~\ref{lem:onecomp}, there is a connected component \(H_2\) of \(H_1\) such that,
+\(\magf(H_2)=\magf(H_1)\) and \chom(\(H_2\)) \maple \chom(\(H_1\))\@.
+
+Consider the graph \(H_2\) as relation \mR over the domain \mD\@.
+\mR\ is a polar relation, so there a vertex \(a \in D\) such that for all \(x \in D\)
+we have \((a, x)\in R\)\@. Let \(S = D \setminus \setof a\)\@. We have
+\((x,a)\in R\) implies \(x=a\) and for any \(y \in S\), we have \((a, y), (y, y)\in R\)\@.
+Thus, by Lemma~\ref{lem:pinning}, \ccsp(\setof{R,S}) \maple \ccsp(\mR)\@.
+
+Now, for \(H'=H_2 - a\), we have  \chom(\(H'\)) \maple \ccsp(\setof{R,S}) \maple
+\chom(\(H_2\)) \maple \chom(\mH)\@.
 \end{proof}
 
 \begin{theorem}
@@ -356,12 +387,26 @@ such that \mH\ is not \cbis -hard. By Lemma~\ref{lem:triangle-free}, \(\magf(H) 
 By lemma~\ref{lem:k-fixing}, there exists a \RBA\ graph \(H'\) such that 
 \chom(\(H_1\)) \maple \chom(\mH) and  
 and \(\magf(H)=\magf(H_1)\) and each component of \(H_1\) is a polar graph. 
-By lemma \ref{lem:connected}, there is a connected component \(H_2\)
+By lemma \ref{lem:onecomp}, there is a connected component \(H_2\)
 of \(H_1\) such that \chom(\(H_2\)) \maple\ \chom(\(H_1\)) \maple\ \chom(\mH)\@.
-Finally  by Lemma~\ref{k-reduction}, there exists an \RBA\ graph \(H_3\) such that 
+Finally  by Lemma~\ref{lem:k-fixing}, there exists an \RBA\ graph \(H_3\) such that 
 \chom(\(R_3\)) \maple\ \chom(\(H_2\)) \maple\ \chom(\mH) 
 and \(\magf(H_3) < \magf(H)\); this contradicts with \mH\ having the minimum magnitude.
 \end{proof}
 
 \section{Conclusion and Future works}
-TODO
+We proved \cbis -easiness and \cbis -hardness for approximately counting the number of solutions 
+of \ccsp(\mrelset) for some families relations. However, we have not been find the necessary and
+sufficient conditions for a \mrelset\ to be \cbis\ AP-interreducible.
+
+It is very likely to have a Trichotomy for constraint languages over 3-element and 4-element sets as 
+well. However, it is very unlikely for the \chom(\(N_5\)), \chom(\(M_5\)), and \chom(\(C_6\)) to
+be AP-interreducible to these the complexity classes.
+
+\begin{figure}
+\centering
+\subfigure[\(N_5\)]{\input{figs/n5.pdftex}\label{fig:n5}}\hfill
+\subfigure[\(M_5\)]{\input{figs/m5.pdftex}\label{fig:m5}}\hfill
+\subfigure[\(C_6\)]{\input{figs/c6.pdftex}\label{fig:c6}}
+\caption{Several graphs that complexity of \chom(\mH) is unknown}
+\end{figure}
