@@ -3,7 +3,7 @@ default: main.pdf
 include figs/Makefile
 LATEX=pdflatex --synctex=1 -halt-on-error 
 FIGS=$(addsuffix .pdftex,$(addprefix figs/,$(FIGLIST)))
-TEXS=abstract ack appone apptwo bibl dedquot graph ind intro minor mydefs preface results sfudefs titapp 
+TEXS=abstract ack appone apptwo bibl dedquot graph ind intro minor mydefs preface results sfudefs titapp conc background
 TEXFILES=$(addsuffix .tex,$(addprefix texfiles/,$(TEXS)))
 ENV=TEXINPUTS=./texfiles/:
 

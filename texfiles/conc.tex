@@ -1,0 +1,94 @@
+\chapter{Conclusion and Future Works}
+\section{Conclusion}
+We formally defined the \ccsp(\mrelset) problem, mentioned some of its applications; mentioned the 
+results and the dichotomy on complexity of the \ccsp(\mrelset) problem. We defined the
+FPRAS class which is considered as the efficient computational model for finding approximate solutions
+for counting problems.
+We mentioned FPRAS algorithms for some simple \ccsp(\mrelset) problems, also 
+for the \pname{\#Dual-SAT},\pname{\#Match}, and \pname{\#LowDegree-}k\pname{-Coloring} problems.
+The \pname{\#Dual-SAT} problem is solved by sampling and the \pname{\#Match} and \pname{\#LowDegree-}k\pname{-Coloring} problems are solved by the Markov chain Monte-Carlo technique. 
+
+We defined the AP-reductions which are the reductions used to classify approximation
+counting problems.
+We introduced the \cbis\ problem and the class of the problems AP-interreducible with the \cbis\ problem.
+We mentioned several well-known examples of this class such as
+the \cds\ and \pname{\#1P1N-SAT} problems. Computation of the partition function for 
+the Ising model, where the model is ferromagnetic also belongs to this class.
+
+We also mentioned that some of the problems are hard to approximate. There is
+no polynomial time approximation algorithm for problems in this class, unless \(RP=NP\)\@.
+Note that although according to current knowledge these problems are not efficiently solvable,
+approximating these problems is still easier than exactly solving them.
+Some of the well known problems in this 
+class are the \cdsat, \ctsat, \csat, \cis, and \ctcol\ problems. Computation of the partition function for 
+the Ising model, where the model is anti-ferromagnetic also belongs to this class.
+
+We showed that by limiting the input for the \ccsp(\mrelset) problems to connected structures,
+the problems do not become easier. We showed that if there is linear transformation 
+between the number of solutions for two counting problems and 
+both problems always have solutions, then those two problems are AP-interreducible.
+We extended the pinning 
+theorem \cite{Trichotomy}\@. 
+
+We introduced the maximization technique for AP-reductions. The sets of relations closed
+under maximization form sets of relations similar to relational clones.
+In future, better understanding these sets provides a better intuition on the complexity of 
+the \ccsp(\mrelset) problem.
+
+Finally, we focused on AP-reductions involving the \cbis\ problem.
+We extended the notion of \emph{monotone} relations from Boolean domains to 
+multi-valued domains. We proved that the \ccsp(\mrelset) problems 
+over monotone constraint languages
+are AP-reducible to the \cbis\ problem. We also introduced a family of bipartite graphs
+called \emph{bimonotone} graphs. We proved that the \chom(\mH) problems 
+for bimonotone graphs are also AP-reducible to to the \cbis\ problem.
+
+We also introduced the \emph{\RBA} relations and proved that the \cbis\ problem is
+AP-reducible to the \ccsp(\mR) problems where \mR\ is an \RBA\ relation.
+Despite these results, characterizing of constraint languages for which 
+the \ccsp(\mrelset) problems are AP-interreducible with the \cbis\ problem remains open.
+
+\begin{figure}
+\centering
+\subfigure[\ensuremath{N_5}]{\input{figs/n5.pdftex}\label{fig:n5}}\hfill
+\subfigure[\ensuremath{M_5}]{\input{figs/m5.pdftex}\label{fig:m5}}\hfill
+\subfigure[\ensuremath{C_6}]{\input{figs/c6.pdftex}\label{fig:c6}}
+\caption{Several graphs for which complexity of the \chom(\ensuremath{H}) is unknown}
+\label{fig:unknown}
+\end{figure}
+
+We expect that there exists a trichotomy similar to the Boolean \ccsp(\mrelset) problems
+for the \ccsp(\mrelset) problems over 3-element and 4-element sets.
+However, the common belief is that there is no such a trichotomy in general for
+the \ccsp(\mrelset) problems.
+For example, consider the graphs \(N_5\), \(M_5\), and \(C_6\) shown in Figure~\ref{fig:unknown}.
+The \chom(\(N_5\)), \chom(\(M_5\)), and \chom(\(C_6\)) problems are harder than
+the \cbis\ problem; however, they are expected to be as hard as the \csat\ problem.
+
+\section{Future Works}
+We studied the complexity of approximately solving 
+the \ccsp(\mrelset) problem for maximal partial clones on
+3-element sets \cite{mvl}, we also studied complexity of approximately solving 
+the \chom(\mH) problem for graphs with 3 vertices. However, in both categories,
+there are few problems whose complexity of approximately solving them is still unknown.
+
+Valiant and Vazirani \cite{valvaz} proved that with a SAT oracle, there is FPRAS for any 
+problem in \cp\@. With the recent growth of practical usage of SAT-solvers, this theorem
+has the potential to provide a practical approach to solve the \ccsp(\mrelset) problem.
+
+The Markov chain Monte-Carlo is a useful technique to find approximate solutions for
+several counting problems. There might be some families of constraint languages for 
+which the Markov chain Monte-Carlo method may be used to approximately solve the 
+\ccsp(\mrelset) problem over them.
+
+We defined the monotone constraint languages as the constraint languages that
+are closed under the meet and join operators from a distributive lattice.
+\(N_5\) and \(M_5\) shown in Figure~\ref{fig:unknown} always appear on non-distributive 
+lattices. Proving that the \chom(\(N_5\)) and \chom(\(M_5\)) problem are AP-reducible to
+the \cbis\ problem may be a break through by extending  our result to
+constraint languages closed under meet and join operators from any lattice.
+
+We introduced \RBA\ graphs and proved that the \cbis\ problem is AP-reducible to
+the \chom(\mH) problem where \mH\ is an \RBA\ graph. We partially extended the result
+for specific graphs; however, we expect this result to be extendable from the \RBA\ graphs
+to general graphs with at least 2 asymmetric reflexive vertices.

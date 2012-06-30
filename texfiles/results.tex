@@ -1,6 +1,6 @@
 \chapter{Results on Complexity of \cbis}
-In this chapter, we mention our major results on the complexity 
-of the \ccsp(\mrelset) problem. First, we show that for monotone relations, there is an
+In this chapter, we mention our major results on complexity 
+of the \ccsp(\mrelset) problem. We first show that for \emph{monotone} relations, there is an
 approximation preserving reduction from the \ccsp(\mrelset) problem to the \cbis\ problem.
 Next, we show a connection between the complexity of the \chom(\mH) problem on bipartite graphs
 and directed graphs.
@@ -27,7 +27,7 @@ in \mrelset\ is closed under operations \(vee\) and \(\wedge\) defined by \(L\)\
 
 After studying the complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
 and the \chom(\mH) problem on 3-vertex graphs, we observed that \ccsp(\mrelset) over 
-monotone relations are AP-reducible to the \cds\ problem. We generalize them by
+monotone relations are AP-reducible to the \cds\ problem. We generalize the observation by
 Theorem~\ref{theorem:monotone}\@.
 
 \begin{theorem} \label{theorem:monotone}
@@ -162,7 +162,7 @@ graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{theore
 
 \section{RBA Relations}
 In this section,  we introduce the family of \RBA\ relations and show that
-for any \RBA\ relation \mR, \cbis \maple \ccsp(\mR)\@.
+for any \RBA\ relation \mR, we have \cbis \maple \ccsp(\mR)\@.
 \RBA\ relations can be also interpreted as graphs; since most of the proofs in this part
 are better expressed by graphs, we mostly focus on graph notations.
 
@@ -179,7 +179,8 @@ and \((u,v) \in E\) and \((v,u) \in E\) implies \(u=v\)\@.
 \caption{An RBA relation}
 \end{figure}
 
-Let \(\NHab Hab\) be vertices that are both in out-neighbours of \(a\) and in-neighbours of \(b\).
+Let \(\NHab Hab\) be the set of vertices that are both in
+out-neighbours of \(a\) and in-neighbours of \(b\).
 Note that if \mH\ is reflexive and \((a,b)\in E(H)\),
 both \(a\) and \(b\) are in \(\NHab Hab\)\@.
 Let \(\Hab\) be the subgraph of \mH\ induced by \(\NHab Hab\).
@@ -188,7 +189,7 @@ Let \(\Hab\) be the subgraph of \mH\ induced by \(\NHab Hab\).
 
 \begin{figure}[h]
 \center{\input{figs/shade2.pdftex}}
-\caption{An RBA graph \mH\ such that \(\magf(H)=2\)}
+\caption{An RBA graph \ensuremath{H} such that \ensuremath{\magf(H)=2}}
 \end{figure}
 
 \begin{lemma} \label{lem:triangle-free}
@@ -203,8 +204,9 @@ For a given partial order \((P,\preceq)\), let \(G=(V,E)\) be the corresponding 
 \(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
 \setof{(u,x),(x,v) \mid x\in V}\)\@.
 
-For any homomorphism \(h: G' \to H\), if \(h(u)=h(v)=s\), \(h(x)=s\) for all \(x\in V\);
-otherwise, \((h(u),h(v))\in E(H)\) and for all \(x\in V\), \(h(x)=h(u)\) or \(h(x)=h(v)\); thus,
+For any homomorphism \(h: G' \to H\), if \(h(u)=h(v)=s\), then \(h(x)=s\) for all \(x\in V\);
+otherwise, \((h(u),h(v))\in E(H)\) and for all \(x\in V\), we have either 
+\(h(x)=h(u)\) or \(h(x)=h(v)\); thus,
 \(h\) corresponds to a DownSet in \((P,\preceq)\)\@.
 
 The number of homomorphisms with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
@@ -213,7 +215,7 @@ number of DownSets in \((P,\preceq)\)\@. Hence,
 \[\hom(G',H) = |V(H)| + |E(H)|\cdot \#ds(P,\preceq).\]
 In other words:
 \[\#ds(P,\preceq) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\]
-Thus, by Lemma~\ref{lem:linear}, we have \chom(\mH) \mapge\ \cds\@.
+By Lemma~\ref{lem:linear} we have \chom(\mH) \mapge\ \cds\@.
 \end{proof}
 
 \begin{defi} [Polar Graph]
@@ -222,7 +224,7 @@ if there are vertices \(a,b\in V(H)\),
 such that \((a,x), (x,b) \in E(H)\) for all vertices \(x \in V(H)\) (including \(a\) and \(b\)).
 \end{defi}
 
-Note that, for a polar graph \mH, we have \(\NHab Hab = V(H)\) and \(\magf(H)=|V(H)|\)\@.
+Note that for a polar graph \mH, we have \(\NHab Hab = V(H)\) and \(\magf(H)=|V(H)|\)\@.
 
 \begin{figure}[h]
 \center{\input{figs/polar.pdftex}}
@@ -240,7 +242,7 @@ polar graph, \(\magf(H) = \magf(H')\), and
 Take the graph \(H'\) as union of \(\Hab\) for all \((a,b)\in E(H)\) and
 \(\magf(H_{a,b})=\magf(H)\)\@. Note that, each component of \(H'\) is \(\Hab\) for 
 some \(a\) and \(b\); thus, each component of \(H'\) is a polar graph.
-All remains is proving that \chom(\(H'\)) \maple \chom(H)\@.
+We show that \chom(\(H'\)) \maple \chom(H)\@.
 
 Let \(G=(V,E)\) be the input graph for the \chom(\(H'\)) problem 
 and let \(Y\) be a set of \(t\) fresh vertices
@@ -249,9 +251,9 @@ and let \(Y\) be a set of \(t\) fresh vertices
 \setof{(u,x),(x,v) \mid x\in V \cup Y}\)\@.
 
 Consider all homomorphisms \(h: G'\to H\)\@.
-For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\) also
+For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\); also
 for any vertex \(x\) in \(V\) or \(Y\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
-\(x\) has to be mapped to \(\NHab Hab\)\@. Note that, any vertex in \(Y\) can be freely mapped
+\(x\) has to be mapped to \(\NHab Hab\)\@. Note that any vertex in \(Y\) can be freely mapped
 to any vertex in \(\NHab Hab\); however, mapping of the vertices of \(V\) should preserve the edges 
 of \mG\@. Thus, we have:
 \begin{eqnarray*}
@@ -294,30 +296,30 @@ There is connected component \(H'\) of \mH, such that \chom(\(H'\)) \maple \chom
 
 \begin{proof}
 There are two cases:
-\begin{itemize}
-\item All connected components of \mH\ are isomorphic.
+
+First case, all connected components of \mH\ are isomorphic.
 Let \(H'\) be a connected component of \mH\ and
 \mm\ be the number of connected components of \mH\@.
 For any graph \mG\ as input for the \chom(\mH) problem, \(\hom(G,H)=\hom^m(G,H')\).
 By Lemma~\ref{lem:logarithm}, \chom(H) \mapge \chom(\(H'\))\@.
 
-\item Let \(H_1\) and \(H_2\) be two connected components for \mH\ that are not isomorphic.
+Second case, there are two connected components of \mH, \(H_1\) and \(H_2\) that are not isomorphic.
 By Lov\'{a}sz's Theorem, there is a connected graph \(Z\) such that \(\hom(Z,H_1) \neq \hom(Z,H_2)\)\@.
 Let \(Z_1,\dotsc,Z_t\) be \(t\) fresh copies of \(Z\), where \(t\) is a large number to be 
-define later.
+determined later.
 Take the graph \(G=(V',E')\) where \(V'=V \cup V(Z_1)\cup \dotsb \cup V(Z_t) \cup \setof{u,v} \)
 and \(E'=E \cup \setof{(u,v)} \cup \setof{(u,x),(x,v) \mid x \in V \cup  Z_1 \cup \dotsb \cup Z_t} \cup
-E(Z_1)\cup \dotsb \cup E(Z_t)\)\@. Take \(q\) as \[\max \limits_{(a,b) \in E(H)} \hom(Z,H_{a,b})\] and
+E(Z_1)\cup \dotsb \cup E(Z_t)\)\@. Take \[q= \max \limits_{(a,b) \in E(H)} \hom(Z,H_{a,b})\] also 
 take \[H'=\bigcup_{\substack{(a,b)\in E(H) \\ 
 \hom(G,H_{a,b})=q}} H_{a,b}\]
 
 Consider all homomorphisms \(h: G'\to H\)\@.
-For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\) also
-for any vertex \(x\) in \(V\) or \(Z_i\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
+For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\)\@.
+For any vertex \(x\) in \(V\) or \(Z_i\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
 \(x\) has to be mapped to \(\NHab Hab\)\@. Thus, we have:
 \begin{eqnarray*}
 \hom(G',H) &=&
-\sum_{a,b\in V(H)} \hom(G,H_{a,b}) \cdot \hom^t(Z, H_{a,b}) \\
+\sum_{(a,b)\in E(H)} \hom(G,H_{a,b}) \cdot \hom^t(Z, H_{a,b}) \\
 &=&
 \bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) = q}} \hom(G, H_{a,b}) \cdot q^t + 
 \bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
@@ -340,10 +342,11 @@ The second part of right hand side can be bounded as:
 n^2 \cdot n^m \cdot \left(\frac{q-1}{q}\right)^t\\
 & \approx & e ^ {2\log n} \cdot e^{m\log n} \cdot e^{-\frac{t}{q}} \\
 \end{eqnarray*}
+
 For \(t > q \cdot (m+2)\log n\), it is less then one; hence, we have
 \(hom(G,H')=\frac{\hom(G',H)}{q^t}\)\@. By Lemma~\ref{lem:linear},
 we have \chom(\mH) \mapge\ \chom(\(H'\)). 
-\end{itemize}
+
 \(H'\) is a subgraph of \mH, with \(\magf(H')=\magf(H)\) and connected components of \(H'\)
 are proper subsets of components of \mH\@. After considering the cases multiple times,
 \(H'\) will consist of only a single component.
@@ -366,14 +369,14 @@ every component of \(H_1\) is a polar graph, \(\magf(H_1)=\magf(H)\), and
 By Lemma~\ref{lem:onecomp}, there is a connected component \(H_2\) of \(H_1\) such that,
 \(\magf(H_2)=\magf(H_1)\) and \chom(\(H_2\)) \maple \chom(\(H_1\))\@.
 
-Consider the graph \(H_2\) as relation \mR over the domain \mD\@.
-\mR\ is a polar relation, so there a vertex \(a \in D\) such that for all \(x \in D\)
-we have \((a, x)\in R\)\@. Let \(S = D \setminus \setof a\)\@. We have
-\((x,a)\in R\) implies \(x=a\) and for any \(y \in S\), we have \((a, y), (y, y)\in R\)\@.
+Consider the graph \(H_2\) as relation \mR\ over the domain \mD\@.
+\mR\ is a polar relation, so there is an element \(a \in D\) such that for all \(x \in D\)
+we have \(R(a, x)\)\@. Let \(S = D \setminus \setof a\)\@. We have
+\(R(x,a)\) implies \(x=a\) and for any \(y \in S\), we have \(R(a, y), R(y, y)\)\@.
 Thus, by Lemma~\ref{lem:pinning}, \ccsp(\setof{R,S}) \maple \ccsp(\mR)\@.
 
-Now, for \(H'=H_2 - a\), we have  \chom(\(H'\)) \maple \ccsp(\setof{R,S}) \maple
-\chom(\(H_2\)) \maple \chom(\mH)\@.
+For \(H'=H_2 - a\), \(\magf(H') < \magf(H)\) and
+\[\chom(H') \aple \ccsp(\setof{R,S}) \aple \ccsp(R) \aple \chom(H_2) \aple \chom(H).\]
 \end{proof}
 
 \begin{theorem}
@@ -382,31 +385,10 @@ For every non-empty \RBA\ graph \mH, \chom(\mH) \mapge \cbis\@.
 
 
 \begin{proof}
-By contradiction, consider a \RBA\ graph \mH\ with the least magnitude
-such that \mH\ is not \cbis -hard. By Lemma~\ref{lem:triangle-free}, \(\magf(H) > 2\)\@. 
-By lemma~\ref{lem:k-fixing}, there exists a \RBA\ graph \(H'\) such that 
-\chom(\(H_1\)) \maple \chom(\mH) and  
-and \(\magf(H)=\magf(H_1)\) and each component of \(H_1\) is a polar graph. 
-By lemma \ref{lem:onecomp}, there is a connected component \(H_2\)
-of \(H_1\) such that \chom(\(H_2\)) \maple\ \chom(\(H_1\)) \maple\ \chom(\mH)\@.
-Finally  by Lemma~\ref{lem:k-fixing}, there exists an \RBA\ graph \(H_3\) such that 
-\chom(\(R_3\)) \maple\ \chom(\(H_2\)) \maple\ \chom(\mH) 
-and \(\magf(H_3) < \magf(H)\); this contradicts with \mH\ having the minimum magnitude.
+By contradiction, consider an \RBA\ graph \mH\ with minimum \(\magf(H)\)
+such that the \chom(\mH) problem is not AP-reducible to the \cbis\ problem.
+By Lemma~\ref{lem:triangle-free}, \(\magf(H) > 2\)\@. 
+By lemma~\ref{lem:k-reduction}, there exists an \RBA\ graph \(H'\) such that 
+\chom(\(H'\)) \maple \chom(\mH) and \(\magf(H) < \magf(H')\)\@.
+This contradicts with \mH\ having the minimum \(\magf(H)\).
 \end{proof}
-
-\section{Conclusion and Future works}
-We proved \cbis -easiness and \cbis -hardness for approximately counting the number of solutions 
-of \ccsp(\mrelset) for some families relations. However, we have not been find the necessary and
-sufficient conditions for a \mrelset\ to be \cbis\ AP-interreducible.
-
-It is very likely to have a Trichotomy for constraint languages over 3-element and 4-element sets as 
-well. However, it is very unlikely for the \chom(\(N_5\)), \chom(\(M_5\)), and \chom(\(C_6\)) to
-be AP-interreducible to these the complexity classes.
-
-\begin{figure}
-\centering
-\subfigure[\(N_5\)]{\input{figs/n5.pdftex}\label{fig:n5}}\hfill
-\subfigure[\(M_5\)]{\input{figs/m5.pdftex}\label{fig:m5}}\hfill
-\subfigure[\(C_6\)]{\input{figs/c6.pdftex}\label{fig:c6}}
-\caption{Several graphs that complexity of \chom(\mH) is unknown}
-\end{figure}

@@ -12,7 +12,7 @@
 \begin{document}
 %%% set switches
 %\contentspagefalse  
-%\figurespagetrue
+\figurespagetrue
 %\tablespagetrue
 %\dedicationpagetrue
 %\quotationpagetrue
@@ -21,8 +21,8 @@
 %%% front matter 
 \include{titapp} %% title, approval
 \include{abstract} %% abstract
-%\include{dedquot} %% dedication and quotation, if any 
-%\include{ack} %%  acknowledgments
+\include{dedquot} %% dedication and quotation, if any 
+\include{ack} %%  acknowledgments
 
 %%%  generate contents, lists of figures, etc.
 \lists
@@ -35,8 +35,10 @@
 
 %%% main matter
 \include{intro}
+\include{background}
 \include{minor}
- \include{results}
+\include{results}
+\include{conc}
 
 %%%  appendices, if any
 \begin{appendices}

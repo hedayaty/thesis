@@ -1,7 +1,7 @@
-\chapter{Techniques sued for Approximation Preserving Reductions}
-In this chapter we will provide a number of lemmas used for approximated reductions.
+\chapter{Techniques for AP-Reductions}
+In this chapter we provide a number of lemmas which can be used for approximated reductions.
 First, we show that we can limit the input problem to connected structures. 
-Next, we show reductions is possible when solutions for two problem are related by a 
+Next, we show that reductions is possible when solutions for two problem are related by a 
 linear transformation. Next, we introduce a few techniques used for pinning, which is
 implementations of unary relations. At the end, we introduce the max-definability, which 
 is a strong tool for approximate preserving reductions. 
@@ -9,8 +9,9 @@ is a strong tool for approximate preserving reductions.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Connected Components
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Connected graphs}
 First, we show that by restricting the input to connected structures the complexity of 
-\ccsp(\mrelset) does not change. We extend the definition of connectedness in graphs
+\ccsp(\mrelset) does not change. We extend the definition of connectedness from graphs
 to general structures.
 
 Let \(\probi = (D, V, \conset)\) be an instance of \ccsp(\mrelset)\@.
@@ -30,7 +31,7 @@ The reduction of \cccsp(\mrelset) to \ccsp(\mrelset) is trivial. Now, let \(\pro
 \ccsp(\mrelset), and let \(\probi_1,\dotsc,\probi_r\) be its connected components. Take \(\eps > 0\) 
 and set \(\delta = \frac{\eps}{2r}\)\@. Our reduction, given an instance \((\probi,\eps)\) calls
 the algorithm for \cccsp(\mrelset) on instances \((\probi_1,\delta), \dotsc,(\probi_r,\delta)\) 
-and outputs \(N = N_1 \dotsm N_r\),
+and get outputs \(N = N_1 \dotsm N_r\),
 where \(N_i\) is the answer given by the oracle on \((\probi_i,\delta)\)\@.
 
 We claim that the above reduction is an AP-reduction. First of all, observe that it is polynomial
@@ -40,7 +41,7 @@ provides approximation within \(\eps\)\@.
 
 Since we can assume \(\eps\) is small, we have \((1 - \delta)^r \ge 1 - 2r\delta = 1 - \eps \) and
 \( ( 1 + \delta)^r \le 1 + 2r\delta = 1 + \eps\)\@. Now if 
-the actual solution to \(\probi, \probi_1,\dotsc,\probi_r\) are \(N',N_1,\dotsc,N'_r\), then 
+the actual solutions to \(\probi, \probi_1,\dotsc,\probi_r\) are \(N',N_1,\dotsc,N'_r\), then 
 we obviously have \(N'=N'_1\dotsm N'_r\)\@. The rest of the proof goes as follows.
 \begin{eqnarray*}
 &\left|\frac{N'_i - N_i}{N_i}\right| &\le \delta \\
@@ -52,20 +53,20 @@ we obviously have \(N'=N'_1\dotsm N'_r\)\@. The rest of the proof goes as follow
 &\left|\frac{N'-N}{N}\right|&\le \eps\\
 \end{eqnarray*}
 \end{proof}
-Hence, we can presume that the input structures are connected.
+Hence, in the later proofs we can restrict the input structures to connected structures.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Linear relationship
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linear Transformations}
 Next, we observed that if the answer for any \ccsp(\mrelset) instance and a corresponding
 instance of \ccsp(\(\relset'\)) differ by a constant number or a constant factor,
-they are AP-interreducible. This observation can be generalized
-to linear transformations. 
+they are AP-interreducible. We generalize this observation to linear transformations. 
 
 \begin{lemma}\label{lem:linear}
 Let \(\varphi\) be a polynomial time computable function that maps every instance of a
 counting problem \(A\) to an instance of a counting problem problem \(B\) in such a way that
 there are constants \(d > 0\) and \(c\) (not necessarily positive) such that
-for any \(A\)-instance \(\probi\) we have
+for any \(A\)-instance \(\probi\), we have
 \(\#\probi = d\cdot \#\varphi(\probi) + c\)\@. Then if any instance of \(A\)
 has at least one solution 
 (in case \(c < 0\)), or every instance of \(B\) has at least one solution (in case \(c>0\)), then
@@ -73,18 +74,18 @@ there is an AP-reduction from \(A\) to \(B\)\@.
 \end{lemma}
 
 \begin{proof}
-The AP-reduction works as follows: On an instance \(\probi\) of \(A\) and \(\eps > 0\) it makes 
-an oracle call \((\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\eps}{p}\) and 
-\(p = 1\) if \(c > 0\), and \(p = \frac{d}{d-c}\) otherwise,
-and if the oracle's reply is \(N\), it returns \(dN + c\)\@. Clearly the algorithm make polynomially 
+The AP-reduction works as follows. On an instance \(\probi\) of \(A\) and \(\eps > 0\) it makes 
+an oracle call \((\varphi(\probi),\delta)\) to \(B\), where \(\delta = \frac{\eps}{p}\) for 
+\(c > 0\), \(p = 1\) otherwise, \(p = \frac1-c/d\) and
+if the oracle's reply is \(N\), it returns \(dN + c\)\@. Clearly the algorithm make polynomially 
 many steps and oracle calls, and the oracle request is of the correct form.
 Thus, it suffices to show that if the oracle's solution is within relative error of \(\delta\) then
 the algorithm gives an \(1+\eps\)-approximation of \(\#\probi\)\@.
 
 Let the exact and approximation solutions for \(\varphi(\probi)\) be \(N'\) and \(N\), respectively;
 then the exact and approximation solutions for \(\probi\) are  
-\(dN' +c\) and \(dN + c\), respectively. Since \(N' > 0\), we can 
-assume \(dN+c,dN'+c,N,N'>0\)\@. With the choice of \(p\), it is trivial that
+\(dN' + c\) and \(dN + c\), respectively. Since \(\#probi > 0\), we can 
+assume that \(dN+c,dN'+c,N,N'>0\)\@. With the choice of \(p\), it is trivial that
  \(\frac{dN}{dN+c} \le p\)\@. Thus we have \(\frac{dN}{dN+c}\delta \le \eps\).
 All we need to show is that if \(\left|\frac{N-N'}{N}\right|<\delta\) holds then
 \(\left|\frac{dN-dN'}{dN+c}\right|<\eps\) holds as well.
@@ -142,6 +143,7 @@ This completes the proof.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Projection
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Projection}
 Let \mR\ be a \(k\)-ary relation and \(S=\setof{i_1,\dotsc,i_l} \subseteq \setof{1,\dotsc,k}\)\@.
 By \(\proj S R\) we denote the \emph{projection} of \mR\ onto the set \(S\) of its coordinate
 positions, that is, the relation \(\{(a_{i_1},\dotsc,a_{i_l}) \mid (a_1,\dotsc,a_k)\in R\}\)\@.
@@ -151,16 +153,17 @@ Although existential quantification is not known to give rise to AP-reducible pr
 cases it does.
 
 \begin{lemma}\label{lem:projection}
-If \mrelset\ is a constraint language and for some \(k\)-ary relation \(R\in\relset\)
-there is a set \(S\subset \setof{k-1}\) such that \(|\proj S R|=|R|\) then 
-\ccsp(\(\relset \cup \setof{\proj S R}\)) \(\aple\) \ccsp(\mrelset)\@.
+Let \mrelset\ be a constraint language over the domain \mD\ and
+ let \mR\ be some \(k\)-ary relation in \mrelset\@.
+If there is a set \(S\subset D\) such that \(|\proj S R|=|R|\) then 
+\ccsp(\(\relset \cup \setof{\proj S R}\)) \maple\ \ccsp(\mrelset)\@.
 \end{lemma}
 
 \begin{proof}
 The AP-reduction is constructed as follows: Given an instance \(\probi=(D,V,\conset)\)
 of \ccsp(\(\relset\cup \{\proj S R\}\)), we define an 
 instance \(\probi'=(D,V',\conset')\) of \(\ccsp(\relset)\) with the same number of solutions.
-Let \(m=k=|S|\)\@. \(V'\) includes all the variables of \(V\) and
+Let \(l=|S|\)\@. \(V'\) includes all the variables of \(V\) and
 \(\conset'\) includes all constraints from \mconset\ except for those with \(\proj S R\). For each
 constraint \(C=\const{\proj S R,(v_1,\dotsc,v_l)}\) in \mconset\ 
 we include a new constraint \(C'=\const{R,(w_1,\dotsc,w_k)}\) in \(\conset'\), where 
@@ -175,27 +178,28 @@ can be extended to a solution of \(\probi'\) in a unique way.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pinning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pinning}
 Theorem \ref{trm:partial} states that if relation \mR\ can be expressed as conjunctions 
 of relations from \mrelset, \ccsp(\(\relset \cup \setof R\)) \(\aple\) \ccsp(\mrelset)\@.
 The conditions for this theorem, even for parsimonious reductions, are too strict. 
 In the rest of this chapter we provide several more lenient conditions.
 
 The ability to tie certain CSP variables to specific values in hardness proofs is 
-\emph{pinning}\@. The idea was introduced by Creignou and Hermann \cite{Nadia}. The idea
+\emph{pinning}\@. This idea was introduced by Creignou and Hermann \cite{Nadia}. The idea
 is also used in many other proofs \cite{bulatov07,Dyer,Trichotomy,madu}. Pinning can be
-viewed as showing for a constraint language \mrelset\ and a set \(S\), 
+viewed as showing that for a constraint language \mrelset\ and a set \(S\), 
 \ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset) holds.
 
 \begin{lemma} [Pinning and reflexive elements] \label{lem:refpin}
 Let \mrelset\ be a set of relations on a set \mD, and let for a certain subset \(S \subset D\)
 there be a relation \mR\ such that \(x\in S\) if and only if 
 \((x,x,\dotsc,x)\in R\)\@. If such a relation \mR\ exists in \mrelset\ then
-\ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset)\@.
+\ccsp(\(\relset \cup \setof S\)) \maple\ \ccsp(\mrelset)\@.
 \end{lemma}
 
 \begin{proof}
 \(S\) can be viewed as a unary relation and can be expressed as a predicate 
-\(\varphi(x) = R(x,x,\dotsc,x)\)\@. Hence, according to Theorem~\ref{trm:partial}
+\(\varphi(x) = R(x,x,\dotsc,x)\)\@. By Theorem~\ref{trm:partial}
 \ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset)\@.
 \end{proof}
 
@@ -246,8 +250,6 @@ denote the number of solutions to \(\probi\) and \(\probi'\), respectively, then
 \[N\cdot w^{mn_S} \le N' \le Nw^{mn_S} + k^nw^{m(n_s-1)}w'^m.\]
 So, for a properly chosen \mm, 
 \[N \le \frac{N'}{w^{mn_S}} \le N + \frac{1}{4},\]
-which implies
-\[N = \left\lfloor \frac{N'}{w^{mn_S}} \right\rfloor.\]
 By Lemma~\ref{lem:linear} the linear transformations preserve AP-reduction
 and this completes the proof.
 \end{proof}
@@ -256,13 +258,14 @@ and this completes the proof.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Maximization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The next technique is a powerful tool to prove hardness results among many \ccsp\ problems.
-Later, this technique may play a role in proving a classification theorem for \ccsp(\mrelset)
+\section{Maximization}
+This technique is a powerful tool to prove hardness results among many \ccsp\ problems.
+We believe this technique may play a role in proving a classification theorem for \ccsp(\mrelset)
 problem.
 
 \begin{defi}[Max-definable]\label{def:max}
 Let \mrelset\ be a set of relations over the domain \mD,
-and \mR\ be an \mn-ary relation on the same domain. 
+and \mR\ be an \mn-ary relation over the same domain. 
 For any predicate \(\varphi\), define the function
 \(f_\varphi\) as \(f_\varphi(x_1,x_2,\dotsc,x_n)=\#\setof{(y_1,y_2,\dotsc,y_k) \mid
 \varphi(x_1,x_2,\dotsc,x_n,y_1,y_2,\dotsc,y_k)}\)\@. Also denote the value of
@@ -279,7 +282,7 @@ Given a scope of variables \(\varrho\) and a predicate \(\varphi\) expressed as 
 \begin{theorem}[Maximization]\label{theo:max}
 Let \mrelset\ be a set of relations over the domain \mD,
 and \mR\ be an \mn-ary relation on the same domain. 
-If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\(\aple\)~
+If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\maple~
 \ccsp(\mrelset)\@.
 \end{theorem}
 
@@ -291,17 +294,17 @@ predicate \(\varphi\) and numbers \(M(M_\varphi)\) and \(k\) from Definition~\re
 \item 
 Choose sufficiently large integer \mm(to be determined later)
 \item
-Let \(C_1,\dotsc,C_l\in\conset\) be the constraints with \mR\@. For each
+Let \(C_1,\dotsc,C_l\in\conset\) be the constraints with \mR\ where
 \(C_i=\const{R,\varrho_i}\)\@. For each \(1\le i \le l\) and for each \(1\le j\le m\), set
 \(V^j_i = \{v^j_{i,1},\dotsc,v^j_{i,k}\}\) and \(\conset^j_i\) is a set of constraints
 corresponding \(\varphi\) as mentioned before with the scope \(\varrho_{i,1},\dotsc,\varrho_{i,n},
 v^j_{i,1},\dotsc,v^j_{i,k}\)\@.
-\item Set \(V'=V \cup \bigcup_{1\le j \le m} \bigcup_{1\le i\le l} V^j_i\)
+\item Set \(V'=V \cup \bigcup_{j=1}^m \bigcup_{i=1}^l V^j_i\)
 \item Set \(\conset' = \conset - \setof{C_1,\dotsc,C_l} \cup 
-\bigcup_{1\le j \le m} \bigcup_{1\le i\le l} \conset^j_i\)
+\bigcup_{j=1}^m \bigcup_{i=1}^l \conset^j_i\)
 
 Now, it is easily seen, every solution of \(\probi\) can be extended to a solution of \(\probi'\)
-in the \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
+in \(M^{lm}\) ways. Observe that sometimes the restriction of a solution \(\psi\)
 of \(\probi'\) to \(V\) is not a solution of \(\probi\)\@. Indeed, it may happen that
 although \(\psi\) satisfies every constraint from \(\conset - \setof{C_1,\dotsc,C_l}\),
 its restriction to \(\varrho_i\) does not belong to \mR; however, this restriction does not have
@@ -314,7 +317,7 @@ ways. Hence,
  \]
 The we output \(\lfloor N \rfloor\), where \(N=\#\probi'/M^{lm}\)\@.
 
-We want to choose large enough such that
+We want to choose \mm\ large enough such that the following holds.
 \begin{eqnarray*}
 |V|^{|D|} \cdot \left(\frac{M-1}{M}\right)^{m} & \le & 1 \\
 \log (|V|^{|D|}) + \log\left( \left(1-\frac{1}{M}\right)^{m} \right) & \le &  0 \\
