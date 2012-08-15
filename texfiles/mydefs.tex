@@ -1,4 +1,4 @@
-\usepackage{amssymb,amsmath,mathrsfs}
+\usepackage{amssymb,amsmath,mathrsfs, amsthm}
 \usepackage{verbatim}
 \usepackage{paralist}
 \usepackage{algorithm,algorithmic}
@@ -15,6 +15,7 @@
 \newcommand{\cpc}{\#P-complete}
 \newcommand{\csat}{\#SAT}
 \newcommand{\dsat}{2-SAT}
+\newcommand{\tsat}{3-SAT}
 \newcommand{\ctsat}{\#3-SAT}
 \newcommand{\cdsat}{\#2-SAT}
 \newcommand{\tcoloring}{\pname{3-Coloring}}
@@ -94,14 +95,19 @@
 
 }
 
+\theoremstyle{plain}% default
 \newtheorem{lemma}{Lemma}
-\newtheorem{example}{Example}
-\newtheorem{defi}{Definition}
 \newtheorem{obs}{Observation}
 \newtheorem{cor}{Corollary}
 \newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{defi}{Definition}
 \newtheorem{problem}{Problem}
-\newenvironment{proof}{{\bf Proof:\ }}{\hfill $\Box$\linebreak\vskip2mm}
+
+
+%\newenvironment{proof}{{\bf Proof:\ }}{\hfill $\Box$\linebreak\vskip2mm}
 
 
 % For TODO

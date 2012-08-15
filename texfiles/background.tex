@@ -18,13 +18,13 @@ the input graph \(G\)\@. The goal is to find a function
 In the above example,
 the CSP is the problem of deciding
 if there is a function satisfying all the given constraints. \ccsp\ is the
-problem of finding the number of such functions. Note that any CSP can be expressed as 
+problem of finding the number of such functions. Note that any CSP can then be expressed as 
 deciding if the answer for \ccsp\ with the same set of constraints is greater zero.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Let \(D\) be a set of elements; any subset of \(D^k\) is a relation of arity \(k\) with
+Let \(D\) be a set of elements; any subset of \(D^k\) is a \emph{relation} of arity \(k\) with
 domain \(D\)\@. A \emph{constraint language} with domain \(D\) is a set of
 relations with domain \(D\)\@.
 In this work domains and relations are always finite.
@@ -44,9 +44,9 @@ An assignment for \(\mathcal{P}\) is a function \(\varphi\) from \(V\) to \(D\)\
 mapped to a tuple of the corresponding relation.
 
 \begin{defi}[CSP(\mrelset)]
-For a constraint language \mrelset, CSP(\mrelset) is the problem of deciding 
+For a fixed constraint language \mrelset, CSP(\mrelset) is the problem of deciding 
 whether a CSP instance \(\mathcal{P}\) with constraint language \mrelset\
-has a satisfying assignment or not.
+has a satisfying assignment.
 \end{defi}
 
 For a constraint language \mrelset\ that consists of only a single relation \(R\),
@@ -54,13 +54,15 @@ we use CSP(\(R)\) instead of CSP(\mrelset) for simplicity.
 
 \begin{example}[\tcoloring]\label{exm:3colcsp}
 We continue with the \tcoloring\ problem from Example~\ref{exm:3col}.
+Let \mG\ be the input graph for the \tcoloring\ problem.
 One way to formulate \tcoloring\ problem using a CSP(\mrelset) is as follows.
-Let  \(D=\setof{r,g,b}\) be the domain and
-let \(\varphi\) be an assignment which is a function from vertices of the input graph \mG\ to \mD\@.
-Since for each edge \((u,v)\) of the graph \mG\ \(\varphi(u)\neq\varphi(v)\) holds,
-we use \(NEQ_{rgb}\), the binary dis-equality relation on domain \(D\)\@. Relation \(NEQ_{rgb}\) is the set of all tuples from 
-\(D^2\) except the ones whose elements are equal, that is
+Let \(D=\setof{r,g,b}\) be the domain and \(NEQ_{rgb}\), the binary dis-equality relation on domain \(D\)\@, consists of all tuples from \(D^2\) except the ones whose elements are equal, that is
 \[NEQ_{rgb}=\setof{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)}\]
+
+Let \(\varphi\) be an assignment which is a function from vertices of \mG\ to \mD\@.
+For each edge \((u,v)\) of \mG\, \(\varphi(u)\neq\varphi(v)\) holds which is
+equivalent to \(NEQ_{rgb}(u,v)\)\@.
+
 Let \mG\ be the graph in Figure~\ref{fig:sample}. The instance of 
 CSP for \tcoloring\ on \mG\ is as follows. The set of variables is the set of vertices of \mG,
 and for each edge of \mG\ a constraint with relation \(NEQ_{rgb}\) is placed.
@@ -77,6 +79,8 @@ and for each edge of \mG\ a constraint with relation \(NEQ_{rgb}\) is placed.
 \caption{Graph \ensuremath{G} used in Example~\ref{exm:3colcsp}}
 \label{fig:sample}
 \end{figure}
+
+\todo{Add SAT Example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,7 +114,7 @@ where every clause contains exactly 3 literals}
 \ctsat\ can be represented as \ccsp(\mrelset) where \mrelset\ is the constraint language
 over a 2-element domain, such as \(D=\setof\zo\), consisting of all 
 ternary relations with cardinality seven from \(D^3\).
-\end{example}
+\end{example} \todo{Expand SAT}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Applications of the \ccsp} \label{sec:appl}
@@ -145,8 +149,8 @@ Note that a homomorphism is not necessarily surjective.
 \end{example}
 
 \begin{defi}[Hom(\mH)]
-Let \mH\ be a graph, Hom(\mH) is the problem of deciding whether a given graph \mG\
-is homomorphic to \mH\ or not.
+For a fixed graph \mH, Hom(\mH) is the problem of deciding whether a given graph \mG\
+is homomorphic to \mH\@.
 \end{defi}
 
 \begin{example}[\tcoloring]
@@ -155,7 +159,7 @@ we express it as a graph homomorphism problem. As usual we denote the complete g
 on \(k\) vertices by \(K_k\)\@. For all complete graphs, \((u,v)\) is an edge of \(K_k\)
 if an only
 if \(u\neq v\)\@. This shows that \(Hom(K_k)\) is the same as
-the k-coloring problem. As a special case, \(\chom(K_3)\) is the same as \tcoloring\ problem.
+the k-coloring problem. As a special case, \(\chom(K_3)\) is the same as \ctcol\ problem.
 \end{example}
 
 Let \pname{NoRB-3-Coloring} be the \pname{3-Coloring} problem with an additional
@@ -164,7 +168,8 @@ to the vertices colored red. In order to formulate this problem with graph homom
 obtain \mH\ from \(K_3\) as follows. Label the vertices with \(\setof{r,g,b}\)\@.
 Delete the edge between \(r\) and \(b\). The Hom(\mH) problem is the same as
 the \pname{N0RB-3-Coloring} problem.
-This example shows that graph homomorphism problem generalizes graph coloring problem. This is why
+This example illustrates that the graph homomorphism problem generalizes the graph coloring problem.
+This is why
 the Hom(\mH) problem is also called the \pname{H-Coloring} problem.
 More details and examples on graph homomorphism 
 can be found in the book ~\cite{hellbook} by Hell and Ne\v{s}et\v{r}il.
@@ -172,7 +177,7 @@ can be found in the book ~\cite{hellbook} by Hell and Ne\v{s}et\v{r}il.
 \begin{obs}\label{obs:hom}
 Let \mG\ and \mH\ be two graphs.
 If \mH\ contains a loop (reflexive vertex) then \(G \to H\)\@.
-If \mG\ is bipartite then \(G \to H\) if and only if \mH\ is not empty.
+If \mG\ is bipartite then \(G \to H\) if and only if \mH\ is has at least one edge.
 If \mH\ is bipartite then \(G \to H\) if and only if \mG\ is bipartite.
 \end{obs}
 
@@ -180,19 +185,19 @@ Observation~\ref{obs:hom} shows that if the graph \mH\ has a loop or is bipartit
 the Hom(\mH) problem is easy; however, for other graphs the problem is of higher complexity.
 
 \begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990~\cite{pavol}]
-For an undirected graph \mH, the Hom(\mH) problem is polynomial time solvable if and only
-if \mH\ contains a loop or \mH\ is bipartite; otherwise, it is NP-complete.
+For an undirected graph \mH, the Hom(\mH) problem is polynomial time solvable if 
+\mH\ contains a loop or \mH\ is bipartite; otherwise, it is NP-complete.
 \end{theorem}
 
 \begin{defi}[\chom(\mH)]
-For a graph \mH,
+For a fixed graph \mH,
 \chom(\mH) is the problem of finding the number of homomorphisms from a given 
 input graph \mG\ to \mH.
 \end{defi}
 
 Dyer and Greenhill proved the following dichotomy for the \chom(\mH)\ problem.
 \begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
-For a graph \mH, if each component of \mH\ is an isolated vertex, a complete reflexive graph,
+For a graph \mH, if each component of \mH\ is either a complete reflexive graph
 or a complete irreflexive bipartite graph then the \chom(\mH) problem 
 is polynomial time solvable; otherwise, it is \cpc\@.
 \end{theorem}
@@ -212,23 +217,23 @@ two graphs \(H_1\) and \(H_2\) are isomorphic if and only if for any graph \mG,
 \(\hom(G,H_1)=\hom(G,H_2)\). 
 For an enumeration of all non-isomorphic graphs \((G_1,G_2,\dotsc)\), 
 the Lovasz vector of a graph \mH\ is the infinite sequence consisting of the number of
-homomorphisms from graphs in the sequence to \mH\ 
+homomorphisms from graphs in the sequence to \mH, i.e.,
 \((\hom(G_1,H), \hom(G_2,H), \dotsc)\)\@. 
 In other words Lovasz's theorem indicates two graphs are isomorphic if and only if
 they have the same Lovasz vector.  
-
+\begin{comment}
 Lov\'{a}sz and et al. \cite{propertytesting} used the Lov\'{a}sz vector
 for \emph{Edge Reconstruction} problem over graphs with sufficiently many edges, 
 They also used Lov\'{a}sz vector in the {\em Property Testing} area.
 In this model there is usually a huge graph and at each step only small sample of vertices
 can be examined. The goal is to infer parameters of the graph using small samples of it. 
 A good example of such a graph one might want to find the properties is the Internet.
-
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Partition Functions}
-Let \mG\ and \mH\ be two graphs and let \(w: V_H \cup E_H\to \mathbb{R}\) be a weight function
-on graph \mH. Each configuration of \mG\ is a mapping \(\sigma\) from \(V_G\) to
+Let \mH\ be a graph with a weight function \(w: V_H \cup E_H\to \mathbb{R}\)\@.
+For a given graph \mG, a configuration of \mG\ is a mapping \(\sigma\) from \(V_G\) to
 \(V_H\). For each configuration \(\sigma\), the weight of the configuration is
 \[w(\sigma)=\prod_{uv\in E_G}w(\sigma(u)\sigma(v))\prod_{v\in V_G}w(\sigma(v))\]
 The partition function \(Z_{H,w}(G)\) is the sum of the weights for all the configurations:
@@ -250,16 +255,17 @@ the probabilities if being chosen are the same.
 An \emph{Almost Uniform Generation} involves finding 
 a solution for a given instance such that
 for any two possible solutions the probabilities if being chosen are approximately the same.
-For practical purposes, it is impossible to distinguish
+Jerrum et al. \cite{JVV} explained that
+for practical purposes, it is impossible to distinguish
 Almost Uniform Generation from Uniform Generation by experiments running in polynomial time.
 
-Intuitively, a problem is said to be self-reducible if solutions for an instance can be
+Intuitively, a problem is said to be \emph{self-reducible} if solutions for an instance can be
 expressed in terms of solutions for a number of smaller instances of the same problem.
 An approximate counting problem involves finding an answer for a given
 instance within an acceptable range of the actual number of solutions.
 Jerrum et al. \cite{JVV} proved that 
 for self-reducible problems, Almost Uniform Generation and approximate counting 
-are interreducible.
+are interreducible. \todo{Explain From 182-183 JVV}
 
 \emph{Sampling} is an extension of the Uniform Generation; given a
 distribution \(\pi\) over solutions, the goal is to find a solution \(\sigma \)
@@ -277,7 +283,7 @@ The \pname{H-GibbsSample} problem is defined as:
 
 Dyer et al. \cite{Sampling} have proved that if \pname{H-GibbsSample} can be approximately 
 sampled in polynomial time then \pname{H-Partition}
-can also be approximated by a randomized algorithm in polynomial time.
+can also be approximated by a randomized algorithm in polynomial time. \todo{Expand}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Statistical Mechanics}
@@ -285,16 +291,14 @@ Statistical Mechanics is a branch of physics that applies probability theory to
 predict the behaviour of a system at a given temperature. Usually there is a complex system
 consisting of many microscopic elements. A state or configuration \(\sigma\) is an assignment of
 parameters of the microscopic elements. 
-\emph{Hamiltonian} \(H(\sigma)\) is energy of the system in state \(\sigma\)\@. 
-Let \(\beta\) be the inverse(one over) temperature. 
-The {\em Partition function} at a given temperature is defined as
+The \emph{Hamiltonian} \(H(\sigma)\) is the energy of the system in state \(\sigma\)\@. 
+Let \(\beta\) be the inverse (one over) temperature. 
+The \emph{Partition Function} at a given temperature is defined as
 \[Z=\sum_\sigma e^{-\beta H(\sigma)}\]
-Partition function can be used to estimate the statical properties of the system such as entropy 
-and energy. Given a model of the system and the temperature,
-partition function can be used to evaluate many of the important properties of the system
-such as the free energy, the entropy, the specific heat, and the location of phase transition. 
+Given a model of the system and the temperature,
+many of the important properties of the system such as the free energy, the entropy, the specific heat, and the location of phase transition can be evaluate using the the partition function.
 
-The first commonly used model is the Ising model. In the Ising mode,
+One of the commonly used models in Statistical Mechanics is the Ising model. In the Ising mode,
 the system is defined by a graph \(G(V,E)\)\@.
 Each edge of the graph \((u,v)\in E\) has an {\em interaction strength} \(J_{u,v}\)\@. Each
 vertex has an associated \emph{local external magnetic field} \(l_v\)\@.
@@ -323,15 +327,15 @@ Z(G,\lambda,\mu)&=\sum_{\sigma :V\to\setof{-1,+1}} \prod_{(u,v)\in E} \lambda_{u
 
 The system is \emph{ferromagnetic} if each interaction energy \(J_{u,v}\) is non-negative; 
 which implies for all \(u,v\) in \(V\), we have \(\lambda_{u,v} \ge 1\)\@.
-A system is consistent if
-either for all \(v\), \(\mu_v\ge 1\) or for all \(v\), \(\mu_v \le 1\)\@.
-Jerrum and Sinclair \cite{Jer93} have proved that the problem of finding the partition
-function for the Ising model is hard to compute.
+A system is \emph{consistent} if
+either for all \(v\), \(\mu_v\ge 1\) or for all \(v\), \(\mu_v \le 1\)\@. We will
+mention results on complexity of these cases in TODO. \todo{Move the results to proper section
+and fix the reference}
+%Jerrum and Sinclair \cite{Jer93} have proved that the problem of finding the partition
+%function for the Ising model is hard to compute.
 
-The next commonly studied model is the Ashkin-Teller model.
-This model is a generalization of the Ising model to four possible states
-The next and more common model is the Potts model which
-is the  generalization of the Ising model to \(q\) possible spins.
+%Ashkin-Teller model generalizes the Ising model to four possible states.
+The Potts model generalizes the Ising model to \(q\) possible spins.
 In the Potts model there is an underlying graph \(G(V,E)\) and 
 each configuration is an assignment \(\sigma:V\to \setof{\oneto{q}}\)\@.
 Each edge of the graph \((u,v)\in E\) has an interaction
@@ -342,7 +346,7 @@ h_{v,\sigma(v)}\]
 where
 \[\chi(s,s')=\begin{cases}+1, & s=s'\\-1, & otherwise\end{cases}\]
 As before, let \(\lambda_{u,v}=e^{2\beta J_{u,v}}\) and
-\(\mu_{u,c}=e^{\beta h_{v,c}}\)\@. The partition function will be:
+\(\mu_{u,c}=e^{\beta h_{v,c}}\)\@. The partition function for the Potts model is:
 \[Z(G,\lambda,\mu)=\prod_{(u,v)\in E}\lambda_{u,v}^{-\frac{1}{2}}
 \sum_{\sigma:V\to\setof{\oneto q}} \prod_{(u,v)\in E:\sigma(u)=\sigma(v)}\lambda_{u,v}
 \prod_{v\in V}\mu_{v,\sigma(v)}\]
@@ -350,23 +354,26 @@ As before, let \(\lambda_{u,v}=e^{2\beta J_{u,v}}\) and
 Problems of computing partition functions in the Ising and Potts models can be
 reduced to a \ccsp(\mrelset) for some constraint language \mrelset; however, the reduction
 may not be straightforward.
+\todo{Compose a small section from this part and previous results and \cite{Goldberg2007}
+The refer to that part}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Reductions and Complexity of Counting}
-In this chapter, we will discuss the complexity of computation of functions
-and mention clones and polymorphisms and their connection with 
-the complexity of the CSP and \ccsp\@. We will mention the major result on complexity of 
-\ccsp\@. We will also mention partial clones and
-their relation with the complexity of the \ccsp\@.
+In this chapter, we will mention several complexity classes for computational functions.
+We will define clones and polymorphisms and specify how they are related to
+the complexity of the CSP(\mrelset) problem. We will mention the major results on the complexity of 
+\ccsp(\mrelset) problem. We will also define partial clones and specify
+how they are related to the complexity of the \ccsp(\mrelset) problem.
 
 Two important classes of functions we are interested in are FP and \cp\@.
 FP is the class of functions computable in polynomial time and \cp\ is
 the class of function that can be expressed as the
 number of accepting paths of a non-deterministic polynomial time Turing machine. 
 
-Let \(f,g:\Sigma^*\to\mathbb{N}\) be two functions. A \emph{parsimonious} reduction 
+Let \(f,g:\Sigma^*\to\mathbb{N}\) be two functions. A \emph{parsimonious reduction}
 from \mf\ to \mg\ is a polynomial time computable function
 \(\sigma:\Sigma^*\to\Sigma^*\) such that
 \(f(x)=g(\sigma(x))\) holds. 
@@ -379,9 +386,8 @@ Turing reducible to \(f\) in polynomial time.
 \end{defi}
 
 Consider the SAT and \csat\ problems defined as follows.
-Note that, previously in Example~\ref{example:c3sat} we discussed the \ctsat\ problem
-which is a special case of the \csat\ problem.
-
+Note that SAT and \csat\ are generalizations of \tsat\ and \ctsat\ problems
+mentioned in Examples~\ref{example:tsat,example:c3sat}\@. \todo{Fix reference after fixing original}
 
 \pdef{SAT}
 {A CNF formula \(\varphi\)}
@@ -437,16 +443,16 @@ and
 \end{align*}
 \end{example}
 
-Notion of  pp-definition is equivalent to elementary operators used in \cite{post41,bkkr69,lau}
-and strict implementation used in \cite{madu,Trichotomy}\@.
+The notion of  pp-definition is equivalent to elementary operators used in \cite{post41,bkkr69,lau},
+and strict implementations used in \cite{madu,Trichotomy}\@.
 
 A set of relations closed under pp-definition is called a \emph{co-clone}.
 For a constraint language \mrelset, \(\clone{\relset}\) is the the least co-clone containing
 \mrelset\ also called the co-clone generated by \mrelset\@.
 
-A function \(f\) is said to be a projection function if \(f(x_1,\dotsc,x_l)=x_l\) 
+A function \(f\) is said to be a \emph{projection} function if \(f(x_1,\dotsc,x_l)=x_l\) 
 for some \(l\)\@.
-A set of functions is said to be a \emph{clone} if it contains all \emph{projection}
+A set of functions is said to be a \emph{clone} if it contains all projection
 functions and is closed under superpositions (compositions). For a set of functions
 \(C\), \(\clone{C}\) is the least clone containing \(C\) also called the clone generated by \(C\)\@.
 
@@ -467,13 +473,14 @@ Let \mR\ be a relation over domain \mD\ and \(f:D^n\to D\) a function of arity \
 same domain. Function \mf\ \emph{preserves} \mR\ or is a \emph{polymorphism} of \mR\ if
 for any \mn\ tuples \(\ba_1,\ba_2,\dotsc,\ba_n\) in \mR, the tuple
 \(f(\ba_1,\ba_2,\dotsc,\ba_n)\) obtained by component-wise application of \mf,
-is in \mR\@. Relation \mR\ in this case is said to be \emph{invariant} with respect 
+is in \mR\@. The relation \mR\ in this case is said to be \emph{invariant} with respect 
 to \mf\@.
 The set of all functions preserving a constraint language \mrelset\ is 
 denoted by \(Pol(\relset)\), the set of all relations invariant with respect to a set of
 functions  \(C\) is denoted by \(Inv(C)\)\@.
 
-Operators \(Inv\) and \(Pol\) maintain antitony and extensivity; hence, they 
+Functions \(Inv\) and \(Pol\) maintain\todo{Could not read the comment}
+antitony and extensivity; hence, they 
 form a \emph{Galois connection} between the sets of functions 
 and the set of relations. The following theorem links the clones to \(Inv\) and \(Pol\)
 functions.
@@ -499,7 +506,7 @@ If \(Pol(\relset) \subseteq Pol(\relset')\) then every relation from \(\relset'\
 pp-definable in \mrelset\@.
 \end{cor}
 
-\begin{theorem} [Jeavons et al. 1997 \cite{Jeavons}]
+\begin{theorem} [Jeavons et al. 1997 \cite{Jeavons}] \label{trm:jeavons}
 For a constraint language \mrelset\ and a relation \(R\) with the same domain,
 if \mR\ is pp-definable in \mrelset\ then CSP(\mrelset) is polynomial-time equivalent 
 to CSP(\(\relset \cup \setof R\))\@.
@@ -534,8 +541,8 @@ consequently, the complexity of the CSP(\mrelset) only depends on the \(Pol(\rel
 
 The CSP dichotomy conjecture states for any constraint language \mrelset, 
 the CSP(\mrelset) problem is either polynomial time solvable or NP-complete.
-Bulatov and Valeriot \cite{recent08}
-have a survey over results on the relation between complexity of CSP(\mrelset) and \(Pol(\relset)\).
+Bulatov and Valeriote \cite{recent08}
+have a survey of results on the relation between complexity of CSP(\mrelset) and \(Pol(\relset)\).
 There are more results in \cite{dur628, valeriote}\@.
 The CSP dichotomy still remains an open problem. 
 
@@ -544,8 +551,8 @@ The CSP dichotomy still remains an open problem.
 \section{Exact Counting}
 In the previous section we mentioned the relation between polymorphisms and complexity of
 the CSP(\mrelset) problem; in this section we will establish a similar connection 
-between polymorphisms and complexity of \ccsp(\mrelset) and mention the
-results on complexity of \ccsp(\mrelset)\@.
+between polymorphisms and complexity of \ccsp(\mrelset) and mention 
+results on the complexity of \ccsp(\mrelset)\@.
 
 Consider the following problem:
 
@@ -568,7 +575,7 @@ affine relation because it can be represented as \(x\oplus y \equiv 1 \pmod{2}\)
 
 \begin{example}
 Relation \mR\ defined as \(R=\setof{(0,1),(1,0),(2,2)}\) is affine because it can be expressed as 
-\(x \oplus y \equiv 1 \pmod{3}\)\@.
+\(\setof{(x,y)\mid x \oplus y \equiv 1 \pmod{3}}\)\@.
 \end{example}
 
 Alternatively, affine relations are the relations invariant under functions of the form
@@ -595,37 +602,44 @@ is polynomial time solvable; otherwise, it is \cpc\@.
 Previously, we mentioned the dichotomy theorem for complexity of \ccsp\ in  Section~\ref{sec:appl}.
 
 \begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
-For a graph \mH, if each component of \mH\ is an isolated vertex, a complete reflexive graph,
+For a graph \mH, if each component of \mH\ is a complete reflexive graph
 or a complete irreflexive bipartite graph then the \chom(\mH) problem 
 is polynomial time solvable; otherwise, it is \cpc\@.
 \end{theorem}
 
+\todo{Explain how to express these conditions as polymorphisims}
 Conditions used in both theorems can also be expressed using polymorphisms. This gives a hint
 that the complexity of the \ccsp(\mrelset) problem may be related to \(Pol(\relset)\)\@.
 Suppose  \(\relset_1\) and \(\relset_2\) are two constraint languages such that
 every relation in \(\relset_2\) is pp-definable in \(\relset_1\); 
-pp-definition suggests a reduction from CSP(\(\relset_2\))
+the pp-definition suggests a reduction from CSP(\(\relset_2\))
 to CSP(\(\relset_1\))\@. However, this reduction is not usable for counting problems. 
 Bulatov and Dalmau provided a reduction that relates 
 the complexity of the \ccsp(\mrelset) problem to \(Pol(\relset)\)\@.
 
 \begin{theorem}[Bulatov, Dalmau 2007 \cite{bulatov07}] 
 For a constraint language \mrelset\ and a relation \(R\) with the same domain,
-if \mR\ is pp-definable in \mrelset\ then \ccsp(\mrelset) is polynomial-time equivalent 
-to \ccsp(\(\relset \cup \setof R\))\@.
+if \mR\ is pp-definable in \mrelset\ then \ccsp\((\relset)\) is polynomial-time equivalent 
+to \ccsp\((\relset \cup \setof R)\)\@.
 \end{theorem}
 
-This theorem links complexity of the \ccsp(\mrelset) problems to clones. This connection
+This theorem is analogous to Theorem~\ref{trm:jeavons}. In the same manner Jeavons's theorem
+links complexity of CSP(\mrelset) to clones, this theorem
+links complexity of the \ccsp(\mrelset) problems to clones. This connection
 led to a dichotomy for the \ccsp(\mrelset) problem.
 
-Let \mrelset\ be a constraint language with domain \mD\ and
-\mR\ be a pp-definable relation in \mrelset, relation \(Q\) pp-definable in \mrelset\
-is a \emph{congruence} of \mR\ if \(Q\) is a binary equivalence relation over
-\mR\@. Let \(Q,Q_1,Q_2\) be congruences of \mR\ such that
+Let \mrelset\ be a constraint language with domain \mD\ and 
+let the relations \mR\ and \(Q\) be two pp-definable relations in \mrelset\@.
+\(Q\) is a \emph{congruence} of \mR\ if it is a binary
+equivalence relation on domain \mR\@.
+
+Let \(Q,Q_1,Q_2\) be congruences of \mR\ such that
 \(Q\subseteq Q_1,Q_2\) and denote the equivalence classes of
 \(Q_1\) and \(Q_2\) by \(A_1,\dotsc,A_m\) and \(B_1,\dotsc,B_n\), respectively. 
 Let \(M(R;Q_1,Q_2;Q)\) be a matrix where \(M_{ij}\) is the number of \(Q\)-classes in
-\(A_i\cap B_j\). Constraint language \mrelset\ is said to be \emph{congruence
+\(A_i\cap B_j\). 
+
+A constraint language \mrelset\ is said to be \emph{congruence
  singular} if for any relation \mR\ pp-definable in \mrelset\ and any congruences
 \(Q,Q_1,Q_2\) of \mR\ with \(Q\subseteq Q_1,Q_2\), the
 \emph{row rank} of the matrix \(M(R;Q_1,Q_2;Q)\) equals
@@ -634,7 +648,7 @@ both \(Q_1\) and \(Q_2\)\@.
 
 \begin{theorem}[Bulatov 2008 \cite{Bulatov}]
 For a constraint language \mrelset,
-the \ccsp(\mrelset) problem is polynomial time solvable if and only if 
+the \ccsp(\mrelset) problem is polynomial time solvable if 
 \mrelset\ is congruence singular; otherwise, it is \cpc\@.
 \end{theorem}
 
@@ -653,7 +667,7 @@ In the previous section we showed the connection between polymorphisms and compl
 of the CSP(\mrelset) and \ccsp(\mrelset) problems. The existence of a similar relationship
 between polymorphism and complexity of approximate counting is still an open
 question. However, there are weaker tools that can be used for the approximate counting
-problems. Removing existential quantifier from pp-definitions, limits the 
+problems. Removing the existential quantifier from pp-definitions limits the 
 reduction to parsimonious reductions which preserve approximation.
 
 
@@ -684,7 +698,7 @@ The set of all partial polymorphisms of a constraint language \mrelset\ is denot
 \(C\) is denoted by \(Inv(C)\)\@. Note that the \(Inv\) function for partial functions is
 an extension of the \(Inv\) function for total functions.
 
-\begin{theorem} [Sudan et al. \cite{madu}] \label{trm:partial}
+\begin{theorem} [Creignou et al. \cite{madu}] \label{trm:partial}
 Let \(\relset_1\),\(\relset_2\) be two sets of relations over the same domain; if 
 \(\relset_2\) is a finite subset of \(\wclone{\relset_1}\) then
 \ccsp(\(\relset_2\)) is parsimoniously reducible to \ccsp(\(\relset_1\))\@.
@@ -708,7 +722,7 @@ depends on \(pPol(\relset)\)\@.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Approximated Counting}
+\chapter{Approximate Counting}
 In this chapter we formally define FPRAS, the complexity class which
 is considered as the efficient computational model for counting problems.
 We define AP-reductions and give a classification of computational problems 
@@ -733,12 +747,12 @@ APX is another complexity class that is regarded as an efficient computational m
 optimization problems.
 For a function \(f:\Sigma^*\to\nat\) and a constant factor \(\alpha\),
 \mf\ has an \(\alpha\)-APX if there is an algorithm that
-takes as an input \(x\in\Sigma^*\) and in time \(poly(|x|)\) produces an integer \(z\)
+takes \(x\in\Sigma^*\) as an input and in time \(poly(|x|)\) produces an integer \(z\)
 such that \(\frac{1}{\alpha}\le\frac{z}{f(x)}\le \alpha\). In the same manner,
 poly-APX and log-APX are algorithms that given an input
 \(x\), in time \(poly(|x|)\) find a solution with an approximation ratio of \(poly(|x|)\)
-and \(\log(|x|)\), respectively. Due to the following lemma, none of APX schemas can not
-used for any \ccsp(\mrelset) problem.
+and \(\log(|x|)\), respectively. There has been no results on \ccsp(\mrelset) with
+APX schemas. With the next lemma, I explain why APX schemas are not used for \ccsp(\mrelset) problems.
 
 \begin{lemma}[APX to FPRAS]
 For a constraint language \mrelset, if there is a poly-APX for
