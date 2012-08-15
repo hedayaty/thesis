@@ -13,8 +13,7 @@ be a set of variables where each variable corresponds to a vertex of
 the input graph \(G\)\@. The goal is to find a function
 \(f:V\to \setof{r,g,b}\) such that for each edge \((u,v)\) of \(G\), \(f(u)\neq f(v)\) holds.
 \end{example}
-%In this formulation for any two adjacent vertices \(u\) and \(v\) in the graph,
-%\(f(u)\neq f(v)\) holds. 
+
 In the above example,
 the CSP is the problem of deciding
 if there is a function satisfying all the given constraints. \ccsp\ is the
@@ -73,6 +72,7 @@ and for each edge of \mG\ a constraint with relation \(NEQ_{rgb}\) is placed.
 \const{(v_2,v_3),NEQ_{rgb}}\})
 \end{align*}
 \end{example}
+
 \begin{figure}
 \centering
 \input{figs/sample.pdftex}
@@ -80,7 +80,20 @@ and for each edge of \mG\ a constraint with relation \(NEQ_{rgb}\) is placed.
 \label{fig:sample}
 \end{figure}
 
-\todo{Add SAT Example}
+\begin{example}[\tsat]\label{exm:3sat}
+The problem of deciding if there exists a truth assignment for a 
+given Boolean CNF (Conjunctive Normal Form) formula where each
+clause contains exactly 3 literals is called \tsat\@.
+
+Let \(R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x\lor y\lor z = T\}\), 
+let \(R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x\lor y\lor z = T\}\), 
+and let \(R_3,R_4\dotsc,R_8\) be defined similarly for other combinations of literals overs
+\(x,y,z\)\@. Let \(\relset_1=\setof{R_1,R_2,\dotsc, R_8}\) be a constraint language.
+
+It is easy to see that there is one-to-one correspondence between constraints 
+in a CSP(\(\relset_1\)) instance and clauses of \tsat\@. Hence,
+the CSP(\(\relset_1\)) and the \tsat\ problems are the same.
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,17 +117,14 @@ The problem of finding the number of 3-Colorings of a given graph denoted by
 \ctcol, can be expressed as the \ccsp(\(NEQ_{rgb}\)) problem.
 \end{example}
 
-\begin{example}\label{example:c3sat}
-The \ctsat\ problem is defined as:\\
-\pnndef%{\ctsat}
-{A Boolean CNF (Conjunctive Normal Form) formula \(\varphi\) 
-where every clause contains exactly 3 literals}
-{The number of satisfying truth assignments of \(\varphi\)}
+\begin{example}\label{exm:c3sat}
+The problem of finding the number of satisfying truth assignments for a given 
+Boolean CNF (Conjunctive Normal Form) formula where each clause contains exactly 3 literals
+is called \ctsat\@. 
 
-\ctsat\ can be represented as \ccsp(\mrelset) where \mrelset\ is the constraint language
-over a 2-element domain, such as \(D=\setof\zo\), consisting of all 
-ternary relations with cardinality seven from \(D^3\).
-\end{example} \todo{Expand SAT}
+It is easy to see that with the constraint language \(\relset_1\) from Example~\ref{exm:3sat}
+the \ctsat\ and the \ccsp(\(\relset_1\)) problems are the same.
+\end{example} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Applications of the \ccsp} \label{sec:appl}
@@ -386,8 +396,9 @@ Turing reducible to \(f\) in polynomial time.
 \end{defi}
 
 Consider the SAT and \csat\ problems defined as follows.
-Note that SAT and \csat\ are generalizations of \tsat\ and \ctsat\ problems
-mentioned in Examples~\ref{example:tsat,example:c3sat}\@. \todo{Fix reference after fixing original}
+Note that the SAT and the \csat\ problems are generalizations of the \tsat\ and
+the \ctsat\ problems
+mentioned in Examples~\ref{exm:3sat}~and~\ref{exm:c3sat}\@. 
 
 \pdef{SAT}
 {A CNF formula \(\varphi\)}
@@ -427,7 +438,7 @@ the relation \(EQV_D\) which is the binary equality relation over \(D\),  conjun
 existential quantification.
 \end{defi}
 
-\begin{example} \label{example:ppd} 
+\begin{example} \label{exm:ppd} 
 Let \mrelset\ be a constraint language with domain \(D=\setof{a,b,c}\), 
 consisting of a single relation 
 \(R=\setof{(a,a,a),(b,b,b),(a,b,a),(a,b,c)}\)\@.
@@ -751,10 +762,10 @@ takes \(x\in\Sigma^*\) as an input and in time \(poly(|x|)\) produces an integer
 such that \(\frac{1}{\alpha}\le\frac{z}{f(x)}\le \alpha\). In the same manner,
 poly-APX and log-APX are algorithms that given an input
 \(x\), in time \(poly(|x|)\) find a solution with an approximation ratio of \(poly(|x|)\)
-and \(\log(|x|)\), respectively. There has been no results on \ccsp(\mrelset) with
+and \(\log(|x|)\), respectively. There is no results on \ccsp(\mrelset) with
 APX schemas. With the next lemma, I explain why APX schemas are not used for \ccsp(\mrelset) problems.
 
-\begin{lemma}[APX to FPRAS]
+\begin{lemma}[Hedayaty 2012]
 For a constraint language \mrelset, if there is a poly-APX for
 the \ccsp(\mrelset) then there is an FPRAS for this problem.
 \end{lemma}
@@ -774,8 +785,9 @@ Since the function \(T\) is polynomial in \(|\probi|\), \(k\) is also polynomial
 bounded by \(|\mathcal{P}|\) and \(\oneoeps\)\@.
 \end{proof}
 
+\begin{defi}[AP-reduction]
 For any two functions \mf\ and \mg, 
-an \emph{approximation-preserving reduction}
+an \emph{approximation-preserving reduction}(AP-reduction for short)
 from \mf\ to \mg\ is a probabilistic algorithm \(\apxalg\) that for an input 
 \((x,\eps) \in \Sigma^*\times(0,1)\) where \(x\) is an instance of \mf\ and \(\eps\) 
 is an error tolerance, using \(\apxalg'\) produces an integer random variable \(z\)
@@ -785,6 +797,7 @@ and \(\delta\) is the error tolerance, \item if \(\apxalg'\) meets the specifica
 being a RAS for \mg\ then \(\apxalg\) meets the specifications for being a RAS for \mf, \item
 \(\apxalg\) runs in \(poly(|x|,\oneoeps)\) time.
 \end{inparaenum}
+\end{defi}
 
 If an approximation-preserving reduction from \mf\ to \mg\ exists we write \(f \aple g\)
 and say \mf\ is \emph{AP-reducible} to \mg. If \(f \aple g\) and \(g \aple f\)
@@ -806,7 +819,7 @@ examples of counting problems which an approximate solution can be obtained in p
 There are some artificial examples of \ccsp(\mrelset) problems that can be approximated 
 in polynomial time. 
 
-\begin{example} \label{example:poly}
+\begin{example} \label{exp:poly}
 For the graph \mH\ shown in Figure~\ref{fig:approxible},
 we show that the \chom(\mH) problem is in FPRAS\@. Suppose the input is 
 \((G,\eps)\) where \mG\ is a connected graph with \mn\ vertices and \(\eps\)
@@ -823,7 +836,7 @@ in terms of \(\oneoeps\); which means the number of 3-colorings of \mG\ can be e
 
 \begin{figure}[h]
 \center\input{figs/approxible.pdftex}
-\caption{Graph \ensuremath{G} used in Example~\ref{example:poly}}
+\caption{Graph \ensuremath{G} used in Example~\ref{exm:poly}}
 \label{fig:approxible}
 \end{figure}
 \end{example}
@@ -950,7 +963,7 @@ finding reductions from the problems that the decision version is NP-complete.
 \subfigure[\ensuremath{Wr_1}]{\input{figs/Wr1.pdftex}\label{fig:Wr1}}\\
 \subfigure[\ensuremath{Wr_2}]{\input{figs/Wr2.pdftex}\label{fig:Wr2}}\hspace{4cm}
 \subfigure[\ensuremath{Wr_3}]{\input{figs/Wr3.pdftex}\label{fig:Wr3}}
-\caption{Wrench}
+\caption{Wrench graphs Family}
 \label{fig:wrench}
 \end{figure}
 

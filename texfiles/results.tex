@@ -25,12 +25,13 @@ if there exists distributive lattice \(L\) with over universe \mD\ such that eve
 in \mrelset\ is closed under operations \(vee\) and \(\wedge\) defined by \(L\)\@.
 \end{defi}
 
-After studying the complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
-and the \chom(\mH) problem on 3-vertex graphs, we observed that \ccsp(\mrelset) over 
+After studying complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
+in \cite{mvl} also complexity of the \chom(\mH) problem on 3-vertex graphs,
+we noticed that \ccsp(\mrelset) problem over 
 monotone relations are AP-reducible to the \cds\ problem. We generalize the observation by
 Theorem~\ref{theorem:monotone}\@.
 
-\begin{theorem} \label{theorem:monotone}
+\begin{theorem} [Hedayaty, Bulatov 2009 Unpublished]\label{theorem:monotone}
 Let \mrelset\ be a constraint language over a domain \mD, if 
 \mrelset\ is monotone then \ccsp(\mrelset) \maple\ \cbis\@.
 \end{theorem}
@@ -67,7 +68,8 @@ Similarly \(\vx \vee \vy \in R'\)\@.
 
 Originally, we came up with a different reduction from the \ccsp(\(\relset'\)) problem
 to the \cds\ problem. However, the proof used in \cite{Trichotomy} for
-Theorem~\ref{theorem:trichotomy} is simpler than our proof; hence, there is need to mention it.
+Theorem~\ref{theorem:trichotomy} is simpler than our proof; hence, there is no need to 
+mention our original proof.
 \begin{comment}
 The reduction uses Theorem~\ref{theorem:majority} to break arbitrary relation to binary relation.
 A function \(m: D^3\to D\) is said to be a \emph{majority function}, if for any \(x,y\in D\) we have
