@@ -281,16 +281,26 @@ for self-reducible problems, Almost Uniform Generation and approximate counting
 are interreducible. 
 
 The model used in \cite{JVV} is very general, we provide a very informal description of the
-proof for the \ccsp(\mrelset) problem. For solving an approximate counting using Almost
-Uniform Generator we randomly generate some solutions. Since the problem is self-reducible,
-it can be be expressed in terms of solutions for a number of smaller instances. We choose
-one the small instances and from the solutions we have already generated measure the
-ratio of solutions satisfying that cases to the total. Next, recursively solve the 
-same problem and from the estimation for sub-problem we estimate the problem.
+proof for the problem of finding the number of truth assignment of a CNF\@.
+Let \(C\) be a CNF\@. For a variable \(x\) used in \(C\), let \(C_x\) denote 
+the CNF derived from \(C\) by removing all clauses having the literal \(x\) and also 
+removing literal \(\bar x\) from other clauses. Analogously, let \(C_{\bar x}\) denote
+the CNF derived from \(C\) by removing all clauses having the literal \(\bar x\) and also 
+removing literal \(x\) from other clauses. Clearly, the number of solutions for
+\(C\) is sum of number of solutions for \(C_x\) and \(C_{\bar x}\)\@.
 
-For the other side, we use a similar approach. We approximately count the number of solutions
-for each sub-problem. Then branch to that problem with probability proportional to the number of
-solutions. Next, we recursively generate the rest of the problem in the same manner.
+In order to generate an almost uniform solution \(C\) using an approximate solver,
+we first approximately find the number of solutions for \(C_x\) and \(C_{\bar x}\)\@.
+Next, we assign \(x\) to true or false with probability proportional to number of solutions 
+for \(C\) and \(C_{\bar x}\)\@. Then, we continue
+with \(C\) or \(C_{\bar x}\) regarding the choice in previous step.
+
+In order to solve approximate counting using an Almost Uniform Generator, first
+we generate some number of random solutions. We evaluate the number of solutions
+where \(x=true\) and the number of solutions where \(x=false\)\@. Without loss of generality
+suppose the number of solutions where \(x=true\) is more. We approximately find the number of 
+solutions for \(C_x\) and from the ratio we get from the random solutions, we estimate 
+the number of solutions for \(C\)\@.
 
 \emph{Sampling} is an extension of the Uniform Generation; given a
 distribution \(\pi\) over solutions, the goal is to find a solution \(\sigma \)
