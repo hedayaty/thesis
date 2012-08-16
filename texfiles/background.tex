@@ -271,11 +271,26 @@ Almost Uniform Generation from Uniform Generation by experiments running in poly
 
 Intuitively, a problem is said to be \emph{self-reducible} if solutions for an instance can be
 expressed in terms of solutions for a number of smaller instances of the same problem.
+Many of the combinatorial problems such as the finding the number of matchings in the graph,
+finding the number of satisfying truth assignment for a CNF(Conjunctive Normal Form) or
+DNF(Disjunctive Normal Form) are self-reducible.
 An approximate counting problem involves finding an answer for a given
 instance within an acceptable range of the actual number of solutions.
 Jerrum et al. \cite{JVV} proved that 
 for self-reducible problems, Almost Uniform Generation and approximate counting 
-are interreducible. \todo{Explain From 182-183 JVV}
+are interreducible. 
+
+The model used in \cite{JVV} is very general, we provide a very informal description of the
+proof for the \ccsp(\mrelset) problem. For solving an approximate counting using Almost
+Uniform Generator we randomly generate some solutions. Since the problem is self-reducible,
+it can be be expressed in terms of solutions for a number of smaller instances. We choose
+one the small instances and from the solutions we have already generated measure the
+ratio of solutions satisfying that cases to the total. Next, recursively solve the 
+same problem and from the estimation for sub-problem we estimate the problem.
+
+For the other side, we use a similar approach. We approximately count the number of solutions
+for each sub-problem. Then branch to that problem with probability proportional to the number of
+solutions. Next, we recursively generate the rest of the problem in the same manner.
 
 \emph{Sampling} is an extension of the Uniform Generation; given a
 distribution \(\pi\) over solutions, the goal is to find a solution \(\sigma \)
@@ -293,7 +308,9 @@ The \pname{H-GibbsSample} problem is defined as:
 
 Dyer et al. \cite{Sampling} have proved that if \pname{H-GibbsSample} can be approximately 
 sampled in polynomial time then \pname{H-Partition}
-can also be approximated by a randomized algorithm in polynomial time. \todo{Expand}
+can also be approximated by a randomized algorithm in polynomial time. 
+%The \chom(\mH) problem is not a self-reducible problem; however, it is very similar to
+%self-reducible problems. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Statistical Mechanics}
@@ -490,8 +507,7 @@ The set of all functions preserving a constraint language \mrelset\ is
 denoted by \(Pol(\relset)\), the set of all relations invariant with respect to a set of
 functions  \(C\) is denoted by \(Inv(C)\)\@.
 
-Functions \(Inv\) and \(Pol\) maintain\todo{Could not read the comment}
-antitony and extensivity; hence, they 
+Functions \(Inv\) and \(Pol\) satisfy antitony and extensivity; hence, they 
 form a \emph{Galois connection} between the sets of functions 
 and the set of relations. The following theorem links the clones to \(Inv\) and \(Pol\)
 functions.
@@ -618,10 +634,16 @@ or a complete irreflexive bipartite graph then the \chom(\mH) problem
 is polynomial time solvable; otherwise, it is \cpc\@.
 \end{theorem}
 
-\todo{Explain how to express these conditions as polymorphisims}
-Conditions used in both theorems can also be expressed using polymorphisms. This gives a hint
-that the complexity of the \ccsp(\mrelset) problem may be related to \(Pol(\relset)\)\@.
-Suppose  \(\relset_1\) and \(\relset_2\) are two constraint languages such that
+Creignou and Hermann \cite{Nadia} proved that a Boolean constraint language \mrelset\
+is affine if and only if every relation \mR\ in \mrelset\
+is closed under the function \(f(x,y,z)=x\oplus y \oplus z\). It is also easy to see that
+a graph \mG\ is complete reflexive if and only if the edge set of \mG\ is closed under any
+polymorphisim. Similarly, a bipartite graph \(G\) is complete if and only if the orientation of edges
+of \(G\) from one part to other part is closed under any polymorphisim.
+
+Hence, polymorphisims can express criteria used in both theorems. This suggests
+that \(Pol(\relset)\) can express the complexity of the \ccsp(\mrelset) problem.
+Suppose \(\relset_1\) and \(\relset_2\) are two constraint languages such that
 every relation in \(\relset_2\) is pp-definable in \(\relset_1\); 
 the pp-definition suggests a reduction from CSP(\(\relset_2\))
 to CSP(\(\relset_1\))\@. However, this reduction is not usable for counting problems. 
@@ -640,20 +662,25 @@ links complexity of the \ccsp(\mrelset) problems to clones. This connection
 led to a dichotomy for the \ccsp(\mrelset) problem.
 
 Let \mrelset\ be a constraint language with domain \mD\ and 
-let the relations \mR\ and \(Q\) be two pp-definable relations in \mrelset\@.
-\(Q\) is a \emph{congruence} of \mR\ if it is a binary
-equivalence relation on domain \mR\@.
+let \mR\ be a \(k\)-ary relation pp-definable in \mrelset\@.
+A \emph{congruence} of \mR\ is a \(2k\)-ary relation \(Q\) which is also pp-definable in \mrelset\
+and satisfying the following conditions:
+\begin{inparaenum}[(a)]
+\item \(Q\) can be viewed as a binary relation on \mR, i.e., \(Q \subseteq R^2\);
+\item \(Q\) viewed as a binary relation on \mR\ is an equivalence relation.
+\end{inparaenum}
 
-Let \(Q,Q_1,Q_2\) be congruences of \mR\ such that
-\(Q\subseteq Q_1,Q_2\) and denote the equivalence classes of
-\(Q_1\) and \(Q_2\) by \(A_1,\dotsc,A_m\) and \(B_1,\dotsc,B_n\), respectively. 
-Let \(M(R;Q_1,Q_2;Q)\) be a matrix where \(M_{ij}\) is the number of \(Q\)-classes in
+
+Now, let \(Q,Q_1,Q_2\) be congruences of \mR\ such that
+\(Q\subseteq Q_1,Q_2\). Let \(A_1,\dotsc,A_m\) and \(B_1,\dotsc,B_n\) be
+the equivalence classes of \(Q_1\) and \(Q_2\), respectively. 
+\(M(R;Q_1,Q_2;Q)\) denotes a matrix where \(M_{ij}\) is the number of \(Q\)-classes in
 \(A_i\cap B_j\). 
 
 A constraint language \mrelset\ is said to be \emph{congruence
- singular} if for any relation \mR\ pp-definable in \mrelset\ and any congruences
+ singular} if for any pp-definable relation \mR\ in \mrelset\ and any congruences
 \(Q,Q_1,Q_2\) of \mR\ with \(Q\subseteq Q_1,Q_2\), the
-\emph{row rank} of the matrix \(M(R;Q_1,Q_2;Q)\) equals
+\emph{row rank} of  matrix \(M(R;Q_1,Q_2;Q)\) equals
 the number of classes of the smallest equivalence relation containing
 both \(Q_1\) and \(Q_2\)\@. 
 
