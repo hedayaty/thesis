@@ -1,5 +1,6 @@
 \chapter{Techniques for AP-Reductions}
 In this chapter we provide a number of lemmas which can be used for approximated reductions.
+Most of the results in this chapter are published in \cite{mvl}, \cite{maxi}\@. 
 First, we show that we can limit the input problem to connected structures. 
 Next, we show that reductions is possible when solutions for two problem are related by a 
 linear transformation. Next, we introduce a few techniques used for pinning, which is
@@ -21,7 +22,7 @@ with the vertex set \mV, and it contains an edge \(\setof{u,v}\) if and only if
 We say an instance \(\probi\) is connected if and only if \(H(\probi)\) is connected.
 Let \cccsp(\mrelset) denote the problem \ccsp(\mrelset) limited to connected instances.
 
-\begin{lemma} \label{lem:connected}
+\begin{lemma}[Bulatov and Hedayaty \cite{mvl}] \label{lem:connected}
 For any constraint language \mrelset\ the problem \ccsp(\mrelset) is AP-interreducible with
 \cccsp(\mrelset)\@.
 \end{lemma}
@@ -62,7 +63,7 @@ Next, we observed that if the answer for any \ccsp(\mrelset) instance and a corr
 instance of \ccsp(\(\relset'\)) differ by a constant number or a constant factor,
 they are AP-interreducible. We generalize this observation to linear transformations. 
 
-\begin{lemma}\label{lem:linear}
+\begin{lemma} [Bulatov and Hedayaty \cite{mvl}] \label{lem:linear}
 Let \(\varphi\) be a polynomial time computable function that maps every instance of a
 counting problem \(A\) to an instance of a counting problem problem \(B\) in such a way that
 there are constants \(d > 0\) and \(c\) (not necessarily positive) such that
@@ -105,7 +106,7 @@ we get \(1-\eps \le \frac{dN'+c}{dN+c} \le 1 + \eps\). We continue with the proo
 This completes the proof.
 \end{proof}
 
-\begin{lemma}\label{lem:logarithm}
+\begin{lemma} [Bulatov and Hedayaty \cite{mvl}] \label{lem:logarithm}
 Let \(\varphi\) be a polynomial time computable function that maps every instance of a
 counting problem \(A\) to an instance of a counting problem problem \(B\) in such a way that
 there is a constant \(m>0\) such that
@@ -152,7 +153,7 @@ positions of \mR\ except for those in \(S\)\@.
 Although existential quantification is not known to give rise to AP-reducible problems, in some
 cases it does.
 
-\begin{lemma}\label{lem:projection}
+\begin{lemma} [Bulatov and Hedayaty \cite{mvl}] \label{lem:projection}
 Let \mrelset\ be a constraint language over the domain \mD\ and
  let \mR\ be some \(k\)-ary relation in \mrelset\@.
 If there is a set \(S\subset D\) such that \(|\proj S R|=|R|\) then 
@@ -190,7 +191,7 @@ is also used in many other proofs \cite{bulatov07,Dyer,Trichotomy,madu}. Pinning
 viewed as showing that for a constraint language \mrelset\ and a set \(S\), 
 \ccsp(\(\relset \cup \setof S\)) \(\aple\) \ccsp(\mrelset) holds.
 
-\begin{lemma} [Pinning and reflexive elements] \label{lem:refpin}
+\begin{lemma} [Pinning and reflexive elements, Bulatov and Hedayaty \cite{mvl}] \label{lem:refpin}
 Let \mrelset\ be a set of relations on a set \mD, and let for a certain subset \(S \subset D\)
 there be a relation \mR\ such that \(x\in S\) if and only if 
 \((x,x,\dotsc,x)\in R\)\@. If such a relation \mR\ exists in \mrelset\ then
@@ -207,7 +208,7 @@ Next lemma generalizes the Pinning Lemma from \cite{Trichotomy}.
 This lemma allows one to add an extra unary relation to the constraint language. 
 The proof of Lemma~\ref{lem:pinning} also follows closely the proof in \cite{Trichotomy}. 
 
-\begin{lemma}[Extended Pinning]\label{lem:pinning}
+\begin{lemma}[Extended Pinning, Bulatov and Hedayaty \cite{mvl}]\label{lem:pinning}
 Let \(\relset\) be a constraint language over the set \mD\ of size \(k\)\@,
 and let for a certain subset \(S \subset D\) 
 there be an \(l\)-ary relation \(R \in \relset\) and a coordinate position \(j\),
@@ -279,7 +280,7 @@ relation \mR\ is said to be \emph{max-definable} by \mrelset\@.
 Given a scope of variables \(\varrho\) and a predicate \(\varphi\) expressed as above definition
 \(\varphi\) we can be also viewed as a set of constraints.
 
-\begin{theorem}[Maximization]\label{theo:max}
+\begin{theorem}[Maximization, Bulatov and Hedayaty \cite{mvl}]\label{theo:max}
 Let \mrelset\ be a set of relations over the domain \mD,
 and \mR\ be an \mn-ary relation on the same domain. 
 If \mR\ is max-definable by \mrelset\ then \ccsp(\(\relset \cup \setof R\))~\maple~

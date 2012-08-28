@@ -279,7 +279,7 @@ An approximate counting problem involves finding an answer for a given
 instance within an acceptable range of the actual number of solutions.
 Jerrum et al. \cite{JVV} proved that 
 for self-reducible problems, Almost Uniform Generation and approximate counting 
-are interreducible. 
+have the same complexity.
 
 The model used in \cite{JVV} is very general, we provide a very informal 
 proof for the problem of finding the number of truth assignment for a CNF\@.
@@ -847,17 +847,24 @@ and say \mf\ is \emph{AP-reducible} to \mg. If \(f \aple g\) and \(g \aple f\)
 then we say that  \mf\ and \mg\ are \emph{AP-interreducible} and write \(f \apeq g\)\@. 
 
 
+In this chapter we will study three major classes of counting problem with respect
+to complexity of approximate counting. We will study some of the important counting problem in FPRAS
+in Section~\ref{sec:poly}, the problems that are hard to approximate in Section~\ref{sec:hard}, 
+and the \cbis\ problem and problems AP-interreducible with it in Section~\ref{sec:bis}\@.
+In Section~\ref{sec:other}, we will mention some problems that not known to fit in this classification.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Polynomial Time Solvable Problems}
+\section{Polynomial Time Solvable Problems} \label{sec:poly}
 A very few non-trivial combinatorial problems involving counting 
 can be solved in polynomial time.
 Some of the problems are reducible to determinant such as
 the problem of finding the number of spanning trees of a graph and 
 the problem of finding the number of perfect matchings in a planar graph.
-Bulatov \cite{Bulatov} showed that for only congruence singular \mrelset, the \ccsp(\mrelset)
-problem  is polynomial time solvable. In this section we show several
-examples of counting problems which an approximate solution can be obtained in polynomial time.
+Bulatov \cite{Bulatov} showed that the \ccsp(\mrelset) problem is polynomial time solvable
+only for congruence singular relations \mrelset\@.
+In this section we show several
+examples of counting problems for which an approximate solution can be obtained in polynomial time.
 
 There are some artificial examples of \ccsp(\mrelset) problems that can be approximated 
 in polynomial time. 
@@ -883,6 +890,11 @@ in terms of \(\oneoeps\); which means the number of 3-colorings of \mG\ can be e
 \label{fig:approxible}
 \end{figure}
 \end{example}
+
+Similar to Example~\ref{exp:poly}, for any graph \mG, there exists a graph \mH\ such that \mG\
+is an induced sub-graph of \mH\ and the \chom(\mH) problem is in FPRAS\@.
+In other words, although \mG\ is an induced sub-graph of \mH, approximating the \chom(\mH) problem
+may be easier than approximating the \chom(\mG) problem.
 
 Another interesting counting problem which can be approximated in polynomial time is 
 the \pname{\#Dual-SAT} problem defined as :
@@ -912,7 +924,7 @@ for sampling the \pname{Dual-SAT} problem.
 Since the \pname{\#Dual-SAT} problem is self-reducible, Algorithm~\ref{alg:dnf} can
 be used to find an approximate solution for \pname{\#Dual-SAT}\@.
 
-Other common technique used to approximate counting problems is the Markov chain
+Other common method used to approximate counting problems is the Markov chain
 Monte-Carlo algorithms. Consider the following problems:
 
 \pdef{\pname{\#Match}}
@@ -923,13 +935,51 @@ Monte-Carlo algorithms. Consider the following problems:
 \pdef{\ldkcol}
 {A graph \mG\ such that \(2\Delta(G)+1\le k\), where \(\Delta(G)\)
 is the maximum degree in \mG}
-{The number of k-Colorings of \mG}
+{The number of proper k-Colorings of \mG}
 
-Jerrum and Sinclair \cite{Jerrum96} used Markov chain Monte-Carlo technique 
-to approximate the \pname{\#Match} problem; Jerrum \cite{Jerrum} used the same technique 
+Jerrum and Sinclair \cite{Jerrum96} used Markov chain Monte-Carlo method 
+to approximate the \pname{\#Match} problem; Jerrum \cite{Jerrum} used the same method 
 to approximate the \ldkcol\ problem for graphs 
-with bounded degree. We give a brief description of the Markov chain Monte Carlo algorithm
-and show how these two problems are solved.
+with bounded degree. We give a brief description of the Markov chain Monte Carlo method
+and show how these two problems are solved using this method.
+
+The problem is usually reduced to a sampling problem and 
+the Markov Chain Monte Carlo method solves the sampling problem as follows.
+Consider a Markov chain with state space \(\Omega\) and stationary distribution \(\pi\)\@.
+Informally, a Markov chain is said to be \emph{ergodic} if regardless of the initial state,
+the probability distribution over \(\Omega\) asymptotically converges to \(\pi\)\@.
+Start sampling from an arbitrary state in \(\Omega\); simulate the
+Markov chain for \(T\) steps; finally output the final result.
+
+We need to choose \(T\) such that after \(T\) steps, the distribution of state
+is arbitrary close to the desired distribution \(\pi\)\@. The number of steps required
+for the algorithm to become close enough to \(\pi\) is called the \emph{mixing time}\@.
+Loosely, if the mixing time is polynomial in terms of the size of the input, then
+the Markov chain is \emph{rapidly mixing}\@.
+
+The \ldkcol\ problem is solved as follows.
+Let \mG\ be the input graph with \mn\ vertices
+and \mm\ edges. Let \(\bG\) be a sequence of subgraphs of \mG\ where
+\(\bG_0=G\) and \(\bG_{i+1}\) is obtained by removing an arbitrary edge from \(\bG_i\)\@. 
+The last element \(\bG_m\) is an empty graph which is k-colorable in \(k^n\) ways.
+Next, we estimate the \(Z(G_i)/Z(G_{i+1})\) by sampling\@.
+Consider a Marov chain whose state space \(\Omega_k\) is the set of all k-colorings
+of the graph \(G_{i+1}\)\@. The transition probabilities from the state \(X_t\) are modeled as 
+\begin{inparaenum}[(a)]
+\item choose a vertex \(v\) and a color \(c\) uniformly at random
+\item recolor the vertex \(v\) with the color \(c\); if the resulting coloring \(X'\)
+is proper then let \(X_{t+1}=X'\); otherwise, let \(X_{t+1}=X_t\)\@.
+\end{inparaenum}
+
+The algorithms chooses a sufficiently long random walk 
+The ratio \(Z(G_i)/Z(G_{i+1})\) is estimated
+by sampling along a random walk on the Markov chain. \(Z(G)\) is the product of all the
+ratios and the number of k-colorings of \(\bG_m\).
+
+
+
+
+\begin{comment}
 Consider a Markov chain with each state representing a solution of the problem.
 The transitions are to the same solution with probability of \(\frac{1}{2}\) 
 and to a similar solution with probability \(\frac{1}{2}\).
@@ -969,7 +1019,7 @@ The last element \(\bG_m\) is an empty graph which is k-colorable in \(k^n\) way
 The ratio \(Z(G_i)/Z(G_{i+1})\) is estimated
 by sampling along a random walk on the Markov chain. \(Z(G)\) is the product of all the
 ratios and the number of k-colorings of \(\bG_m\).
-
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1063,7 +1113,7 @@ AP-interreducible with the \csat\ problem.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Problems AP-interreducible With \cbis}
+\section{Problems AP-interreducible With \cbis} \label{sec:bis}
 The proof used to show that the \csat\ problem is AP-reducible to the \cis\ problem does
 not work if the input for the \cis\ problem is limited to bipartite graphs.
 The version of the \cis\ problem with input limited to bipartite graphs is called
@@ -1123,10 +1173,11 @@ and~\ref{exm:particles}, respectively.
 {A graph \mG}
 {The number of homomorphisms from \mG\ to \(S^*_2\)}
 
+\todo{Add proofs between \cbis\ and \cds}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Other Difficult Problems}
+\section{Other Difficult Problems} \label{sec:other}
 Goldberg et al.~\cite{Trichotomy} proved an approximation trichotomy for the Boolean
 \ccsp(\mrelset) problem. A Boolean relation \mR\ is \emph{monotone} if \mR\ is closed under
 \(\land\) and \(\lor\) operators; a Boolean constraint languages \mrelset\ is monotone if 
