@@ -28,7 +28,7 @@ in \mrelset\ is closed under operations \(vee\) and \(\wedge\) defined by \(L\)\
 After studying complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
 in \cite{mvl} also complexity of the \chom(\mH) problem on 3-vertex graphs,
 we noticed that \ccsp(\mrelset) problem over 
-monotone relations are AP-reducible to the \cds\ problem. We generalize the observation by
+monotone relations are AP-reducible to the \cdsp\ problem. We generalize the observation by
 Theorem~\ref{theorem:monotone}\@.
 
 \begin{theorem} [Hedayaty, Bulatov 2009 Unpublished]\label{theorem:monotone}
@@ -67,7 +67,7 @@ Similarly \(\vx \vee \vy \in R'\)\@.
 \end{proof}
 
 Originally, we came up with a different reduction from the \ccsp(\(\relset'\)) problem
-to the \cds\ problem. However, the proof used in \cite{Trichotomy} for
+to the \cdsp\ problem. However, the proof used in \cite{Trichotomy} for
 Theorem~\ref{theorem:trichotomy} is simpler than our proof; hence, there is no need to 
 mention our original proof.
 \begin{comment}
@@ -200,7 +200,7 @@ For an \RBA\ graph \mH, if \(\magf(H)=2\) then \chom(\mH) \mapge\ \cbis\@.
 
 \begin{proof}
 Let \mH\ be a an \RBA\ graph such that \(\magf(H)=2\), 
-we reduce the \cds\ problem to the \chom(\mH) problem\@.
+we reduce the \cdsp\ problem to the \chom(\mH) problem\@.
 For a given partial order \((P,\preceq)\), let \(G=(V,E)\) be the corresponding directed
 (acyclic) graph. Take \(G'=(V',E')\) where
 \(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
@@ -214,10 +214,10 @@ otherwise, \((h(u),h(v))\in E(H)\) and for all \(x\in V\), we have either
 The number of homomorphisms with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
 the number of homomorphisms with \(h(u)\neq h(v)\) is equal to \(|E(H)|\) times the 
 number of DownSets in \((P,\preceq)\)\@. Hence,
-\[\hom(G',H) = |V(H)| + |E(H)|\cdot \#ds(P,\preceq).\]
+\[\hom(G',H) = |V(H)| + |E(H)|\cdot \cds(P,\preceq).\]
 In other words:
-\[\#ds(P,\preceq) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\]
-By Lemma~\ref{lem:linear} we have \chom(\mH) \mapge\ \cds\@.
+\[\cds(P,\preceq) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\] 
+By Lemma~\ref{lem:linear} we have \chom(\mH) \mapge\ \cdsp\@.
 \end{proof}
 
 \begin{defi} [Polar Graph]

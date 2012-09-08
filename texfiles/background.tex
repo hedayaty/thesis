@@ -1055,15 +1055,15 @@ for \cp\ with respect to AP-reducibility.
 \csat, \ctsat, and \ctcol\ are complete for \cp\ with respect to AP-reducibility.
 \end{cor}
 
-Another important problem AP-interreducible with the \csat\ problem is the \cis\ problem defined as:
+Another important problem AP-interreducible with the \csat\ problem is the \cisp\ problem defined as:
 
-\pnndef%{\cis}
+\pnndef%{\cisp}
 {A graph \mG}
 {The number of independent sets in \mG}
 
-Although the decision version of the \cis\ problem is a trivial problem, Goldberg et al.
-\cite{Leslie03} proved that the \cis\ problem is AP-interreducible to the \csat\ problem. 
-Finding AP-reductions from many problems from the \cis\ problem is more straightforward than
+Although the decision version of the \cisp\ problem is a trivial problem, Goldberg et al.
+\cite{Leslie03} proved that the \cisp\ problem is AP-interreducible to the \csat\ problem. 
+Finding AP-reductions from many problems from the \cisp\ problem is more straightforward than
 finding reductions from the problems that the decision version is NP-complete.
 
 \begin{figure}[h]
@@ -1079,7 +1079,7 @@ finding reductions from the problems that the decision version is NP-complete.
 \begin{example}
 Consider the binary relations \(OR\) and \(NAND\) on domain \(\setof\zo\) defined as
 \(OR=\setof{(0,1),(1,0),(1,1)}\) and \(NAND=\setof{(0,0),(0,1),(1,0)}\)\@.
-The \cis\ problem can be expressed by the \ccsp(\(OR\)) or \ccsp(\(NAND\)) problem;
+The \cisp\ problem can be expressed by the \ccsp(\(OR\)) or \ccsp(\(NAND\)) problem;
 hence, the \ccsp(\(OR\)) and \ccsp(\(NAND\)) problems are both AP-interreducible with the
 \csat\ problem.
 
@@ -1136,9 +1136,9 @@ if the model is not ferromagnetic.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problems AP-interreducible With \cbis} \label{sec:bis}
-The proof used to show that the \csat\ problem is AP-reducible to the \cis\ problem does
-not work if the input for the \cis\ problem is limited to bipartite graphs.
-The version of the \cis\ problem with input limited to bipartite graphs is called
+The proof used to show that the \csat\ problem is AP-reducible to the \cisp\ problem does
+not work if the input for the \cisp\ problem is limited to bipartite graphs.
+The version of the \cisp\ problem with input limited to bipartite graphs is called
 the \cbis\ problem and is defined as follows:
 
 \pnndef%{\cbis}
@@ -1159,7 +1159,7 @@ The following problems AP-interreducible with \cbis:
 \label{fig:bisred}
 \end{figure} 
 
-\pdef{\cds}
+\pdef{\cdsp}
 {A partial order \((P,\preceq)\)}
 {The number of down-sets in \(P\)}
 
@@ -1195,34 +1195,36 @@ and~\ref{exm:particles}, respectively.
 {A graph \mG}
 {The number of homomorphisms  from \mG\ to \(S^*_2\)}
 
-Here we prove that the two characterizing problem, i.e., \cbis\ and \cds, are AP-interreducible.
+Here we prove that the two characterizing problems in this class, i.e., \cbis\ and \cdsp,
+are AP-interreducible.
 \begin{lemma} \label{lem:dstobis}
-\cds \(\aple\) \cbis\@.
+\cdsp\ \(\aple\) \cbis\@.
 \end{lemma}
 
 We use the proof from \cite{counting}\@. We denote the number of down-sets in a partial order 
-\(P\) by \(\#DS(P)\) and the number of independent sets in a graph \mG\ by
-\(\#IS(G)\)\@.
+\(P\) by \(\cds(P)\) and the number of independent sets in a graph \mG\ by
+\(\cis(G)\)\@.
 \begin{proof}
-Let \(P=([n],\preceq)\) be an instance of the \cds\ problem. 
+Let \(P=([n],\preceq)\) be an instance of the \cdsp\ problem. 
 Let \(B=(U,V,E)\) be a bipartite graph defined as follows.
 For \(i\) in \(X\), let \(U_i\) and \(V_i\) be a collection of disjoints sets of
-size \(2n\)\@. Then take \(U=\bigcup_{1 \le i \le n} U_i\), \(V=\bigcup_{1 \le i\le n} V_i\), and
-\[E = \{ u,v \mid u \in U_i \land v \in V_j \land i \preceq j\}.\]
+size \(2n\)\@. Then, take \(U=\bigcup_{1 \le i \le n} U_i\), \(V=\bigcup_{1 \le i\le n} V_i\), and
+\[E = \{\setof{u,v} \mid u \in U_i \land v \in V_j \land i \preceq j\}.\]
 
 An independent set \(I\) in \(B\) is said to be \emph{full} if for all \(1 \le i \le n\)
-the set \(I\cap (U_i \cup V_i)\) is not empty. Every full independent set \(I\) in \(B\)
+the set \(I\cap (U_i \cup V_i)\) is nonempty. Every full independent set \(I\) in \(B\)
 corresponds to a down-set \(D\) in \(P\) as \(D=\{i \mid I \cap V_i \neq \emptyset\}\)\@.
 In the same manner, every down-set \(D\) in \(P\) gives exactly \((2^{2n}-1)^n\) full independent
-sets in \(B\)\@.
+sets in \(B\)\@. Note that \(2^{2n}-1\) is the number of nonempty subsets of \(U_i\)
+or \(V_i\)\@.
 
 On the other hand the number of non-full independent sets in \(B\) is less than
 \(3^n(2^{2n}-1)^{n-1}\)\@. Thus, for \(n\ge 5\) we have 
-\[\#DS(P) = \left\lfloor\frac{\#IS(P)}{(2^{2n}-1)^n} \right\rfloor .\]
+\[\cds(P) = \left\lfloor\frac{\cis(P)}{(2^{2n}-1)^n} \right\rfloor .\]
 \end{proof}
 
 \begin{lemma} \label{lem:bistods}
-\cbis \(\aple\) \cds\@.
+\cbis\ \(\aple\) \cdsp\@.
 \end{lemma}
 
 The proof used in \cite{counting} involves reduction to several other problem. Here 
@@ -1231,21 +1233,22 @@ Chapter~\ref{chp:results}\@.
 
 \begin{proof}
 Let \(B=(U,V,E)\) be a bipartite graph. We will create a partial order \(P=(X,\preceq)\)
-such that \(\#IS(B)=\#DS(P)\)\@. Take \(X=U \cup V\) and \(u \preceq v\) if and only if
+such that \(\cis(B)=\cds(P)\)\@. Take \(X=U \cup V\) and \(u \preceq v\) if and only if
 \(\{u,v\} \in E\)\@. We claim that for every down-set \(D\) in \(P\), 
-\(I=(U\cap D) \cup (V - D)\) is an independent set. Similarly, for any independent set
+\(I=(U\cap D) \cup (V - D)\) is an independent set and for any independent set
 \(I\) in \(B\) the set \(D=(U \cap I) \cup (V - I)\) is a down-set in \(P\)\@.
 
 Let \(D\) be a down-set in \(P\)\@. Since \(U\cap D\) and \(V - D\) are subsets of
 \(U\) and \(V\) respectively, they are both independent sets.
-There is no edge from \(V\) to \(U\) and all neighbors of \(U\cap D\) rely in
-\(V\cap D\) which none of them are in \(V - D\); hence, the set \(I=(U\cap D) \cup (V - D)\) is
+There is no edge from \(V\) to \(U\) and since \(D\) is a DownSet
+all the neighbors of \(U\cap D\) rely in \(V\cap D\)
+and none of them are in \(V - D\); hence, the set \(I=(U\cap D) \cup (V - D)\) is
 an independent set in \(B\)\@. On the other hand, let \(I\) be an independent set in \(B\)\@.
-There is no out-going edge from any vertex in \(V\) and
+There is no out-going edge from any vertex in \(V\) and since \(I\) is an independent set
 out-neighbors of \(U\cap I\) are limited to \(V - I\); hence, the set \(D=(U \cap I) \cup (V - I)\) is
 a down-set in \(P\)\@.
 
-Hence, we have a parsimonious reduction from the \cbis\ problem to the \cds\ problem.
+Hence, we have a parsimonious reduction from the \cbis\ problem to the \cdsp\ problem.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
