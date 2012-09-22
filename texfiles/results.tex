@@ -2,8 +2,7 @@
 In this chapter, we mention our major results on complexity 
 of the \ccsp(\mrelset) problem. We first show that for \emph{monotone} relations, there is an
 approximation preserving reduction from the \ccsp(\mrelset) problem to the \cbis\ problem.
-Next, we show a connection between the complexity of the \chom(\mH) problem on bipartite graphs
-and directed graphs.
+Next, we extend the definition of monotone graphs to bipartite graphs. We also provide a characterization of monotone graph for reflexive graphs.
 At the end, we show that there is an approximation preserving reduction from the \cbis\ problem 
 to the \ccsp(\mrelset) problem if \mrelset\ consists of an \emph{\RBA} relation.
 
@@ -29,9 +28,9 @@ After studying complexity of the \ccsp(\mrelset) problem for maximal clones on 3
 in \cite{mvl} also complexity of the \chom(\mH) problem on 3-vertex graphs,
 we noticed that \ccsp(\mrelset) problem over 
 monotone relations are AP-reducible to the \cdsp\ problem. We generalize the observation by
-Theorem~\ref{theorem:monotone}\@.
+Theorem~\ref{thrm:monotone}\@.
 
-\begin{theorem} [Hedayaty, Bulatov 2009 Unpublished]\label{theorem:monotone}
+\begin{theorem} [Hedayaty, Bulatov 2009 Unpublished]\label{thrm:monotone}
 Let \mrelset\ be a constraint language over a domain \mD, if 
 \mrelset\ is monotone then \ccsp(\mrelset) \maple\ \cbis\@.
 \end{theorem}
@@ -62,22 +61,22 @@ We show that for any two tuples \(\vx,\vy\in R'\) we have
 \vx \wedge \vy \in R' \\
 \end{eqnarray*}
 Similarly \(\vx \vee \vy \in R'\)\@.
-\(\relset'\) is monotone and by Theorem~\ref{theorem:trichotomy}, we have 
+\(\relset'\) is monotone and by Theorem~\ref{thrm:trichotomy}, we have 
 \ccsp(\(\relset'\))\maple\ \cbis\@. Consequently, \ccsp(\mrelset) \maple\ \cbis\@.
 \end{proof}
 
 Originally, we came up with a different reduction from the \ccsp(\(\relset'\)) problem
 to the \cdsp\ problem. However, the proof used in \cite{Trichotomy} for
-Theorem~\ref{theorem:trichotomy} is simpler than our proof; hence, there is no need to 
+Theorem~\ref{thrm:trichotomy} is simpler than our proof; hence, there is no need to 
 mention our original proof.
 \begin{comment}
-The reduction uses Theorem~\ref{theorem:majority} to break arbitrary relation to binary relation.
+The reduction uses Theorem~\ref{thrm:majority} to break arbitrary relation to binary relation.
 A function \(m: D^3\to D\) is said to be a \emph{majority function}, if for any \(x,y\in D\) we have
 \(m(x,x,y) = m(x,y,x) = m(y, x, x) = x\)\@. We denote the projection of \mR\ on coordinates \(i\) and
  \(j\) by \(R_{1,2}\) and projections of \mR\ on coordinates from \(i\) to \(j\) by \(R_{i-j}\)\@.
 
 
-\begin{theorem} [Bergman's Double-projection Theorem (Unpublished)]\label{theorem:majority}
+\begin{theorem} [Bergman's Double-projection Theorem (Unpublished)]\label{thrm:majority}
 Let \mR\ be a relation of arity \mn\ on domain \(D\) and
 \(m\) be a majority function on the same domain.
 If \mm\ is a polymorphism for \mR, then \mR\ can be expressed by all 
@@ -109,17 +108,16 @@ a \ccsp(\\)) instance, where \(\relset''\) is the binary monotone constraint lan
 Finally, \ccsp(\(\relset''\)
 \end{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% BiMonotone Graphs
+% Bipartite Monotone Graphs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Bimonotone Graphs}
+\section{Bipartite Monotone Graphs}
 In this part, we extend the results from the previous section to bipartite
-graphs and show that the for any \emph{bimonotone} graph \mH, there is AP-reduction from the \chom(H)
-problem to the \cbis\ problem.
+graphs and define monotone bipartite graphs.
 
-\begin{theorem} [Bipartite Orientation] \label{theorem:bior}
+\begin{theorem} [Bipartite Orientation] \label{thrm:bior}
 Let \mH\ be a bipartite graph and let \(A\) and \(B\) be an arbitrary
-bipartition of \mH\@. For \(H'\) the directed graph obtained from
+bipartitions of \mH\@. For \(H'\) the directed graph obtained from
 \mH\ by orienting the edges from \(A\) to \(B\), we have \chom(\mH) \maple \chom(\(H'\)).
 \end{theorem}
 
@@ -137,31 +135,66 @@ are exactly the same as homomorphisms from \(G_2\) to \(H'\)\@. This implies tha
 \chom(\mH) \maple\ \chom(\(H'\))\@.
 \end{proof}
 
-Typically bipartite graphs are not monotone; however, if they are oriented as above,
+Typically bipartite graphs are not monotone; however, with the latter orientation
+we can extend the definition of monotone graphs to bipartite graphs.
 we may get monotone graph.
 
-\begin{defi} [Bimonotone Graphs]
+\begin{defi} [Bipartite Monotone Graphs]
 Let \(H\) be a bipartite graph and let \(A\) and \(B\) be an arbitrary
-bipartition of \(H\). Let \(H'\) be the directed graph obtained from
-\(H\) by orienting the edges from \(A\) to \(B\)\@. The graph \mH\ is said to be \emph{bimonotone}
-if \(H'\) is monotone.
+bipartitions of \(H\). Let \(H'\) be the directed graph obtained from
+\(H\) by orienting the edges from \(A\) to \(B\)\@. The graph \mH\ is said to be
+\emph{monotone} if \(H'\) is monotone.
 \end{defi}
 
-Note that, choice for bipartition does not affect \(H'\) being monotone or not.
+Note that, the choice for bipartition of \(H\) is not significant for
+\(H'\) being monotone or not.
 
-\begin{theorem} [Bimonotone]
-For any bimonotone graph \mH, we have \chom(\mH) \maple \cbis\@.
+\begin{theorem} [Bipartite Monotone Graphs]
+For any bipartite monotone graph \mH, we have \chom(\mH) \maple \cbis\@.
 \end{theorem}
 
 \begin{proof}
-For any bimonotone graph \mH, by Theorem~\ref{theorem:bior} there is a directed monotone 
-graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{theorem:monotone},
+For any bipartite monotone graph \mH, by Theorem~\ref{thrm:bior} there is a directed monotone 
+graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{thrm:monotone},
 \chom(\(H'\)) \maple \cbis\@. Thus, \chom(\mH) \maple \cbis\@.
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Characterization of Monotone Graphs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Characterization of Monotone Graphs}
+TODO write some introduction about this section. We will give a characterization of
+monotone graphs. We restrict this section to non-directed graphs. Also for simplicity,
+we restrict to connected graphs as well. By Theorems~\ref{thrm:pavol}~and~\ref{thrm:npcp},
+\mH\ is monotone AP-reducible to \csat\ unless \mH\ is a reflexive or bipartite graph.	
+In this work we only cover reflexive graphs.
+
+Discussion about interval and proper interval graph.
+
+\begin{example}
+\mH\ is a monotone graph; however, \mH\ is not a proper interval graph.
+\end{example}
+
+\begin{example}
+\mH\ is a interval graph; however, \mH\ is not a monotone graph.
+\end{example}
+
+\begin{defi} [Cover Graph]
+Also mention \emph{Hess Diagram}.
+\end{defi}
+
+\begin{defi} [Length of a Lattice]
+\end{defi}
+
+
+Let \(L\)be a distributive lattice of length \(k\) and let \(h\) be  a homomorphism from a 
+k-Cube \(Q\) to \(\mathcal{H}(L)\)\@.
+
+TODO Continue ...
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % RBA Relations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{RBA Relations}
 In this section,  we introduce the family of \RBA\ relations and show that
 for any \RBA\ relation \mR, we have \cbis \maple \ccsp(\mR)\@.
