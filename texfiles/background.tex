@@ -194,7 +194,7 @@ If \mH\ is bipartite then \(G \to H\) if and only if \mG\ is bipartite.
 Observation~\ref{obs:hom} shows that if the graph \mH\ has a loop or is bipartite,
 the Hom(\mH) problem is easy; however, for other graphs the problem is of higher complexity.
 
-\begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990~\cite{pavol}]
+\begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990~\cite{pavol}] \label{thrm:pavol}
 For an undirected graph \mH, the Hom(\mH) problem is polynomial time solvable if 
 \mH\ contains a loop or \mH\ is bipartite; otherwise, it is NP-complete.
 \end{theorem}
@@ -1046,7 +1046,7 @@ problem in \cp\ is AP-reducible to them.
 Existence of an FPRAS for any of these problems implies NP=RP\@. The following theorem 
 points us to the first set of problems in this complexity class.
 
-\begin{theorem} [Goldberg et al. \cite{Leslie03}]
+\begin{theorem} [Goldberg et al. \cite{Leslie03}] \label{thrm:npcp}
 For any NP-complete decision problem, the corresponding counting problem is complete
 for \cp\ with respect to AP-reducibility.
 \end{theorem}
@@ -1260,7 +1260,7 @@ Goldberg et al.~\cite{Trichotomy} proved an approximation trichotomy for the Boo
 every relation in \mrelset\ is monotone.
 
 
-\begin{theorem}[Dyer, Goldberg, Jerrum, 2007 \cite{Trichotomy}] \label{theorem:trichotomy}
+\begin{theorem}[Dyer, Goldberg, Jerrum, 2007 \cite{Trichotomy}] \label{thrm:trichotomy}
 For a constraint language \mrelset,
 if \mrelset\ is affine then \ccsp(\mrelset) is polynomial time solvable; otherwise,
 if \mrelset\ is monotone then it is AP-interreducible to the \cbis\ problem; otherwise,
