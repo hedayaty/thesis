@@ -284,13 +284,14 @@ Many of the relation such as the relation between a graph and a matching  in the
 and relation between CNF(Conjunctive Normal Form) or DNF(Disjunctive Normal Form) 
 a satisfying truth assignment are self-reducible.
 
-\begin{theorem} [Jerrum et al. 1986 \cite{JVV}] \label{thrm:selfred}
-For any self-reducible relation \mR, the almost uniform generation problem and the approximate counting problem have the same complexity.
+\begin{theorem} [Jerrum et al. 1986 \cite{JVV}] \label{thm:selfred}
+For any self-reducible relation \mR, the almost uniform generation problem and the approximate counting
+problem have the same complexity.
 \end{theorem}
 
 Here we provide a very informal 
 proof for the problem of finding the number of truth assignment for a CNF\@.
-The general idea of the proof for Theorem~\ref{thrm:selfred} is the same.
+The general idea of the proof for Theorem~\ref{thm:selfred} is the same.
 Let \(C\) be a CNF\@.
 For a variable \(x\) used in \(C\), let \(C_x\) denote 
 the CNF derived from \(C\) if \(x\) is assigned true; analogously, let \(C_{\bar x}\) denote
@@ -841,15 +842,18 @@ bounded by \(|\mathcal{P}|\) and \(\oneoeps\)\@.
 \begin{defi}[AP-reduction]
 For any two functions \mf\ and \mg, 
 an \emph{approximation-preserving reduction}(AP-reduction for short)
-from \mf\ to \mg\ is a probabilistic algorithm \(\apxalg\) that for an input 
-\((x,\eps) \in \Sigma^*\times(0,1)\) where \(x\) is an instance of \mf\ and \(\eps\) 
-is an error tolerance, using \(\apxalg'\) produces an integer random variable \(z\)
-satisfying the following  conditions: \begin{inparaenum}[(i)] \item \(\apxalg'\) takes 
-an input in the form \((w,\delta) \in \Sigma^*\times(0,1)\) where \(w\) is an instance of \mg\
-and \(\delta\) is the error tolerance, \item if \(\apxalg'\) meets the specification for
-being a RAS for \mg\ then \(\apxalg\) meets the specifications for being a RAS for \mf, \item
-\(\apxalg\) runs in \(poly(|x|,\oneoeps)\) time.
-\end{inparaenum}
+from \mf\ to \mg\ is a probabilistic algorithm \(\apxalg\) which uses a solver
+\(\apxalg'\) for \mg\ and for any input \((x,\eps) \in \Sigma^*\times(0,1)\) where \(x\)
+is an instance of \mf\ and \(\eps\) is an error tolerance, produces an integer random variable \(z\)
+satisfying the following  conditions: 
+\begin{itemize}
+\item \(\apxalg'\) takes an input in the form \((w,\delta) \in \Sigma^*\times(0,1)\)
+where \(w\) is an instance of \mg\
+and \(\delta\) is the error tolerance,
+\item if \(\apxalg'\) meets the specification for being a RAS for 
+\mg\ then \(\apxalg\) meets the specifications for being a RAS for \mf, 
+\item \(\apxalg\) runs in \(poly(|x|,\oneoeps)\) time.
+\end{itemize}
 \end{defi}
 
 If an approximation-preserving reduction from \mf\ to \mg\ exists we write \(f \aple g\)
@@ -866,45 +870,47 @@ In Section~\ref{sec:other}, we will mention some problems that not known to fit 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Polynomial Time Solvable Problems} \label{sec:poly}
-A very few non-trivial combinatorial problems involving counting 
+Few non-trivial combinatorial problems involving counting 
 can be solved in polynomial time.
-Some of the problems are reducible to determinant such as
+Some of these problems are reducible to determinant such as
 the problem of finding the number of spanning trees of a graph and 
 the problem of finding the number of perfect matchings in a planar graph.
-Bulatov \cite{Bulatov} showed that the \ccsp(\mrelset) problem is polynomial time solvable
-only for congruence singular relations \mrelset\@.
+Bulatov \cite{Bulatov} showed that the problem \ccsp(\mrelset) is polynomial time solvable
+for congruence singular relations \mrelset\ and otherwise it is \cpc\@.
 In this section we show several
 examples of counting problems for which an approximate solution can be obtained in polynomial time.
 
 There are some artificial examples of \ccsp(\mrelset) problems that can be approximated 
 in polynomial time. 
 
-\begin{example} \label{exp:poly}
+\begin{example} \label{exm:poly}
 For the graph \mH\ shown in Figure~\ref{fig:approxible},
-we show that the \chom(\mH) problem is in FPRAS\@. Suppose the input is 
+we show that the problem \chom(\mH) is in FPRAS\@. Suppose the input is 
 \((G,\eps)\) where \mG\ is a connected graph with \mn\ vertices and \(\eps\)
 is the error tolerance.
 We know that 
 \(4^n\le hom(G,H) \le 4^n+3^n\)\@.
-For \(\eps > (\frac{3}{4})^n\), take \(4^n\) as an approximation, the error ratio will  be
+For \(\eps \ge (\frac{3}{4})^n\), take \(4^n\) as an approximation, the error ratio will  be
 \[\frac{\hom(G,H)-4^n}{\hom(G,H)} \le \frac{3^n}{\hom(G,H)} \le (\frac{3}{4})^n \le \eps\]
 For \(\eps < (\frac{3}{4})^n\), we have \(\oneoeps>(\frac{4}{3})^n \);
 hence, \((\oneoeps)^{\log_{\frac{4}{3}}3} > 3^n\); consequently, \(3^n\) is polynomial 
 in terms of \(\oneoeps\); which means the number of 3-colorings of \mG\ can be evaluated in 
 \(poly(n,\oneoeps)\) time. 
-\(hom(G,H)\) is \(4^n\) plus the number of 3-colorings of \mG\@.
+Note that \(hom(G,H)\) is \(4^n\) plus the number of 3-colorings of \mG\@.
 
-\begin{figure}[h]
+\begin{figure}[h] 
 \center\input{figs/approxible.pdftex}
 \caption{Graph \ensuremath{G} used in Example~\ref{exm:poly}}
 \label{fig:approxible}
 \end{figure}
 \end{example}
 
-Similar to Example~\ref{exp:poly}, for any graph \mG, there exists a graph \mH\ such that \mG\
-is an induced sub-graph of \mH\ and the \chom(\mH) problem is in FPRAS\@.
-In other words, although \mG\ is an induced sub-graph of \mH, approximating the \chom(\mH) problem
-may be easier than approximating the \chom(\mG) problem.
+The construction in Example~\ref{exm:poly} shows that for any graph \mG,
+there exists a graph \mH\ such that \mG\
+is an induced sub-graph of \mH\ and the problem \chom(\mH) is in FPRAS\@.
+In other words, although \mG\ is an induced sub-graph of \mH, approximating
+the problem \chom(\mH)
+may be easier than approximating the problem \chom(\mG)\@.
 
 Another interesting counting problem which can be approximated in polynomial time is 
 the \pname{\#Dual-SAT} problem defined as :
@@ -922,19 +928,19 @@ for sampling the \pname{Dual-SAT} problem.
 \begin{algorithm}[h]
 \begin{algorithmic}
 \WHILE {true}
-	\STATE  select a clause \(C\) randomly proportional to the size of the clause
-	\STATE  select an assignment \(A\) satisfying \(C\) uniformly random
-	\STATE  \(N\)=\#clauses satisfied by \(A\)
-	\STATE with probability 1/N: output \(A\) and halt
+       \STATE Select a clause \(C\) randomly with probability proportional to the size of the clause
+       \STATE Select an assignment \(A\) satisfying \(C\) uniformly at random
+       \STATE Let \(N\) be the number of clauses satisfied by \(A\)
+       \STATE With probability \(\frac{1}{N}\): output \(A\) and halt
 \ENDWHILE
 \end{algorithmic}
 \caption{An algorithm for sampling \pname{Dual-SAT}}\label{alg:dnf}
 \end{algorithm}
 
-Since the \pname{\#Dual-SAT} problem is self-reducible, Algorithm~\ref{alg:dnf} can
-be used to find an approximate solution for \pname{\#Dual-SAT}\@.
+Since the \pname{\#Dual-SAT} problem is self-reducible, Theorem~\ref{thm:selfred} implies
+that Algorithm~\ref{alg:dnf} can be used to find an approximate solution for\pname{Dual-SAT}\@.
 
-Other common method used to approximate counting problems is the Markov chain
+Other common method used to approximate counting problems is using the Markov chain
 Monte-Carlo algorithms. Consider the following problems:
 
 \pdef{\pname{\#Match}}
