@@ -19,18 +19,21 @@ by complexity of approximately solving them.
 Generally solving the \ccsp\ is a hard problem, however if we restrict the
 \ccsp\ to a set of relations \mrelset, which is denoted by \ccsp(\mrelset),
 depending on the \mrelset\ the complexity of the problem may very.
-In this work we study the complexity of finding approximate solutions for the \ccsp(\mrelset) problems.
+In this work we study the complexity of finding approximate solutions for the 
+\ccsp(\mrelset) problems.
 We will introduce some of methods that can be used to approximate counting problems.
 
 Bulatov \cite{Bulatov} has proved existence of a dichotomy for complexity of the
-\ccsp(\mrelset) problem. However, with approximation the complexity of the problem is
-more sophisticated. Goldberg et al. \cite{Leslie03} proved
-several results on complexity of approximately solving the \ccsp(\mrelset) problem.
-Goldberg et al. \cite{Trichotomy} have proved a trichotomy on complexity
-of the \ccsp(\mrelset) problem for Boolean \mrelset\@. These three classes are
-problems that can be approximately solved in polynomial time, the problems as hard as the 
-finding the number of independent sets in bipartite graphs(\cbis), and the
-problems that are hard to approximate.
+\ccsp(\mrelset) problem. However, with respect to approximation the complexity of 
+the problem has more cases. There are problems like finding the number of 2-Colorings
+of a graph. There are problems like finding the
+number of independent sets in a bipartite graph which is called \cbis\@.
+Also, there are problems like finding the number of independent sets in general graphs.
+Goldberg et al. \cite{Trichotomy} have proved that for Boolean \mrelset,
+complexity of the problem \ccsp(\mrelset) has three classes. These three classes are
+problems that can be approximately solved in polynomial time, i.g., finding the
+number of 2-Colorings in a graph, the problems as hard as the \cbis\ problem, and the
+problems that are hard to approximate such as the \cisp\ problem.
 
 In this work, we introduce some useful techniques to find approximation preserving reductions
 among counting problems. We will introduce \emph{monotone} and \emph{bimonotone} relations
