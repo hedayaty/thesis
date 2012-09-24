@@ -1,11 +1,10 @@
 \chapter{Conclusion and Future Works}
 \section{Conclusion}
 We formally defined the \ccsp(\mrelset) problem, mentioned some of its applications; mentioned the 
-results and the dichotomy on complexity of the \ccsp(\mrelset) problem. We defined the
+major results on complexity of the \ccsp(\mrelset) problem. We defined the
 FPRAS class which is considered as the efficient computational model for finding approximate solutions
 for counting problems.
-We mentioned FPRAS algorithms for some simple \ccsp(\mrelset) problems, also 
-for the \pname{\#Dual-SAT},\pname{\#Match}, and \pname{\#LowDegree-}k\pname{-Coloring} problems.
+We mentioned FPRAS algorithms for some simple \ccsp(\mrelset) problems,\pname{\#Dual-SAT},\pname{\#Match}, and \pname{\#LowDegree-}k\pname{-Coloring} problems.
 The \pname{\#Dual-SAT} problem is solved by sampling and the \pname{\#Match} and \pname{\#LowDegree-}k\pname{-Coloring} problems are solved by the Markov chain Monte-Carlo technique. 
 
 We defined the AP-reductions which are the reductions used to classify approximation
@@ -15,8 +14,8 @@ We mentioned several well-known examples of this class such as
 the \cdsp\ and \pname{\#1P1N-SAT} problems. Computation of the partition function for 
 the Ising model, where the model is ferromagnetic also belongs to this class.
 
-We also mentioned that some of the problems are hard to approximate. There is
-no polynomial time approximation algorithm for problems in this class, unless \(RP=NP\)\@.
+We also mentioned that some of the problems are hard to approximate. There are
+no polynomial time approximation algorithm for any of the problems in this class, unless \(RP=NP\)\@.
 Note that although according to current knowledge these problems are not efficiently solvable,
 approximating these problems is still easier than exactly solving them.
 Some of the well known problems in this 
@@ -27,8 +26,7 @@ We showed that by limiting the input for the \ccsp(\mrelset) problems to connect
 the problems do not become easier. We showed that if there is linear transformation 
 between the number of solutions for two counting problems and 
 both problems always have solutions, then those two problems are AP-interreducible.
-We extended the pinning 
-theorem \cite{Trichotomy}\@. 
+We generalized the pinning theorem from \cite{Trichotomy}\@. 
 
 We introduced the maximization technique for AP-reductions. The sets of relations closed
 under maximization form sets of relations similar to relational clones.
@@ -39,9 +37,9 @@ Finally, we focused on AP-reductions involving the \cbis\ problem.
 We extended the notion of \emph{monotone} relations from Boolean domains to 
 multi-valued domains. We proved that the \ccsp(\mrelset) problems 
 over monotone constraint languages
-are AP-reducible to the \cbis\ problem. We also introduced a family of bipartite graphs
-called \emph{bimonotone} graphs. We proved that the \chom(\mH) problems 
-for bimonotone graphs are also AP-reducible to to the \cbis\ problem.
+are AP-reducible to the \cbis\ problem. We also extended the notion
+for bipartite graphs as well and proved that the \chom(\mH) problem 
+for monotone bipartite graphs are also AP-reducible to to the \cbis\ problem.
 
 We also introduced the \emph{\RBA} relations and proved that the \cbis\ problem is
 AP-reducible to the \ccsp(\mR) problems where \mR\ is an \RBA\ relation.
@@ -70,7 +68,7 @@ We studied the complexity of approximately solving
 the \ccsp(\mrelset) problem for maximal partial clones on
 3-element sets \cite{mvl}, we also studied complexity of approximately solving 
 the \chom(\mH) problem for graphs with 3 vertices. However, in both categories,
-there are few problems whose complexity of approximately solving them is still unknown.
+there are a few problems whose complexity of approximately solving them is still unknown.
 
 Valiant and Vazirani \cite{valvaz} proved that with a SAT oracle, there is FPRAS for any 
 problem in \cp\@. With the recent growth of practical usage of SAT-solvers, this theorem

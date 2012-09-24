@@ -241,21 +241,6 @@ A good example of such a graph one might want to find the properties is the Inte
 \end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Partition Functions}
-Let \mH\ be a graph with a weight function \(w: V_H \cup E_H\to \mathbb{R}\)\@.
-For a given graph \mG, a configuration of \mG\ is a mapping \(\sigma\) from \(V_G\) to
-\(V_H\). For each configuration \(\sigma\), the weight of the configuration is
-\[w(\sigma)=\prod_{uv\in E_G}w(\sigma(u)\sigma(v))\prod_{v\in V_G}w(\sigma(v))\]
-The partition function \(Z_{H,w}(G)\) is the sum of the weights for all the configurations:
-\[Z_{H,w}(G)=\sum_{\sigma:V_G\to V_H}w(\sigma)\]
-
-Note that \(\hom(G,H)=Z_{H,w}(G)\) if \(w(v)=w(e)=1\) for all \(v,e\in H\)
-and \(w(e)=0\) for all \(e\not\in H\)\@. 
-The \pname{H-Partition} Problem is defined as:
-
-\pnndef%{\pname{H-Partition}}
-{A graph \(G\)}
-{The value of partition function \(Z_{H,w}(G)\)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Sampling}
@@ -264,28 +249,29 @@ Let \(\Sigma\) be the finite alphabet used to encode input and output of a probl
 We can express the assignment of a solution to an instance with a relation 
 \(R \subseteq \Sigma^* \times \Sigma^*\)\@.
 
-A \emph{uniform generation} problem is the problem of for an instance \(x\),
-generating a uniformly random solution \(y\) such that \((x,y) \in R\)\@.
-An \emph{almost uniform generation} is the problem of for an instance \(x\),
-generating a random solution \(y\) 
+A \emph{uniform sampling} problem is a problem that for an instance \(x\),
+generates a uniformly random solution \(y\) such that \((x,y) \in R\)\@.
+An \emph{almost uniform sampling} is a problem that for an instance \(x\),
+generates a random solution \(y\) 
 such that \((x,y) \in R\) and for any other \(y'\) that \((x,y')\in R\) the 
 probabilities of choosing \(y\) and \(y'\) are approximately the same.
 Jerrum et al. \cite{JVV} explained that for practical purposes, it is impossible to distinguish
-almost uniform generation from uniform generation by experiments running in polynomial time.
+almost uniform sampling from uniform sampling by experiments running in polynomial time.
+Hence, we may use them interchangeably in this work.
 
-In this model a \emph{counting} problem is the problem of for an instance \(x\),
-finding the number of \(y\)s such that \((x,y)\in R\) and an approximate counting
-problem is the problem of for an instance \(x\), approximately 
-finding the number of \(y\)s such that \((x,y)\in R\)\@.
+In this model a \emph{counting} problem is a problem that for an instance \(x\),
+finds \(|\{y \mid (x,y) \in R\}|\) and an approximate counting
+problem is a problem that for an instance \(x\), approximately 
+finds \(|\{y \mid (x,y) \in R\}|\)\@.
 
 Intuitively, a relation is said to be \emph{self-reducible} if solutions for an instance can be
 expressed in terms of solutions for a number of smaller instances of the same relation.
-Many of the relation such as the relation between a graph and a matching  in the graph
-and relation between CNF(Conjunctive Normal Form) or DNF(Disjunctive Normal Form) 
-a satisfying truth assignment are self-reducible.
+Many of the relation such as the relation between a graph and a matching in that graph
+and relation between CNF(Conjunctive Normal Form) or DNF(Disjunctive Normal Form) formula and
+a satisfying truth assignment of that formula are self-reducible.
 
 \begin{theorem} [Jerrum et al. 1986 \cite{JVV}] \label{thm:selfred}
-For any self-reducible relation \mR, the almost uniform generation problem and the approximate counting
+For any self-reducible relation \mR, the almost uniform sampling problem and the approximate counting
 problem have the same complexity.
 \end{theorem}
 
@@ -316,22 +302,36 @@ By recursion, estimate the number of solutions for \(C_x\). Finally, estimate
 the number of solutions for \(C\) by \(p(x)\) and the estimation for the 
 number of solutions for \(C_x\)\@.
 
-\emph{Sampling} is an extension of uniform generation; given a
-distribution \(\pi\) over solutions, the goal is to find a solution \(\sigma \)
-from distribution \(\pi\)\@.
-Let's get back to graph homomorphism problem. 
-The Gibbs distribution on homomorphisms from \mG\ to \mH\ is
-the distribution that each homomorphism \(h\) has a probability proportional to its weight.
-\[\pi_{H,w,G}(h)=\frac{w(h)}{Z_{H,w}(G)}\]
+\subsection*{Partition Functions}
+Let \mH\ be a graph. For a given graph \mG, a configuration of \mG\ is a mapping
+\(\sigma\) from \(V_G\) to
+\(V_H\). For a weight function \(w: V_H \cup E_H\to \mathbb{R}\), the weight of the configuration 
+\(\sigma\) is defined as
+\[w(\sigma)=\prod_{uv\in E_G}w(\sigma(u)\sigma(v))\prod_{v\in V_G}w(\sigma(v))\]
+The partition function \(Z_H(G,w)\) is the sum of the weights for all the configurations:
+\[Z_H(G,w)=\sum_{\sigma:V_G\to V_H}w(\sigma)\]
 
+Note that \(\hom(G,H)=Z_{H}(G,w)\) if \(w(v)=w(e)=1\) for all \(v,e\in H\)
+and \(w(e)=0\) for all \(e\not\in H\)\@. 
+The \pname{H-Partition} Problem is defined as:
+
+\pnndef%{\pname{H-Partition}}
+{A graph \(G\) and a weight function \(w\)}
+{The value of partition function \(Z_H(G,w)\)}
+
+
+Given a weight function and the partition function, 
+the \emph{Gibbs distribution} on homomorphisms from \mG\ to \mH\ is
+the distribution that each homomorphism \(h\) has a probability 
+\[\pi_{H,G,w}(h)=\frac{w_h(G)}{Z_H(G,w)}\]
 The \pname{H-GibbsSample} problem is defined as:
 
 \pnndef%{\pname{H-GibbsSample}}
 {A graph \mG}
-{An H-coloring of \mG\ chosen from distribution \(\pi_{H,w,G}\)}
+{An H-coloring of \mG\ chosen from distribution \(\pi_{H,G,w}\)}
 
 Dyer et al. \cite{Sampling} have proved that if \pname{H-GibbsSample} can be approximately 
-sampled in polynomial time then \pname{H-Partition}
+sampled in polynomial time then \pname{H-Partition} 
 can also be approximated by a randomized algorithm in polynomial time. 
 %The \chom(\mH) problem is not a self-reducible problem; however, it is very similar to
 %self-reducible problems. 
@@ -609,8 +609,10 @@ Consider the following problem:
 {The number of 2-Colorings of \(G\)}
 
 The \cdcol\ problem can be solved in polynomial time as follows.
-For an input graph \mG, if \mG\ is not bipartite then the answer is \(0\); otherwise,
-it is \(2^m\) where \(m\) is the number of connected components of \mG\@.
+For an input graph \mG, if \mG\ is not bipartite then the answer will be \(0\); otherwise,
+if \mG\ is connected then the answer will be 2 and if \mG\ is not connected
+there are 2 choices for each component; hence, if \mG\ has \(m\)
+connected component the answer will be \(2^m\)\@.
 
 The \cdcol\ problem can be expressed as \ccsp(\(NEQ_{01}\)), where
 \(NEQ_{01}\) is the inequality relation over a two element set, that is,
@@ -618,18 +620,15 @@ The \cdcol\ problem can be expressed as \ccsp(\(NEQ_{01}\)), where
 The \cdcol\ problem is easy to solve because
 the \(NEQ\) relation belongs to a family of relations called affine relations.
 A relation is affine if it is expressible by a system of linear equations over a
-finite fields  of size \(k\) for some \(k\)\@. The relation \(NEQ_{01}\) is an 
-affine relation because it can be represented as \(x\oplus y \equiv 1 \pmod{2}\)\@.
+finite field. The relation \(NEQ_{01}\) is an 
+affine relation because \(NEQ_{01} = \{(x,y)\mid x\oplus y \equiv 1 \pmod{2}\}\)\@.
 
 \begin{example}
 Relation \mR\ defined as \(R=\setof{(0,1),(1,0),(2,2)}\) is affine because it can be expressed as 
 \(\setof{(x,y)\mid x \oplus y \equiv 1 \pmod{3}}\)\@.
 \end{example}
 
-Alternatively, affine relations are the relations invariant under functions of the form
-\(f(x,y,z)=xy^{-1}z\) of a group.
-
-For any affine relation \mR, the \ccsp(\mR) problem can be solved in polynomial time
+For any affine relation \mR, the problem \ccsp(\mR) can be solved in polynomial time
 as follows. If the system of linear equations is inconsistent
 then there is no solutions; otherwise, there are \(k^m\) solutions where \(m\) is the
 dimension of the solution space of the system of linear equations and
@@ -812,8 +811,10 @@ For a function \(f:\Sigma^*\to\nat\) and a constant factor \(\alpha\),
 takes \(x\in\Sigma^*\) as an input and in time \(poly(|x|)\) produces an integer \(z\)
 such that \(\frac{1}{\alpha}\le\frac{z}{f(x)}\le \alpha\). In the same manner,
 poly-APX and log-APX are algorithms that given an input
-\(x\), in time \(poly(|x|)\) find a solution with an approximation ratio of \(poly(|x|)\)
-and \(\log(|x|)\), respectively. There are no results on \ccsp(\mrelset) with
+\(x\), in time \(poly(|x|)\) find a solution \(z\) 
+such that  \(\frac{1}{|x|^c}\le\frac{z}{f(x)}\le |x|^c\) for some constant \(c\) and
+\(\frac{1}{\log |x|}\le\frac{z}{f(x)}\le \log |x|\), respectively.
+There are no results on \ccsp(\mrelset) with
 APX schemas. With the next lemma, I explain why APX schemas are not used for \ccsp(\mrelset) problems.
 
 \begin{lemma}
@@ -831,8 +832,8 @@ will be determined later. Let \(\probi'=(D, V,\conset'\) be \(k\) copies of \(\p
 \[V'=\{x^i \mid 1 \le i \le k, x \in V\}\] and
 \[\conset'=\{\const{(x^i_{l_1},\dotsc, x^i_{l_t}), R} \mid 1 \le i \le k,
 \const{(x_{l_1},\dotsc, x_{l_t}), R} \in \conset\}\]
-It is easy to see that \(\#\probi'=\#\probi^k\); \(\sqrt[k]{\apxalg(\probi')}\) is 
-an (\(1+\eps\))-approximation for \(\probi\)\@ if \(1+\eps > \sqrt[k]{(T(|\probi|\cdot k)}\)\@.
+By multiplication principle, \(\#\probi'=\#\probi^k\); \(\sqrt[k]{\apxalg(\probi')}\) is 
+an (\(1+\eps\))-approximation for \(\probi\)\@ if \(1+\eps > \sqrt[k]{T(|\probi|\cdot k)}\)\@.
 For that, it is sufficient for \(k\) to be greater than
 \(\oneoeps\cdot \log T(|\probi|\cdot k)\)\@.
 Since the function \(T\) is polynomial in \(|\probi|\), \(k\) is also polynomially 
@@ -852,7 +853,7 @@ where \(w\) is an instance of \mg\
 and \(\delta\) is the error tolerance,
 \item if \(\apxalg'\) meets the specification for being a RAS for 
 \mg\ then \(\apxalg\) meets the specifications for being a RAS for \mf, 
-\item \(\apxalg\) runs in \(poly(|x|,\oneoeps)\) time.
+\item \(\apxalg\) runs in polynomial time in terms of \(|x|\) and \(\oneoeps\)
 \end{itemize}
 \end{defi}
 
@@ -959,7 +960,11 @@ to approximate the \ldkcol\ problem for graphs
 with bounded degree. We give a brief description of the Markov chain Monte Carlo method
 and show how these two problems are solved using this method.
 
-The Markov Chain Monte Carlo method solves a sampling problem as follows.
+The Markov chain Monte Carlo method solves a sampling problem as follows.
+
+a Markov chain is finite automaton in which the transition between the states are labeled 
+with probabilities of transition between the states. \(X_t\) is used to denote
+the state of the automaton at step \(t\)\@.
 Consider a Markov chain with state space \(\Omega\) and stationary distribution \(\pi\)\@.
 Intuitively, a Markov chain is said to be \emph{ergodic} if regardless of the initial state,
 the probability distribution over \(\Omega\) asymptotically converges to \(\pi\)\@.
@@ -985,7 +990,8 @@ The general idea is using the following formula to estimate \(|\Omega_k(G)|\):
 \frac{|\Omega_k(G_1)|}{|\Omega_k(G_0)|} \times 
 |\Omega_k(G_0)|
 \]
-Trivially, \(|\Omega_k(G_0)| = k^n\)\@. All remains is estimating the ratios \(\varrho_i\) defined as
+Trivially, \(|\Omega_k(G_0)| = k^n\)\@. All that 
+remains is estimating the ratios \(\varrho_i\) defined as
 \[\varrho_i=\frac{|\Omega_k(G_i)|}{|\Omega_k(G_{i-1})|}\]
 for all values of \(i\) in the range \(1\le i \le m\)\@.
 
@@ -1016,7 +1022,7 @@ Note that \(Z_G(1)\) is the number of matchings in \mG\ and \(Z_G(0)=1\) because
 for the empty matching \(M\), \(\lim_{\lambda\to 0^+}\lambda^{|M|}=1\). The technique used to
 solve this problem is the same as the \ldkcol\ problem; however, instead of removing edges from
 the graph, the sequence is obtained by reducing the value of \(\lambda\)\@. We will not 
-go through details about this algorithms.
+go through details about this algorithm.
 
 We defined the Ising model in Section~\ref{sec:appl}\@. 
 Jerrum and Sinclair \cite{Jer93} have proved that there exists an FPRAS for the
@@ -1058,10 +1064,12 @@ ratios and the number of k-colorings of \(\bG_m\).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problems Hard To Approximate} \label{sec:hard}
-In this section we study a set of counting problems that regarding complexity
-of approximation are the hardest problems in \cp, in other words every
+In this section we study the set of counting problems that are the hardest problems in \cp\
+for the complexity of approximation. In other words every
 problem in \cp\ is AP-reducible to them.
-Existence of an FPRAS for any of these problems implies NP=RP\@. The following theorem 
+Existence of an FPRAS for any of these problems implies NP = RP where 
+RP is the set of problems that in polynomial time can be solved with probability
+greater than \(\frac{3}{4}\) using a randomized algorithm. The following theorem 
 points us to the first set of problems in this complexity class.
 
 \begin{theorem} [Goldberg et al. \cite{Leslie03}] \label{thrm:npcp}
@@ -1079,8 +1087,10 @@ Another important problem AP-interreducible with the \csat\ problem is the \cisp
 {A graph \mG}
 {The number of independent sets in \mG}
 
-Although the decision version of the \cisp\ problem is a trivial problem, Goldberg et al.
-\cite{Leslie03} proved that the \cisp\ problem is AP-interreducible to the \csat\ problem. 
+The decision problem IS is a trivial problem; every graph has at least an
+empty independent set.
+However, the counting problem \cisp\ is proved to be AP-interreducible with the \csat\ problem
+by Goldberg et al.\cite{Leslie03}\@.
 Finding AP-reductions from many problems from the \cisp\ problem is more straightforward than
 finding reductions from the problems that the decision version is NP-complete.
 
@@ -1095,21 +1105,26 @@ finding reductions from the problems that the decision version is NP-complete.
 \end{figure}
 
 \begin{example}
-Consider the binary relations \(OR\) and \(NAND\) on domain \(\setof\zo\) defined as
-\(OR=\setof{(0,1),(1,0),(1,1)}\) and \(NAND=\setof{(0,0),(0,1),(1,0)}\)\@.
-The \cisp\ problem can be expressed by the \ccsp(\(OR\)) or \ccsp(\(NAND\)) problem;
-hence, the \ccsp(\(OR\)) and \ccsp(\(NAND\)) problems are both AP-interreducible with the
+Consider the binary relations OR and NAND  on domain \(\setof\zo\) defined as
+\(\mathrm{OR}=\setof{(0,1),(1,0),(1,1)}\) and \(\mathrm{NAND}=\setof{(0,0),(0,1),(1,0)}\)\@.
+For an instance \(G = (V,E)\) of the \cisp\ problem, consider
+an instance \(\probi=(\setof\zo,V,\conset)\)
+of the problem \ccsp(OR) where \[\conset = \{\const{(x,y), \mathrm{OR}} \mid xy \in E\}.\]
+Every independent set \(I\) in \mG, corresponds to an assignment \(\varphi\)
+for \(\probi\) where \(\varphi(x) = 0\) if \(x\in I\) and \(\varphi(x)=1\) if \(x\notin I\)\@.
+Similarly, the \cisp\ problem can be expressed by the \ccsp(NAND) as well;
+hence, the \ccsp(OR) and \ccsp(NAND) problems are both AP-interreducible with the
 \csat\ problem.
 
-Although, the \dsat\ problem (the decision problem) is polynomial time
-solvable, the \cdsat\ problem can express \ccsp(\(OR\)) and
-\ccsp(\(NAND\)); hence, the \cdsat\ problem 
+Although the \dsat\ problem (the decision problem) is polynomial time
+solvable, the \cdsat\ problem can express \ccsp(OR) and
+\ccsp(NAND); hence, the \cdsat\ problem 
 is also AP-interreducible with the \csat\ problem.
 \end{example}
 
 \begin{example}[\sc\#Wrench-Col] \label{exm:wrench}
-Let \(Wr_q\) be the graph with vertex set \(V_q=\{a,b,c_1,c_2,\cdots,c_q\}\)
-and edge set \(E_q=\setof{\setof{a,b},\setof{b,b}} \cup 
+The Wrench graphs family are denoted by \(Wr_q=(V_q, E_q)\) where \(V_q=\{a,b,c_1,c_2,\dotsc,c_q\}\)
+and \(E_q=\setof{\setof{a,b},\setof{b,b}} \cup 
 \setof{\setof{b,c_i},\setof{c_i,c_i}:1\le i\le q}\)\@.
 Graphs \(Wr_0\), \(Wr_1\), \(Wr_2\), and \(Wr_3\) are shown in Figure~\ref{fig:wrench}.
 The \chom(\(Wr_q\)) problem is referred to as the \#q-{\sc Wrench-Col} problem. 
@@ -1141,20 +1156,21 @@ with the \csat\ problem \cite{Leslie03}.
 \end{figure}
 
 We defined the Ising and Potts models in Section~\ref{sec:appl}\@.
-Jerrum and Sinclair \cite{Jer93} have showed that the problem of computing
+Jerrum and Sinclair \cite{Jer93} showed that the problem of computing
 the partition function in Ising model is AP-interreducible with the \csat\ problem
 if the model is not consistent.
 
 Jerrum and Goldberg \cite{Goldberg2007} showed that the problem of computing 
 the partition function in Potts model with more that two states is
-AP-interreducible with the \csat\ problem. They have also showed that the problem of computing
+AP-interreducible with the \csat\ problem. They also showed that the problem of computing
 the partition function in Ising model is AP-interreducible with the \csat\ problem
 if the model is not ferromagnetic.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problems AP-interreducible With \cbis} \label{sec:bis}
-The proof used to show that the \csat\ problem is AP-reducible to the \cisp\ problem does
+The proof used in \cite{Leslie03} to show that the \csat\ problem is AP-reducible
+to the \cisp\ problem does 
 not work if the input for the \cisp\ problem is limited to bipartite graphs.
 The version of the \cisp\ problem with input limited to bipartite graphs is called
 the \cbis\ problem and is defined as follows:
@@ -1163,7 +1179,7 @@ the \cbis\ problem and is defined as follows:
 {A bipartite graph \mG}
 {The number of independent sets in \mG}
 
-The following problems AP-interreducible with \cbis:
+Goldberg et al.~\cite{Leslie03} proved that the following problems AP-interreducible with \cbis\@.
 
 \begin{figure}[h]
 \centering
@@ -1181,13 +1197,16 @@ The following problems AP-interreducible with \cbis:
 {A partial order \((P,\preceq)\)}
 {The number of down-sets in \(P\)}
 
-\pdef{\pname{\#1P1N-SAT}}  
-{A Boolean CNF formula \(\varphi\) with clauses of size one or two such that
-there is at most one negative and at most one positive literal per clause}
-{The number of satisfying assignments of \(\varphi\)}
-
+In a partial order \(P=(X,\preceq)\), a down-set (also called lower-set) is a set \(D\) such that 
+for every \(x\in D\) if there exist \(y \preceq x\) then \(y\in D\), as well.
 Note that the number of down-sets in a partial order equals
 the number of anti-chains in the same partial order. 
+
+\pdef{\pname{\#1P1N-SAT}}  
+{A Boolean CNF formula \(\varphi\) with clauses of size one, or size two such that
+there is one negative and one positive literal per clause}
+{The number of satisfying assignments of \(\varphi\)}
+
 
 For many graphs, the \chom(\mH) problem is also AP-interreducible with the \cbis\ problem.
 For example, the \chom(\mH) problem is AP-interreducible with the \cbis\ problem
@@ -1213,6 +1232,11 @@ and~\ref{exm:particles}, respectively.
 {A graph \mG}
 {The number of homomorphisms  from \mG\ to \(S^*_2\)}
 
+Goldberg and Jerrum \cite{Goldberg2007} proved that the \pname{Ferromagnetic Ising} problem 
+is AP-interreducible with the \cbis\ problem and 
+Goldberg et al.~\cite{Leslie03} proved that the \pname{\#2-Wrench-Coloring} and
+the \pname{\#2-Particles-WR-Configs} problems are  AP-interreducible with the \cbis\ problem.
+
 Here we prove that the two characterizing problems in this class, i.e., \cbis\ and \cdsp,
 are AP-interreducible.
 \begin{lemma} \label{lem:dstobis}
@@ -1223,15 +1247,15 @@ We use the proof from \cite{counting}\@. We denote the number of down-sets in a 
 \(P\) by \(\cds(P)\) and the number of independent sets in a graph \mG\ by
 \(\cis(G)\)\@.
 \begin{proof}
-Let \(P=([n],\preceq)\) be an instance of the \cdsp\ problem. 
+Let \(P=(X=[n],\preceq)\) be an instance of the \cdsp\ problem. 
 Let \(B=(U,V,E)\) be a bipartite graph defined as follows.
 For \(i\) in \(X\), let \(U_i\) and \(V_i\) be a collection of disjoints sets of
 size \(2n\)\@. Then, take \(U=\bigcup_{1 \le i \le n} U_i\), \(V=\bigcup_{1 \le i\le n} V_i\), and
-\[E = \{\setof{u,v} \mid u \in U_i \land v \in V_j \land i \preceq j\}.\]
+\[E = \{uv \mid u \in U_i \land v \in V_j \land i \preceq j\}.\]
 
 An independent set \(I\) in \(B\) is said to be \emph{full} if for all \(1 \le i \le n\)
 the set \(I\cap (U_i \cup V_i)\) is nonempty. Every full independent set \(I\) in \(B\)
-corresponds to a down-set \(D\) in \(P\) as \(D=\{i \mid I \cap V_i \neq \emptyset\}\)\@.
+corresponds to the down-set \(D=\{i \mid I \cap V_i \neq \emptyset\}\) in \(P\)\@.
 In the same manner, every down-set \(D\) in \(P\) gives exactly \((2^{2n}-1)^n\) full independent
 sets in \(B\)\@. Note that \(2^{2n}-1\) is the number of nonempty subsets of \(U_i\)
 or \(V_i\)\@.
@@ -1252,7 +1276,7 @@ Chapter~\ref{chp:results}\@.
 \begin{proof}
 Let \(B=(U,V,E)\) be a bipartite graph. We will create a partial order \(P=(X,\preceq)\)
 such that \(\cis(B)=\cds(P)\)\@. Take \(X=U \cup V\) and \(u \preceq v\) if and only if
-\(\{u,v\} \in E\)\@. We claim that for every down-set \(D\) in \(P\), 
+\(uv \in E\)\@. We claim that for every down-set \(D\) in \(P\), 
 \(I=(U\cap D) \cup (V - D)\) is an independent set and for any independent set
 \(I\) in \(B\) the set \(D=(U \cap I) \cup (V - I)\) is a down-set in \(P\)\@.
 

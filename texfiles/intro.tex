@@ -23,23 +23,31 @@ In this work we study the complexity of finding approximate solutions for the
 \ccsp(\mrelset) problems.
 We will introduce some of methods that can be used to approximate counting problems.
 
-Bulatov \cite{Bulatov} has proved existence of a dichotomy for complexity of the
-\ccsp(\mrelset) problem. However, with respect to approximation the complexity of 
-the problem has more cases. There are problems like finding the number of 2-Colorings
-of a graph. There are problems like finding the
-number of independent sets in a bipartite graph which is called \cbis\@.
-Also, there are problems like finding the number of independent sets in general graphs.
+Bulatov \cite{Bulatov} has proved a dichotomy for complexity of the
+\ccsp(\mrelset) problem. This dichotomy implies that 
+for some \mrelset, the problem \ccsp(\mrelset) can be solved in polynomial time
+and for the rest if one of them can be solved in polynomial time
+all of them can be solved in polynomial time.
+However, with respect to approximation there are more complexity classes for a
+\ccsp(\mrelset) problem.
+The problem of finding the number of 2-Colorings of a graph can be solved 
+in polynomial time. There is the problem of finding the
+number of independent sets in a bipartite graph often referred as \cbis\@.
+The problem of finding the number of independent sets in a general graphs often referred as
+the \cisp\ is among the set of problems that if one of them can be approximated in polynomial time then
+for all \mrelset\, the problem \ccsp(\mrelset) can be approximated in polynomial time.
 Goldberg et al. \cite{Trichotomy} have proved that for Boolean \mrelset,
-complexity of the problem \ccsp(\mrelset) has three classes. These three classes are
-problems that can be approximately solved in polynomial time, i.g., finding the
+there are three complexity classes for \ccsp(\mrelset)\@. These three classes are
+problems that can be approximately solved in polynomial time such as finding the
 number of 2-Colorings in a graph, the problems as hard as the \cbis\ problem, and the
 problems that are hard to approximate such as the \cisp\ problem.
 
 In this work, we introduce some useful techniques to find approximation preserving reductions
-among counting problems. We will introduce \emph{monotone} and \emph{bimonotone} relations
+among counting problems. We will introduce \emph{monotone} relations
 and show that the \ccsp(\mrelset) problem over these families of relation is not harder that
 the \cbis\ problem. We will also introduce the \emph{RBA} relations and
-show that the \ccsp(\mrelset) problem over \emph{RBA} relations is harder than the \cbis\ problem.
+show that the problem \ccsp(\mrelset) over \emph{RBA} relations is at
+least as hard as the \cbis\ problem.
 
 \section{Thesis Organization}
 In Chapter~2 we formally define CSP and \ccsp\ and their applications.
