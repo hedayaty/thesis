@@ -18,10 +18,24 @@ In this section, we extend the definition of \emph{monotone} constraint language
 any monotone relation \mrelset\ there is an AP-reduction from the \ccsp(\mrelset) problem to
 the \cbis\ problem.
 
+\begin{defi} [Distributive Lattice]
+A \emph{distributive lattice} \(L=(X,\wedge,\vee)\) is a pair of binary operators \(\wedge\)
+and \(\vee\) on \(X\) that are 
+\begin{itemize}
+\item idempotent: \(x \wedge x = x\) and \(x \vee x = x\),
+\item commutative: \(x \wedge y = y \wedge x\) and \(x \vee y = y \vee x\),
+\item associative: \(x \wedge (y \wedge z) = (x \wedge y) \wedge z\) and 
+\(x \vee (y \vee z) = (x \vee y) \vee z\),
+\item absorptive: \(x \wedge (x\vee y) = x\) and \(x \vee (x \wedge y) = x\),
+\item distributive: \(x \wedge (y \vee z) = (x \wedge y) \vee (x \wedge z)\) and
+\(x \vee (y \wedge z) = (x \vee y) \wedge (x \vee z)\)
+\end{itemize}
+\end{defi}
+
 \begin{defi}
 Let \mrelset\ be a constraint language over the domain \mD; \mrelset\ is \emph{monotone}
-if there exists distributive lattice \(L\) with over universe \mD\ such that every relation 
-in \mrelset\ is closed under operations \(vee\) and \(\wedge\) defined by \(L\)\@.
+if there exists distributive lattice \(L=(D,\wedge,\vee)\) such that every relation 
+in \mrelset\ is closed under operations \(\vee\) and \(\wedge\)\@.
 \end{defi}
 
 After studying complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
@@ -158,39 +172,6 @@ For any bipartite monotone graph \mH, by Theorem~\ref{thrm:bior} there is a dire
 graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{thrm:monotone},
 \chom(\(H'\)) \maple \cbis\@. Thus, \chom(\mH) \maple \cbis\@.
 \end{proof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Characterization of Monotone Graphs
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Characterization of Monotone Graphs}
-TODO write some introduction about this section. We will give a characterization of
-monotone graphs. We restrict this section to non-directed graphs. Also for simplicity,
-we restrict to connected graphs as well. By Theorems~\ref{thrm:pavol}~and~\ref{thrm:npcp},
-\mH\ is monotone AP-reducible to \csat\ unless \mH\ is a reflexive or bipartite graph.	
-In this work we only cover reflexive graphs.
-
-Discussion about interval and proper interval graph.
-
-\begin{example}
-\mH\ is a monotone graph; however, \mH\ is not a proper interval graph.
-\end{example}
-
-\begin{example}
-\mH\ is a interval graph; however, \mH\ is not a monotone graph.
-\end{example}
-
-\begin{defi} [Cover Graph]
-Also mention \emph{Hess Diagram}.
-\end{defi}
-
-\begin{defi} [Length of a Lattice]
-\end{defi}
-
-
-Let \(L\)be a distributive lattice of length \(k\) and let \(h\) be  a homomorphism from a 
-k-Cube \(Q\) to \(\mathcal{H}(L)\)\@.
-
-TODO Continue ...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % RBA Relations
