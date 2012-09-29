@@ -1,13 +1,13 @@
 \chapter{Characterization of Monotone Graphs}
-In Chapter~\ref{chp:results} we showed that for monotone relations and monotone
-bipartite graphs the problem \ccsp(\mH) is AP-reducible to the \cbis\ problem. In this chapter we will
-inspect\todo{inspect?} the monotone reflexive graphs; although the arguments are
+In Chapter~\ref{chp:results}, we showed that for monotone relations and monotone
+bipartite graphs the problem \ccsp(\mH) is AP-reducible to the \cbis\ problem. In this chapter,
+we will inspect the monotone reflexive graphs; although the arguments are
 analogous for bipartite graphs we will not cover them in this work.
 
 \emph{Interval graphs} and \emph{proper interval graphs}
-are two interesting families of reflexive graphs that are play a key role in complexity of 
-list homomorphism and mincost-homomorphism problems. The are interested in these two families
-because of their connection with monotone graphs. An interval graph is defined as follows.
+are two interesting families of reflexive graphs that play a key role in complexity of 
+list homomorphism and mincost-homomorphism problems. We are interested in these two families
+because of their connections with monotone graphs. An interval graph is defined as follows:
 
 \begin{defi}
 A graph \(G=(V,E)\) is said be to an interval graph if every vertex \(v \in V\)
@@ -26,7 +26,7 @@ and \(I_1\) in Figure~\ref{fig:int} is the set of intervals corresponding to \(G
 The list homomorphism problem is defined as:
 
 \begin{defi} [L-Hom]
-Let \mH\ be a fixed graph. Given an input graph \mG\ and for each vertex \(v\) of \mG\
+Let \mH\ be a fixed graph. Given an input graph \mG\ and for each vertex \(v\) of \mG,
 a \emph{list} \(L(v) \subseteq V(H)\) the \emph{list homomorphism} problem, denoted
 as L-Hom(\mH), is the problem of  deciding whether or not
 there exists a homomorphism \(h: G\to H\) such that for each vertex \(v\) of \mG\ 
@@ -41,12 +41,12 @@ For any fixed reflexive graph \mH, the problem L-Hom(\mH) is polynomial time sol
 \mH\ is an interval graph and otherwise, it is NP-complete.
 \end{theorem}
 
-One of the ways to define a proper interval graph is as follows.
+One way to define a proper interval graph is as follows:
 
 \begin{defi}
 A graph \(G=(V,E)\) is said to be a proper interval graph if every vertex \(v \in V\)
 corresponds to an interval such that no interval is a proper subset of any other interval
-\(uv \in E\) if and only if the intervals \(i(u)\) and \(i(v)\) intersect.
+and \(uv \in E\) if and only if the intervals \(i(u)\) and \(i(v)\) intersect.
 \end{defi}
 
 Alternately the proper interval graphs are defined as the graphs which can be represented 
@@ -66,7 +66,7 @@ The min-cost homomorphism problem is defined as:
 Let \mH\ be a fixed graph. Given an input graph \mG\ and a \emph{cost} function
 \(c: V(G) \times V(H) \to R^+\) the \emph{min-cost homomorphism} problem,
 denoted as MinHom(\mH), is the problem of finding a homomorphism 
-\(h:G\to H\) such that \(\sum_{v\in G} c(v, h(v))\) is minimum.
+\(h:G\to H\) such that \(\sum_{v\in G} c(v, h(v))\) is minimized.
 \end{defi}
 
 The cost function \(c\) indicates\todo{indicates?} the cost of assigning each vertex of \mG\ 
@@ -80,8 +80,8 @@ For any fixed reflexive graph \mH, the problem MinHom(\mH) is polynomial time so
 \mH\ is a proper interval graph and otherwise, it is NP-complete.
 \end{theorem}
 
-Interval graphs and proper interval graph can be characterized by polymorphisms. 
-These characterization shows their relation with monotone relations. 
+We show that (proper) interval graphs can be characterized by polymorphisms. 
+These characterizations show the relation between (proper) interval graphs and monotone relations. 
 Before giving the characterization we remind the definition of semilattice.
 
 \begin{defi} [Semilattice]
@@ -116,7 +116,7 @@ Theorems~\ref{thm:semimin}~and~\ref{thm:minmax} indicate similarities between
 monotone graphs and (proper) interval graphs. However, monotone graphs are not
 equivalent with (proper) interval graphs.
 
-\begin{example} \ref{exm:diff}
+\begin{example} \label{exm:diff}
 The graph \(H_1\) in Figure~\ref{fig:intnotmon} is 
 an interval graph; however, \(H_1\) is not a monotone graph.
 The graph \(H_2\) in Figure~\ref{fig:monnotpint} is a monotone graph;
@@ -131,34 +131,66 @@ however, the vertices \(a\), \(b\), \(c\), and \(d\) forms a claw; hence,
 \end{example}
 
 
-Note that for (proper) interval interval graphs, if \(H\) is not a (proper) interval graph
-and it is an induced subgraph of \(H'\) then \(H'\) is not a (proper) interval graph, as well.
-However, in the Example~\ref{exm:diff} \(H_1\) is not a monotone graph and it is an induced 
-subgraph of \(H_2\); regardless, \(H_2\) is a monotone graph.
+For any (proper) interval graph \mH, each induced sub-graph of \mH\ is a 
+(proper) interval graph. However, in the Example~\ref{exm:diff} \(H_1\)
+is not a monotone graph and it is an induced 
+sub-graph of \(H_2\); while, \(H_2\) is a monotone graph.
 
 \section{Finding monotone graphs}
-In this section we suggest several ways to build monotone reflexive graphs. We are aware that
-these constructions do not cover all the monotone graphs and we will 
-give examples of the monotone graph we can not build using this method.
+In this section we suggest several ways to generate monotone reflexive graphs.
+There are monotone graphs that can not be generated by the following methods,
+we will give several examples of such graphs.
 By Corollary~\ref{cor:pintmon}, every proper interval graph is a monotone graph.
-This gives us some starting point.
+Thus, proper interval graphs can be used as a base to generate monotone graphs.
 
 \begin{lemma} \label{lem:monotone:con}
 A reflexive graph \mG\ is monotone if and only if each component of \mG\ is monotone.
 \end{lemma}
 
 \begin{proof}
-TODO
+If \mG\ is a monotone graph with lattice order \(L\), each connected component of \mG\ is
+closed under same meet and join operators defined by \(L\)\@. 
+
+If \(G_1,G_2,\dotsc,G_k\), the connected components of \mG, are
+are monotone graphs with lattice orders \(L_1,L_2,\dotsc,L_k\),
+\mG\ is closed under any lattice \(L\) based on union of \(L_i\)s
+and choosing any arbitrary total (or even lattice order) between the
+lattices. The meet and join of any two edge from the same component is in
+\mG\ by hypothesis and meet and join of any two edges from different components 
+will be a loop which is in \mg\ because \mG\ is reflexive. 
 \end{proof}
 
-Using Lemma~\ref{lem:monotone:con}, we can build a monotone graph
-by building each connected component of it. From here, we restrict ourselves to
-reflexive and connected monotone graph. Assume all the monotone graphs are
-connected and reflexive, unless explicitly specified.
+Lemma~\ref{lem:monotone:con} indicates that any monotone graph can be generated
+from its connected components. From here, we restrict ourselves to
+reflexive and connected monotone graph. All the monotone graphs are
+assumed to be connected and reflexive, unless explicitly specified.
 
-When a lattice \(L=(X,\wedge,\vee)\) is viewed as a partial order \((X,\preceq)\), a \emph{cover}
-is a pair \((a,b)\) such that
-\[a \preceq x \preceq b \Rightarrow a = x or b = x\]
+A lattice \(L=(X,\wedge,\vee)\) can be viewed as a partial order;
+\(\bot\) and \(\top\) denote the smallest and largest elements in the \(L\) 
+respectively; \((X,\preceq)\), a \emph{cover} is a pair \((a,b)\) such that
+\[a \preceq x \preceq b \Rightarrow a = x\ \mathrm{or}\ b = x\]
+
+\begin{lemma}
+Let \mG\ be a monotone graph with lattice ordering \(L\),
+for every vertex \(v\), there is descending path from
+\(v\) to \(\bot\)\@.
+\end{lemma}
+
+\begin{proof}
+Since \mG\ is connected there a path \(u_0=u,u_1,u_2,\dotsc,u_k=\bot\) from \(u\) to 
+\(\bot\) in \mG\@. Let \(u'_0=u_0\) and \(u'_i = u_i\wedge u'_{i-1}\)\@.
+Since \mG\ is reflexive \(u'_0u'_0=uu \in G\)\@.
+\[u'_0u'_0, u_0u_1 \in G \Rightarrow u'_0u'_1 \in G\]
+inductively we have
+\[u'_{i-1}u'_i, u_iU_{i+1} \in G \Rightarrow u'_iu'_{i+1} \in G\]
+This implies that the path \(u'_0=u,u'_1,\dotsc,u'_k=\bot\) is a descending path from 
+\(u\) to \(\bot\)\@.
+\end{proof}
+
+\begin{cor}
+For every element \(u \neq \bot\),
+there is an element \(x\) such that \(ux \in G\) and \(x \preceq u\)\@.
+\end{cor}
 
 \begin{lemma}
 Let \mG\ be a monotone graph with the lattice ordering \(L\), then every cover
@@ -166,24 +198,91 @@ if \(L\) is an edge of \mG\@.
 \end{lemma}
 
 \begin{proof}
-TODO
+Let \(a,b\) be a cover in \(L\) such that \(a \preceq b\)\@.
+Since \(a \preceq b\), we have \(b \neq \bot\); thus,
+there is \(x\) such that \(bx \in G\) and \(x\preceq b\)\@.
+If \(x=a\), the proof is complete; otherwise, since \((a,b)\) is a cover, we have \(x\preceq a\).
+\[bx,aa \in G \Rightarrow ba \in G\]\@
 \end{proof}
 
-TODO Define \(\times\) on graphs and lattices\@.
+Next, we want to show that monotone graphs are closed under Cartesian products.
+Remember that the Cartesian product on graphs is defined as follows:
+\begin{defi} [Cartesian product on graphs]
+For graphs \(G_1=(V_1,E_1\) and \(G_2=(V_2,E_2)\), \(G = G_1 \times G_2\)
+is the \emph{Cartesian product} of \(G_1\) and \(G_2\) if \(G=(V,E)\)
+such that \(V=V_1 \times V_2\) and \((u_1,u_2)(v_1,v_2) \in E\)
+if and only if \(u_1v_1 \in E_1\) and \(u_2v_2 \in E_2\)\@.
+\end{defi}
+
+We need the Cartesian product of the lattices as well,
+since lattices are partial orders we will simply define the Cartesian product
+for partial orders.
+\begin{defi} [Cartesian product on partial orders]
+For partial orders \(P_1(X_1,\preceq)\) and \(P_2=(X_2,\preceq)\), 
+\(P= P_1 \times P_2\) is the \emph{Cartesian product} of \(P_1\) and \(P_2\)
+if \(P=(X,\preceq\) such that \(X=X_1\times X_2\) and \((x_1,x_2) \preceq (y_1,y_2)\)
+if and only if \(x_1\preceq y_1\) and \(x_2\preceq y_2\)\@.
+\end{defi}
+
+\begin{rem}
+Let \(L_1=(X_1,\wedge,\vee)\) and \(L_2=(X_2,\wedge,\vee)\) be two lattices.
+For \(x_1,y_1 \in X_1\) and \(x_2,y_2\in X_2\), we have :
+\[(x_1,x_2)\wedge (y_1,y_2) = (x_1\wedge y_1, x_2 \wedge y_2) \]
+and \[(x_1,x_2)\vee (y_1,y_2) = (x_1\vee y_1, x_2 \vee y_2).\]
+\end{rem}
+
+Lemma~\ref{lem:pro} shows that we can generate monotone relations from product of monotone relations.
+
+\begin{lemma}\ref{lem:prod}
+For any monotone graphs \(G_1\) and \(G_2\), \(G_1 \times G_2\) is also a monotone graph.
+\end{lemma}
+
+\begin{proof}
+For any two edges \(e = (u_1,u_2)(v_1,v_2)\) and \(e' =(u'_1,u'_2)(v'_1,v'_2)\) of \(G_1\times G_2\),
+the edges \(u_1v_1\) and \(u'_1v'_1\) are edges of \(G_1\) and
+edges \(u_2v_2\) and \(u'_2v'_2\) are edges of \(G_2\)\@.
+Since \(G_1\) and \(G_2\) are monotone,
+\[e_1 = u_1v_1 \wedge u'_1v'_1\]
+and
+\[e_2 = u_2v_2 \wedge u'_2v'_2\]
+are edges of \(G_1\) and \(G_2\), respectively.
+\begin{align*}
+e \wedge e' &=& ((u_1,u_2)\wedge(u'_1,u'_2))((v_1,v_2)\wedge(v'_1,v'_2)) \\
+&=& (u_1\wedge u'_1,u_2 \wedge u'_2)(v_1\wedge v'_1,v_2 \wedge v'_2) \\
+&=& (u_1\wedge u'_1)(v_1\wedge v'_1) \wedge (u_2\wedge u'_2)(v_2\wedge v'_2) \\
+&=& e_1 \wedge e_2 \\
+&\in& G_1 \times G_2 \\
+\end{align*}
+Analogously, \(e \vee e'\) is also an edge of \(G_1\times G_2\)\@.
+\end{proof}
+
+An other operation that preserves monotone graphs is retraction. Here is a reminder 
+for retraction.
+\begin{defi} [Retraction]
+A homomorphism from \mG\ to a subset of \mG\ is called a retraction.
+\end{defi}
+
 \begin{lemma}
-For any monotone graphs \(G_1\) and \(G_2\), \(G_1 \times G_2\) is monotone.
+Let \mG\ be a monotone graph with lattice order \(L\)\@. For a retraction \(r\) of \(L\)
+we have:
+\begin{itemize}
+\item \(r\) is a retraction of \mG
+\item \(r(G)\) is a monotone graph
+\end{itemize}
 \end{lemma}
 
 \begin{proof}
 TODO
 \end{proof}
 
-TODO define retraction on graphs and lattices
 \begin{lemma}
-If \(r\) a retraction from \(L\) to \(L'\) then
-TODO
+Let \(G=(V,E)\) be a monotone graph with lattice order \(L=(V,\wedge, \vee)\)\@.
+For vertices \(a\), \(b\), \(c\), and \(d\) of \(V\) if
+\(b \vee c  = a\) and \(b \wedge c = d\), then 
+\(ad \in E\)\@.
 \end{lemma}
 
 \begin{proof}
-TODO
 \end{proof}
+
+TODO give arguments of that this construction do not generate all monotone graphs.
