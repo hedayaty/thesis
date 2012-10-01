@@ -1,4 +1,4 @@
-FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar shade2 n5 m5 c6 intv pintv claw lattice
+FIGLIST= hom approxible ds p4 dp4 ps4 dps3 psk wr1 wr2 wr3 wr4 Wr0 Wr1 Wr2 Wr3 sample rba rbak2 polar shade2 n5 m5 c6 intv pintv claw lattice edgeremove1 edgeremove2 edgeremove3
 
 MAG = -m 1.3
 
