@@ -19,7 +19,7 @@ corresponds to an interval \(i(v)\) such that \(uv \in E\) if and only if the in
 \hfill
 \subfigure[\ensuremath{G_1}]{\input{figs/claw.pdftex}\label{fig:clawint}}\hfill 
 \subfigure[\ensuremath{I_1}]{\input{figs/intv.pdftex}\label{fig:int}}\hfill 
-\caption{Interval graph}\label{fig:intgi}
+\caption{Interval graph \ensuremath{G_1} and corresponding intervals \ensuremath{I_1}}
 \end{figure}
 
 The graph \(G_1\) in Figure~\ref{fig:clawint} referred as \emph{claw} is an interval graph
@@ -57,7 +57,8 @@ by intervals of unit length.
 \hfill
 \subfigure[\ensuremath{G_2}]{\input{figs/ps4.pdftex}\label{fig:pintg}}\hfill 
 \subfigure[\ensuremath{I_2}]{\input{figs/pintv.pdftex}\label{fig:pint}}\hfill 
-\caption{Proper interval graph}\label{fig:pintgi}
+\caption{Proper interval graph \ensuremath{G_2} and corresponding intervals
+\ensuremath{I_2}}\label{fig:pintgi}
 \end{figure}
 
 The graph \(G_2\) in Figure~\ref{fig:pintg} is a proper interval graph and
@@ -129,7 +130,7 @@ however, the vertices \(a\), \(b\), \(c\), and \(d\) forms a claw; hence,
 \hfill
 \subfigure[\ensuremath{H_1}]{\input{figs/claw.pdftex}\label{fig:intnotmon}}\hfill 
 \subfigure[\ensuremath{H_2}]{\input{figs/lattice.pdftex}\label{fig:monnotpint}}\hfill 
-\caption{Graphs distinguishing (proper) interval graphs from monoton graphs}
+\caption{Graphs \ensuremath{H_1} and \ensuremath{H_2}}
 \end{figure}
 \end{example}
 
@@ -192,7 +193,7 @@ Since \mG\ is connected, there a path \(u_0=u,u_1,u_2,\dotsc,u_k=\bot\) from \(u
 Since \mG\ is reflexive \(u'_0u'_0=uu \in G\)\@.
 \[u'_0u'_0, u_0u_1 \in G \Rightarrow u'_0u'_1 \in G\]
 inductively we have
-\[u'_{i-1}u'_i, u_iU_{i+1} \in G \Rightarrow u'_iu'_{i+1} \in G\]
+\[u'_{i-1}u'_i, u_iu_{i+1} \in G \Rightarrow u'_iu'_{i+1} \in G\]
 This implies that \(W=u'_0=u,u'_1,\dotsc,u'_k=\bot\) is a descending walk from 
 \(u\) to \(\bot\)\@. Some of the vertices may appear several times in a row in \(W\),
 by merging them we get a descending path from \(u\) to \(\bot\)\@.
@@ -247,7 +248,8 @@ For \(x_1,y_1 \in X_1\) and \(x_2,y_2\in X_2\), we have :
 and \[(x_1,x_2)\vee (y_1,y_2) = (x_1\vee y_1, x_2 \vee y_2).\]
 \end{rem}
 
-Lemma~\ref{lem:prod} shows that we can generate monotone relations from product of monotone relations.
+Lemma~\ref{lem:prod} will show that we can generate monotone graph from product of other
+monotone graphs.
 
 \begin{lemma}\label{lem:prod}
 For any monotone graphs \(G_1\) and \(G_2\), \(G_1 \times G_2\) is also a monotone graph.
@@ -283,7 +285,6 @@ A homomorphism from \mG\ to a subset of \mG\ is called a retraction.
 \end{defi}
 When there is a \emph{retraction} from \mH\ to \mG, equivalently we say
 \mH\ is a \emph{retract} of \mG, and \mG\ \emph{retracts} to \mH\@.
-
 Note that, in the definition of retraction whether \mH\ is an induced subgraph or not 
 is not significant.
 
@@ -336,21 +337,21 @@ be the product of \(G_i\)s.
 
 By Theorem~\ref{thm:DR}, there is a retraction \(r\) from the
 cover graph of \(L\) to the cover graph of \(L'\)\@.
-Let \(G_r\) be the retraction of \(G'\) by \(r\)\@.
+Let \(G_r\) be \(r(G')\) by \(r\)\@.
 It would be nice if by proper choices of \(G_i\)s, \(G_r\)
-was \mG\@. Unfortunately, this is not the case.
+was isomorphic with \mG\@. Unfortunately, this is not the case.
 For some graphs \(G_r\), we can remove some of the edges and
 the resulting graph will be a monotone graph and we can not generate those monotone
 graphs with the given process. For example, consider the graph \(G'\) in
 Figure~\ref{fig:erm1}\@. By applying a retraction, we get the
 graph \(G_r\) in Figure~\ref{fig:erm2}\@. The graph
-\mG\ in Figure~\ref{fig:erm3} is also a monotone graph. If we apply the previous process,
-we can not generate \mG\@.
+\mG\ in Figure~\ref{fig:erm3} is also a monotone graph; however
+\mG\ can not be generated from the previous process\@.
 
 \begin{figure}
 \hfill
 \subfigure[\ensuremath{G'}]{\input{figs/edgeremove1.pdftex}\label{fig:erm1}}\hfill 
 \subfigure[\ensuremath{G_r}]{\input{figs/edgeremove2.pdftex}\label{fig:erm2}}\hfill 
 \subfigure[\ensuremath{G}]{\input{figs/edgeremove3.pdftex}\label{fig:erm3}}\hfill 
-\caption{Graphs \ensuremath{G'} \ensuremath{G_r} \ensuremath{G}}
+\caption{Graphs \ensuremath{G'}, \ensuremath{G_r}, and \ensuremath{G}}
 \end{figure}
