@@ -85,13 +85,21 @@ The problem of deciding if there exists a truth assignment for a
 given Boolean CNF (Conjunctive Normal Form) formula where each
 clause contains exactly 3 literals is called \tsat\@.
 
-Let \(R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x\lor y\lor z = T\}\), 
-let \(R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x\lor y\lor z = T\}\), 
-and let \(R_3,R_4\dotsc,R_8\) be defined similarly for other combinations of literals overs
-\(x,y,z\)\@. Let \(\relset_1=\setof{R_1,R_2,\dotsc, R_8}\) be a constraint language.
+Let \(\relset_1=\setof{R_1,R_2,\dotsc, R_8}\) be a constraint language where:
+\begin{itemize}
+\item \(R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor z = T\}\), 
+\item \(R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor z = T\}\), 
+\item \(R_3=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor z = T\}\), 
+\item \(R_4=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor \bar z = T\}\), 
+\item \(R_5=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor z = T\}\), 
+\item \(R_6=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor \bar z = T\}\), 
+\item \(R_7=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor \bar z = T\}\), 
+\item \(R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}\)
+\end{itemize}
 
-It is easy to see that there is one-to-one correspondence between constraints 
-in a CSP(\(\relset_1\)) instance and clauses of \tsat\@. Hence,
+Every clause in a \tsat\ instance can be expressed by a constraint using an \(R_i\) 
+and vice-versa. Hence, there is a one-to-one correspondence between constraints 
+in a CSP(\(\relset_1\)) instance and a \tsat\ instance. Hence,
 the CSP(\(\relset_1\)) and the \tsat\ problems are the same.
 \end{example}
 
@@ -129,16 +137,15 @@ the \ctsat\ and the \ccsp(\(\relset_1\)) problems are the same.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Applications of the \ccsp} \label{sec:appl}
 In this section we will show several applications of \ccsp\ and how computational problems
-can be formulated with \ccsp\@. First, we will describe graph
+can be formulated with \ccsp\@. First, we will describe a graph
 homomorphism problem which can be viewed as a special case of CSP; next, we will relate
-the number of homomorphisms between two graphs to the graph isomorphism problem;
-we will also relate the number of homomorphisms between two graphs to
-the graph reconstruction problem. We will also describe partition functions
+the number of homomorphisms between two graphs to the graph isomorphism problem.
+We will also describe partition functions
 and give examples of partition functions in two common models in statistical physics.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Graph Homomorphism}
-Let \mG\ and \mH\ be two graphs. A homomorphism from \mG\ to \mH\ is a mapping \(h\) from
+Let \mG\ and \mH\ be two graphs. A homomorphism from \mG\ to \mH\ is a mapping \(h\) of
 vertices of \mG\ to vertices of \mH\ such that for every edge \((u,v)\) of \mG,
 \((h(u),h(v))\) is an edge of \mH\@. If there is homomorphism from \mG\ to \mH\ 
 we shall write \(G\to H\), and \(G \not\to H\) means that there is no homomorphism from
@@ -192,10 +199,10 @@ If \mH\ is bipartite then \(G \to H\) if and only if \mG\ is bipartite.
 \end{obs}
 
 Observation~\ref{obs:hom} shows that if the graph \mH\ has a loop or is bipartite,
-the Hom(\mH) problem is easy; however, for other graphs the problem is of higher complexity.
+the problem  Hom(\mH) is easy; however, for other graphs the problem is of higher complexity.
 
-\begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990~\cite{pavol}] \label{thrm:pavol}
-For an undirected graph \mH, the Hom(\mH) problem is polynomial time solvable if 
+\begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990~\cite{pavol}]
+For an undirected graph \mH, the problem Hom(\mH) is polynomial time solvable if 
 \mH\ contains a loop or \mH\ is bipartite; otherwise, it is NP-complete.
 \end{theorem}
 
@@ -207,8 +214,8 @@ input graph \mG\ to \mH.
 
 Dyer and Greenhill proved the following dichotomy for the \chom(\mH)\ problem.
 \begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
-For a graph \mH, if each component of \mH\ is either a complete reflexive graph
-or a complete irreflexive bipartite graph then the \chom(\mH) problem 
+For a graph \mH, if each component of \mH\ is either a reflexive complete graph
+or a irreflexive complete bipartite graph then the \chom(\mH) problem 
 is polynomial time solvable; otherwise, it is \cpc\@.
 \end{theorem}
 
@@ -239,8 +246,6 @@ In this model there is usually a huge graph and at each step only small sample o
 can be examined. The goal is to infer parameters of the graph using small samples of it. 
 A good example of such a graph one might want to find the properties is the Internet.
 \end{comment}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Sampling}
@@ -323,7 +328,7 @@ The \pname{H-Partition} Problem is defined as:
 Given a weight function and the partition function, 
 the \emph{Gibbs distribution} on homomorphisms from \mG\ to \mH\ is
 the distribution that each homomorphism \(h\) has a probability 
-\[\pi_{H,G,w}(h)=\frac{w_h(G)}{Z_H(G,w)}\]
+\[\pi_{H,G,w}(h)=\frac{w(h)}{Z_H(G,w)}\]
 The \pname{H-GibbsSample} problem is defined as:
 
 \pnndef%{\pname{H-GibbsSample}}
@@ -353,10 +358,10 @@ One of the commonly used models in Statistical Mechanics is the Ising model. In 
 the system is defined by a graph \(G(V,E)\)\@.
 Each edge of the graph \((u,v)\in E\) has an {\em interaction strength} \(J_{u,v}\)\@. Each
 vertex has an associated \emph{local external magnetic field} \(l_v\)\@.
-A configuration of the system  is an assignment \(\sigma: V\to \setof{-1,+1}\) of spins to
-vertices of \mG. Each configuration is associated with energy:
+A configuration of the system  is an assignment \(\sigma: V\to \setof{-1,+1}\) of vertices of \mG\
+to spins. Each configuration is associated with energy:
 \[H(\sigma)=-\sum_{(u,v)\in E}J_{u,v}\cdot\sigma(u)\cdot\sigma(v)-\sum_{v\in V} l_v\cdot\sigma(v)\]
-the partition function for the Ising model is:
+and the partition function for the Ising model is:
 \begin{align*}
 Z(G,\beta,J,l)&=\sum_{\sigma:V\to\setof{-1,+1}}e^{-\beta H(\sigma)}\\
 &=\sum_{\sigma:V\to\setof{-1,+1}} \prod_{(u,v)\in E}
@@ -370,6 +375,10 @@ To avoid exponentials in the notation, let \(\lambda_{u,v}=e^{2\beta J_{u,v}}\) 
 \begin{align*}
 Z(G,\lambda,\mu)&=\sum_{\sigma :V\to\setof{-1,+1}} \prod_{(u,v)\in E} \lambda_{u,v}^{\frac{1}{2}
 \sigma(u)\sigma(v)}\prod_{v\in V}\mu_v^{\frac{1}{2}\sigma(v)}\\
+&=\prod_{(u,v)\in E}\lambda_{u,v}^{-\frac{1}{2}}\prod_{v\in V}\mu_v^{-\frac{1}{2}}\sum_{\sigma:V\to
+\setof{-1,+1}}
+\prod_{(u,v)\in E}\lambda_{u,v}^{\frac{1}{2} + \frac{1}{2}\sigma(u)\sigma(v)}\prod_{v\in V:
+}\mu_v^{\frac{1}{2} + \frac{1}{2}\sigma(v)} \\
 &=\prod_{(u,v)\in E}\lambda_{u,v}^{-\frac{1}{2}}\prod_{v\in V}\mu_v^{-\frac{1}{2}}\sum_{\sigma:V\to
 \setof{-1,+1}}
 \prod_{\substack{(u,v)\in E \\ \sigma(u)=\sigma(v)}}\lambda_{u,v}\prod_{v\in V:
@@ -402,9 +411,9 @@ As before, let \(\lambda_{u,v}=e^{2\beta J_{u,v}}\) and
 \prod_{v\in V}\mu_{v,\sigma(v)}\]
 
 Problems of computing partition functions in the Ising and Potts models can be
-reduced to a \ccsp(\mrelset) for some constraint language \mrelset; however, the reduction
-may not be straightforward. We will mention major results on complexity of the problem of computing 
-partition function in these models in Chapter~\ref{chp:approx}\@.
+reduced to a \ccsp(\mrelset) for some constraint language \mrelset\@.
+In Chapter~\ref{chp:approx}, we will mention results involving reductions from problems
+of computing partition functions in the Ising and Potts models to \ccsp(\mrelset) problem\@.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -417,8 +426,8 @@ the complexity of the CSP(\mrelset) problem. We will mention the major results o
 how they are related to the complexity of the \ccsp(\mrelset) problem.
 
 Two important classes of functions we are interested in are FP and \cp\@.
-FP is the class of functions computable in polynomial time and \cp\ is
-the class of function that can be expressed as the
+FP is the class of functions that are computable in polynomial time by a deterministic Turing machine
+and \cp\ is the class of function that can be expressed as the
 number of accepting paths of a non-deterministic polynomial time Turing machine. 
 
 Let \(f,g:\Sigma^*\to\mathbb{N}\) be two functions. A \emph{parsimonious reduction}
@@ -447,9 +456,9 @@ mentioned in Examples~\ref{exm:3sat}~and~\ref{exm:c3sat}\@.
 {The number of truth assignments that satisfy \(\varphi\)}
 
 In the same way that Cook \cite{cook1971} proved that SAT is NP-complete,
-Valiant \cite{Valiant1979} showed that \csat\ is \cpc\@. It is easy to see that 
-Cook's reduction is a parsimonious reduction; hence, it works for counting problems
-as well. 
+Valiant \cite{Valiant1979} showed that \csat\ is \cpc\@. 
+The proof is easy; Valiant observed that the Cook's reduction from a non-deterministic Turing machine
+to a SAT instance is a parsimonious reduction; hence, it works for counting problems, as well. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -497,7 +506,7 @@ and strict implementations used in \cite{madu,Trichotomy}\@.
 
 A set of relations closed under pp-definition is called a \emph{co-clone}.
 For a constraint language \mrelset, \(\clone{\relset}\) is the the least co-clone containing
-\mrelset\ also called the co-clone generated by \mrelset\@.
+\mrelset, also called the \emph{co-clone generated by \mrelset}\@.
 
 A function \(f\) is said to be a \emph{projection} function if \(f(x_1,\dotsc,x_l)=x_l\) 
 for some \(l\)\@.
@@ -505,9 +514,9 @@ A set of functions is said to be a \emph{clone} if it contains all projection
 functions and is closed under superpositions (compositions). For a set of functions
 \(C\), \(\clone{C}\) is the least clone containing \(C\) also called the clone generated by \(C\)\@.
 
-A Galois connection between sets \(A\) and \(B\) is a pair of functions
+A \emph{Galois connection} between sets \(A\) and \(B\) is a pair of functions
 \(\fA:\pow{A} \to \pow{B}\) and \(\gB:\pow{B} \to \pow{A}\) 
-such that they maintain {\em antitony}, that is,
+which maintain {\em antitony}, that is,
 \begin{align*}
 X \subseteq X' \implies \fA(X) \supseteq \fA(X') \\
 Y \subseteq Y' \implies \gB(Y) \supseteq \gB(Y') \\
@@ -530,8 +539,7 @@ functions  \(C\) is denoted by \(Inv(C)\)\@.
 
 Functions \(Inv\) and \(Pol\) satisfy antitony and extensivity; hence, they 
 form a \emph{Galois connection} between the sets of functions 
-and the set of relations. The following theorem links the clones to \(Inv\) and \(Pol\)
-functions.
+and the set of relations, namely, we have the following theorem.
 
 \begin{theorem}[Geiger \cite{gei68}, Romov et al. \cite{bkkr69}]
 For any constraint language \mrelset\ and 
@@ -542,11 +550,11 @@ and
 \@.
 \end{theorem}
 
-\begin{cor}
+\begin{rem}
 Since the \(Pol\) and \(Inv\) functions form a Galois connection, for any
 constraint language \mrelset\ and any set of functions \(C\), 
 \(Pol(\relset)\) and \(Inv(C)\) are co-clones and clones, respectively.
-\end{cor}
+\end{rem}
 
 \begin{cor}
 Let \mrelset\ and \(\relset'\) be two constraint languages with the same domain.
@@ -583,16 +591,16 @@ but does not necessarily preserve the number of satisfying assignments.
 
 \begin{cor}
 For any \(\relset'\) a finite subset of \(\clone{\relset}\),
-the CSP(\(\relset'\)) is polynomial time reducible to  CSP(\mrelset);
-consequently, the complexity of the CSP(\mrelset) only depends on the \(Pol(\relset)\)\@.
+the problem CSP\((\relset')\) is polynomial time reducible to the problem CSP\((\relset)\);
+consequently, the complexity of the problem CSP\((\relset)\) only depends on the \(Pol(\relset)\)\@.
 \end{cor}
 
-The CSP dichotomy conjecture states for any constraint language \mrelset, 
-the CSP(\mrelset) problem is either polynomial time solvable or NP-complete.
-Bulatov and Valeriote \cite{recent08}
-have a survey of results on the relation between complexity of CSP(\mrelset) and \(Pol(\relset)\).
-There are more results in \cite{dur628, valeriote}\@.
-The CSP dichotomy still remains an open problem. 
+\begin{conj} [Feder and Vardi 1998 \cite{cspconj}]
+For any constraint language \mrelset, CSP(\mrelset) is either polynomial time solvable or NP-complete.
+\end{conj}
+
+Bulatov and Valeriote \cite{recent08} have a survey of results on the relation between complexity of CSP(\mrelset) and \(Pol(\relset)\). There are more results in \cite{dur628, valeriote}; however,
+the CSP dichotomy still remains an open problem. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -618,7 +626,7 @@ The \cdcol\ problem can be expressed as \ccsp(\(NEQ_{01}\)), where
 \(NEQ_{01}\) is the inequality relation over a two element set, that is,
 \(NEQ_{01}=\setof{(0,1),(1,0)}\)\@. 
 The \cdcol\ problem is easy to solve because
-the \(NEQ\) relation belongs to a family of relations called affine relations.
+the \(NEQ\) relation belongs to a family of relations called \emph{affine} relations.
 A relation is affine if it is expressible by a system of linear equations over a
 finite field. The relation \(NEQ_{01}\) is an 
 affine relation because \(NEQ_{01} = \{(x,y)\mid x\oplus y \equiv 1 \pmod{2}\}\)\@.
@@ -662,7 +670,7 @@ polymorphism. Similarly, a bipartite graph \(G\) is complete if and only if the 
 of edges
 of \(G\) from one part to other part is closed under any polymorphism.
 
-Hence, polymorphisms can express criteria used in both theorems. This suggests
+Hence, polymorphisms can also express criteria used in both theorems. This suggests
 that \(Pol(\relset)\) can express the complexity of the \ccsp(\mrelset) problem.
 Suppose \(\relset_1\) and \(\relset_2\) are two constraint languages such that
 every relation in \(\relset_2\) is pp-definable in \(\relset_1\); 
@@ -679,12 +687,13 @@ to \ccsp\((\relset \cup \setof R)\)\@.
 
 This theorem is analogous to Theorem~\ref{trm:jeavons}. In the same manner Jeavons's theorem
 links complexity of CSP(\mrelset) to clones, this theorem
-links complexity of the \ccsp(\mrelset) problems to clones. This connection
-led to a dichotomy for the \ccsp(\mrelset) problem.
+links complexity of \ccsp(\mrelset) to clones, as well. This connection
+led to a dichotomy for the problem \ccsp(\mrelset)\@.
 
 Let \mrelset\ be a constraint language with domain \mD\ and 
-let \mR\ be a \(k\)-ary relation pp-definable in \mrelset\@.
-A \emph{congruence} of \mR\ is a \(2k\)-ary relation \(Q\) which is also pp-definable in \mrelset\
+let \mR\ be a \(k\)-ary relation on \mD\ pp-definable in \mrelset\@.
+A \emph{congruence} of \mR\ is a \(2k\)-ary relation \(Q\) on \mD\ 
+which is also pp-definable in \mrelset\
 and satisfying the following conditions:
 \begin{inparaenum}[(a)]
 \item \(Q\) can be viewed as a binary relation on \mR, i.e., \(Q \subseteq R^2\);
@@ -695,7 +704,7 @@ and satisfying the following conditions:
 Now, let \(Q,Q_1,Q_2\) be congruences of \mR\ such that
 \(Q\subseteq Q_1,Q_2\). Let \(A_1,\dotsc,A_m\) and \(B_1,\dotsc,B_n\) be
 the equivalence classes of \(Q_1\) and \(Q_2\), respectively. 
-\(M(R;Q_1,Q_2;Q)\) denotes a matrix where \(M_{ij}\) is the number of \(Q\)-classes in
+\(M(R;Q_1,Q_2;Q)\) denotes an \(m\times n\) matrix where \(M_{ij}\) is the number of \(Q\)-classes in
 \(A_i\cap B_j\). 
 
 A constraint language \mrelset\ is said to be \emph{congruence
@@ -707,7 +716,7 @@ both \(Q_1\) and \(Q_2\)\@.
 
 \begin{theorem}[Bulatov 2008 \cite{Bulatov}]
 For a constraint language \mrelset,
-the \ccsp(\mrelset) problem is polynomial time solvable if 
+the problem \ccsp(\mrelset) is polynomial time solvable if 
 \mrelset\ is congruence singular; otherwise, it is \cpc\@.
 \end{theorem}
 
@@ -1257,8 +1266,7 @@ An independent set \(I\) in \(B\) is said to be \emph{full} if for all \(1 \le i
 the set \(I\cap (U_i \cup V_i)\) is nonempty. Every full independent set \(I\) in \(B\)
 corresponds to the down-set \(D=\{i \mid I \cap V_i \neq \emptyset\}\) in \(P\)\@.
 In the same manner, every down-set \(D\) in \(P\) gives exactly \((2^{2n}-1)^n\) full independent
-sets in \(B\)\@. Note that \(2^{2n}-1\) is the number of nonempty subsets of \(U_i\)
-or \(V_i\)\@.
+sets in \(B\)\@. Note that \(2^{2n}-1\) is the number of nonempty subsets of \(U_i \cap V_i\)\@.
 
 On the other hand the number of non-full independent sets in \(B\) is less than
 \(3^n(2^{2n}-1)^{n-1}\)\@. Thus, for \(n\ge 5\) we have 
