@@ -97,7 +97,31 @@ For any fixed reflexive graph \mH, the problem MinHom(\mH) is polynomial time so
 \end{theorem}
 
 We repeat the definition of \emph{monotone} relations from Chapter~\ref{chp:results}
-for reflexive graphs.
+for reflexive graphs. Before monotone graphs, we repeat the definition of distributive lattice from Chapter~\ref{chp:results}\@.
+
+\begin{defi} [Distributive Lattice]
+A \emph{distributive lattice} \(L=(X,\wedge,\vee)\) is a pair of binary operators \(\wedge\)
+and \(\vee\) on \(X\) that are 
+\begin{itemize}
+\item idempotent: \(x \wedge x = x\) and \(x \vee x = x\),
+\item commutative: \(x \wedge y = y \wedge x\) and \(x \vee y = y \vee x\),
+\item associative: \(x \wedge (y \wedge z) = (x \wedge y) \wedge z\) and 
+\(x \vee (y \vee z) = (x \vee y) \vee z\),
+\item absorptive: \(x \wedge (x\vee y) = x\) and \(x \vee (x \wedge y) = x\),
+\item distributive: \(x \wedge (y \vee z) = (x \wedge y) \vee (x \wedge z)\) and
+\(x \vee (y \wedge z) = (x \vee y) \wedge (x \vee z)\)
+\end{itemize}
+\end{defi}
+
+A lattice \(L=(X,\wedge,\vee)\) can be viewed as a partial order \(P=(X,\preceq)\);
+\(\bot\) and \(\top\) denote the smallest and largest elements in \(L\), respectively; in other words:
+\[x \preceq \bot \Rightarrow x = \bot \]
+\[\top \preceq x \Rightarrow x = \top \]
+a \emph{cover} is a pair \((a,b)\) such that:
+\[a \preceq x \preceq b \Rightarrow a = x\ \mathrm{or}\ b = x\]
+A \emph{cover graph} of a partial order is a directed graph such that there is
+an edge from \(a\) to \(b\) if \((a,b)\) is a cover in the partial order.
+
 
 \begin{defi} [Monotone reflexive graph]
 Let \(G=(V,E)\) be a reflexive graph; \mG\ is \emph{monotone} if there exists distributive lattice order
@@ -195,16 +219,6 @@ they are edges of \mG\@.
 Lemma~\ref{lem:monotone:con} indicates that any monotone graph can be generated
 from its connected components. From here, all the monotone graphs are
 assumed to be connected and reflexive, unless explicitly specified.
-
-A lattice \(L=(X,\wedge,\vee)\) can be viewed as a partial order \(P=(X,\preceq)\);
-\(\bot\) and \(\top\) denote the smallest and largest elements in the \(L\), 
-respectively; in other words:
-\[x \preceq \bot \Rightarrow x = \bot \]
-\[\top \preceq x \Rightarrow x = \top \]
-a \emph{cover} is a pair \((a,b)\) such that:
-\[a \preceq x \preceq b \Rightarrow a = x\ \mathrm{or}\ b = x\]
-A \emph{cover graph} of a partial order is a directed graph such that there is
-an edge from \(a\) to \(b\) if \((a,b)\) is a cover in the partial order.
 
 \begin{lemma}
 Let \mG\ be a monotone graph with lattice ordering \(L\),
@@ -331,32 +345,40 @@ A homomorphism from \mG\ to a subset of \mG\ is called a retraction.
 When there is a \emph{retraction} from \mH\ to \mG, equivalently we say
 \mH\ is a \emph{retract} of \mG, and \mG\ \emph{retracts} to \mH\@.
 Note that, in the definition of retraction whether \mH\ is an induced subgraph or not 
-is not significant.
+is not significant. Now, we show that retractions preserve monotone relations.
 
-\begin{lemma} \label{lem:retract}
-Let \mG\ be a monotone graph with lattice order \(L\)\@.
-For \(r\) a retraction of the cover graph of \(L\), we have \(r(G)\) is a monotone graph
+\begin{lemma}
+Let \mG\ be a monotone graph; for any retraction \(r\) over \mG\
+\(r(G)\) is monotone.
 \end{lemma}
 
 \begin{proof}
 Let \(G=(V,E)\) be a monotone graph with lattice order \(L=(V, \wedge,\vee)\) and
-let \(r\) be a retraction from \(L\) to \(M =(U, \wedge, \vee)\)\@.
-Take \mH\ as the induced subgraph of \mG\ by \(U\)\@.
-We claim that \mH\ is a monotone graph with ordering \(M\)\@.
-For every two vertex \(x,y\in U\), since \(M\) is a lattice
-\(x\wedge y,x\vee y\in U\)\@. For every two edges \(e_1\) and \(e_2\) of
-\mH, since \mG\ is monotone \(e_1\wedge e_2,e_1\vee e_2\in G\)
-and since \mH\ is an induced subgraph of \mG, they are edges of 
-\mH, as well.
+let \(r\) be a retraction from \mG\ to \(H=(U,E')\)\@. We claim
+\mH\ is monotone with lattice order \(M=(U,\wedge_M, \vee_M)\)\@.
+We define \(\wedge_M\) and \(\vee_M\) as:
+\begin{eqnarray*}
+u \wedge_M v &= r(u \wedge v) \\
+u \vee_M v &= r(u \vee v) \\
+\end{eqnarray*}
+TODO the rest is easy
 \end{proof}
 
 So far we presented several ways in which we can generate monotone graphs.
 These techniques can be combined to create monotone graphs.
-We start by a number of proper interval graphs, take their product and apply a retraction.
-By the Lemme~\ref{lem:prod}~and~\ref{lem:retract}, this process generates a monotone graph.
-Next, we try to find out if we can generate all the monotone graph with this process.
+\begin{algorithm}
+\begin{enumerate}
+\item Take \(m\) proper interval graphs \(G_1,G_2,\dotsc,G_m\)\@.
+\item Let \(G' = G_1 \times G_2 \times \dotsb G_m\)\@.
+\item Use a retraction \(r:G' \to G^r\) to generate \(G^r\)
+\end{enumerate}
+\caption{Generating monotone relations}\label{prc:genmon}
+\end{algorithm}
 
-We need to define other parameters for partial orders as well.
+By the Lemme~\ref{lem:prod}~and~\ref{lem:retract}, Process~\ref{prc:genmon} generates a monotone graph.
+Next, we try to find out if Process~\ref{prc:genmon} can generate all monotone graphs.
+
+Here, We need to define more parameters for partial orders.
 The \emph{length} of a partial order \(P\), \(l(P)\), is the length of maximum chain in
 the partial order. The \emph{width} of a partial order \(P\),
 \(w(P)\), is the size of maximum unti-chain the partial order.
@@ -372,28 +394,41 @@ Every lattice of width \(m\), is a result of retraction of product of
 \(m\) chains.
 \end{cor}
 
+\begin{lemma} \label{lem:retract}
+Let \mG\ be a monotone graph with lattice order \(L\)\@.
+For a retraction \(r\) of the cover graph of \(L\), we have \(r(G)\) is a monotone graph
+\end{lemma}
+
+\begin{proof}
+Let \(G=(V,E)\) be a monotone graph with lattice order \(L=(V, \wedge,\vee)\) and
+let \(r\) be a retraction from \(L\) to \(M =(U, \wedge, \vee)\)\@.
+Take \mH\ as the induced subgraph of \mG\ by \(U\)\@.
+We claim that \mH\ is a monotone graph with lattice ordering \(M\)\@.
+For every two vertex \(x,y\in U\), since \(M\) is a lattice
+\(x\wedge y,x\vee y\in U\)\@. For every two edges \(e_1\) and \(e_2\) of
+\mH, since \mG\ is monotone \(e_1\wedge e_2,e_1\vee e_2\in G\)
+and since \mH\ is an induced subgraph of \mG, they are edges of 
+\mH, as well.
+\end{proof}
+
 Now we want generate a given monotone graph \mG\ with lattice ordering \(L\),
-with the previous process. Let \(m\) be the width of the \(L\)\@.
-Take \(m\) chains \(C_1,C_2,\dotsc,C_m\) and \(m\) proper interval graphs
-\(G_1,G_2,\dotsc,G_m\) such that each \(C_i\) is the ordering for
-\(G_i\)\@.
-Let \(L'\) be the product of the \(C_i\)s and let \(G'\)
-be the product of \(G_i\)s.
+with the Process~\ref{prc:genmon}. Let \(m\) be the width of the \(L\)\@.
+Take \(m\) chains \(C_1,C_2,\dotsc,C_m\) of the same length as \(L\)\@.
+Let \(G_i\) be a proper interval graph derived by projection of \(G\) over \(C_i\)\@. \todo{This part needs more clearing}
+Let \(L'\) be the product of the \(C_i\)s and let \(G'\) be the product of \(G_i\)s.
 
-By Theorem~\ref{thm:DR}, there is a retraction \(r\) from the
-cover graph of \(L\) to the cover graph of \(L'\)\@.
+By Theorem~\ref{thm:DR}, there is a retraction \(r\) from the cover graph of \(L'\) to the cover graph of \(L\)\@.
+Apply the retraction \(r\) over \(G'\)\@.
 Let \(G^r\) be \(r(G')\) by \(r\)\@.
-It would be nice if by proper choices of \(G_i\)s, \(G^r\)
-was isomorphic with \mG\@. Unfortunately, this is not the case.
+It would be very nice if \(G^r\) was isomorphic with \mG\@. Unfortunately, \mG\ is a subset of \(G^r\)\@.
 
-For some graphs \(G^r\), we can remove some of the edges and
-the resulting graph will be a monotone graph and we can not generate those monotone
-graphs with the given process. For example, consider the graph \(G'\) in
+For some graphs \(G^r\), removing some of the edges from \(G^r\) results a connected 
+monotone graph with the same lattice order as \(G^r\)\@.
+For example, consider the graph \(G'\) in
 Figure~\ref{fig:erm1}\@. By applying a retraction, we get the
 graph \(G^r\) in Figure~\ref{fig:erm2}\@. The graph
-\mG\ in Figure~\ref{fig:erm3} is also a monotone graph; however
-\mG\ can not be generated from the previous process\@.
-
+\mG\ in Figure~\ref{fig:erm3} is also a monotone graph with the same lattice order 
+as \(G^r\)\@. Thus, Process~\ref{prc:genmon} can not be generate \mG\@. 
 
 \begin{figure}
 \hfill
@@ -403,9 +438,6 @@ graph \(G^r\) in Figure~\ref{fig:erm2}\@. The graph
 \caption{Graphs \ensuremath{G'}, \ensuremath{G^r}, and \ensuremath{G}}
 \end{figure}
 
-Only remaining challenge is deciding which of the \(G^r\) are mandatory 
-and must be present in \mG\ and which of the edges are optional.
-We already proved that the edges of the lattice are mandatory.
-Our guess is that, the edge \(ad \in G^r\) is mandatory if and only
-all the pairs of vertices \(b,c \in G'\) such that \(b\wedge c = d\)
-and \(b \vee c = a\) (assuming \(d \preceq a\)) are present in \mG\@.
+The only remaining challenge is given \(G^r\) and \(L\), 
+finding the set of edges \(E_1\) of \(G^r\) such that 
+\(G^r - E\) is connected and monotone with lattice order \(L\)\@.
