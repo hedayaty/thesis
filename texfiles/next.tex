@@ -1,30 +1,32 @@
 \chapter{Characterization of Monotone Graphs}
 In Chapter~\ref{chp:results}, we showed that for monotone relations and monotone
 bipartite graphs the problem \ccsp(\mH) is AP-reducible to the problem \cbis\@. In this chapter,
-we will inspect the monotone reflexive graphs; although the arguments are
+we will inspect monotone reflexive graphs; although the arguments are
 analogous for bipartite graphs we will not cover bipartite graphs in this part.
+In this part, we indicate existence of an edge between vertices \(u\) and \(v\) as \(u \sim v\)\@.
 
 \emph{Interval graphs} and \emph{proper interval graphs}
-are two interesting families of reflexive graphs that we will show that they play a key role in complexity of 
+are two interesting families of reflexive graphs that play a key role in complexity of 
 list homomorphism and mincost-homomorphism problems. We are interested in these two families
-because of their connections with monotone graphs. An interval graph is defined as follows:
+because of their connection with monotone graphs. 
+An interval graph is defined as follows:
 
 \begin{defi}
-A graph \(G=(V,E)\) is said be to an interval graph if \mG\ can
+A graph \(G=(V,E)\) is said be to an \emph{interval graph} if \mG\ can
 be represented by a family of closed intervals such that
-each vertex \(v \in V\) corresponds to an interval \(I_v\) and \(u \sim v \in E\)
+each vertex \(v \in V\) corresponds to an interval \(I_v\) and \(u \sim v\)
 if and only if the intervals \(I_u\) and \(I_v\) intersect.
 \end{defi}
 
 \begin{figure} [h]
 \hspace{1cm}
-\subfigure[\ensuremath{G_1}]{\input{figs/claw.pdftex}\label{fig:clawint}} \hspace{2cm}
+\subfigure[\ensuremath{G_1}]{\input{figs/claw.pdftex}\label{fig:claw}} \hspace{2cm}
 \subfigure[\ensuremath{I_1}]{\input{figs/intv.pdftex}\label{fig:int}}\hspace{2cm}
 \subfigure[\ensuremath{G_2}]{\input{figs/cs4.pdftex}\label{fig:nonint}}
 \caption{Interval graph \ensuremath{G_1}, intervals \ensuremath{\mathcal{I}_1}, and non-interval graph \ensuremath{G_2}}
 \end{figure}
 
-The graph \(G_1\) in Figure~\ref{fig:clawint}, called \emph{claw}, is an interval graph
+The graph \(G_1\) in Figure~\ref{fig:claw}, called \emph{claw}, is an interval graph
 and \(\mathcal{I}_1\) in Figure~\ref{fig:int} is a possible family of intervals representing \(G_1\)\@.
 The graph \(G_2\) in Figure~\ref{fig:nonint} is not an interval graph. In order to show that \(G_2\) is not
 an interval graph, suppose \(\{I_a, I_b, I_c, I_d\}\) is a family of intervals representing \(G_2\)\@.
@@ -34,12 +36,11 @@ Since \(a\not \sim d\), \(I_d\) must appear after \(I_a\)\@. Since \(b\sim a\), 
 \(I_a\) and \(I_d\); this implies \(b\sim c\) which is a contradiction.
 
 One of the problems that relate homomorphisms to interval graphs is the list homomorphism problem.
-List homomorphism can be considered as combination of list coloring and homomorphism.
 The list homomorphism problem is defined as:
 
 \begin{defi} [L-Hom]
 Let \mH\ be a fixed graph. Given an input graph \mG\ and for each vertex \(v\) of \mG,
-a \emph{list} \(L(v) \subseteq V(H)\) the \emph{list homomorphism} problem, denoted
+a \emph{list} \(L(v) \subseteq V(H)\) the \emph{list homomorphism} problem for \mH, denoted
 as L-Hom(\mH), is the problem of  deciding whether or not
 there exists a homomorphism \(h: G\to H\) such that for each vertex \(v\) of \mG\ 
 we have \(h(v)\in L(v)\)\@.
@@ -57,30 +58,28 @@ In addition to interval graphs we shall also focus on proper interval graphs.
 Proper interval graphs are defined as follows:
 
 \begin{defi}
-A graph \(G=(V,E)\) is said be to an interval graph if \mG\ can
-be represented by a family of closed intervals such that
-no interval is a proper subset of another interval,
-each vertex \(v \in V\) corresponds to an interval \(I_v\), and \(u \sim v \in E\)
-if and only if the intervals \(I_u\) and \(I_v\) intersect.
+A graph \(G=(V,E)\) is said be to a \emph{proper interval graph} if \mG\ can
+be represented by a family of closed intervals such that 
+each vertex \(v \in V\) corresponds to an interval \(I_v\), 
+\(I_u \not\subseteq I_v\) for any two vertices that \(u \neq v\), and
+\(u \sim v\) if and only if the intervals \(I_u\) and \(I_v\) intersect.
 \end{defi}
 
 \begin{figure}[h]
-\hspace{1cm}
-\subfigure[\ensuremath{G_3}]{\input{figs/ps4.pdftex}\label{fig:pintg}}\hspace{2cm}
-\subfigure[\ensuremath{I_2}]{\input{figs/pintv.pdftex}\label{fig:pint}}\hspace{2cm}
-\subfigure[\ensuremath{G_4}]{\input{figs/claw.pdftex}\label{fig:nonpint}}
-\caption{Proper interval graph \ensuremath{G_2}, intervals \ensuremath{\mathcal{I}_2}, and non-interval graph \ensuremath{G_4}}\label{fig:pintgi}
+\hspace{2cm}
+\subfigure[\ensuremath{G_3}]{\input{figs/ps4.pdftex}\label{fig:pintg}}\hspace{3cm}
+\subfigure[\ensuremath{I_2}]{\input{figs/pintv.pdftex}\label{fig:pint}}%\hspace{2cm}
+\caption{Proper interval graph \ensuremath{G_2} and intervals \ensuremath{\mathcal{I}_2}}\label{fig:pintgi}
 \end{figure}
 
 The graph \(G_3\) in Figure~\ref{fig:pintg} is a proper interval graph and
 \(\mathcal{I}_2\) in Figure~\ref{fig:pint} is a possible set of intervals representing \(G_3\)\@.
-The graph \(G_4\) in Figure~\ref{fig:nonpint} is not a proper interval graph. In order to show that
-\(G_4\) is not a proper interval graph, suppose \(\{I_a, I_b, I_c, I_d\}\) is a family of intervals representing \(G_4\)\@.
+The graph \(G_1\) in Figure~\ref{fig:claw} is not a proper interval graph. In order to show that
+\(G_1\) is not a proper interval graph, suppose \(\{I_a, I_b, I_c, I_d\}\) is a family of intervals representing \(G_1\)\@.
 Intervals \(I_b\), \(I_c\), and \(I_d\) must intersect \(I_a\) and not intersect each other; two of them can intersect \(I_a\)
 in the beginning and the end of \(I_a\), the third interval can not intersect \(I_a\) without intersecting the other two; hence, we have a contradiction.
 
 One of the problems that relate homomorphisms to proper interval graphs is the mincost homomorphism problem.
-Mincost homomorphism is one of the ways to express an optimization problems using the homomorphisms.
 The min-cost homomorphism problem is an optimization problem defined as follows:
 
 \begin{defi} [MinHom]
@@ -103,7 +102,7 @@ We repeat the definition of \emph{monotone} relations from Chapter~\ref{chp:resu
 for reflexive graphs. Before monotone graphs, we repeat the definition of distributive lattice from Chapter~\ref{chp:results}\@.
 
 \begin{defi} [Distributive Lattice]
-A \emph{distributive lattice} \(L=(X,\wedge,\vee)\) is a pair of binary operators \(\wedge\)
+A \emph{distributive lattice} \(L=(X,\wedge,\vee)\) is set \(X\) with a pair of binary operators \(\wedge\)
 and \(\vee\) on \(X\) that are 
 \begin{itemize}
 \item idempotent: \(x \wedge x = x\) and \(x \vee x = x\),
@@ -131,32 +130,28 @@ an edge from \(a\) to \(b\) if \((a,b)\) is a cover in the partial order.
 
 
 \begin{defi} [Monotone reflexive graph]
-Let \(G=(V,E)\) be a reflexive graph; \mG\ is \emph{monotone} if there exists distributive lattice order
+Let \(G=(V,E)\) be a reflexive graph; \mG\ is \emph{monotone} if there exists distributive lattice
 \(L=(V, \wedge, \vee)\) such that
 when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\) and \((a \vee c) \sim (b \vee d)\)\@.
 \end{defi}
 
 We also provide an alternate characterization for (proper) interval graphs.
 These characterizations show the relation between (proper) interval graphs and monotone relations. 
-A total order is a partial order that for every \(a, b\) either \(a \preceq b\)
+A total order is a partial order \(\preceq\) such that for every \(a, b\) either \(a \preceq b\)
 or \(b \preceq a\) hold. For every total order we can define \(\wedge\) and \(\vee\) operators as:
 \[a \preceq b \Rightarrow a \wedge b = a, a \vee b = b\]
 A function \(f\) that \(f(x_1,x_2,\dotsc,x_k)\in \{x_1,x_2,\dotsc,x_k\}\) is called
 a \emph{conservative} function. Hence, conservative \(\wedge\) and \(\vee\) operators
 can represent a total order.
 
-\begin{theorem}[TODO] \label{thm:semimin}
+\begin{theorem} [\cite{hellbook}] \label{thm:semimin}
 A reflexive graph \(G=(V,E)\) is an interval graph if and only if there exists
 a total order \(T=(V,\wedge,\vee)\) such that
 when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\)\@.
 \end{theorem}
 
-\begin{lemma} \label{lem:intmon}
-Every reflexive monotone graph is an interval graph.
-\end{lemma}
-
 \begin{proof}
-TODO. It is not trivial.
+TODO
 \end{proof}
 
 \begin{theorem} [TODO] \label{thm:minmax}
@@ -174,21 +169,8 @@ monotone graphs and (proper) interval graphs. However, monotone graphs are not
 equivalent with (proper) interval graphs.
 
 \begin{example} \label{exm:diff}
-The graph \(H_1\) in Figure~\ref{fig:intnotmon} is 
-an interval graph; however, we show that \(H_1\) is not a monotone graph.
-The vertices \(e\), \(d\), \(a\), and \(f\) in graph \(H_2\) in Figure~\ref{fig:monnotpint} 
-form claw; hence, \(H_2\) is not a proper interval graph; however, we show that
-\(H_2\) is a monotone graph.
-
-\begin{figure}[h]
-\hspace{2cm}
-\subfigure[\ensuremath{H_1}]{\input{figs/claw.pdftex}\label{fig:intnotmon}}\hspace{4cm}
-\subfigure[\ensuremath{H_2}]{\input{figs/lattice.pdftex}\label{fig:monnotpint}}
-\caption{Graphs \ensuremath{H_1} and \ensuremath{H_2}}
-\end{figure}
-
-We want to show that \(H_1\) is not monotone graph. By counter proof, suppose that
-\(H_1\) is monotone. Suppose \(\top = a\), then
+The graph \(G_1\) in Figure~\ref{fig:claw} is an interval graph; however, we show that \(G_1\) is not a monotone graph.
+Suppose that \(G_1\) is monotone. Suppose \(\top = a\), then
 \[a \sim b, c \sim a \Rightarrow (a \wedge c) \sim (b \wedge a) \Rightarrow c \sim b\]
 Analogously, if \(\bot = a\), then \(b \sim c\)\@. Hence, \(a\) can not be \(\top\) to \(\bot\)\@.
 Without loss of generality suppose \(\top = b\) and \(\bot = c\); if \(a \preceq d\)
@@ -196,47 +178,24 @@ Without loss of generality suppose \(\top = b\) and \(\bot = c\); if \(a \preceq
 Analogously, if \(d \preceq a\), the \(d \sim c\)\@. The last possible case is 
 \(a \wedge d = c\) and \(a \vee d = b\). In this case:
 \[a \sim d, d \sim d \Rightarrow (a \wedge d) \sim (d \wedge d) \Rightarrow c \sim d\]
-Hence, \(H_1\) is not monotone. In order to show that \(H_2\) is a monotone graph. We use the lattice order
-\(L\) defined by \(\wedge\) and \(\vee\) operations from the Table\ref{tab:lattice}\@.
-\begin{table}
-\begin{minipage}{.45\linewidth}
-\begin{tabular}{c|c c c c c c c c c}
-\(\wedge\) & \textbf{a} & \textbf{b} & \textbf{c} & \textbf{d} & \textbf{e} & \textbf{f} & \textbf{g} & \textbf{h} & \textbf{i} \\
-\hline
-\textbf{a} & a          & b          & c          & d          & e          & f          & g          & h          & i \\
-\textbf{b} & b          & b          & e          & d          & e          & h          & g          & h          & i \\
-\textbf{c} & c          & e          & c          & g          & e          & f          & g          & h          & i \\
-\textbf{d} & d          & d          & g          & d          & g          & i          & g          & i          & i \\
-\textbf{e} & e          & e          & e          & g          & e          & h          & g          & h          & i \\
-\textbf{f} & f          & h          & f          & i          & h          & f          & i          & h          & i \\
-\textbf{g} & g          & g          & g          & g          & g          & i          & g          & i          & i \\
-\textbf{h} & h          & h          & h          & i          & h          & h          & i          & h          & i \\
-\textbf{i} & i          & i          & i          & i          & i          & i          & i          & i          & i \\
-\end{tabular}
-\end{minipage}
-\begin{minipage}{.45\linewidth}
-\begin{tabular}{c|c c c c c c c c c}
-\(\vee\) & \textbf{a} & \textbf{b} & \textbf{c} & \textbf{d} & \textbf{e} & \textbf{f} & \textbf{g} & \textbf{h} & \textbf{i} \\
-\hline
-\textbf{a} & a          & a          & a          & a          & a          & a          & a          & a          & a \\
-\textbf{b} & a          & b          & a          & b          & b          & a          & b          & b          & b \\
-\textbf{c} & a          & a          & c          & a          & c          & c          & c          & c          & c \\
-\textbf{d} & a          & b          & a          & d          & b          & a          & d          & b          & d \\
-\textbf{e} & a          & b          & c          & b          & e          & c          & e          & e          & e \\
-\textbf{f} & a          & a          & c          & a          & c          & f          & c          & f          & f \\
-\textbf{g} & a          & b          & c          & d          & e          & c          & g          & e          & g \\
-\textbf{h} & a          & b          & c          & b          & e          & f          & e          & h          & h \\
-\textbf{i} & a          & b          & c          & d          & e          & f          & g          & h          & i \\
-\end{tabular}
-\end{minipage}
-\caption {\ensuremath{\wedge} and \ensuremath{\vee} operations} \label{tab:lattice}
-\end{table}
+Hence, \(G_1\) is not monotone. 
+
+Now consider the graph \(H_1\) in Figure~\ref{fig:monnotpint};
+\(H_1\) is not a proper interval graph since the vertices \(a\), \(b\), \(c\), and \(d\) form a claw;
+\(H_1\) is not an interval graph as well since the vertices \(e\), \(f\), \(g\), and \(g\) induce a subgraph isomorphic to the graph \(G_2\);
+however, we show that \(H_1\) is a monotone graph in Example~\ref{exm:prod}.
+is a proper interval graph. TODO continue
+
+\begin{figure}[h]
+\centering
+\input{figs/lattice.pdftex}
+\caption{Graph \ensuremath{H_1}} \label{fig:monnotpint}
+\end{figure}
 \end{example}
 
 For any (proper) interval graph \mH, each induced subgraph of \mH\ is a 
-(proper) interval graph. However, in the Example~\ref{exm:diff} \(H_1\)
-is not a monotone graph and it is an induced 
-subgraph of \(H_2\); while, \(H_2\) is a monotone graph.
+(proper) interval graph. However, in the Example~\ref{exm:diff} \(G_1\)
+is not a monotone graph and it is an induced subgraph of \(H_2\); while, \(H_2\) is a monotone graph.
 
 \section{Generating monotone graphs}
 In this section, we provide several ways to generate monotone reflexive graphs.
@@ -387,6 +346,14 @@ e \wedge e' &= ((u_1,u_2)\wedge(u'_1,u'_2))((v_1,v_2)\wedge(v'_1,v'_2)) \\
 Analogously, \(e \vee e'\) is also an edge of \(G_1\times G_2\)\@. Hence, \(G_1\times G_2\)
 is a monotone graph.
 \end{proof}
+
+\begin{example}\label{exm:prod}
+TODO say \(H_2\) is a proper interval graph and hence monotone and hence \(H_1\) is monotone!
+\begin{figure}
+\input{figs/ps3.pdftex}
+\caption{Graph \ensuremath{H_2}}
+\end{figure}
+\end{example}
 
 An other operation that preserves monotone graphs is retraction. Here is a definition
 of retraction:
