@@ -3,7 +3,8 @@ In Chapter~\ref{chp:results}, we showed that for monotone relations and monotone
 bipartite graphs the problem \ccsp(\mH) is AP-reducible to the problem \cbis\@. In this chapter,
 we will inspect monotone reflexive graphs; although the arguments are
 analogous for bipartite graphs we will not cover bipartite graphs in this part.
-In this part, we indicate existence of an edge between vertices \(u\) and \(v\) as \(u \sim v\)\@.
+\(u \sim v\) indicates there is an edge between vertices \(u\) and \(v\);
+\(u \not sim v\) indicates there is not an edge between vertices \(u\) and \(v\)\@.
 
 \emph{Interval graphs} and \emph{proper interval graphs}
 are two interesting families of reflexive graphs that play a key role in complexity of 
@@ -19,9 +20,9 @@ if and only if the intervals \(I_u\) and \(I_v\) intersect.
 \end{defi}
 
 \begin{figure} [h]
-\hspace{1cm}
+\center
 \subfigure[\ensuremath{G_1}]{\input{figs/claw.pdftex}\label{fig:claw}} \hspace{2cm}
-\subfigure[\ensuremath{I_1}]{\input{figs/intv.pdftex}\label{fig:int}}\hspace{2cm}
+\subfigure[\ensuremath{I_1}]{\input{figs/intv.pdftex}\label{fig:int}} \hspace{2cm}
 \subfigure[\ensuremath{G_2}]{\input{figs/cs4.pdftex}\label{fig:nonint}}
 \caption{Interval graph \ensuremath{G_1}, intervals \ensuremath{\mathcal{I}_1}, and non-interval graph \ensuremath{G_2}}
 \end{figure}
@@ -33,7 +34,7 @@ an interval graph, suppose \(\{I_a, I_b, I_c, I_d\}\) is a family of intervals r
 Without loss of generality, suppose \(I_a\) is the interval with the smallest starting point.
 Since \(a\not \sim d\), \(I_d\) must appear after \(I_a\)\@. Since \(b\sim a\), \(b\sim d\), \(c\sim a\), and \(c\sim d\),
 \(I_b\) and \(I_c\) must both intersect \(I_a\) and \(I_d\); for that, they must both include the interval between
-\(I_a\) and \(I_d\); this implies \(b\sim c\) which is a contradiction.
+\(I_a\) and \(I_d\); this implies that \(b\sim c\) which is a contradiction.
 
 One of the problems that relate homomorphisms to interval graphs is the list homomorphism problem.
 The list homomorphism problem is defined as:
@@ -54,7 +55,7 @@ For any fixed reflexive graph \mH, the problem L-Hom(\mH) is polynomial time sol
 \mH\ is an interval graph and otherwise, it is NP-complete.
 \end{theorem}
 
-In addition to interval graphs we shall also focus on proper interval graphs.
+In addition to interval graphs, we shall also focus on proper interval graphs.
 Proper interval graphs are defined as follows:
 
 \begin{defi}
@@ -66,8 +67,8 @@ each vertex \(v \in V\) corresponds to an interval \(I_v\),
 \end{defi}
 
 \begin{figure}[h]
-\hspace{2cm}
-\subfigure[\ensuremath{G_3}]{\input{figs/ps4.pdftex}\label{fig:pintg}}\hspace{3cm}
+\center
+\subfigure[\ensuremath{G_3}]{\input{figs/ps4l.pdftex}\label{fig:pintg}}\hspace{4cm}
 \subfigure[\ensuremath{I_2}]{\input{figs/pintv.pdftex}\label{fig:pint}}%\hspace{2cm}
 \caption{Proper interval graph \ensuremath{G_2} and intervals \ensuremath{\mathcal{I}_2}}\label{fig:pintgi}
 \end{figure}
@@ -103,7 +104,7 @@ for reflexive graphs. Before monotone graphs, we repeat the definition of distri
 
 \begin{defi} [Distributive Lattice]
 A \emph{distributive lattice} \(L=(X,\wedge,\vee)\) is set \(X\) with a pair of binary operators \(\wedge\)
-and \(\vee\) on \(X\) that are 
+and \(\vee\) on \(X\) that are:
 \begin{itemize}
 \item idempotent: \(x \wedge x = x\) and \(x \vee x = x\),
 \item commutative: \(x \wedge y = y \wedge x\) and \(x \vee y = y \vee x\),
@@ -138,11 +139,11 @@ when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\) an
 We also provide an alternate characterization for (proper) interval graphs.
 These characterizations show the relation between (proper) interval graphs and monotone relations. 
 A total order is a partial order \(\preceq\) such that for every \(a, b\) either \(a \preceq b\)
-or \(b \preceq a\) hold. For every total order we can define \(\wedge\) and \(\vee\) operators as:
+or \(b \preceq a\) holds. For every total order, we can define \(\wedge\) and \(\vee\) operators as:
 \[a \preceq b \Rightarrow a \wedge b = a, a \vee b = b\]
 A function \(f\) that \(f(x_1,x_2,\dotsc,x_k)\in \{x_1,x_2,\dotsc,x_k\}\) is called
-a \emph{conservative} function. Hence, conservative \(\wedge\) and \(\vee\) operators
-can represent a total order.
+a \emph{conservative} function. Hence, conservative \(\wedge\)` and \(\vee\) operators
+represent a total order.
 
 \begin{theorem} [\cite{hellbook}] \label{thm:semimin}
 A reflexive graph \(G=(V,E)\) is an interval graph if and only if there exists
@@ -151,10 +152,38 @@ when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\)\@.
 \end{theorem}
 
 \begin{proof}
-TODO
+Let \(G=(V,E)\) be a graph and let \(T=(V,\wedge,\vee)\) be a total order such that
+when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\)\@.
+We show that \mG\ is an interval graph. For \(x\in V\), let \(o(x) = |\{y| y\preceq x\}|\)\@.
+
+Take \(\mathcal{I}\) as follows:
+\[I_v = [o(v), \max_{y\sim x}\{o(y)\}]\]
+Let \(a, b\in V\) such that \(a \preceq b\)\@. If \(a\sim b\), we have:
+\[o(a) \le o(b) \Rightarrow o(b) \in [o(a), o(b)] \subseteq I_a \Rightarrow I_a \cap I_b \neq \emptyset\]
+and if \(I_a \cap I_b \neq \emptyset\), we have:
+\[o(a) \le o(b) \Rightarrow \exists x: a \sim x, o(b) \le o(x) \Rightarrow b\sim b, a\sim x \Rightarrow (a \wedge b) \sim (b \sim x) \Rightarrow a \sim b.\]
+Hence, \(\mathcal{I}\) represent \mG\@.
+
+Now, let \(G=(V,E)\) be a graph and let \(\mathcal{I}\) be a family of intervals such that
+each vertex \(v \in V\) corresponds to an interval \(I_v\) and \(u \sim v\)
+if and only if the intervals \(I_u\) and \(I_v\) intersect. We show that there is a
+total order \(T=(V,\wedge,\vee)\) such that
+when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\)\@.
+
+Take \(a\preceq b\) if \(I_a\) starts \emph{before} \(I_b\) or if \(I_a\) and \(I_b\)
+start together and \(I_a\) ends \emph{after} \(I_b\)\@. 
+Let \(a,b,c,d \in V\) such that \(a \sim b\), \(c \sim d\) holds.
+Without loss of generality assume \(a \preceq b\), \(c \preceq d\), and \(a \preceq c\)\@. 
+If \(b \preceq d\), we have:
+\[a \wedge c = a, b \wedge d = b, a \sim b \Rightarrow  (a \wedge c) \sim (b \wedge d).\]
+If \(d \preceq b\), then 
+\[o(a) \le o(c) \le o(d), o(d) \le o(b), I_a \cap I_b \neq \emptyset \Rightarrow a\sim d;\]
+and 
+\[a \wedge c = a, b \wedge d = d, a\sim d \Rightarrow (a \wedge c) \sim (b \wedge d).\]
+
 \end{proof}
 
-\begin{theorem} [TODO] \label{thm:minmax}
+\begin{theorem} [Hell and Rafiey 2010 Unpublished] \label{thm:minmax}
 A reflexive graph \(G=(V,E)\) is a proper interval graph if and only if there exists
 a total order \(T=(V,\wedge,\vee)\) such that
 when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\) and \((a \vee c) \sim (b \vee d)\)\@.
@@ -166,11 +195,11 @@ Every reflexive proper interval graph is a monotone graph.
 
 Theorems~\ref{thm:semimin}~and~\ref{thm:minmax} indicate similarities between
 monotone graphs and (proper) interval graphs. However, monotone graphs are not
-equivalent with (proper) interval graphs.
+equivalent to (proper) interval graphs.
 
 \begin{example} \label{exm:diff}
 The graph \(G_1\) in Figure~\ref{fig:claw} is an interval graph; however, we show that \(G_1\) is not a monotone graph.
-Suppose that \(G_1\) is monotone. Suppose \(\top = a\), then
+Suppose that \(G_1\) is monotone. If \(\top = a\), then
 \[a \sim b, c \sim a \Rightarrow (a \wedge c) \sim (b \wedge a) \Rightarrow c \sim b\]
 Analogously, if \(\bot = a\), then \(b \sim c\)\@. Hence, \(a\) can not be \(\top\) to \(\bot\)\@.
 Without loss of generality suppose \(\top = b\) and \(\bot = c\); if \(a \preceq d\)
@@ -182,20 +211,20 @@ Hence, \(G_1\) is not monotone.
 
 Now consider the graph \(H_1\) in Figure~\ref{fig:monnotpint};
 \(H_1\) is not a proper interval graph since the vertices \(a\), \(b\), \(c\), and \(d\) form a claw;
-\(H_1\) is not an interval graph as well since the vertices \(e\), \(f\), \(g\), and \(g\) induce a subgraph isomorphic to the graph \(G_2\);
+\(H_1\) is not an interval graph either since the vertices \(e\), \(f\), \(g\), and \(h\) induce a subgraph isomorphic to the graph \(G_2\);
 however, we show that \(H_1\) is a monotone graph in Example~\ref{exm:prod}.
-is a proper interval graph. TODO continue
 
 \begin{figure}[h]
-\centering
+\center
 \input{figs/lattice.pdftex}
 \caption{Graph \ensuremath{H_1}} \label{fig:monnotpint}
 \end{figure}
 \end{example}
 
 For any (proper) interval graph \mH, each induced subgraph of \mH\ is a 
-(proper) interval graph. However, in the Example~\ref{exm:diff} \(G_1\)
-is not a monotone graph and it is an induced subgraph of \(H_2\); while, \(H_2\) is a monotone graph.
+(proper) interval graph. However, some monotone graph have induced subgraphs that are not monotone.
+In Example~\ref{exm:diff}, we show that \(H_1\) is a monotone graph while \(G_1\) and \(G_2\), induced subgraphs of \(H_1\), are
+not monotone.
 
 \section{Generating monotone graphs}
 In this section, we provide several ways to generate monotone reflexive graphs.
@@ -208,26 +237,40 @@ rest of the thesis. The idea for the proofs are mostly the same.
 
 By Corollary~\ref{cor:pintmon}, every proper interval graph is a monotone graph.
 Hence, proper interval graphs can be used as a base to generate monotone graphs.
+We first show that in order to find out if a graph is monotone, we can 
+investigate individual connected components.
 
 \begin{lemma} \label{lem:monotone:con}
-A reflexive graph \mG\ is monotone if and only if each component of \mG\ is monotone.
+A reflexive graph \mG\ is monotone if and only if each connected component of \mG\ is monotone.
 \end{lemma}
 
 \begin{proof}
-If \mG\ is a monotone graph with lattice order \(L\), each connected component of \mG\ is
-closed under same meet and join operators defined by \(L\)\@. Hence, each connected component of 
-\mG\ is a monotone graph.
-
-If \(G_1,G_2,\dotsc,G_k\), the connected components of \mG, are
-monotone graphs with lattice orders \(L_1,L_2,\dotsc,L_k\),
-then \mG\ is closed under any lattice \(L\) based on union of \(L_i\)s
-and choosing any arbitrary total (or even distributive lattice) ordering between the
-lattices. For any two edges \(e_1\) and \(e_2\) from the same component,
+Let \mG\  be a graph with connected components \(G_1,G_2,\dotsc,G_k\);
+if each \(G_i\) is a monotone graph with lattice \(L_i\),
+then \mG\ is monotone with any lattice \(L\) based on union of \(L_i\)s
+and choosing any arbitrary total ordering between the \(L_i\)s\@.
+For any two edges \(e_1\) and \(e_2\) from the same component,
 by hypothesis \(e_1\wedge e_2\) and \(e_1\vee e_2\) are
 edges of the same component.
 For any two edge \(e_1\) and \(e_2\) from different components,
 \(e_1\wedge e_2\) and \(e_1\vee e_2\) are both loops and since \mG\ is reflexive,
 they are edges of \mG\@.
+
+Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V,\wedge,\vee)\) and connected components \(G_1,G_2,\dotsc,G_k\);
+we show that each \(G_i\) is a monotone graph. Before that, we show that each \(G_i\) is closed under \(L\)\@.
+In other words, we have: \[x,y\in G_i \Rightarrow x\wedge y, x\vee y \in G_i.\]
+
+Let \(x, y\in G_i\);
+since \(x,y\) are in the same connected component of \mG, there is a path \(P=v_0=x,v_1,v_2,\dotsc,v_k=y\)
+from \(x\) to \(y\) in \mG\@. Let \(v'_0 = v_0\) and \(v'_j = v'_{j-1} \wedge v_j\)\@.
+\[v'_0 \sim v'_0, v_0\sim v_1 \Rightarrow (v'_0 \wedge v_0) \sim (v'_0 \wedge v_1) \Rightarrow v'_0 \sim v'_1;\]
+by induction we have:
+\[v'_j \sim v'_{j-1}, v_{j+1} \sim v_j \Rightarrow (v'_j \wedge v_{j+1}) \sim (v'_{j-1} \wedge v_j) \Rightarrow v'_{j+1} \sim v'_j.\]
+This shows that there is a vertex \(z'=v'_{k+1}\) in \(G_i\) such that \(x,y\preceq z'\)\@.
+Let \(z = a\wedge b\); if \(z' \prec z\), then there is some \(j\) such that \(v'_j \prec z \prec v'_{j+1}\) and 
+\[v'_j\sim v'_{j+1}, z \sim z \Rightarrow (v'_j \wedge z) \sim (v'_{j+1} \wedge z) \Rightarrow z \sim v'_{j+1} \Rightarrow z \in G_i.\]
+Hence, \(G_i\) is closed under \(\wedge\) operator; similarly, \(G_i\) is also closed under \(\vee\) operator.
+For any edge \(e_1,e_2\in G_i\), we have \(e_1\wedge e_2\in G_i\) and \(e_1\vee e_2 \in G_i\); hence, \(G_i\) is a monotone graph.
 \end{proof}
 
 Lemma~\ref{lem:monotone:con} indicates that any monotone graph can be generated
@@ -235,7 +278,7 @@ from its connected components. From here, all the monotone graphs are
 assumed to be connected and reflexive, unless explicitly specified.
 
 \begin{lemma}
-Let \mG\ be a monotone graph with lattice ordering \(L\),
+Let \mG\ be a monotone graph with lattice  \(L\),
 for every vertex \(v\), there is descending path from
 \(v\) to \(\bot\)\@.
 \end{lemma}
@@ -245,21 +288,21 @@ Since \mG\ is connected, there a path \(u_0=u,u_1,u_2,\dotsc,u_k=\bot\) from \(u
 \(\bot\) in \mG\@. Let \(u'_0=u_0\) and \(u'_i = u_i\wedge u'_{i-1}\)\@.
 Since \mG\ is reflexive \(u\sim u \Rightarrow u'_0\sim u'_0\)\@.
 \[u'_0\sim u'_0, u_0\sim u_1 \Rightarrow u'_0\sim u'_1\]
-inductively we have
+by induction we have:
 \[u'_{i-1}\sim u'_i, u_i\sim u_{i+1} \Rightarrow u'_i\sim u'_{i+1} \]
 This implies that \(W=u'_0=u,u'_1,\dotsc,u'_k=\bot\) is a descending walk from 
-\(u\) to \(\bot\)\@. \(W\) may contain loop (not cycles because \(W\) is descending);
+\(u\) to \(\bot\)\@. \(W\) may contain loops (not cycles because \(W\) is descending);
 by removing the loops, we get a descending path from \(u\) to \(\bot\)\@.
 \end{proof}
 
 \begin{cor}
-Let \(G=(V,E)\) be a monotone graph with lattice ordering \(L=(V,\preceq)\); 
+Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V,\preceq)\); 
 For every element \(u \neq \bot\),
 there is an element \(x \preceq u\) such that \(u\sim x\)\@.
 \end{cor}
 
 \begin{lemma}
-Let \mG\ be a monotone graph with the lattice ordering \(L\), then every cover
+Let \mG\ be a monotone graph with the lattice \(L\), then every cover
 of \(L\) is an edge of \mG\@.
 \end{lemma}
 
@@ -271,14 +314,14 @@ If \(x=a\), the proof is complete; otherwise, since \((a,b)\) is a cover, we hav
 \end{proof}
 
 \begin{cor}
-Let \(G=(V,E)\) be a monotone graph with lattice ordering \(L=(V, \preceq)\);
+Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V, \preceq)\);
 for every pair of vertices that \(u\preceq v\), there is descending path from
 \(v\) to \(u\) in \mG\@. 
 \end{cor}
 
 \begin{lemma}
 Let \mG\ be a monotone graph and let
-\(a\), \(b\), \(c\), and \(d\) be verties of \mG\ such that \(b \wedge c = d\) and \(b \vee c = a\);
+\(a\), \(b\), \(c\), and \(d\) be vertices of \mG\ such that \(b \wedge c = d\) and \(b \vee c = a\);
 if \(b\sim d, c\sim d\) or \(a\sim b, a\sim c\), all edges between 
 \(a, b, c, d\) are present in \mG\@.
 \end{lemma}
@@ -291,19 +334,19 @@ b\sim d, d\sim c \Rightarrow (b \vee d) \sim (d \vee c) \Rightarrow b\sim c\\
 b\sim c, c\sim d \Rightarrow (b \vee c) \sim (c \vee d) \Rightarrow a\sim c\\
 b\sim c, d\sim b \Rightarrow (b \vee d) \sim (c \vee b) \Rightarrow b\sim a\\
 \end{eqnarray*}
-Analogously, if \(a\sim b, a\sim c\) all the above edges must be present in \mG\@.
+Analogously, if \(a\sim b, a\sim c\), all the edges above must be present in \mG\@.
 \end{proof}
 
-Next, we show that monotone graphs are closed under Cartesian products.
+Next, we show that monotone graphs are closed under Cartesian product.
 The Cartesian product on graphs is defined as follows:
 \begin{defi} [Cartesian product on graphs]
 For graphs \(G_1=(V_1,E_1)\) and \(G_2=(V_2,E_2)\), \(G = G_1 \times G_2\)
 is the \emph{Cartesian product} of \(G_1\) and \(G_2\) if \(G=(V,E)\)
-such that \(V=V_1 \times V_2\) and \((u_1,u_2)(v_1,v_2) \in E\)
-if and only if \(u_1v_1 \in E_1\) and \(u_2v_2 \in E_2\)\@.
+such that \(V=V_1 \times V_2\) and \((u_1,u_2)\sim (v_1,v_2)\) in \(E\)
+if and only if \(u_1\sim v_1\) in \(E_1\) and \(u_2\sim v_2\) in \(E_2\)\@.
 \end{defi}
 
-We need the Cartesian product of the lattices as well,
+We need the Cartesian product of the lattices, as well;
 since lattices are partial orders we simply define the Cartesian product
 for partial orders.
 \begin{defi} [Cartesian product on partial orders]
@@ -348,21 +391,23 @@ is a monotone graph.
 \end{proof}
 
 \begin{example}\label{exm:prod}
-TODO say \(H_2\) is a proper interval graph and hence monotone and hence \(H_1\) is monotone!
+The graph \(H_2\) in Figure~\ref{fig:pint2} is a proper interval graph because it is
+closed under \(\wedge\) and \(\vee\) operators defined by the order \(a \preceq b \preceq c\)\@.
+By Corollary~\ref{cor:pintmon}, every proper interval graph is monotone; hence, \(H_2\) is a monotone graph.
+The graph \(H_1\) in Figure~\ref{fig:monnotpint} is \(H_2\times H_2\); thus, \(H_1\) is a monotone graph.
 \begin{figure}
+\center
 \input{figs/ps3.pdftex}
-\caption{Graph \ensuremath{H_2}}
+\caption{Graph \ensuremath{H_2}}\label{fig:pint2}
 \end{figure}
 \end{example}
 
-An other operation that preserves monotone graphs is retraction. Here is a definition
-of retraction:
+An other operation that preserves monotone graphs is retraction. Retraction is defined as:
 
 \begin{defi} [Retraction]
-Let \mH\ be a subset of \mG\@. A \emph{retraction} of \mG\ to \mH\ is a 
+Let \mH\ be a subset of \mG; a \emph{retraction} of \mG\ to \mH\ is a 
 homomorphism \(r: G\to H\) such that for every \(v\in V(H)\) we have
 \(r(v) = v\)\@.
-A homomorphism from \mG\ to a subset of \mG\ is called a retraction.
 \end{defi}
 When there is a \emph{retraction} from \mH\ to \mG, equivalently we say
 \mH\ is a \emph{retract} of \mG, and \mG\ \emph{retracts} to \mH\@.
@@ -375,9 +420,9 @@ Let \mG\ be a monotone graph; for any retraction \(r\) over \mG, the graph
 \end{lemma}
 
 \begin{proof}
-Let \(G=(V,E)\) be a monotone graph with lattice order \(L=(V, \wedge,\vee)\) and
+Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V, \wedge,\vee)\) and
 let \(r\) be a retraction from \mG\ to \(H=(U,E')\)\@. We claim
-\mH\ is monotone with lattice order \(M=(U,\wedge_M, \vee_M)\) where
+\mH\ is monotone with lattice \(M=(U,\wedge_M, \vee_M)\) where
 \(\wedge_M\) and \(\vee_M\) are defined as:
 \begin{eqnarray*}
 u \wedge_M v &= r(u \wedge v) \\
@@ -386,11 +431,11 @@ u \vee_M v &= r(u \vee v) \\
 For any two edges \(u_1 \sim v_1\) and \(u_2 \sim v_2\) in \mH,
 we have \(u_1 \wedge_M u_2 = r(u_1 \wedge u_2)\) and \(v_1 \wedge_M v_2 = r(v_1 \wedge v_2)\);
 since \mG\ is monotone, \((u_1 \wedge u_2) \sim (v_1 \wedge v_2)\) in \mG;
-since \(r\) is a retraction \(r(u_1 \wedge u_2) \sim r(v_1 \wedge v_2)\) in \mH\@.
+since \(r\) is a retraction, \(r(u_1 \wedge u_2) \sim r(v_1 \wedge v_2)\) in \mH\@.
 \end{proof}
 
 So far we presented several ways in which we can generate monotone graphs.
-These techniques can be combined to create monotone graphs.
+Algorithm~\ref{prc:genmon} combines them to generate monotone graphs.
 \begin{algorithm}
 \begin{enumerate}
 \item Take \(m\) proper interval graphs \(G_1,G_2,\dotsc,G_m\)\@.
@@ -408,8 +453,9 @@ Here, We need to define more parameters for partial orders.
 The \emph{length} of a partial order \(P\), \(l(P)\), is the length of maximum chain in
 the partial order. The \emph{width} of a partial order \(P\),
 \(w(P)\), is the size of maximum unti-chain the partial order.
+Note that a proper interval graph is a monotone graph with a lattice of width \(1\)\@.
 
-We will use the Duffus and Rival Theorem to break a distributive lattice into 
+We will use the Duffus and Rival Theorem to decompose a distributive lattice into 
 product of chains.
 
 \begin{theorem} [Duffus and Rival 1983 \cite{DR83}] \label{thm:DR}
@@ -424,26 +470,25 @@ Every lattice of width \(m\), is a result of retraction of product of
 \end{cor}
 
 \begin{lemma} \label{lem:retract}
-Let \mG\ be a monotone graph with lattice order \(L\)\@.
+Let \mG\ be a monotone graph with lattice \(L\)\@.
 For a retraction \(r\) of the cover graph of \(L\), we have \(r(G)\) is a monotone graph
 \end{lemma}
 
 \begin{proof}
-Let \(G=(V,E)\) be a monotone graph with lattice order \(L=(V, \wedge,\vee)\) and
+Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V, \wedge,\vee)\) and
 let \(r\) be a retraction from \(L\) to \(M =(U, \wedge, \vee)\)\@.
 Take \mH\ as the subgraph of \mG\ induced by \(U\)\@.
-We claim that \mH\ is a monotone graph with lattice ordering \(M\)\@.
-For every two vertex \(x,y\in U\), 
+We claim that \mH\ is a monotone graph with lattice \(M\)\@.
+For every two vertices \(x,y\in U\), 
 \(x\wedge y,x\vee y\in U\) because \(M\) is a lattice. For every two edges \(e_1\) and \(e_2\) of
-\mH, since \mG\ is monotone \(e_1\wedge e_2,e_1\vee e_2\in G\)
-and since \mH\ is an induced subgraph of \mG, they are edges of 
-\mH, as well.
+\mH, \(e_1\wedge e_2,e_1\vee e_2\in G\) because  \mG\ is monotone and
+\(e_1\wedge e_2,e_1\vee e_2\in H\) because \mH\ is an induced subgraph of \mG\@. 
 \end{proof}
 
-Now we want generate a given monotone graph \mG\ with lattice ordering \(L\),
+Now, we want generate a given monotone graph \mG\ with lattice \(L\),
 using Algorithm~\ref{prc:genmon}. Let \(m\) be the width of the \(L\)\@.
 Take \(m\) chains \(C_1,C_2,\dotsc,C_m\) of the same length as \(L\)\@.
-Let \(G_i\) be a proper interval graph derived by projection of \(G\) over \(C_i\)\@. \todo{This part needs more clearing}
+Let \(G_i\) be a proper interval graph. 
 Let \(L'\) be the product of the \(C_i\)s and let \(G'\) be the product of \(G_i\)s.
 
 By Theorem~\ref{thm:DR}, there is a retraction \(r\) from the cover graph of \(L'\) to the cover graph of \(L\)\@.
@@ -451,11 +496,11 @@ Apply the retraction \(r\) over \(G'\) and generate \(G^r = r(G')\)\@.
 It would be very nice if \(G^r\) was isomorphic with \mG\@. Unfortunately, \mG\ is a subset of \(G^r\)\@.
 
 For some graphs \(G^r\), removing some of the edges from \(G^r\) results a connected 
-monotone graph with the same lattice order as \(G^r\)\@.
+monotone graph with the same lattice as \(G^r\)\@.
 For example, consider the graph \(G'\) in
 Figure~\ref{fig:erm1}\@. By applying a retraction, we get the
 graph \(G^r\) in Figure~\ref{fig:erm2}\@. The graph
-\mG\ in Figure~\ref{fig:erm3} is also a monotone graph with the same lattice order 
+\mG\ in Figure~\ref{fig:erm3} is also a monotone graph with the same lattice 
 as \(G^r\)\@. Thus, Algorithm~\ref{prc:genmon} can not generate \mG\@. 
 
 \begin{figure}
@@ -468,4 +513,4 @@ as \(G^r\)\@. Thus, Algorithm~\ref{prc:genmon} can not generate \mG\@.
 
 The only remaining challenge is given \(G^r\) and \(L\), 
 finding the set of edges \(E_1\) of \(G^r\) such that 
-\(G^r - E\) is connected and monotone with lattice order \(L\)\@.
+\(G^r - E\) is connected and monotone with lattice \(L\)\@.
