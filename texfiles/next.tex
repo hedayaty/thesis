@@ -1,14 +1,14 @@
-\chapter{Characterization of Monotone Graphs}
+\chapter{Monotone Reflexive Graphs}
 In Chapter~\ref{chp:results}, we showed that for monotone relations and monotone
 bipartite graphs the problem \ccsp(\mH) is AP-reducible to the problem \cbis\@. In this chapter,
-we will inspect monotone reflexive graphs; although the arguments are
-analogous for bipartite graphs we will not cover bipartite graphs in this part.
-\(u \sim v\) indicates there is an edge between vertices \(u\) and \(v\);
-\(u \not sim v\) indicates there is not an edge between vertices \(u\) and \(v\)\@.
+we will investigate monotone reflexive graphs; although the arguments are
+analogous for bipartite graphs we will not cover bipartite graphs here.
+The notation \(u \sim v\) indicates there is an edge between vertices \(u\) and \(v\);
+the notation \(u \not \sim v\) indicates there is not an edge between vertices \(u\) and \(v\)\@.
 
 \emph{Interval graphs} and \emph{proper interval graphs}
 are two interesting families of reflexive graphs that play a key role in complexity of 
-list homomorphism and mincost-homomorphism problems. We are interested in these two families
+list homomorphism and minimum cost homomorphism problems. We are interested in these two families
 because of their connection with monotone graphs. 
 An interval graph is defined as follows:
 
@@ -37,11 +37,11 @@ Since \(a\not \sim d\), \(I_d\) must appear after \(I_a\)\@. Since \(b\sim a\), 
 \(I_a\) and \(I_d\); this implies that \(b\sim c\) which is a contradiction.
 
 One of the problems that relate homomorphisms to interval graphs is the list homomorphism problem.
-The list homomorphism problem is defined as:
+The list homomorphism problem is defined as follows:
 
 \begin{defi} [L-Hom]
-Let \mH\ be a fixed graph. Given an input graph \mG\ and for each vertex \(v\) of \mG,
-a \emph{list} \(L(v) \subseteq V(H)\) the \emph{list homomorphism} problem for \mH, denoted
+Let \mH\ be a fixed graph. Given an input graph \mG, and for each vertex \(v\) of \mG,
+a \emph{list} \(L(v) \subseteq V(H)\), the \emph{list homomorphism} problem for \mH, denoted
 as L-Hom(\mH), is the problem of  deciding whether or not
 there exists a homomorphism \(h: G\to H\) such that for each vertex \(v\) of \mG\ 
 we have \(h(v)\in L(v)\)\@.
@@ -52,7 +52,7 @@ problem and interval graphs.
 
 \begin{theorem} [Feder and Hell 1996 \cite{listhom}] \label{thm:lhom}
 For any fixed reflexive graph \mH, the problem L-Hom(\mH) is polynomial time solvable if
-\mH\ is an interval graph and otherwise, it is NP-complete.
+\mH\ is an interval graph, and otherwise it is NP-complete.
 \end{theorem}
 
 In addition to interval graphs, we shall also focus on proper interval graphs.
@@ -62,7 +62,7 @@ Proper interval graphs are defined as follows:
 A graph \(G=(V,E)\) is said be to a \emph{proper interval graph} if \mG\ can
 be represented by a family of closed intervals such that 
 each vertex \(v \in V\) corresponds to an interval \(I_v\), 
-\(I_u \not\subseteq I_v\) for any two vertices that \(u \neq v\), and
+we have \(I_u \not\subseteq I_v\) for any two vertices such that \(u \neq v\), and
 \(u \sim v\) if and only if the intervals \(I_u\) and \(I_v\) intersect.
 \end{defi}
 
@@ -80,8 +80,8 @@ The graph \(G_1\) in Figure~\ref{fig:claw} is not a proper interval graph. In or
 Intervals \(I_b\), \(I_c\), and \(I_d\) must intersect \(I_a\) and not intersect each other; two of them can intersect \(I_a\)
 in the beginning and the end of \(I_a\), the third interval can not intersect \(I_a\) without intersecting the other two; hence, we have a contradiction.
 
-One of the problems that relate homomorphisms to proper interval graphs is the mincost homomorphism problem.
-The min-cost homomorphism problem is an optimization problem defined as follows:
+One of the problems that relate homomorphisms to proper interval graphs is the minimum cost homomorphism problem.
+The minimum cost homomorphism problem is an optimization problem defined as follows:
 
 \begin{defi} [MinHom]
 Let \mH\ be a fixed graph. Given an input graph \mG\ and a \emph{cost} function
@@ -96,7 +96,7 @@ and proper interval graphs.
 
 \begin{theorem} [Gutin et al. 2008 \cite{Gutin}] \label{thm:minhom}
 For any fixed reflexive graph \mH, the problem MinHom(\mH) is polynomial time solvable if
-\mH\ is a proper interval graph and otherwise, it is NP-complete.
+\mH\ is a proper interval graph, and otherwise it is NP-complete.
 \end{theorem}
 
 We repeat the definition of \emph{monotone} relations from Chapter~\ref{chp:results}
@@ -129,23 +129,29 @@ a \emph{cover} is a pair \((a,b)\) such that \(a \neq b\) and:
 A \emph{cover graph} of a partial order is a directed graph such that there is
 an edge from \(a\) to \(b\) if \((a,b)\) is a cover in the partial order.
 
-
 \begin{defi} [Monotone reflexive graph]
 Let \(G=(V,E)\) be a reflexive graph; \mG\ is \emph{monotone} if there exists distributive lattice
 \(L=(V, \wedge, \vee)\) such that
 when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\) and \((a \vee c) \sim (b \vee d)\)\@.
 \end{defi}
 
-We also provide an alternate characterization for (proper) interval graphs.
-These characterizations show the relation between (proper) interval graphs and monotone relations. 
-A total order is a partial order \(\preceq\) such that for every \(a, b\) either \(a \preceq b\)
+Let \(G=(V,E)\) be a graph and let \(L=(V, \wedge, \vee)\)  be a distributive lattice;
+for any two edges \(e_1=ab, e_2=cd \in E\), we denote by
+\(e_1\wedge e_2\) the vertex pair \((a\wedge c)(b \wedge d)\) and by \(e_1\vee e_2\) the vertex pair \((a \vee c)(b \vee d)\)\@.
+Note that \(e_1\wedge e_2\) and \(e_1\vee e_2\) are edges of \mG\ if \mG\ is monotone.
+
+We also provide an alternate characterization for interval and proper interval graphs.
+These characterizations show a relation between proper interval graphs and monotone relations. 
+A \emph{total order} is a partial order \(\preceq\) such that for every \(a, b\) either \(a \preceq b\)
 or \(b \preceq a\) holds. For every total order, we can define \(\wedge\) and \(\vee\) operators as:
 \[a \preceq b \Rightarrow a \wedge b = a, a \vee b = b\]
 A function \(f\) that \(f(x_1,x_2,\dotsc,x_k)\in \{x_1,x_2,\dotsc,x_k\}\) is called
-a \emph{conservative} function. Hence, conservative \(\wedge\)` and \(\vee\) operators
+a \emph{conservative} function. Hence, the conservative operators \(\wedge\) and \(\vee\)
 represent a total order.
 
-\begin{theorem} [\cite{hellbook}] \label{thm:semimin}
+The following two results are reformulations of known characterizations of interval graphs and
+proper interval graphs in \cite{Gutin} and \cite{hellbook}\@.
+\begin{theorem} \label{thm:semimin}
 A reflexive graph \(G=(V,E)\) is an interval graph if and only if there exists
 a total order \(T=(V,\wedge,\vee)\) such that
 when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\)\@.
@@ -157,10 +163,10 @@ when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\)\@.
 We show that \mG\ is an interval graph. For \(x\in V\), let \(o(x) = |\{y| y\preceq x\}|\)\@.
 
 Take \(\mathcal{I}\) as follows:
-\[I_v = [o(v), \max_{y\sim x}\{o(y)\}]\]
-Let \(a, b\in V\) such that \(a \preceq b\)\@. If \(a\sim b\), we have:
+\[I_v = [o(v), \max_{y\sim v}\{o(y)\}]\]
+Let \(a, b\in V\) such that \(a \preceq b\)\@. If \(a\sim b\), we have
 \[o(a) \le o(b) \Rightarrow o(b) \in [o(a), o(b)] \subseteq I_a \Rightarrow I_a \cap I_b \neq \emptyset\]
-and if \(I_a \cap I_b \neq \emptyset\), we have:
+and if \(I_a \cap I_b \neq \emptyset\), we have
 \[o(a) \le o(b) \Rightarrow \exists x: a \sim x, o(b) \le o(x) \Rightarrow b\sim b, a\sim x \Rightarrow (a \wedge b) \sim (b \sim x) \Rightarrow a \sim b.\]
 Hence, \(\mathcal{I}\) represent \mG\@.
 
@@ -183,19 +189,20 @@ and
 
 \end{proof}
 
-\begin{theorem} [Hell and Rafiey 2010 Unpublished] \label{thm:minmax}
+\begin{theorem}\label{thm:minmax}
 A reflexive graph \(G=(V,E)\) is a proper interval graph if and only if there exists
 a total order \(T=(V,\wedge,\vee)\) such that
 when \(a\sim b\) and \(c \sim d\), we have \((a \wedge c) \sim (b \wedge d)\) and \((a \vee c) \sim (b \vee d)\)\@.
 \end{theorem}
 
+Since a total order is a distributive lattice, we have the following fact:
 \begin{cor} \label{cor:pintmon}
 Every reflexive proper interval graph is a monotone graph.
 \end{cor}
 
 Theorems~\ref{thm:semimin}~and~\ref{thm:minmax} indicate similarities between
 monotone graphs and (proper) interval graphs. However, monotone graphs are not
-equivalent to (proper) interval graphs.
+equal to (proper) interval graphs.
 
 \begin{example} \label{exm:diff}
 The graph \(G_1\) in Figure~\ref{fig:claw} is an interval graph; however, we show that \(G_1\) is not a monotone graph.
@@ -211,8 +218,9 @@ Hence, \(G_1\) is not monotone.
 
 Now consider the graph \(H_1\) in Figure~\ref{fig:monnotpint};
 \(H_1\) is not a proper interval graph since the vertices \(a\), \(b\), \(c\), and \(d\) form a claw;
-\(H_1\) is not an interval graph either since the vertices \(e\), \(f\), \(g\), and \(h\) induce a subgraph isomorphic to the graph \(G_2\);
-however, we show that \(H_1\) is a monotone graph in Example~\ref{exm:prod}.
+\(H_1\) is not an interval graph either since the vertices \(e\), \(f\), \(g\), and \(h\) induce a subgraph isomorphic to the graph \(G_2\)
+from Figure~\ref{fig:nonint}; however, in Example~\ref{exm:prod},
+we show that \(H_1\) is a monotone graph.
 
 \begin{figure}[h]
 \center
@@ -232,11 +240,11 @@ We attempt to provide an algorithm to generate all reflexive monotone graphs;
 however, there exist monotone graphs that can not be generated by the our algorithm,
 we provide an example of such graphs. This section is based on an unpublished
 manuscript by P. Hell and M. Siggers (2009)\@. In this work, I have modified the
-statements of the Lemme and provided alternating proofs to be more consistent with
-rest of the thesis. The idea for the proofs are mostly the same.
+statements of the Lemmas and provided alternating proofs to be more consistent with
+rest of the thesis. The ideas for the proofs are mostly the same.
 
 By Corollary~\ref{cor:pintmon}, every proper interval graph is a monotone graph.
-Hence, proper interval graphs can be used as a base to generate monotone graphs.
+Hence, proper interval graphs can be used as a basis to generate monotone graphs.
 We first show that in order to find out if a graph is monotone, we can 
 investigate individual connected components.
 
@@ -247,8 +255,8 @@ A reflexive graph \mG\ is monotone if and only if each connected component of \m
 \begin{proof}
 Let \mG\  be a graph with connected components \(G_1,G_2,\dotsc,G_k\);
 if each \(G_i\) is a monotone graph with lattice \(L_i\),
-then \mG\ is monotone with any lattice \(L\) based on union of \(L_i\)s
-and choosing any arbitrary total ordering between the \(L_i\)s\@.
+then \mG\ is monotone with any lattice \(L\) based on the union of the \(L_i\)s, with
+an arbitrary total ordering between the \(L_i\)s\@.
 For any two edges \(e_1\) and \(e_2\) from the same component,
 by hypothesis \(e_1\wedge e_2\) and \(e_1\vee e_2\) are
 edges of the same component.
@@ -269,8 +277,8 @@ by induction we have:
 This shows that there is a vertex \(z'=v'_{k+1}\) in \(G_i\) such that \(x,y\preceq z'\)\@.
 Let \(z = a\wedge b\); if \(z' \prec z\), then there is some \(j\) such that \(v'_j \prec z \prec v'_{j+1}\) and 
 \[v'_j\sim v'_{j+1}, z \sim z \Rightarrow (v'_j \wedge z) \sim (v'_{j+1} \wedge z) \Rightarrow z \sim v'_{j+1} \Rightarrow z \in G_i.\]
-Hence, \(G_i\) is closed under \(\wedge\) operator; similarly, \(G_i\) is also closed under \(\vee\) operator.
-For any edge \(e_1,e_2\in G_i\), we have \(e_1\wedge e_2\in G_i\) and \(e_1\vee e_2 \in G_i\); hence, \(G_i\) is a monotone graph.
+Hence, \(G_i\) is closed under the operator \(\wedge\); similarly, \(G_i\) is also closed under the operator \(\vee\).
+For any two edges \(e_1,e_2\in G_i\), we have \(e_1\wedge e_2\in G_i\) and \(e_1\vee e_2 \in G_i\); hence, \(G_i\) is a monotone graph.
 \end{proof}
 
 Lemma~\ref{lem:monotone:con} indicates that any monotone graph can be generated
@@ -278,20 +286,20 @@ from its connected components. From here, all the monotone graphs are
 assumed to be connected and reflexive, unless explicitly specified.
 
 \begin{lemma}
-Let \mG\ be a monotone graph with lattice  \(L\),
-for every vertex \(v\), there is descending path from
+Let \mG\ be a monotone graph with lattice \(L\)\@.
+For every vertex \(v\), there is descending path from
 \(v\) to \(\bot\)\@.
 \end{lemma}
 
 \begin{proof}
 Since \mG\ is connected, there a path \(u_0=u,u_1,u_2,\dotsc,u_k=\bot\) from \(u\) to 
 \(\bot\) in \mG\@. Let \(u'_0=u_0\) and \(u'_i = u_i\wedge u'_{i-1}\)\@.
-Since \mG\ is reflexive \(u\sim u \Rightarrow u'_0\sim u'_0\)\@.
+Since \mG\ is reflexive, \(u\sim u \Rightarrow u'_0\sim u'_0\)\@. Moreover,
 \[u'_0\sim u'_0, u_0\sim u_1 \Rightarrow u'_0\sim u'_1\]
-by induction we have:
-\[u'_{i-1}\sim u'_i, u_i\sim u_{i+1} \Rightarrow u'_i\sim u'_{i+1} \]
+and by induction we have
+\[u'_{i-1}\sim u'_i, u_i\sim u_{i+1} \Rightarrow u'_i\sim u'_{i+1}.\]
 This implies that \(W=u'_0=u,u'_1,\dotsc,u'_k=\bot\) is a descending walk from 
-\(u\) to \(\bot\)\@. \(W\) may contain loops (not cycles because \(W\) is descending);
+\(u\) to \(\bot\)\@. The walk \(W\) may contain loops (but no other cycles because \(W\) is descending);
 by removing the loops, we get a descending path from \(u\) to \(\bot\)\@.
 \end{proof}
 
@@ -302,7 +310,7 @@ there is an element \(x \preceq u\) such that \(u\sim x\)\@.
 \end{cor}
 
 \begin{lemma}
-Let \mG\ be a monotone graph with the lattice \(L\), then every cover
+Let \mG\ be a monotone graph with lattice \(L\), then every cover
 of \(L\) is an edge of \mG\@.
 \end{lemma}
 
@@ -314,8 +322,8 @@ If \(x=a\), the proof is complete; otherwise, since \((a,b)\) is a cover, we hav
 \end{proof}
 
 \begin{cor}
-Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V, \preceq)\);
-for every pair of vertices that \(u\preceq v\), there is descending path from
+Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V, \preceq)\)\@.
+For every pair of vertices \(u,v\) such that \(u\preceq v\), there is descending path from
 \(v\) to \(u\) in \mG\@. 
 \end{cor}
 
@@ -339,19 +347,19 @@ Analogously, if \(a\sim b, a\sim c\), all the edges above must be present in \mG
 
 Next, we show that monotone graphs are closed under Cartesian product.
 The Cartesian product on graphs is defined as follows:
-\begin{defi} [Cartesian product on graphs]
-For graphs \(G_1=(V_1,E_1)\) and \(G_2=(V_2,E_2)\), \(G = G_1 \times G_2\)
+\begin{defi} [Cartesian product of graphs]
+For graphs \(G_1=(V_1,E_1)\) and \(G_2=(V_2,E_2)\),the graph \(G = G_1 \times G_2\)
 is the \emph{Cartesian product} of \(G_1\) and \(G_2\) if \(G=(V,E)\)
 such that \(V=V_1 \times V_2\) and \((u_1,u_2)\sim (v_1,v_2)\) in \(E\)
 if and only if \(u_1\sim v_1\) in \(E_1\) and \(u_2\sim v_2\) in \(E_2\)\@.
 \end{defi}
 
-We need the Cartesian product of the lattices, as well;
+We need the Cartesian product of lattices, as well;
 since lattices are partial orders we simply define the Cartesian product
 for partial orders.
-\begin{defi} [Cartesian product on partial orders]
+\begin{defi} [Cartesian product of partial orders]
 For partial orders \(P_1= (X_1,\preceq)\) and \(P_2=(X_2,\preceq)\), 
-\(P= P_1 \times P_2\) is the \emph{Cartesian product} of \(P_1\) and \(P_2\)
+the partial order \(P= P_1 \times P_2\) is the \emph{Cartesian product} of \(P_1\) and \(P_2\)
 if \(P=(X,\preceq)\) such that \(X=X_1\times X_2\) and \((x_1,x_2) \preceq (y_1,y_2)\)
 if and only if \(x_1\preceq y_1\) and \(x_2\preceq y_2\)\@.
 \end{defi}
@@ -363,11 +371,11 @@ For \(x_1,y_1 \in X_1\) and \(x_2,y_2\in X_2\), we have :
 and \[(x_1,x_2)\vee (y_1,y_2) = (x_1\vee y_1, x_2 \vee y_2).\]
 \end{rem}
 
-Lemma~\ref{lem:prod} will show that we can generate monotone graph from product of other
+Lemma~\ref{lem:prod} will show that we can generate monotone graphs from products of other
 monotone graphs.
 
 \begin{lemma}\label{lem:prod}
-For any monotone graphs \(G_1\) and \(G_2\), \(G_1 \times G_2\) is a monotone graph.
+For any monotone graphs \(G_1\) and \(G_2\), the product \(G_1 \times G_2\) is a monotone graph.
 \end{lemma}
 
 \begin{proof}
@@ -378,13 +386,13 @@ Since \(G_1\) and \(G_2\) are monotone,
 \[e_1 = u_1v_1 \wedge u'_1v'_1\]
 and
 \[e_2 = u_2v_2 \wedge u'_2v'_2\]
-are edges of \(G_1\) and \(G_2\), respectively.
+are edges of \(G_1\) and \(G_2\), respectively. Then
 \begin{align*}
 e \wedge e' &= ((u_1,u_2)\wedge(u'_1,u'_2))((v_1,v_2)\wedge(v'_1,v'_2)) \\
 &= (u_1\wedge u'_1,u_2 \wedge u'_2)(v_1\wedge v'_1,v_2 \wedge v'_2) \\
 &= (u_1\wedge u'_1)(v_1\wedge v'_1) \times (u_2\wedge u'_2)(v_2\wedge v'_2) \\
 &= e_1 \times e_2 \\
-&\in G_1 \times G_2 \\
+&\in G_1 \times G_2.
 \end{align*}
 Analogously, \(e \vee e'\) is also an edge of \(G_1\times G_2\)\@. Hence, \(G_1\times G_2\)
 is a monotone graph.
@@ -392,7 +400,7 @@ is a monotone graph.
 
 \begin{example}\label{exm:prod}
 The graph \(H_2\) in Figure~\ref{fig:pint2} is a proper interval graph because it is
-closed under \(\wedge\) and \(\vee\) operators defined by the order \(a \preceq b \preceq c\)\@.
+closed under the operators \(\wedge\) and \(\vee\) defined by the order \(a \preceq b \preceq c\)\@.
 By Corollary~\ref{cor:pintmon}, every proper interval graph is monotone; hence, \(H_2\) is a monotone graph.
 The graph \(H_1\) in Figure~\ref{fig:monnotpint} is \(H_2\times H_2\); thus, \(H_1\) is a monotone graph.
 \begin{figure}
@@ -402,17 +410,17 @@ The graph \(H_1\) in Figure~\ref{fig:monnotpint} is \(H_2\times H_2\); thus, \(H
 \end{figure}
 \end{example}
 
-An other operation that preserves monotone graphs is retraction. Retraction is defined as:
+Another operation that preserves monotonicity is retraction. Retraction is defined as follow.
 
 \begin{defi} [Retraction]
-Let \mH\ be a subset of \mG; a \emph{retraction} of \mG\ to \mH\ is a 
+Let \mH\ be a subgraph of \mG; a \emph{retraction} of \mG\ to \mH\ is a 
 homomorphism \(r: G\to H\) such that for every \(v\in V(H)\) we have
 \(r(v) = v\)\@.
 \end{defi}
-When there is a \emph{retraction} from \mH\ to \mG, equivalently we say
+When there is a \emph{retraction} of \mH\ to \mG, equivalently we say
 \mH\ is a \emph{retract} of \mG, and \mG\ \emph{retracts} to \mH\@.
-Note that, in the definition of retraction whether \mH\ is an induced subgraph or not 
-is not significant. Now, we show that retractions preserve monotone relations.
+Note that, a retraction of \mG\ is an induced subgraph of \mG\@.
+Now, we show that retractions preserve monotone relations.
 
 \begin{lemma}
 Let \mG\ be a monotone graph; for any retraction \(r\) over \mG, the graph
@@ -435,7 +443,7 @@ since \(r\) is a retraction, \(r(u_1 \wedge u_2) \sim r(v_1 \wedge v_2)\) in \mH
 \end{proof}
 
 So far we presented several ways in which we can generate monotone graphs.
-Algorithm~\ref{prc:genmon} combines them to generate monotone graphs.
+Algorithm~\ref{prc:genmon} combines them to generate more monotone graphs.
 \begin{algorithm}
 \begin{enumerate}
 \item Take \(m\) proper interval graphs \(G_1,G_2,\dotsc,G_m\)\@.
@@ -446,16 +454,25 @@ Algorithm~\ref{prc:genmon} combines them to generate monotone graphs.
 \caption{Generating monotone relations}\label{prc:genmon}
 \end{algorithm}
 
-By the Lemme~\ref{lem:prod}~and~\ref{lem:retract}, Algorithm~\ref{prc:genmon} generates a monotone graph.
+By the Lemmas~\ref{lem:prod}~and~\ref{lem:retract}, Algorithm~\ref{prc:genmon} generates a monotone graph.
+
+\begin{cor}
+Every retract of a product of proper interval graphs is a monotone graph.
+\end{cor}
+
+\begin{cor}
+If \mG\ is a retract of a product of proper interval graphs then\\ \chom(\mH) \maple \cbis\@.
+\end{cor}
+
 Next, we try to find out if Algorithm~\ref{prc:genmon} generates all monotone graphs.
 
-Here, We need to define more parameters for partial orders.
-The \emph{length} of a partial order \(P\), \(l(P)\), is the length of maximum chain in
-the partial order. The \emph{width} of a partial order \(P\),
-\(w(P)\), is the size of maximum unti-chain the partial order.
+We define more parameters for partial orders.
+The \emph{length} \(l(P)\) of a partial order \(P\) is the length of a maximum chain in
+the partial order. The \emph{width} \(w(P)\) of a partial order \(P\)
+is the size of a maximum antichain the partial order.
 Note that a proper interval graph is a monotone graph with a lattice of width \(1\)\@.
 
-We will use the Duffus and Rival Theorem to decompose a distributive lattice into 
+We will use the Theorem of Duffus and Rival to decompose a distributive lattice into a
 product of chains.
 
 \begin{theorem} [Duffus and Rival 1983 \cite{DR83}] \label{thm:DR}
@@ -465,13 +482,12 @@ Let \(L\) be a sub-lattice of a distributive lattice \(L'\) with
 \end{theorem}
 
 \begin{cor}
-Every lattice of width \(m\), is a result of retraction of product of
-\(m\) chains.
+Every lattice of width \(m\) is a result of a retraction of a product of \(m\) chains.
 \end{cor}
 
 \begin{lemma} \label{lem:retract}
 Let \mG\ be a monotone graph with lattice \(L\)\@.
-For a retraction \(r\) of the cover graph of \(L\), we have \(r(G)\) is a monotone graph
+For a retraction \(r\) of the cover graph of \(L\), we have that \(r(G)\) is a monotone graph.
 \end{lemma}
 
 \begin{proof}
@@ -480,15 +496,15 @@ let \(r\) be a retraction from \(L\) to \(M =(U, \wedge, \vee)\)\@.
 Take \mH\ as the subgraph of \mG\ induced by \(U\)\@.
 We claim that \mH\ is a monotone graph with lattice \(M\)\@.
 For every two vertices \(x,y\in U\), 
-\(x\wedge y,x\vee y\in U\) because \(M\) is a lattice. For every two edges \(e_1\) and \(e_2\) of
-\mH, \(e_1\wedge e_2,e_1\vee e_2\in G\) because  \mG\ is monotone and
-\(e_1\wedge e_2,e_1\vee e_2\in H\) because \mH\ is an induced subgraph of \mG\@. 
+\(x\wedge y,x\vee y\in U\), because \(M\) is a lattice. For every two edges \(e_1\) and \(e_2\) of
+\mH, \(e_1\wedge e_2,e_1\vee e_2\in G\), because  \mG\ is monotone and
+\(e_1\wedge e_2,e_1\vee e_2\in H\), because \mH\ is an induced subgraph of \mG\@. 
 \end{proof}
 
 Now, we want generate a given monotone graph \mG\ with lattice \(L\),
 using Algorithm~\ref{prc:genmon}. Let \(m\) be the width of the \(L\)\@.
-Take \(m\) chains \(C_1,C_2,\dotsc,C_m\) of the same length as \(L\)\@.
-Let \(G_i\) be a proper interval graph. 
+Take \(m\) chains \(C_1,C_2,\dotsc,C_m\) of the \(l(L)\)\@.
+Let \(G_i\) be a proper interval graph with total order \(C_i\). 
 Let \(L'\) be the product of the \(C_i\)s and let \(G'\) be the product of \(G_i\)s.
 
 By Theorem~\ref{thm:DR}, there is a retraction \(r\) from the cover graph of \(L'\) to the cover graph of \(L\)\@.

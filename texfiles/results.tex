@@ -3,8 +3,8 @@ In this chapter, we mention our major results on complexity
 of the \ccsp(\mrelset) problem. We first show that for \emph{monotone} relations, there is an
 approximation preserving reduction from the \ccsp(\mrelset) problem to the \cbis\ problem.
 Next, we extend the definition of monotone graphs to bipartite graphs. We also provide a characterization of monotone graph for reflexive graphs.
-At the end, we show that there is an approximation preserving reduction from the \cbis\ problem 
-to the \ccsp(\mrelset) problem if \mrelset\ consists of an \emph{\RBA} relation.
+At the end, we show that there is an AP-reduction from the \cbis\ problem 
+to the problem \chom(\mH) if \mH\ is a reflexive oriented graph.
 
 For constraint languages consisting of a binary relation, the \ccsp(\mrelset) problem is
 the same as the \chom(\mH) problem; hence, we use them interchangeably depending on the on the context.
@@ -176,23 +176,13 @@ graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{thrm:m
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % RBA Relations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{RBA Relations}
-In this section,  we introduce the family of \RBA\ relations and show that
-for any \RBA\ relation \mR, we have \cbis \maple \ccsp(\mR)\@.
-\RBA\ relations can be also interpreted as graphs; since most of the proofs in this part
-are better expressed by graphs, we mostly focus on graph notations.
-
-\begin{defi} [\RBA]
-A relations is \RBA\ if it is binary, reflexive, and asymmetric.
-\end{defi} 
-
-A \RBA\ relation can be seen as a reflexive oriented digraph. Let \(H=(V,E)\) be 
-an \RBA\ graph; for each \(v \in V\), we have \((v,v) \in E\)
-and \((u,v) \in E\) and \((v,u) \in E\) implies \(u=v\)\@.
+\section{Reflexive Oriented Graphs}
+An \emph{oriented graph} is a digraph such that if \(uv\) and \(vu\) are edges then \(u=v\)\@.
+In this section, we show that for any reflexive oriented graph \mH, we have \cbis \maple \chom(\mH)\@.
 
 \begin{figure}[h]
 \center{\input{figs/rba.pdftex}}
-\caption{An RBA relation}
+\caption{A reflexive oriented graph}
 \end{figure}
 
 Let \(\NHab Hab\) be the set of vertices that are both in
@@ -205,18 +195,18 @@ Let \(\Hab\) be the subgraph of \mH\ induced by \(\NHab Hab\).
 
 \begin{figure}[h]
 \center{\input{figs/shade2.pdftex}}
-\caption{An RBA graph \ensuremath{H} such that \ensuremath{\magf(H)=2}}
+\caption{A reflexive oriented graph \ensuremath{H} such that \ensuremath{\magf(H)=2}}
 \end{figure}
 
 \begin{lemma} \label{lem:triangle-free}
-For an \RBA\ graph \mH, if \(\magf(H)=2\) then \chom(\mH) \mapge\ \cbis\@.
+For any reflexive oriented graph \mH, if \(\magf(H)=2\) then \chom(\mH) \mapge\ \cbis\@.
 \end{lemma}
 
 \begin{proof}
-Let \mH\ be a an \RBA\ graph such that \(\magf(H)=2\), 
-we reduce the \cdsp\ problem to the \chom(\mH) problem\@.
-For a given partial order \((P,\preceq)\), let \(G=(V,E)\) be the corresponding directed
-(acyclic) graph. Take \(G'=(V',E')\) where
+Let \mH\ be a a reflexive oriented graph such that \(\magf(H)=2\)\@.
+We reduce the problem \cdsp\ to the problem \chom(\mH)\@.
+For a given partial order \((P,\preceq)\), let \(G=(V,E)\) be a reflexive oriented graph
+graph in which \(uv\)is an edge if and only if \(a\preceq b\)\@. Take \(G'=(V',E')\) where
 \(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
 \setof{(u,x),(x,v) \mid x\in V}\)\@.
 
@@ -227,7 +217,7 @@ otherwise, \((h(u),h(v))\in E(H)\) and for all \(x\in V\), we have either
 
 The number of homomorphisms with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
 the number of homomorphisms with \(h(u)\neq h(v)\) is equal to \(|E(H)|\) times the 
-number of DownSets in \((P,\preceq)\)\@. Hence,
+number of DownSets in \((P,\preceq)\), because \(k(H)=2\)\@. Hence,
 \[\hom(G',H) = |V(H)| + |E(H)|\cdot \cds(P,\preceq).\]
 In other words:
 \[\cds(P,\preceq) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\] 
@@ -235,7 +225,7 @@ By Lemma~\ref{lem:linear} we have \chom(\mH) \mapge\ \cdsp\@.
 \end{proof}
 
 \begin{defi} [Polar Graph]
-Let \mH\ be an \RBA\ graph. \mH\ is \emph{polar}
+Let \mH\ be a reflexive oriented graph. We say \mH\ is \emph{polar}
 if there are vertices \(a,b\in V(H)\),
 such that \((a,x), (x,b) \in E(H)\) for all vertices \(x \in V(H)\) (including \(a\) and \(b\)).
 \end{defi}
@@ -248,25 +238,25 @@ Note that for a polar graph \mH, we have \(\NHab Hab = V(H)\) and \(\magf(H)=|V(
 \end{figure}
 
 \begin{lemma} \label{lem:k-fixing}
-For any \RBA\ graph \mH\ that \(k(H) > 2\), there is an \RBA\ graph
+For any reflexive oriented graph \mH\ that \(k(H) > 2\), there is a reflexive oriented graph
 \(H'\) such that each connected component of \(H'\) is a
 polar graph, \(\magf(H) = \magf(H')\), and
 \chom(\mH) \mapge\ \chom(\(H'\)).
 \end{lemma}
 
 \begin{proof}
-Take the graph \(H'\) as union of \(\Hab\) for all \((a,b)\in E(H)\) and
-\(\magf(H_{a,b})=\magf(H)\)\@. Note that, each component of \(H'\) is \(\Hab\) for 
+Take the graph \(H'\) as union of \(\Hab\) for all \((a,b)\in E(H)\), and
+not that \(\magf(H_{a,b})=\magf(H)\)\@. Note also that, each component of \(H'\) is \(\Hab\) for 
 some \(a\) and \(b\); thus, each component of \(H'\) is a polar graph.
 We show that \chom(\(H'\)) \maple \chom(H)\@.
 
-Let \(G=(V,E)\) be the input graph for the \chom(\(H'\)) problem 
+Let \(G=(V,E)\) be the input graph for the problem \chom(\(H'\)) 
 and let \(Y\) be a set of \(t\) fresh vertices
 (the value of \(t\) will be determined later). Take graph \(G'=(V',E')\) where
 \(V'=V \cup Y \cup \setof{u,v}\) and \(E'=E \cup \setof{(u,v)} \cup
 \setof{(u,x),(x,v) \mid x\in V \cup Y}\)\@.
 
-Consider all homomorphisms \(h: G'\to H\)\@.
+Consider any homomorphism \(h: G'\to H\)\@.
 For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\); also
 for any vertex \(x\) in \(V\) or \(Y\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
 \(x\) has to be mapped to \(\NHab Hab\)\@. Note that any vertex in \(Y\) can be freely mapped
@@ -306,7 +296,7 @@ Thus, by Lemma~\ref{lem:linear} \chom(\mH) \mapge \chom(\(H'\)).
 \end{proof}
 
 \begin{lemma} \label{lem:onecomp}
-Let \mH\ be an \RBA\ graph such that each connected component of \mH\ is a polar graph.
+Let \mH\ be a reflexive oriented graph such that each connected component of \mH\ is a polar graph.
 There is connected component \(H'\) of \mH, such that \chom(\(H'\)) \maple \chom(\mH)\@.
 \end{lemma}
 
@@ -321,7 +311,7 @@ By Lemma~\ref{lem:logarithm}, \chom(H) \mapge \chom(\(H'\))\@.
 
 Second case, there are two connected components of \mH, \(H_1\) and \(H_2\) that are not isomorphic.
 By Lov\'{a}sz's Theorem, there is a connected graph \(Z\) such that \(\hom(Z,H_1) \neq \hom(Z,H_2)\)\@.
-Let \(Z_1,\dotsc,Z_t\) be \(t\) fresh copies of \(Z\), where \(t\) is a large number to be 
+Let \(Z_1,\dotsc,Z_t\) be \(t\) separate copies of \(Z\), where \(t\) is a large number to be 
 determined later.
 Take the graph \(G=(V',E')\) where \(V'=V \cup V(Z_1)\cup \dotsb \cup V(Z_t) \cup \setof{u,v} \)
 and \(E'=E \cup \setof{(u,v)} \cup \setof{(u,x),(x,v) \mid x \in V \cup  Z_1 \cup \dotsb \cup Z_t} \cup
@@ -368,17 +358,17 @@ are proper subsets of components of \mH\@. After considering the cases multiple 
 \(H'\) will consist of only a single component.
 \end{proof}
 
-Using Lemme \ref{lem:onecomp} and \ref{lem:k-fixing} we show that we can reduce the 
+Using Lemmas \ref{lem:onecomp} and \ref{lem:k-fixing} we show that we can reduce the 
 \(\magf(H)\) function without making the problem easier.
 
 \begin{lemma} \label{lem:k-reduction}
-Let \mH\ be an \RBA\ graph, if \(\magf(H) > 2\), then
-there is an \RBA\ graph \(H'\) such that \(\magf(H') < \magf(H)\)
+Let \mH\ be a reflexive oriented graph, if \(\magf(H) > 2\), then
+there is a reflexive oriented graph \(H'\) such that \(\magf(H') < \magf(H)\)
 and \chom(\mH) \mapge\ \chom(\(H'\))\@.
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:k-fixing}, there is an \RBA\ graph \(H_1\) such that
+By Lemma~\ref{lem:k-fixing}, there is a reflexive oriented graph \(H_1\) such that
 every component of \(H_1\) is a polar graph, \(\magf(H_1)=\magf(H)\), and 
 \chom(\(H_1\)) \maple \chom(\mH)\@.
 
@@ -396,15 +386,15 @@ For \(H'=H_2 - a\), \(\magf(H') < \magf(H)\) and
 \end{proof}
 
 \begin{theorem}
-For every non-empty \RBA\ graph \mH, \chom(\mH) \mapge \cbis\@.
+For every non-empty reflexive oriented graph \mH, \chom(\mH) \mapge \cbis\@.
 \end{theorem}
 
 
 \begin{proof}
-By contradiction, consider an \RBA\ graph \mH\ with minimum \(\magf(H)\)
+By contradiction, consider a reflexive oriented graph \mH\ with minimum \(\magf(H)\)
 such that the \chom(\mH) problem is not AP-reducible to the \cbis\ problem.
 By Lemma~\ref{lem:triangle-free}, \(\magf(H) > 2\)\@. 
-By lemma~\ref{lem:k-reduction}, there exists an \RBA\ graph \(H'\) such that 
+By Lemma~\ref{lem:k-reduction}, there exists a reflexive oriented graph \(H'\) such that 
 \chom(\(H'\)) \maple \chom(\mH) and \(\magf(H) < \magf(H')\)\@.
 This contradicts with \mH\ having the minimum \(\magf(H)\).
 \end{proof}
