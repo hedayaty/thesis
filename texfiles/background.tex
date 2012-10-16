@@ -5,7 +5,7 @@ is the problem of finding the number of possible assignments for a set of constr
 Consider the following example:
 
 \begin{example}[\tcoloring]\label{exm:3col}
-The \tcoloring\ problem is the problem of coloring vertices of the input graph \(G\)
+The problem \tcoloring\ is the problem of coloring vertices of the input graph \(G\)
 with colors \(\setof{r,g,b}\) such that no two adjacent vertices are colored the same color.
 This problem can be formulated with a set of constraints as follows.
 Let \(V=\setof{v_1,v_2,\dotsc,v_n}\)
@@ -52,9 +52,9 @@ For a constraint language \mrelset\ that consists of only a single relation \(R\
 we use CSP(\(R)\) instead of CSP(\mrelset) for simplicity.
 
 \begin{example}[\tcoloring]\label{exm:3colcsp}
-We continue with the \tcoloring\ problem from Example~\ref{exm:3col}.
-Let \mG\ be the input graph for the \tcoloring\ problem.
-One way to formulate \tcoloring\ problem using a CSP(\mrelset) is as follows.
+We continue with the problem \tcoloring\ from Example~\ref{exm:3col}.
+Let \mG\ be the input graph for the problem \tcoloring\@.
+One way to formulate problem \tcoloring\ using a CSP(\mrelset) is as follows.
 Let \(D=\setof{r,g,b}\) be the domain and \(NEQ_{rgb}\), the binary dis-equality relation on domain \(D\)\@, consists of all tuples from \(D^2\) except the ones whose elements are equal, that is
 \[NEQ_{rgb}=\setof{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)}\]
 
@@ -100,7 +100,7 @@ Let \(\relset_1=\setof{R_1,R_2,\dotsc, R_8}\) be a constraint language where:
 Every clause in a \tsat\ instance can be expressed by a constraint using an \(R_i\) 
 and vice-versa. Hence, there is a one-to-one correspondence between constraints 
 in a CSP(\(\relset_1\)) instance and a \tsat\ instance. Hence,
-the CSP(\(\relset_1\)) and the \tsat\ problems are the same.
+the problems CSP(\(\relset_1\)) and the \tsat\ are the same.
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,7 +122,7 @@ constraint language \mrelset\@.
 \begin{example}[\ctcol]
 We continue with the \(NEQ_{rgb}\) relation from Example~\ref{exm:3colcsp}\@.
 The problem of finding the number of 3-Colorings of a given graph denoted by 
-\ctcol, can be expressed as the \ccsp(\(NEQ_{rgb}\)) problem.
+\ctcol, can be expressed as the problem \ccsp(\(NEQ_{rgb}\)).
 \end{example}
 
 \begin{example}\label{exm:c3sat}
@@ -131,11 +131,11 @@ Boolean CNF (Conjunctive Normal Form) formula where each clause contains exactly
 is called \ctsat\@. 
 
 It is easy to see that with the constraint language \(\relset_1\) from Example~\ref{exm:3sat}
-the \ctsat\ and the \ccsp(\(\relset_1\)) problems are the same.
+the problems \ctsat\ and the \ccsp(\(\relset_1\)) are the same.
 \end{example} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Applications of the \ccsp} \label{sec:appl}
+\section{Applications of \ccsp} \label{sec:appl}
 In this section we will show several applications of \ccsp\ and how computational problems
 can be formulated with \ccsp\@. First, we will describe a graph
 homomorphism problem which can be viewed as a special case of CSP; next, we will relate
@@ -171,23 +171,23 @@ is homomorphic to \mH\@.
 \end{defi}
 
 \begin{example}[\tcoloring]
-We continue with the \tcoloring\ problem from Example~\ref{exm:3col}; however, in this example 
+We continue with the problem \tcoloring\ from Example~\ref{exm:3col}; however, in this example 
 we express it as a graph homomorphism problem. As usual we denote the complete graph
 on \(k\) vertices by \(K_k\)\@. For all complete graphs, \((u,v)\) is an edge of \(K_k\)
 if an only
 if \(u\neq v\)\@. This shows that \(Hom(K_k)\) is the same as
-the k-coloring problem. As a special case, \(\chom(K_3)\) is the same as \ctcol\ problem.
+the problem k-coloring. As a special case, \(\chom(K_3)\) is the same as problem \ctcol\@.
 \end{example}
 
-Let \pname{NoRB-3-Coloring} be the \pname{3-Coloring} problem with an additional
+Let \pname{NoRB-3-Coloring} be the problem \pname{3-Coloring} with an additional
 restriction that the vertices colored blue are not allowed to be connected 
 to the vertices colored red. In order to formulate this problem with graph homomorphisms,
 obtain \mH\ from \(K_3\) as follows. Label the vertices with \(\setof{r,g,b}\)\@.
-Delete the edge between \(r\) and \(b\). The Hom(\mH) problem is the same as
-the \pname{N0RB-3-Coloring} problem.
+Delete the edge between \(r\) and \(b\). The problem Hom(\mH) is the same as
+the problem \pname{N0RB-3-Coloring}\@.
 This example illustrates that the graph homomorphism problem generalizes the graph coloring problem.
 This is why
-the Hom(\mH) problem is also called the \pname{H-Coloring} problem.
+the problem Hom(\mH) is also called the problem \pname{H-Coloring}\@.
 More details and examples on graph homomorphism 
 can be found in the book ~\cite{hellbook} by Hell and Ne\v{s}et\v{r}il.
 
@@ -199,7 +199,7 @@ If \mH\ is bipartite then \(G \to H\) if and only if \mG\ is bipartite.
 \end{obs}
 
 Observation~\ref{obs:hom} shows that if the graph \mH\ has a loop or is bipartite,
-the problem  Hom(\mH) is easy; however, for other graphs the problem is of higher complexity.
+the problem Hom(\mH) is easy; however, for other graphs the problem is of higher complexity.
 
 \begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990~\cite{pavol}]
 For an undirected graph \mH, the problem Hom(\mH) is polynomial time solvable if 
@@ -212,10 +212,10 @@ For a fixed graph \mH,
 input graph \mG\ to \mH.
 \end{defi}
 
-Dyer and Greenhill proved the following dichotomy for the \chom(\mH)\ problem.
+Dyer and Greenhill proved the following dichotomy for the problem \chom(\mH)\@.
 \begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
 For a graph \mH, if each component of \mH\ is either a reflexive complete graph
-or a irreflexive complete bipartite graph then the \chom(\mH) problem 
+or a irreflexive complete bipartite graph then the problem \chom(\mH)
 is polynomial time solvable; otherwise, it is \cpc\@.
 \end{theorem}
 
@@ -318,7 +318,7 @@ The partition function \(Z_H(G,w)\) is the sum of the weights for all the config
 
 Note that \(\hom(G,H)=Z_{H}(G,w)\) if \(w(v)=w(e)=1\) for all \(v,e\in H\)
 and \(w(e)=0\) for all \(e\not\in H\)\@. 
-The \pname{H-Partition} Problem is defined as:
+The problem \pname{H-Partition} is defined as:
 
 \pnndef%{\pname{H-Partition}}
 {A graph \(G\) and a weight function \(w\)}
@@ -329,7 +329,7 @@ Given a weight function and the partition function,
 the \emph{Gibbs distribution} on homomorphisms from \mG\ to \mH\ is
 the distribution that each homomorphism \(h\) has a probability 
 \[\pi_{H,G,w}(h)=\frac{w(h)}{Z_H(G,w)}\]
-The \pname{H-GibbsSample} problem is defined as:
+The problem \pname{H-GibbsSample} is defined as:
 
 \pnndef%{\pname{H-GibbsSample}}
 {A graph \mG}
@@ -413,7 +413,7 @@ As before, let \(\lambda_{u,v}=e^{2\beta J_{u,v}}\) and
 Problems of computing partition functions in the Ising and Potts models can be
 reduced to a \ccsp(\mrelset) for some constraint language \mrelset\@.
 In Chapter~\ref{chp:approx}, we will mention results involving reductions from problems
-of computing partition functions in the Ising and Potts models to \ccsp(\mrelset) problem\@.
+of computing partition functions in the Ising and Potts models to problem \ccsp(\mrelset)\@.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -421,9 +421,9 @@ of computing partition functions in the Ising and Potts models to \ccsp(\mrelset
 \chapter{Reductions and Complexity of Counting}
 In this chapter, we will mention several complexity classes for computational functions.
 We will define clones and polymorphisms and specify how they are related to
-the complexity of the CSP(\mrelset) problem. We will mention the major results on the complexity of 
-\ccsp(\mrelset) problem. We will also define partial clones and specify
-how they are related to the complexity of the \ccsp(\mrelset) problem.
+the complexity of the problem CSP(\mrelset). We will mention the major results on the complexity of 
+problem \ccsp(\mrelset). We will also define partial clones and specify
+how they are related to the complexity of the problem \ccsp(\mrelset).
 
 Two important classes of functions we are interested in are FP and \cp\@.
 FP is the class of functions that are computable in polynomial time by a deterministic Turing machine
@@ -442,10 +442,9 @@ A problem \(f\) is \cpc\ if it is a member of \cp\ and every problem in \cp\ is
 Turing reducible to \(f\) in polynomial time.
 \end{defi}
 
-Consider the SAT and \csat\ problems defined as follows.
-Note that the SAT and the \csat\ problems are generalizations of the \tsat\ and
-the \ctsat\ problems
-mentioned in Examples~\ref{exm:3sat}~and~\ref{exm:c3sat}\@. 
+Consider the problems SAT and \csat\ defined as follows.
+Note that the problems SAT and the \csat\ are generalizations of the problems \tsat\ and
+the \ctsat\ mentioned in Examples~\ref{exm:3sat}~and~\ref{exm:c3sat}\@. 
 
 \pdef{SAT}
 {A CNF formula \(\varphi\)}
@@ -606,7 +605,7 @@ the CSP dichotomy still remains an open problem.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Exact Counting}
 In the previous section we mentioned the relation between polymorphisms and complexity of
-the CSP(\mrelset) problem; in this section we will establish a similar connection 
+the problem CSP(\mrelset); in this section we will establish a similar connection 
 between polymorphisms and complexity of \ccsp(\mrelset) and mention 
 results on the complexity of \ccsp(\mrelset)\@.
 
@@ -616,16 +615,16 @@ Consider the following problem:
 {A graph \(G\)}
 {The number of 2-Colorings of \(G\)}
 
-The \cdcol\ problem can be solved in polynomial time as follows.
+The problem \cdcol\  can be solved in polynomial time as follows.
 For an input graph \mG, if \mG\ is not bipartite then the answer will be \(0\); otherwise,
 if \mG\ is connected then the answer will be 2 and if \mG\ is not connected
 there are 2 choices for each component; hence, if \mG\ has \(m\)
 connected component the answer will be \(2^m\)\@.
 
-The \cdcol\ problem can be expressed as \ccsp(\(NEQ_{01}\)), where
+The problem \cdcol\  can be expressed as \ccsp(\(NEQ_{01}\)), where
 \(NEQ_{01}\) is the inequality relation over a two element set, that is,
 \(NEQ_{01}=\setof{(0,1),(1,0)}\)\@. 
-The \cdcol\ problem is easy to solve because
+The problem \cdcol\ is easy to solve because
 the \(NEQ\) relation belongs to a family of relations called \emph{affine} relations.
 A relation is affine if it is expressible by a system of linear equations over a
 finite field. The relation \(NEQ_{01}\) is an 
@@ -646,7 +645,7 @@ The simplest type of constraint languages are those
 over a domain of size two. They are usually 
 referred to as \emph{Boolean} constraint languages.
 \ccsp(\mrelset) for Boolean \mrelset\ is often referred as Boolean \ccsp(\mrelset)\@.
-Creignou and Hermann proved a dichotomy for the Boolean \ccsp(\mrelset) problem.
+Creignou and Hermann proved a dichotomy for the Boolean problem \ccsp(\mrelset).
 
 \begin{theorem} [Creignou and Hermann 1996 \cite{Nadia}] 
 For a Boolean constraint language \mrelset,
@@ -658,7 +657,7 @@ Previously, we mentioned the dichotomy theorem for complexity of \ccsp\ in  Sect
 
 \begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
 For a graph \mH, if each component of \mH\ is a complete reflexive graph
-or a complete irreflexive bipartite graph then the \chom(\mH) problem 
+or a complete irreflexive bipartite graph then the problem \chom(\mH)  
 is polynomial time solvable; otherwise, it is \cpc\@.
 \end{theorem}
 
@@ -671,13 +670,13 @@ of edges
 of \(G\) from one part to other part is closed under any polymorphism.
 
 Hence, polymorphisms can also express criteria used in both theorems. This suggests
-that \(Pol(\relset)\) can express the complexity of the \ccsp(\mrelset) problem.
+that \(Pol(\relset)\) can express the complexity of the problem \ccsp(\mrelset).
 Suppose \(\relset_1\) and \(\relset_2\) are two constraint languages such that
 every relation in \(\relset_2\) is pp-definable in \(\relset_1\); 
 the pp-definition suggests a reduction from CSP(\(\relset_2\))
 to CSP(\(\relset_1\))\@. However, this reduction is not usable for counting problems. 
 Bulatov and Dalmau provided a reduction that relates 
-the complexity of the \ccsp(\mrelset) problem to \(Pol(\relset)\)\@.
+the complexity of the problem \ccsp(\mrelset) to \(Pol(\relset)\)\@.
 
 \begin{theorem}[Bulatov, Dalmau 2007 \cite{bulatov07}] 
 For a constraint language \mrelset\ and a relation \(R\) with the same domain,
@@ -784,9 +783,9 @@ for any constraint language \mrelset\ and any set of functions \(C\), the
 sets \(Inv(C)\) and \(pPol(\relset)\) are a weak co-clone and a partial clone, respectively.
 
 Theorem \ref{trm:partial} indicates that weak co-clones are
-in charge of complexity of approximation of the \ccsp(\mrelset) problem.
+in charge of complexity of approximation of the problem \ccsp(\mrelset).
 The relation between weak co-clones and partial polymorphisms,
-implies that the complexity of approximation of the \ccsp(\mrelset) problem 
+implies that the complexity of approximation of the problem \ccsp(\mrelset)  
 depends on \(pPol(\relset)\)\@.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -824,7 +823,7 @@ poly-APX and log-APX are algorithms that given an input
 such that  \(\frac{1}{|x|^c}\le\frac{z}{f(x)}\le |x|^c\) for some constant \(c\) and
 \(\frac{1}{\log |x|}\le\frac{z}{f(x)}\le \log |x|\), respectively.
 There are no results on \ccsp(\mrelset) with
-APX schemas. With the next lemma, I explain why APX schemas are not used for \ccsp(\mrelset) problems.
+APX schemas. With the next lemma, I explain why APX schemas are not used for problem \ccsp(\mrelset) .
 
 \begin{lemma}
 For a constraint language \mrelset, if there is a poly-APX for
@@ -874,7 +873,7 @@ then we say that  \mf\ and \mg\ are \emph{AP-interreducible} and write \(f \apeq
 In this chapter we will study three major classes of counting problem with respect
 to complexity of approximate counting. We will study some of the important counting problem in FPRAS
 in Section~\ref{sec:poly}, the problems that are hard to approximate in Section~\ref{sec:hard}, 
-and the \cbis\ problem and problems AP-interreducible with it in Section~\ref{sec:bis}\@.
+and the problem \cbis\ and problems AP-interreducible with it in Section~\ref{sec:bis}\@.
 In Section~\ref{sec:other}, we will mention some problems that not known to fit in this classification.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -890,7 +889,7 @@ for congruence singular relations \mrelset\ and otherwise it is \cpc\@.
 In this section we show several
 examples of counting problems for which an approximate solution can be obtained in polynomial time.
 
-There are some artificial examples of \ccsp(\mrelset) problems that can be approximated 
+There are some artificial examples of problem \ccsp(\mrelset) that can be approximated 
 in polynomial time. 
 
 \begin{example} \label{exm:poly}
@@ -923,7 +922,7 @@ the problem \chom(\mH)
 may be easier than approximating the problem \chom(\mG)\@.
 
 Another interesting counting problem which can be approximated in polynomial time is 
-the \pname{\#Dual-SAT} problem defined as :
+the problem \pname{\#Dual-SAT} defined as :
 
 \pnndef %{\pname{\#Dual-SAT}}
 {A Boolean DNF (Disjunctive Normal Form) formula \(\varphi\)}
@@ -934,7 +933,7 @@ Luby and Veli\v{c}kovic \cite{Luby} provided a deterministic algorithm for
 approximating the probability of a random assignment being satisfying. 
 Madras et al. \cite{Madras} provided a Monte-Carlo algorithm
 for this problem. Jerrum et al. \cite{JVV} provided an algorithm,depicted in Algorithm~\ref{alg:dnf},
-for sampling the \pname{Dual-SAT} problem. 
+for sampling the problem \pname{Dual-SAT}. 
 \begin{algorithm}[h]
 \begin{algorithmic}
 \WHILE {true}
@@ -947,7 +946,7 @@ for sampling the \pname{Dual-SAT} problem.
 \caption{An algorithm for sampling \pname{Dual-SAT}}\label{alg:dnf}
 \end{algorithm}
 
-Since the \pname{\#Dual-SAT} problem is self-reducible, Theorem~\ref{thm:selfred} implies
+Since the problem \pname{\#Dual-SAT} is self-reducible, Theorem~\ref{thm:selfred} implies
 that Algorithm~\ref{alg:dnf} can be used to find an approximate solution for\pname{Dual-SAT}\@.
 
 Other common method used to approximate counting problems is using the Markov chain
@@ -964,8 +963,8 @@ is the maximum degree in \mG}
 {The number of proper k-Colorings of \mG}
 
 Jerrum and Sinclair \cite{Jerrum96} used Markov chain Monte-Carlo method 
-to approximate the \pname{\#Match} problem; Jerrum \cite{Jerrum} used the same method 
-to approximate the \ldkcol\ problem for graphs 
+to approximate the problem \pname{\#Match}; Jerrum \cite{Jerrum} used the same method 
+to approximate the problem \ldkcol\ for graphs 
 with bounded degree. We give a brief description of the Markov chain Monte Carlo method
 and show how these two problems are solved using this method.
 
@@ -986,7 +985,7 @@ for the algorithm to become close enough to \(\pi\) is called the \emph{mixing t
 Loosely, if the mixing time for a Markov chain is polynomial in terms of the size of the input
 and the desired approximation ratio, then the Markov chain is \emph{rapidly mixing}\@.
 
-The \ldkcol\ problem is solved as follows.
+The problem \ldkcol\ is solved as follows.
 Let \mG\ be the input graph with \mn\ vertices
 and \mm\ edges. Consider a sequence of subgraphs of \mG\ such that 
 \(G_m=G\) and \(G_i\) is obtained from \(G_{i+1}\) by removing an arbitrary edge.
@@ -1018,9 +1017,9 @@ Jerum also proved that by a high probability the expected value of
 \(Z_i(X)\) over polynomial number of samples is an
 acceptable estimation for \(\varrho_i\)\@.
 
-The general idea to solve the \pname{\#Match} problem is similar. Jerrum and Sinclair \cite{Jerrum96}
-solved a weighted version of the \pname{\#Match} problem which is called the \pname{Monomer-Dimer}
-problem in statistical physics. It is defined as :
+The general idea to solve the problem \pname{\#Match} is similar. Jerrum and Sinclair \cite{Jerrum96}
+solved a weighted version of the problem \pname{\#Match} which is called the problem 
+\pname{Monomer-Dimer} in statistical physics. It is defined as follows.
 
 \pdef{Monomer-Dimer}
 {A graph \mG\ and a positive real number \(\lambda\)}
@@ -1029,7 +1028,7 @@ problem in statistical physics. It is defined as :
 
 Note that \(Z_G(1)\) is the number of matchings in \mG\ and \(Z_G(0)=1\) because
 for the empty matching \(M\), \(\lim_{\lambda\to 0^+}\lambda^{|M|}=1\). The technique used to
-solve this problem is the same as the \ldkcol\ problem; however, instead of removing edges from
+solve this problem is the same as the problem \ldkcol; however, instead of removing edges from
 the graph, the sequence is obtained by reducing the value of \(\lambda\)\@. We will not 
 go through details about this algorithm.
 
@@ -1055,7 +1054,7 @@ Mixing time is the minimum length of a random walk such that the required
 quantity is measured with desired approximation and if mixing
 time is polynomial then the chain is said to be rapidly mixing.
 
-The \pname{\#Match} problem is solved as follows.
+The problem \pname{\#Match} is solved as follows.
 A suitable sequence \(\bl\) of real numbers beginning with one and ending
 with zero is chosen. The ratios \(Z_G(\bl_i)/Z_G(\bl_{i+1})\) are estimated 
 by sampling along a random walk on the Markov chain. \(Z_G(1)\) is the product of
@@ -1090,7 +1089,8 @@ for \cp\ with respect to AP-reducibility.
 \csat, \ctsat, and \ctcol\ are complete for \cp\ with respect to AP-reducibility.
 \end{cor}
 
-Another important problem AP-interreducible with the \csat\ problem is the \cisp\ problem defined as:
+Another important problem AP-interreducible with the problem \csat\ is
+the problem \cisp\ defined as:
 
 \pnndef%{\cisp}
 {A graph \mG}
@@ -1098,9 +1098,9 @@ Another important problem AP-interreducible with the \csat\ problem is the \cisp
 
 The decision problem IS is a trivial problem; every graph has at least an
 empty independent set.
-However, the counting problem \cisp\ is proved to be AP-interreducible with the \csat\ problem
+However, the counting problem \cisp\ is proved to be AP-interreducible with the problem \csat\ 
 by Goldberg et al.\cite{Leslie03}\@.
-Finding AP-reductions from many problems from the \cisp\ problem is more straightforward than
+Finding AP-reductions from many problems from the problem \cisp\ is more straightforward than
 finding reductions from the problems that the decision version is NP-complete.
 
 \begin{figure}[h]
@@ -1116,19 +1116,18 @@ finding reductions from the problems that the decision version is NP-complete.
 \begin{example}
 Consider the binary relations OR and NAND  on domain \(\setof\zo\) defined as
 \(\mathrm{OR}=\setof{(0,1),(1,0),(1,1)}\) and \(\mathrm{NAND}=\setof{(0,0),(0,1),(1,0)}\)\@.
-For an instance \(G = (V,E)\) of the \cisp\ problem, consider
+For an instance \(G = (V,E)\) of the problem \cisp, consider
 an instance \(\probi=(\setof\zo,V,\conset)\)
 of the problem \ccsp(OR) where \[\conset = \{\const{(x,y), \mathrm{OR}} \mid xy \in E\}.\]
 Every independent set \(I\) in \mG, corresponds to an assignment \(\varphi\)
 for \(\probi\) where \(\varphi(x) = 0\) if \(x\in I\) and \(\varphi(x)=1\) if \(x\notin I\)\@.
-Similarly, the \cisp\ problem can be expressed by the \ccsp(NAND) as well;
-hence, the \ccsp(OR) and \ccsp(NAND) problems are both AP-interreducible with the
-\csat\ problem.
+Similarly, the problem \cisp\ can be expressed by the \ccsp(NAND) as well;
+hence, the problems \ccsp(OR) and \ccsp(NAND) are both AP-interreducible with the
+problem \csat\@.
 
-Although the \dsat\ problem (the decision problem) is polynomial time
-solvable, the \cdsat\ problem can express \ccsp(OR) and
-\ccsp(NAND); hence, the \cdsat\ problem 
-is also AP-interreducible with the \csat\ problem.
+Although the problem \dsat\ (the decision problem) is polynomial time
+solvable, the problem \cdsat\ can express \ccsp(OR) and
+\ccsp(NAND); hence, the problem \cdsat\ is also AP-interreducible with the problem \csat\@.
 \end{example}
 
 \begin{example}[\sc\#Wrench-Col] \label{exm:wrench}
@@ -1136,22 +1135,22 @@ The Wrench graphs family are denoted by \(Wr_q=(V_q, E_q)\) where \(V_q=\{a,b,c_
 and \(E_q=\setof{\setof{a,b},\setof{b,b}} \cup 
 \setof{\setof{b,c_i},\setof{c_i,c_i}:1\le i\le q}\)\@.
 Graphs \(Wr_0\), \(Wr_1\), \(Wr_2\), and \(Wr_3\) are shown in Figure~\ref{fig:wrench}.
-The \chom(\(Wr_q\)) problem is referred to as the \#q-{\sc Wrench-Col} problem. 
-Goldberg et al. \cite{Leslie03} proved that for \(q\neq 2\), the  \#q-{\sc Wrench-Col} problem
-is AP-interreducible with the \csat\ problem.
+The problem \chom(\(Wr_q\)) is referred to as the problem \#q-{\sc Wrench-Col}. 
+Goldberg et al. \cite{Leslie03} proved that for \(q\neq 2\), the problem\#q-{\sc Wrench-Col} 
+is AP-interreducible with the problem \csat\@.
 \end{example}
 
 \begin{example} [\#q-\pname{Particle-WR-Configs}] \label{exm:particles}
 For \(q \ge 1\), homomorphisms to \(S^*_q\) where
 \(S^*_q\) is a q-leaf star with loops at all the \(q+1\)
 vertices are configuration in the q-particle Widom-Rowlinson model.
-The \#q-\pname{Particle-WR-Configs} problem is defined as the \chom(\(S^*_q\)) problem.
+The problem \#q-\pname{Particle-WR-Configs} is defined as the problem \chom(\(S^*_q\)).
 Graphs \(S^*_1\), \(S^*_2\), \(S^*_3\), and \(S^*_4\) are shown in Figure~\ref{fig:wrconfigs}.
  
-The \chom(\(S^*_1\)) problem is polynomial time solvable.
-We will consider the \chom(\(S^*_2\)) and \chom(\(S^*_3\)) problems later;
-for \(q \ge 4\), the \chom(\(S^*_q\)) problem is proven to be AP-interreducible
-with the \csat\ problem \cite{Leslie03}.
+The problem \chom(\(S^*_1\)) is polynomial time solvable.
+We will consider the problems \chom(\(S^*_2\)) and \chom(\(S^*_3\)) later;
+Goldberg et al. \cite{Leslie03} have proved that 
+for \(q \ge 4\), the problem \chom(\(S^*_q\)) is AP-interreducible with the problem \csat\@.
 \end{example}
 
 \begin{figure}[h]
@@ -1172,7 +1171,7 @@ if the model is not consistent.
 Jerrum and Goldberg \cite{Goldberg2007} showed that the problem of computing 
 the partition function in Potts model with more that two states is
 AP-interreducible with the \csat\ problem. They also showed that the problem of computing
-the partition function in Ising model is AP-interreducible with the \csat\ problem
+the partition function in Ising model is AP-interreducible with the problem \csat\
 if the model is not ferromagnetic.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

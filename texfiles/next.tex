@@ -150,7 +150,7 @@ a \emph{conservative} function. Hence, the conservative operators \(\wedge\) and
 represent a total order.
 
 The following two results are reformulations of known characterizations of interval graphs and
-proper interval graphs in \cite{Gutin} and \cite{hellbook}\@.
+proper interval graphs in \cite{Gutin, hellbook}\@.
 \begin{theorem} \label{thm:semimin}
 A reflexive graph \(G=(V,E)\) is an interval graph if and only if there exists
 a total order \(T=(V,\wedge,\vee)\) such that
@@ -180,7 +180,7 @@ Take \(a\preceq b\) if \(I_a\) starts \emph{before} \(I_b\) or if \(I_a\) and \(
 start together and \(I_a\) ends \emph{after} \(I_b\)\@. 
 Let \(a,b,c,d \in V\) such that \(a \sim b\), \(c \sim d\) holds.
 Without loss of generality assume \(a \preceq b\), \(c \preceq d\), and \(a \preceq c\)\@. 
-If \(b \preceq d\), we have:
+If \(b \preceq d\), we have
 \[a \wedge c = a, b \wedge d = b, a \sim b \Rightarrow  (a \wedge c) \sim (b \wedge d).\]
 If \(d \preceq b\), then 
 \[o(a) \le o(c) \le o(d), o(d) \le o(b), I_a \cap I_b \neq \emptyset \Rightarrow a\sim d;\]
@@ -207,13 +207,13 @@ equal to (proper) interval graphs.
 \begin{example} \label{exm:diff}
 The graph \(G_1\) in Figure~\ref{fig:claw} is an interval graph; however, we show that \(G_1\) is not a monotone graph.
 Suppose that \(G_1\) is monotone. If \(\top = a\), then
-\[a \sim b, c \sim a \Rightarrow (a \wedge c) \sim (b \wedge a) \Rightarrow c \sim b\]
+\[a \sim b, c \sim a \Rightarrow (a \wedge c) \sim (b \wedge a) \Rightarrow c \sim b.\]
 Analogously, if \(\bot = a\), then \(b \sim c\)\@. Hence, \(a\) can not be \(\top\) to \(\bot\)\@.
 Without loss of generality suppose \(\top = b\) and \(\bot = c\); if \(a \preceq d\)
-\[a \sim b, d \sim a \Rightarrow (a \vee d) \sim (b \vee a) \Rightarrow d \sim b\]
+\[a \sim b, d \sim a \Rightarrow (a \vee d) \sim (b \vee a) \Rightarrow d \sim b.\]
 Analogously, if \(d \preceq a\), the \(d \sim c\)\@. The last possible case is 
-\(a \wedge d = c\) and \(a \vee d = b\). In this case:
-\[a \sim d, d \sim d \Rightarrow (a \wedge d) \sim (d \wedge d) \Rightarrow c \sim d\]
+\(a \wedge d = c\) and \(a \vee d = b\). In this case
+\[a \sim d, d \sim d \Rightarrow (a \wedge d) \sim (d \wedge d) \Rightarrow c \sim d.\]
 Hence, \(G_1\) is not monotone. 
 
 Now consider the graph \(H_1\) in Figure~\ref{fig:monnotpint};
@@ -266,13 +266,13 @@ they are edges of \mG\@.
 
 Let \(G=(V,E)\) be a monotone graph with lattice \(L=(V,\wedge,\vee)\) and connected components \(G_1,G_2,\dotsc,G_k\);
 we show that each \(G_i\) is a monotone graph. Before that, we show that each \(G_i\) is closed under \(L\)\@.
-In other words, we have: \[x,y\in G_i \Rightarrow x\wedge y, x\vee y \in G_i.\]
+In other words, we have \[x,y\in G_i \Rightarrow x\wedge y, x\vee y \in G_i.\]
 
 Let \(x, y\in G_i\);
 since \(x,y\) are in the same connected component of \mG, there is a path \(P=v_0=x,v_1,v_2,\dotsc,v_k=y\)
 from \(x\) to \(y\) in \mG\@. Let \(v'_0 = v_0\) and \(v'_j = v'_{j-1} \wedge v_j\)\@.
 \[v'_0 \sim v'_0, v_0\sim v_1 \Rightarrow (v'_0 \wedge v_0) \sim (v'_0 \wedge v_1) \Rightarrow v'_0 \sim v'_1;\]
-by induction we have:
+by induction we have
 \[v'_j \sim v'_{j-1}, v_{j+1} \sim v_j \Rightarrow (v'_j \wedge v_{j+1}) \sim (v'_{j-1} \wedge v_j) \Rightarrow v'_{j+1} \sim v'_j.\]
 This shows that there is a vertex \(z'=v'_{k+1}\) in \(G_i\) such that \(x,y\preceq z'\)\@.
 Let \(z = a\wedge b\); if \(z' \prec z\), then there is some \(j\) such that \(v'_j \prec z \prec v'_{j+1}\) and 
@@ -335,12 +335,12 @@ if \(b\sim d, c\sim d\) or \(a\sim b, a\sim c\), all edges between
 \end{lemma}
 
 \begin{proof}
-If \(b\sim d, c\sim d\) we have:
+If \(b\sim d, c\sim d\) we have
 \begin{eqnarray*}
 b\sim d, c\sim d \Rightarrow (b \vee c) \sim (d \vee d) \Rightarrow a\sim d\\
 b\sim d, d\sim c \Rightarrow (b \vee d) \sim (d \vee c) \Rightarrow b\sim c\\
 b\sim c, c\sim d \Rightarrow (b \vee c) \sim (c \vee d) \Rightarrow a\sim c\\
-b\sim c, d\sim b \Rightarrow (b \vee d) \sim (c \vee b) \Rightarrow b\sim a\\
+b\sim c, d\sim b \Rightarrow (b \vee d) \sim (c \vee b) \Rightarrow b\sim a.\\
 \end{eqnarray*}
 Analogously, if \(a\sim b, a\sim c\), all the edges above must be present in \mG\@.
 \end{proof}
@@ -366,7 +366,7 @@ if and only if \(x_1\preceq y_1\) and \(x_2\preceq y_2\)\@.
 
 \begin{rem}
 Let \(L_1=(X_1,\wedge,\vee)\) and \(L_2=(X_2,\wedge,\vee)\) be two lattices.
-For \(x_1,y_1 \in X_1\) and \(x_2,y_2\in X_2\), we have :
+For \(x_1,y_1 \in X_1\) and \(x_2,y_2\in X_2\), we have
 \[(x_1,x_2)\wedge (y_1,y_2) = (x_1\wedge y_1, x_2 \wedge y_2) \]
 and \[(x_1,x_2)\vee (y_1,y_2) = (x_1\vee y_1, x_2 \vee y_2).\]
 \end{rem}

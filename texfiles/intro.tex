@@ -20,40 +20,42 @@ Generally solving the \ccsp\ is a hard problem, however if we restrict the
 \ccsp\ to a set of relations \mrelset, which is denoted by \ccsp(\mrelset),
 depending on the \mrelset\ the complexity of the problem may very.
 In this work we study the complexity of finding approximate solutions for the 
-\ccsp(\mrelset) problems.
+problem \ccsp(\mrelset).
 We will introduce some of methods that can be used to approximate counting problems.
 
 Bulatov \cite{Bulatov} has proved a dichotomy for complexity of the
-\ccsp(\mrelset) problem. This dichotomy implies that 
+problem \ccsp(\mrelset). This dichotomy implies that 
 for some \mrelset, the problem \ccsp(\mrelset) can be solved in polynomial time
 and for the rest if one of them can be solved in polynomial time
 all of them can be solved in polynomial time.
-However, with respect to approximation there are more complexity classes for a
-\ccsp(\mrelset) problem.
+Feder and Vardi \cite{cspconj} have conjectured that \ccsp(\mrelset) also exhibits of dichotomy of
+this sort. This conjecture has motivated many researchers \cite{dur628, recent08, valeriote}.
+With respect to approximation, more complexity classes are expected for the problem \ccsp(\mrelset).
 The problem of finding the number of 2-Colorings of a graph can be solved 
 in polynomial time. There is the problem of finding the
 number of independent sets in a bipartite graph often referred as \cbis\@.
 The problem of finding the number of independent sets in a general graphs often referred as
-the \cisp\ is among the set of problems that if one of them can be approximated in polynomial time then
-for all \mrelset\, the problem \ccsp(\mrelset) can be approximated in polynomial time.
+the \cisp\ is among a set of problems which if one of them can be approximately solved
+in polynomial time then for all \mrelset, the problem \ccsp(\mrelset) can be approximately
+solved in polynomial time.
 Goldberg et al. \cite{Trichotomy} have proved that for Boolean \mrelset,
-there are three complexity classes for \ccsp(\mrelset)\@. These three classes are
-problems that can be approximately solved in polynomial time such as finding the
-number of 2-Colorings in a graph, the problems as hard as the \cbis\ problem, and the
-problems that are hard to approximate such as the \cisp\ problem.
+there are three complexity classes for \ccsp(\mrelset)\@. These three classes are:
+problems that can be approximately solved in polynomial time, such as finding the
+number of 2-Colorings in a graph; problems as hard as the problem \cbis; and
+problems that are hard to approximate, such as the problem \cisp\@.
 
 In this work, we introduce some useful techniques to find approximation preserving reductions
 among counting problems. We will introduce \emph{monotone} relations
-and show that the \ccsp(\mrelset) problem over these families of relation is not harder that
-the \cbis\ problem. We will also introduce the \emph{RBA} relations and
-show that the problem \ccsp(\mrelset) over \emph{RBA} relations is at
-least as hard as the \cbis\ problem.
+and show that the problem \ccsp(\mrelset) over these families of relation is not harder that
+the problem \cbis\@. We will also show that the problem \ccsp(\mrelset) for reflexive oriented graphs 
+is at least as hard as the problem \cbis\@. We will also investigate reflexive monotone graphs.
 
 \section{Thesis Organization}
 In Chapter~2 we formally define CSP and \ccsp\ and their applications.
 In Chapter~3 we define reductions for counting problems and mention major results
-on complexity of the \ccsp(\mrelset) problem. In Chapter~4 we define approximation preserving
-reduction and known classes for approximated counting. We mention several famous problems studied before;
-we also mention several techniques used to approximate counting problems.
-In Chapter~5 we introduce our own techniques used for approximation preserving reductions.
-In Chapter~6 we mention the our results on complexity of approximating the \cbis\ problem.
+on complexity of the problem \ccsp(\mrelset). In Chapter~4 we define approximation preserving
+reductions and the known classes for approximated counting. We mention several problems
+from each class; we also mention several methods used for approximate counting problems.
+In Chapter~5 we introduce our own methods used for approximation preserving reductions.
+In Chapter~6 we mention our results on the complexity of approximating the problem \cbis\@.
+In Chapter~7 we investigate reflexive monotone graphs.

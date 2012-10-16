@@ -1,15 +1,15 @@
 \chapter{Conclusion and Future Work}
 \section{Conclusion}
 We formally defined the problem \ccsp(\mrelset), mentioned some of its applications; mentioned the 
-major results on complexity of problem \ccsp(\mrelset). We defined the
+major results on complexity of the problem \ccsp(\mrelset). We defined the
 class FPRAS which is considered the efficient computational model for finding approximate solutions
 for counting problems.
-We mentioned FPRAS algorithms for some problems such as simple \ccsp(\mrelset),
+We mentioned FPRAS algorithms for several problems such as simple \ccsp(\mrelset),
 \pname{\#Dual-SAT},\pname{\#Match}, and \pname{\#LowDegree-}k\pname{-Coloring}.
-The problem \pname{\#Dual-SAT} is solved by sampling and the \pname{\#Match} and problems 
+The problem \pname{\#Dual-SAT} is solved by sampling and the problems \pname{\#Match} and 
 \pname{\#LowDegree-}k\pname{-Coloring} are solved by Markov chain Monte-Carlo method. 
 
-We defined AP-reduction which is used to classify approximation counting problems.
+We defined AP-reductions which are used to classify approximation counting problems.
 We introduced the problem \cbis\ and the class of the problems AP-interreducible with
 the problem \cbis\@. We mentioned several well-known examples of this class such as
 the  problems \cdsp\ and \pname{\#1P1N-SAT}\@. Computation of the partition function for 
@@ -33,7 +33,6 @@ We generalized the pinning theorem from \cite{Trichotomy}\@.
 We introduced the maximization technique for AP-reductions. The sets of relations closed
 under maximization form sets of relations similar to relational clones.
 
-In Chapter~\ref{chp:results}, we focused on AP-reductions involving the problem \cbis\@.
 We extended the notion of \emph{monotone} relations from Boolean domains to 
 general domains. We proved that for any monotone constraint language \mrelset,
 the problem \ccsp(\mrelset) is AP-reducible to the problem \cbis\@.
@@ -41,8 +40,7 @@ We also extended the notion of monotone relations to bipartite graphs
 and proved that for any monotone bipartite graph \mH, the problem \chom(\mH)  
 is also AP-reducible to to the problem \cbis\@.
 
-We also investigated reflexive oriented graphs and proved that 
-for any reflexive oriented graph \mH, the problem \cbis\ is
+We proved that for any reflexive oriented graph \mH, the problem \cbis\ is
 AP-reducible to the problem \chom(\mH).
 Despite these results, finding a necessary and sufficient condition for \mrelset\ such that 
 the problem \ccsp(\mrelset) is AP-interreducible with the problem \cbis\ remains open.
@@ -56,8 +54,11 @@ the problem \ccsp(\mrelset) is AP-interreducible with the problem \cbis\ remains
 \label{fig:unknown}
 \end{figure}
 
-We expect that there exists a trichotomy similar to the problem \ccsp(\mrelset) over Boolean domains
-for the problem \ccsp(\mrelset) over 3-element sets.
+We investigated monotone reflexive graphs. We proved that a retract of
+a product of proper interval graphs is a monotone graph.
+
+We expect that there exists a trichotomy for the problem \ccsp(\mrelset) over 3-element sets
+similar to the trichotomy for the problem \ccsp(\mrelset) over 2-element sets.
 However, the common belief is that there is no such a trichotomy in general for
 the problem \ccsp(\mrelset).
 For example, consider the graphs \(N_5\), \(M_5\), and \(C_6\) shown in Figure~\ref{fig:unknown}.
@@ -73,16 +74,16 @@ there are several problems whose complexity of approximately solving them is sti
 
 Valiant and Vazirani \cite{valvaz} proved that with a SAT oracle, there is FPRAS for any 
 problem in \cp\@. With the recent growth of practical usage of SAT-solvers, this theorem
-potentially provides a practical approach to solve the problem \ccsp(\mrelset).
+potentially provides a practical approach to approximately solve the problem \ccsp(\mrelset).
 
 The Markov chain Monte-Carlo method is used approximately solve several counting problems.
-This method may solve the problem \ccsp(\mrelset) for some \mrelset\@.
+This method may approximately solve the problem \ccsp(\mrelset) for some \mrelset\@.
 
 We defined the monotone constraint languages as the constraint languages that
 are closed under the meet and join operators of a distributive lattice.
-\(N_5\) and \(M_5\) shown in Figure~\ref{fig:unknown} appear on non-distributive 
+\(N_5\) and \(M_5\), shown in Figure~\ref{fig:unknown}, appear on non-distributive 
 lattices. Proving that the problems \chom(\(N_5\)) and \chom(\(M_5\)) are AP-reducible to
-the problem \cbis\ may be a break through by extending our result to
+the problem \cbis\ may extend our result to
 constraint languages closed under meet and join operators of a general lattice.
 
 We proved that for any reflexive oriented graph \mH, the problem \cbis\ is
