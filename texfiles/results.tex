@@ -1,22 +1,22 @@
 \chapter{Results on Complexity of \cbis} \label{chp:results}
-In this chapter, we mention our major results on complexity 
-of the \ccsp(\mrelset) problem. We first show that for \emph{monotone} relations, there is an
-approximation preserving reduction from the \ccsp(\mrelset) problem to the \cbis\ problem.
-Next, we extend the definition of monotone graphs to bipartite graphs. We also provide a characterization of monotone graph for reflexive graphs.
-At the end, we show that there is an AP-reduction from the \cbis\ problem 
+In this chapter, we mention our major results on approximability
+of the problem \ccsp(\mrelset). We first show that for \emph{monotone} relations, there is an
+AP-reduction from the problem \ccsp(\mrelset) to the problem \cbis\@.
+Next, we extend the definition of monotone graphs to bipartite graphs. 
+We show that there is an AP-reduction from the problem \cbis\
 to the problem \chom(\mH) if \mH\ is a reflexive oriented graph.
 
-For constraint languages consisting of a binary relation, the \ccsp(\mrelset) problem is
-the same as the \chom(\mH) problem; hence, we use them interchangeably depending on the on the context.
+For constraint languages consisting of a binary relation, the problem \ccsp(\mrelset) is
+the same as the problem \chom(\mH); hence, we use them interchangeably depending on the on the context.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Monotone Graphs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monotone Relations}
 In this section, we extend the definition of \emph{monotone} constraint languages defined in
-\cite{Trichotomy} from Boolean domains to multi-valued domains and show that for
-any monotone relation \mrelset\ there is an AP-reduction from the \ccsp(\mrelset) problem to
-the \cbis\ problem.
+\cite{Trichotomy} from Boolean domains to general domains and show that for
+any monotone relation \mrelset\ there is an AP-reduction from the problem \ccsp(\mrelset) to
+the problem \cbis\@.
 
 \begin{defi} [Distributive Lattice]
 A \emph{distributive lattice} \(L=(X,\wedge,\vee)\) is a set \(X\) with a pair of binary operators \(\wedge\)
@@ -38,15 +38,10 @@ if there exists distributive lattice order \(L=(D,\wedge,\vee)\) such that every
 in \mrelset\ is closed under operations \(\vee\) and \(\wedge\)\@.
 \end{defi}
 
-After studying complexity of the \ccsp(\mrelset) problem for maximal clones on 3-element sets
-in \cite{mvl} also complexity of the \chom(\mH) problem on 3-vertex graphs,
-we noticed that \ccsp(\mrelset) problem over 
-monotone relations are AP-reducible to the \cdsp\ problem. We generalize the observation by
-Theorem~\ref{thrm:monotone}\@.
-
-\begin{theorem} [Hedayaty, Bulatov 2009 Unpublished]\label{thrm:monotone}
+Theorem~\ref{thm:monotone} is based on an unpublished manuscript by Hedayaty and Bulatov(2009)\@. 
+\begin{theorem} \label{thm:monotone}
 Let \mrelset\ be a constraint language over a domain \mD, if 
-\mrelset\ is monotone then \ccsp(\mrelset) \maple\ \cbis\@.
+\mrelset\ is monotone then \ccsp(\mrelset) \maple \cbis\@.
 \end{theorem}
 
 \begin{proof}
@@ -62,11 +57,11 @@ The definition of \(\cube\) is further extended to relations as
 Take \(\relset'=\setof{\cube(R)\mid R\in \relset}\)\@. The functions \(\cube\) and
 \(\recube\) form a bijection between the solutions for any CSP(\mrelset) instance and the 
 corresponding CSP(\(\relset'\)) instance. Hence, there is a parsimonious reduction between 
-the \ccsp(\mrelset) problem and the \ccsp(\(\relset'\)) problem. Now, we prove that
-\(\relset'\) is monotone. For any relation \(R' \in \relset'\) we have:
+the problem \ccsp(\mrelset) and the problem \ccsp(\(\relset'\)). Now, we prove that
+\(\relset'\) is monotone. For any relation \(R' \in \relset'\) we have
 \[\vx \in R \Leftrightarrow \cube(\vx) \in R'\]
 We show that for any two tuples \(\vx,\vy\in R'\) we have 
-\(\vx \vee \vy, \vx\wedge\vy\in R'\).
+\(\vx \vee \vy, \vx\wedge\vy\in R'\). Namely,
 \begin{eqnarray*}
 \vx,\vy \in R'  \\
 \recube(\vx),\recube(\vy)\in R  \\
@@ -79,10 +74,6 @@ Similarly \(\vx \vee \vy \in R'\)\@.
 \ccsp(\(\relset'\))\maple\ \cbis\@. Consequently, \ccsp(\mrelset) \maple\ \cbis\@.
 \end{proof}
 
-Originally, we came up with a different reduction from the \ccsp(\(\relset'\)) problem
-to the \cdsp\ problem. However, the proof used in \cite{Trichotomy} for
-Theorem~\ref{thrm:trichotomy} is simpler than our proof; hence, there is no need to 
-mention our original proof.
 \begin{comment}
 The reduction uses Theorem~\ref{thrm:majority} to break arbitrary relation to binary relation.
 A function \(m: D^3\to D\) is said to be a \emph{majority function}, if for any \(x,y\in D\) we have
@@ -117,7 +108,7 @@ are true. Since \mm\ is a polymorphism of \mR, \(R(x_1,\dotsc,x_n)\) is true.
 For every monotone
 relation, we can find a majority projection using \(\vee\) and \(\wedge\) operators. One
 example would be \(m(x,y,z)=(x \vee y) \wedge (x \vee z) \wedge (y \vee z)\)\@. 
-Thus, every instance of the \ccsp(\(\relset'\)) problem can be parsimoniously reduced to
+Thus, every instance of the problem \ccsp(\(\relset'\)) can be parsimoniously reduced to
 a \ccsp(\\)) instance, where \(\relset''\) is the binary monotone constraint language.
 Finally, \ccsp(\(\relset''\)
 \end{comment}
@@ -136,7 +127,7 @@ bipartitions of \mH\@. For \(H'\) the directed graph obtained from
 \end{theorem}
 
 \begin{proof}
-Let \mG\ be an input graph for the \chom(\mH) problem. If \mG\ is not bipartite then 
+Let \mG\ be an input graph for the problem \chom(\mH). If \mG\ is not bipartite then 
 \(\hom(G,H)=0\). Restrict \mG\ to bipartite graphs also restrict \mG\ to connected graphs
 by Lemma~\ref{lem:connected}\@. Let \(X\) and \(Y\) be bipartition of \mG\ and let \(G_1\) 
 and \(G_2\) be the graphs obtained from \mG\ by orienting all edges from \(X\) to \(Y\) and
@@ -169,7 +160,7 @@ For any bipartite monotone graph \mH, we have \chom(\mH) \maple \cbis\@.
 
 \begin{proof}
 For any bipartite monotone graph \mH, by Theorem~\ref{thrm:bior} there is a directed monotone 
-graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{thrm:monotone},
+graph \(H'\) such that \chom(\mH) \maple \chom(\(H'\))\@. By Theorem~\ref{thm:monotone},
 \chom(\(H'\)) \maple \cbis\@. Thus, \chom(\mH) \maple \cbis\@.
 \end{proof}
 
@@ -205,7 +196,7 @@ For any reflexive oriented graph \mH, if \(\magf(H)=2\) then \chom(\mH) \mapge\ 
 \begin{proof}
 Let \mH\ be a a reflexive oriented graph such that \(\magf(H)=2\)\@.
 We reduce the problem \cdsp\ to the problem \chom(\mH)\@.
-For a given partial order \((P,\preceq)\), let \(G=(V,E)\) be a reflexive oriented graph
+For a given partial order \(P=(V,\preceq)\), let \(G=(V,E)\) be a reflexive oriented graph
 graph in which \(uv\)is an edge if and only if \(a\preceq b\)\@. Take \(G'=(V',E')\) where
 \(V'= V \cup \setof{u,v}\) and \(E' = E \cup \setof{(u,v)} \cup
 \setof{(u,x),(x,v) \mid x\in V}\)\@.
@@ -213,14 +204,16 @@ graph in which \(uv\)is an edge if and only if \(a\preceq b\)\@. Take \(G'=(V',E
 For any homomorphism \(h: G' \to H\), if \(h(u)=h(v)=s\), then \(h(x)=s\) for all \(x\in V\);
 otherwise, \((h(u),h(v))\in E(H)\) and for all \(x\in V\), we have either 
 \(h(x)=h(u)\) or \(h(x)=h(v)\); thus,
-\(h\) corresponds to a DownSet in \((P,\preceq)\)\@.
+\(h\) corresponds to a downset in \(P=(V,\preceq)\)\@.
 
 The number of homomorphisms with \(h(u)=h(v)\) is equal to \(|V(H)|\) and
 the number of homomorphisms with \(h(u)\neq h(v)\) is equal to \(|E(H)|\) times the 
-number of DownSets in \((P,\preceq)\), because \(k(H)=2\)\@. Hence,
-\[\hom(G',H) = |V(H)| + |E(H)|\cdot \cds(P,\preceq).\]
-In other words:
-\[\cds(P,\preceq) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\] 
+number of downsets in \(P\), because \(k(H)=2\)\@. Note, we denote by \(\hom(G,H)\) the
+number of homomorphisms from \mG\ to \mH\ and by \(\cds(P)\) the number of
+downsets in \(P\)\@. Hence,
+\[\hom(G',H) = |V(H)| + |E(H)|\cdot \cds(P).\]
+In other words
+\[\cds(P) = \frac{\hom(G',H) - |V(H)|}{|E(H)|}.\] 
 By Lemma~\ref{lem:linear} we have \chom(\mH) \mapge\ \cdsp\@.
 \end{proof}
 
@@ -261,7 +254,7 @@ For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\
 for any vertex \(x\) in \(V\) or \(Y\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
 \(x\) has to be mapped to \(\NHab Hab\)\@. Note that any vertex in \(Y\) can be freely mapped
 to any vertex in \(\NHab Hab\); however, mapping of the vertices of \(V\) should preserve the edges 
-of \mG\@. Thus, we have:
+of \mG\@. Thus, we have
 \begin{eqnarray*}
 \hom(G',H) &=&  
 \sum_{(a,b)\in E(H)}\left|\NHab Hab\right|^ t \cdot
@@ -274,7 +267,7 @@ of \mG\@. Thus, we have:
 (H_{a,b})\cdot \hom(G,H_{a,b})
 \end{eqnarray*}
 
-Divide both sides of the formula by \(k^t(H)\)\@. We have:
+Divide both sides of the formula by \(k^t(H)\)\@. We have
 \begin{eqnarray*}
 \frac{\chom(G',H)}{\magf^t(H)} &=& 
 \bigsum{\substack{(a,b)\in E(H) \\ \magf(H_{a,b})=\magf(H)}} 
@@ -306,7 +299,7 @@ There are two cases:
 First case, all connected components of \mH\ are isomorphic.
 Let \(H'\) be a connected component of \mH\ and
 \mm\ be the number of connected components of \mH\@.
-For any graph \mG\ as input for the \chom(\mH) problem, \(\hom(G,H)=\hom^m(G,H')\).
+For any graph \mG\ as input for the problem \chom(\mH), \(\hom(G,H)=\hom^m(G,H')\).
 By Lemma~\ref{lem:logarithm}, \chom(H) \mapge \chom(\(H'\))\@.
 
 Second case, there are two connected components of \mH, \(H_1\) and \(H_2\) that are not isomorphic.
@@ -322,7 +315,7 @@ take \[H'=\bigcup_{\substack{(a,b)\in E(H) \\
 Consider all homomorphisms \(h: G'\to H\)\@.
 For any \(a,b\in V(H)\) that \(h(u)=a\) and \(h(v)=b\), we have \((a,b)\in E(H)\)\@.
 For any vertex \(x\) in \(V\) or \(Z_i\), since \((u,x)\) and \((x,v)\) are edges in \(G'\), 
-\(x\) has to be mapped to \(\NHab Hab\)\@. Thus, we have:
+\(x\) has to be mapped to \(\NHab Hab\)\@. Thus, we have
 \begin{eqnarray*}
 \hom(G',H) &=&
 \sum_{(a,b)\in E(H)} \hom(G,H_{a,b}) \cdot \hom^t(Z, H_{a,b}) \\
@@ -332,21 +325,21 @@ For any vertex \(x\) in \(V\) or \(Z_i\), since \((u,x)\) and \((x,v)\) are edge
 \hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b})\\
 &=&
 \hom(G,H') \cdot q^t + \bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
-\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b})
+\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b}).
 \end{eqnarray*}
-Divide both sides by \(q^t\), and let \(n=|V|\) and \(m=\magf(H)\)\@. We have:
+Divide both sides by \(q^t\), and let \(n=|V|\) and \(m=\magf(H)\)\@. We have
 \[
 \frac{\hom(G',H)}{q^t} = 
 \hom(G,H') + 
 \bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
-\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b}) \cdot (\frac{1}{q})^t
+\hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b}) \cdot (\frac{1}{q})^t.
 \]
-The second part of right hand side can be bounded as:
+The second part of right hand side can be bounded as
 \begin{eqnarray*}
 \bigsum{\substack{(a,b)\in E(H)\\ \hom(Z, H_{a,b}) < q}} 
 \hom(G, H_{a,b}) \cdot \hom^t(Z,H_{a,b}) \cdot (\frac{1}{q})^t & \le &
 n^2 \cdot n^m \cdot \left(\frac{q-1}{q}\right)^t\\
-& \approx & e ^ {2\log n} \cdot e^{m\log n} \cdot e^{-\frac{t}{q}} \\
+& \approx & e ^ {2\log n} \cdot e^{m\log n} \cdot e^{-\frac{t}{q}}.\\
 \end{eqnarray*}
 
 For \(t > q \cdot (m+2)\log n\), it is less then one; hence, we have
@@ -392,7 +385,7 @@ For every non-empty reflexive oriented graph \mH, \chom(\mH) \mapge \cbis\@.
 
 \begin{proof}
 By contradiction, consider a reflexive oriented graph \mH\ with minimum \(\magf(H)\)
-such that the \chom(\mH) problem is not AP-reducible to the \cbis\ problem.
+such that the problem \chom(\mH) is not AP-reducible to the problem \cbis\@.
 By Lemma~\ref{lem:triangle-free}, \(\magf(H) > 2\)\@. 
 By Lemma~\ref{lem:k-reduction}, there exists a reflexive oriented graph \(H'\) such that 
 \chom(\(H'\)) \maple \chom(\mH) and \(\magf(H) < \magf(H')\)\@.
