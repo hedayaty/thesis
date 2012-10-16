@@ -922,8 +922,7 @@ the problem \chom(\mH)
 may be easier than approximating the problem \chom(\mG)\@.
 
 Another interesting counting problem which can be approximated in polynomial time is 
-the problem \pname{\#Dual-SAT} defined as :
-
+the problem \pname{\#Dual-SAT} defined as
 \pnndef %{\pname{\#Dual-SAT}}
 {A Boolean DNF (Disjunctive Normal Form) formula \(\varphi\)}
 {The number of satisfying assignments for \(\varphi\)}
@@ -1178,16 +1177,16 @@ if the model is not ferromagnetic.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problems AP-interreducible With \cbis} \label{sec:bis}
 The proof used in \cite{Leslie03} to show that the \csat\ problem is AP-reducible
-to the \cisp\ problem does 
-not work if the input for the \cisp\ problem is limited to bipartite graphs.
-The version of the \cisp\ problem with input limited to bipartite graphs is called
-the \cbis\ problem and is defined as follows:
+to the problem \cisp\ does 
+not work if the input for the problem \cisp\ is limited to bipartite graphs.
+The version of the problem \cisp\ with input limited to bipartite graphs is called
+the problem \cbis\ and is defined as follows:
 
 \pnndef%{\cbis}
 {A bipartite graph \mG}
 {The number of independent sets in \mG}
 
-Goldberg et al.~\cite{Leslie03} proved that the following problems AP-interreducible with \cbis\@.
+Goldberg et al.~\cite{Leslie03} proved that the following problems are AP-interreducible with \cbis\@.
 
 \begin{figure}[h]
 \centering
@@ -1197,7 +1196,7 @@ Goldberg et al.~\cite{Leslie03} proved that the following problems AP-interreduc
 %\subfloat[$P^*_4$]{\input{figs/ps4.pdftex}\label{fig:ps4}}\hfill
 \subfigure[\ensuremath{\vec{P}^*_3}]{\input{figs/dps3.pdftex}\label{fig:dps3}}\hfill
 \subfigure[\ensuremath{P^*_k}]{\input{figs/psk.pdftex}\label{fig:psk}}
-\caption{Some of the problems AP-interreducible with \cbis}
+\caption{Several graphs AP-interreducible with \cbis}
 \label{fig:bisred}
 \end{figure} 
 
@@ -1216,15 +1215,15 @@ there is one negative and one positive literal per clause}
 {The number of satisfying assignments of \(\varphi\)}
 
 
-For many graphs, the \chom(\mH) problem is also AP-interreducible with the \cbis\ problem.
-For example, the \chom(\mH) problem is AP-interreducible with the \cbis\ problem
+For many graphs, the problem \chom(\mH) is also AP-interreducible with the problem \cbis\@.
+For example, the problem \chom(\mH) is AP-interreducible with the problem \cbis\ 
 if \mH\ is any of the graphs \(\vec{P}^*_2\), \(P_4\), \(\vec{P}_4\), \(\vec{P}^*_3\),
 or \(P^*_k\)(\(k\ge 3\)), which are shown in Figure \ref{fig:bisred}\@.
  
-There are also problems from statistical physics that are AP-interreducible with the \cbis\
-problem. The Ising model is described in Section~\ref{sec:appl}.
-The \pname{\#2-Wrench-Coloring}
-and \pname{\#2-Particles-WR-Configs} problems are described in Examples~\ref{exm:wrench}~
+There are also problems from statistical physics that are AP-interreducible with the problem \cbis\@.
+The Ising model is described in Section~\ref{sec:appl}.
+The problems \pname{\#2-Wrench-Coloring}
+and \pname{\#2-Particles-WR-Configs} are described in Examples~\ref{exm:wrench}~
 and~\ref{exm:particles}, respectively.
 
 \pdef{\pname{Ferromagnetic Ising}}
@@ -1240,10 +1239,10 @@ and~\ref{exm:particles}, respectively.
 {A graph \mG}
 {The number of homomorphisms  from \mG\ to \(S^*_2\)}
 
-Goldberg and Jerrum \cite{Goldberg2007} proved that the \pname{Ferromagnetic Ising} problem 
-is AP-interreducible with the \cbis\ problem and 
-Goldberg et al.~\cite{Leslie03} proved that the \pname{\#2-Wrench-Coloring} and
-the \pname{\#2-Particles-WR-Configs} problems are  AP-interreducible with the \cbis\ problem.
+Goldberg and Jerrum \cite{Goldberg2007} proved that the problem \pname{Ferromagnetic Ising} 
+is AP-interreducible with the problem \cbis\ and 
+Goldberg et al.~\cite{Leslie03} proved that the problems \pname{\#2-Wrench-Coloring} and
+the \pname{\#2-Particles-WR-Configs} are  AP-interreducible with the problem \cbis\@.
 
 Here we prove that the two characterizing problems in this class, i.e., \cbis\ and \cdsp,
 are AP-interreducible.
@@ -1255,7 +1254,7 @@ We use the proof from \cite{counting}\@. We denote the number of down-sets in a 
 \(P\) by \(\cds(P)\) and the number of independent sets in a graph \mG\ by
 \(\cis(G)\)\@.
 \begin{proof}
-Let \(P=(X=[n],\preceq)\) be an instance of the \cdsp\ problem. 
+Let \(P=(X=[n],\preceq)\) be an instance of the problem \cdsp\@. 
 Let \(B=(U,V,E)\) be a bipartite graph defined as follows.
 For \(i\) in \(X\), let \(U_i\) and \(V_i\) be a collection of disjoints sets of
 size \(2n\)\@. Then, take \(U=\bigcup_{1 \le i \le n} U_i\), \(V=\bigcup_{1 \le i\le n} V_i\), and
@@ -1297,14 +1296,14 @@ There is no out-going edge from any vertex in \(V\) and since \(I\) is an indepe
 out-neighbors of \(U\cap I\) are limited to \(V - I\); hence, the set \(D=(U \cap I) \cup (V - I)\) is
 a down-set in \(P\)\@.
 
-Hence, we have a parsimonious reduction from the \cbis\ problem to the \cdsp\ problem.
+Hence, we have a parsimonious reduction from the problem \cbis\ to the problem \cdsp\@.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Other Difficult Problems} \label{sec:other}
-Goldberg et al.~\cite{Trichotomy} proved an approximation trichotomy for the Boolean
-\ccsp(\mrelset) problem. A Boolean relation \mR\ is \emph{monotone} if \mR\ is closed under
+Goldberg et al.~\cite{Trichotomy} proved an approximation trichotomy for the Boolean problem
+\ccsp(\mrelset). A Boolean relation \mR\ is \emph{monotone} if \mR\ is closed under
 \(\land\) and \(\lor\) operators; a Boolean constraint languages \mrelset\ is monotone if 
 every relation in \mrelset\ is monotone.
 
@@ -1312,17 +1311,17 @@ every relation in \mrelset\ is monotone.
 \begin{theorem}[Dyer, Goldberg, Jerrum, 2007 \cite{Trichotomy}] \label{thrm:trichotomy}
 For a constraint language \mrelset,
 if \mrelset\ is affine then \ccsp(\mrelset) is polynomial time solvable; otherwise,
-if \mrelset\ is monotone then it is AP-interreducible to the \cbis\ problem; otherwise,
-it is AP-interreducible with the \csat\ problem.
+if \mrelset\ is monotone then it is AP-interreducible to the problem \cbis; otherwise,
+it is AP-interreducible with the problem \csat\@.
 \end{theorem}
 
-Despite the approximation trichotomy for the Boolean \ccsp(\mrelset) problem,
-the non-Boolean \ccsp(\mrelset) problem seems to have more complexity classes.
-So far, our knowledge on complexity classes of the \ccsp(\mrelset) problem 
+Despite the approximation trichotomy for the Boolean problem \ccsp(\mrelset),
+the non-Boolean problem \ccsp(\mrelset) seems to have more complexity classes.
+So far, our knowledge on complexity classes of the problem \ccsp(\mrelset) 
 is very limited. We are not aware if the approximation
 complexity classes for this problem are finite or even countable.
 We know a few problems that are only proven to be harder than
-the \cbis\ problem \cite{Leslie03} and currently, 
+the problem \cbis\ \cite{Leslie03} and currently, 
 we have no knowledge on how hard these problems are.
 
 Here are some of these problems. \pname{\#3-Particles-WR-Configs} was introduced in
