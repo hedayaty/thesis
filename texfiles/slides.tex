@@ -1,0 +1,524 @@
+\ifdefined\handout
+\documentclass[a4paper,handout]{beamer}
+%\usepackage{auxtemplates}
+\setbeamertemplate{footline}[frame number]
+%\setbeamertemplate{footline}{\hfill\color{gray!90!blue} \insertframenumber/\inserttotalframenumber} 
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{4 on 1}[a4paper]%,border shrink=5mm]
+\else
+\documentclass[a4paper]{beamer}
+%\usepackage{beamerthemesplit}
+\usetheme{Copenhagen}
+%\usetheme{Warsaw}
+\useoutertheme{shadow}
+%\setbeamertemplate{footline}[frame plus slide number]
+%\setbeamertemplate{footline}{\insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/\inserttotalframenumber}
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{
+  \begin{beamercolorbox}[wd=.45\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.40\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.5ex,dp=1.25ex,leftskip=.3cm,rightskip =.3cm plus1fil]{page number}
+   \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}
+}%\vskip{0pt}
+}
+
+\setbeamertemplate{headline}
+{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1filll}{}%
+  \end{beamercolorbox}%
+}
+
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Includes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tkz-graph}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\colorlet{mygreen}{green!40!black}
+\colorlet{myorange}{orange!80}
+\colorlet{myblue}{blue!80!black}
+\colorlet{myred}{red!60!black}
+\newcommand{\red}[1]{\only<2->{\textcolor{myred}{#1}}\only<1>{#1}}
+\newcommand{\green}[1]{\only<2->{\textcolor{mygreen}{#1}}\only<1>{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\pname}[1]{\textsc{#1}}
+\newcommand{\ccsp}{\#CSP}
+\newcommand{\cccsp}{\#CSP\(_c\)}
+\newcommand{\cbis}{\#\textsc{BIS}}
+\newcommand{\chom}{\#Hom}
+\newcommand{\cdsp}{\pname{\#DownSets}}
+\newcommand{\cp}{\#P}
+\newcommand{\npc}{NP-complete}
+\newcommand{\npC}{NP-Complete}
+\newcommand{\cpC}{\#P-Complete}
+\newcommand{\cpc}{\#P-complete}
+\newcommand{\csat}{\#SAT}
+\newcommand{\dsat}{2-SAT}
+\newcommand{\tsat}{3-SAT}
+\newcommand{\ctsat}{\#3-SAT}
+\newcommand{\cdsat}{\#2-SAT}
+\newcommand{\tcoloring}{\pname{3-Coloring}}
+\newcommand{\ctcol}{\pname{\#3-Coloring}}
+\newcommand{\cdcol}{\pname{\#2-Coloring}}
+\newcommand{\cisp}{\#IS}
+\newcommand{\cis}{\#\mathrm{IS}}
+\newcommand{\cds}{\#\mathrm{DS}}
+\newcommand{\impl}{\mathcal{P}}
+\newcommand{\aple}{\le_{AP}}
+\newcommand{\apge}{\ge_{AP}}
+\newcommand{\apeq}{\equiv_{AP}}
+\newcommand{\maple}{\(\aple\)}
+\newcommand{\mapge}{\(\apge\)}
+\newcommand{\setof}[1]{\{{#1}\}}
+\newcommand{\oneto}[1]{{1,2,\dotsc,#1}}
+\newcommand{\zto}[1]{{0,1,\dotsc,#1}}
+\newcommand{\zo}{{0,1}}
+\newcommand{\oneoeps}{\frac{1}{\epsilon}}
+\newcommand{\oneoepsp}{\frac{1}{\epsilon'}}
+\newcommand{\eps}{\epsilon}
+
+\theoremstyle{definition}
+\newtheorem{conj}{Conjecture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author{Amir Hedayaty}
+\title{Complexity of Approximating \#CSPs}
+\institute{Simon Fraser University}
+\date{Oct 30th 2012}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{CSP}
+A CSP instance \(\mathcal{P} = (D, V, \mathcal{C})\)
+\begin{itemize}
+\item \(D\) is a domain \onslide<2-> {\(\{1,2,3\}\)}
+\item \(V\) is a set of variables \onslide<2-> {\(\{x_1,x_2,x_3,x_4\}\)}
+\item \(\mathcal{C}\) is a set of constraints \onslide<2-> {\(\{\langle R_1, (x_1,x_2)\rangle, \langle R_2, (x_1, x_4, x_3)\rangle\} \)}
+\end{itemize}
+\pause % for <2->
+\pause
+A Constraint Language \(\Gamma\) is the set of relations used in \(\mathcal{C}\)
+\vspace{1.2cm}
+
+\pause
+A solution \(\varphi\) for \(\mathcal{P}\) is an assignment of \(V\) to \(D\) satisfying all the constraints in \(\mathcal{C}\)
+\pause
+\[\varphi: x_1=1, x_2=3, x_3=1, x_4=2\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Problem CSP(\(\Gamma\))}
+\begin{definition} [The Problem CSP(\(\Gamma\))]
+Input: an instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
+Decide if \(\mathcal{P}\) has a solution
+\end{definition}
+\begin{conj} [Feder and Vardi 1998]
+The problem CSP(\(\Gamma\)) is either polynomial time solvable or NP-complete
+\end{conj}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\tcoloring}
+The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
+\pause
+\[D=\{r,g,b\}\]
+\[R=\{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)\}\]
+\[x\sim y \Rightarrow \langle R, (x,y)\rangle \]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\tsat}
+\onslide<1->{The problem \tsat\ can be expressed with CSP(\(\Gamma\))}
+\pause
+\[D=\{T,F\}\]
+\[R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor z = T\}\]
+\[R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor z = T\}\]
+\[R_3=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor z = T\}\]
+\[R_4=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor \bar z = T\}\]
+\[R_5=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor z = T\}\]
+\[R_6=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor \bar z = T\}\]
+\[R_7=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor \bar z = T\}\]
+\[R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}\]
+\pause
+Note that \(R_1, R_2, R_5, R_8\) are sufficient for any \tsat
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Graph Homomorphism}
+\begin{definition} [Homomorphism]
+A homomorphism is mapping from \(V(G) \to V(H)\) such that
+\[x\sim y \Rightarrow h(x)\sim h(y)\]
+\end{definition}
+\pause
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\begin{scope}[rotate=-135]
+\Vertices[unit=1.3]{circle}{A,B,C,E}
+\end{scope}
+\NOEA[unit=.919](E){D}
+\tikzset{EdgeStyle/.style = {color=myorange}}
+\Edges(A,B,C,D,E,A)
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\EA[unit=3](B) {1}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = myblue,}}
+\EA[unit=4.919](B) {2}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = myred,}}
+\EA[unit=3.919](C) {3}
+\Edges(1,2,3,1)
+\onslide<3->{
+\tikzset{EdgeStyle/.style = {->, bend right}}
+\Edge (A)(1)
+\Edge (B)(2)
+\tikzset{EdgeStyle/.style = {->, bend left}}
+\Edge (E)(3)
+\tikzset{EdgeStyle/.style = {->}}
+\Edge (D)(2)
+\Edge (C)(1)
+}
+\end{tikzpicture}
+\pause
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{CSP and homomorphism}
+CSP generalizes graph homomorphism
+\pause
+
+A homomorphism \(h\) from \(G=(V_G, E_G)\) to \(H=(V_H, E_H)\) \\
+corresponds to \\
+A solution \(\varphi\) in \(\mathcal{P}=(D,V,\mathcal{C})\) with constraint language \(\Gamma\)
+\begin{itemize}
+\item \(D = V_H\)
+\item \(V = V_G\)
+\item \(\Gamma \gets E_H\)
+\item \(\mathcal{C} \gets E_G \)
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Problem Hom(\(H\))}
+\begin{definition} [The problem Hom(\(H\))]
+Input: a graph \(G\)\\
+Decide if there exists a homomorphism from \(G\) to \(H\)
+\end{definition}
+
+\begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990]
+Let \(H\) be a graph\\
+If \(H\) is bipartite or has a loop, Hom(\(H\)) is polynomial time solvable\\
+Otherwise Hom(\(H\)) is NP-complete
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\ccsp(\(\Gamma\))}
+\begin{definition} [The Problem \ccsp(\(\Gamma\))]
+Input: an instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
+The number of solutions for \(\mathcal{P}\)
+\end{definition}
+
+The problems \ctcol\ and \ctsat\ can be expresses by \ccsp(\(\Gamma\))
+\begin{definition} [The problem \chom(\(H\))]
+Input: a graph \(G\)\\
+The number of homomorphisms from \(G\) to \(H\)
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{FP and \cp}
+\begin{definition} [FP]
+The set of functions computable in polynomial time using deterministic Turing machine
+\end{definition}
+
+\begin{definition}[\cp]
+The set of functions expressible by the number of accepting paths of a polynomial time non-deterministic Turing machine
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\ccsp\ Results}
+\begin{theorem} [Creignou and Hermann 1996]
+Let \(\Gamma\) be a Boolean constraint language\\
+If \(\Gamma\) is affine, \ccsp(\(\Gamma\)) is polynomial time solvable\\
+Otherwise \ccsp(\(\Gamma\)) is \cpc
+\end{theorem}
+
+\pause
+
+\begin{theorem} [Dyer and Greenhill 2000] 
+Let \(H\) be a graph\\
+If each connected component of \(H\) is 
+\begin{itemize}
+\item a complete reflexive graph
+\item a complete irreflexive bipartite graph
+\end{itemize}
+\chom(\(H\)) is polynomial time solvable\\
+Otherwise \chom(\(H\)) is \cpc
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\ccsp\ Results Continued}
+\begin{theorem} [Bulatov 2008]
+\ccsp(\(\Gamma\)) is either polynomial time solvable or \cpc
+\end{theorem}
+\pause
+
+\begin{theorem}[Dyer and Richerby 2010]
+Bulatov's dichotomy property is in NP.
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Approximation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{FPRAS}
+\begin{definition} [Fully Polynomial Randomized Approximation Scheme]
+There exists an algorithm \\
+Input: \(x\), \(\eps\) \\
+Output: \(y\) such that with probability \( > \frac{3}{4}\)
+\[\left|\frac{y-f(x)}{f(x)}\right| \le \eps\]
+Running time: polynomial in terms of \(|x|\) and \(\oneoepsp\)
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{APX}
+APX schemes are algorithms with approximation ratio \(\alpha\) \\
+
+\pause
+APX schemes are not used for \ccsp(\(\Gamma\))
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Approximation Preserving Reductions}
+\begin{definition}[AP-reduction]
+if \(f \aple g\) \\
+\[g \in FPRAS \Rightarrow f \in FPRAS\]
+\end{definition}
+
+\pause
+If \(f \aple g\) and \(g \aple f\) then \(f \apeq g\) or \\
+\(f\) and \(g\) are \textcolor{mygreen}{AP-interreducible}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polynomial time Solvable}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\begin{scope}[rotate=-135]
+\Vertices[unit=1.3]{circle}{A,B,C,D}
+\end{scope}
+\Edges(A,B,C,D,A)
+\Edge (A)(C)
+\Edge (B)(D)
+\Loop[dist=30pt, dir=WE](A)
+\Loop[dist=30pt, dir=EA](B)
+\Loop[dist=30pt, dir=EA](C)
+\Loop[dist=30pt, dir=WE](D)
+\EA[unit=2.5](B) {E}
+\EA[unit=4.419](B) {F}
+\EA[unit=3.419](C) {G}
+\Edges(E,F,G,E)
+\end{tikzpicture}
+
+\pause
+Problems \pname{\#Dual-SAT} and \pname{\#Match} are also in FPRAS
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems Hard to Approximate}
+These problems are \\
+\cpc\ with respect to AP-reduction \\
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\Vertices[unit=1.5]{circle}{B,A}
+\Edge (A)(B)
+\Loop[dist=30pt, dir=NO](A)
+\end{tikzpicture}
+
+The problems \csat, \ctsat, \cdsat\ and \cisp\ are examples of this family
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\cbis}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\Vertex[x=0, y=2] {A}
+\Vertex[x=0, y=0] {B}
+\Vertex[x=2, y=2] {C}
+\Vertex[x=2, y=0] {D}
+\Edges (A,C,B,D)
+\end{tikzpicture}
+
+\begin{definition}[\cbis]
+Input: A bipartite graph \(G\)\\
+Output: The number of independent sets in \(G\)
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\cdsp}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={->, color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\Vertices[unit=1]{circle}{B,A}
+\Edge (A)(B)
+\Loop[dist=30pt, dir=NO](A)
+\Loop[dist=30pt, dir=NO](B)
+\end{tikzpicture}
+
+\begin{definition} [\cdsp]
+Input: A partial order \(P\) \\
+Output: The number of downsets in \(P\)
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Trichotomy}
+\begin{theorem} [Dyer, Goldberg and Jerrum 2010]
+Let \(\Gamma\) be a Boolean constraint language\\
+\begin{itemize}
+\item if \(\Gamma\) is affine, \ccsp(\(\Gamma\)) is polynomial time solvable
+\item otherwise if \(\Gamma\) is monotone, \ccsp(\(\Gamma\)) is AP-interreducible with \cbis
+\item otherwise \ccsp(\(\Gamma\)) is \cpc\ with respect to AP-reductions
+\end{itemize}
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Several Techniques Used For AP-reductions}
+\begin{itemize}
+\item Restrict input to connected structures
+\pause
+\item Let \(A\) and \(B\) be two counting problems \\
+\(\varphi\) maps an instance \(\mathcal{P}\) of \(B\) to an instance of \(A\) such that
+\[\#\mathcal{P} = a \cdot \#\varphi(\mathcal{P}) + b\]
+if both \(A\) and \(B\) have always at least one solution then \(B \aple A\)
+\pause
+\item Projections that preserve tuples
+\pause
+\item Pinning: the ability to tie a variable to a certain set of values
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Maximization}
+Let \(\mathcal{P} = (\{1,2,3\}, \{x_1,x_2,y_1,y_2,y_3\}, \mathcal{C})\) be an instance of CSP(\(\Gamma\))\\
+The number of solutions grouped by \(x_1, x_2\) are as follows
+\begin{eqnarray*}
+\begin{array}{c|ccccccccc}
+x_1 & \green{1} & \green{1} & \green{1} & 2 & \green{2} & \green{2} & 3 & 3 & \green{3}\\
+x_2 & \green{1} & \green{2} & \green{3} & 1 & \green{2} & \green{3} & 1 & 2 & \green{3}\\
+\hline
+\#  & \red{7} & \red{7} & \red{7} & 5 & \red{7} & \red{7} & 4 & 3 & \red{7}\\ 
+\end{array}
+\end{eqnarray*}
+\pause
+\(7\) is the maximum number here \\
+\pause
+\(\mathcal{P}\) is a \textcolor{mygreen}{max-implementation} of \(R\) by \(\Gamma\)
+\[R = \{(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3,3)\}\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Maximization Theorem}
+\begin{theorem}
+If \(\Gamma\) max-implements \(R\)
+\[\mathrm{\#CSP(}\Gamma \cap \{R\}\mathrm{)} \aple \mathrm{\#CSP(}\Gamma\mathrm{)}\]
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Monotone Relations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Monotone Relations}
+\begin{definition}[Monotone Relation]
+Let \(R\) be a relation and let \(L=(V, \wedge, \vee)\) be a distributive lattice\\
+\(R\) is monotone if it is closed under operators \(\wedge\) and \(\vee\) 
+\end{definition}
+
+\begin{definition}[Monotone Lanaguage]
+Let \(\Gamma\) be a constraint language\\
+\(\Gamma\) is monotone if for every \(R\in \Gamma\), \(R\) is monotone
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reflexive Oriented Graphs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Monotone Reflexive Graphs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\end{frame}
+
+
+\end{document}
