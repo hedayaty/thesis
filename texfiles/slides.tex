@@ -176,8 +176,11 @@ A homomorphism is mapping from \(V(G) \to V(H)\) such that
 \[x\sim y \Rightarrow h(x)\sim h(y)\]
 \end{definition}
 \pause
+\begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
+\SetVertexMath
+\tikzset{VertexStyle/.style ={shape=circle,ball color = myorange,}}
 \begin{scope}[rotate=-135]
 \Vertices[unit=1.3]{circle}{A,B,C,E}
 \end{scope}
@@ -193,15 +196,24 @@ A homomorphism is mapping from \(V(G) \to V(H)\) such that
 \Edges(1,2,3,1)
 \onslide<3->{
 \tikzset{EdgeStyle/.style = {->, bend right}}
-\Edge (A)(1)
-\Edge (B)(2)
-\tikzset{EdgeStyle/.style = {->, bend left}}
-\Edge (E)(3)
+\Edge (A)(2)
+%\tikzset{EdgeStyle/.style = {->, bend left}}
 \tikzset{EdgeStyle/.style = {->}}
-\Edge (D)(2)
-\Edge (C)(1)
+\Edge (B)(1)
+\Edge (E)(1)
+\Edge (D)(3)
+\Edge (C)(2)
+\tikzset{VertexStyle/.style={shape=circle, ball color = myred,}}
+\Vertex[Node]{D}
+\tikzset{VertexStyle/.style={shape=circle, ball color = myblue,}}
+\Vertex[Node]{A}
+\Vertex[Node]{C}
+\tikzset{VertexStyle/.style={shape=circle, ball color = mygreen,}}
+\Vertex[Node]{B}
+\Vertex[Node]{E}
 }
 \end{tikzpicture}
+\end{center}
 \pause
 \end{frame}
 
@@ -345,8 +357,10 @@ If \(f \aple g\) and \(g \aple f\) then \(f \apeq g\) or \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Polynomial time Solvable}
+\begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
+\SetVertexMath
 \tikzset{EdgeStyle/.style ={color = myorange}}
 \tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
 \begin{scope}[rotate=-135]
@@ -364,6 +378,7 @@ If \(f \aple g\) and \(g \aple f\) then \(f \apeq g\) or \\
 \EA[unit=3.419](C) {G}
 \Edges(E,F,G,E)
 \end{tikzpicture}
+\end{center}
 
 \pause
 Problems \pname{\#Dual-SAT} and \pname{\#Match} are also in FPRAS
@@ -374,6 +389,7 @@ Problems \pname{\#Dual-SAT} and \pname{\#Match} are also in FPRAS
 \frametitle{Problems Hard to Approximate}
 These problems are \\
 \cpc\ with respect to AP-reduction \\
+\begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \tikzset{EdgeStyle/.style ={color = myorange}}
@@ -382,6 +398,7 @@ These problems are \\
 \Edge (A)(B)
 \Loop[dist=30pt, dir=NO](A)
 \end{tikzpicture}
+\end{center}
 
 The problems \csat, \ctsat, \cdsat\ and \cisp\ are examples of this family
 \end{frame}
@@ -389,6 +406,7 @@ The problems \csat, \ctsat, \cdsat\ and \cisp\ are examples of this family
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\cbis}
+\begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \tikzset{EdgeStyle/.style ={color = myorange}}
@@ -399,6 +417,7 @@ The problems \csat, \ctsat, \cdsat\ and \cisp\ are examples of this family
 \Vertex[x=2, y=0] {D}
 \Edges (A,C,B,D)
 \end{tikzpicture}
+\end{center}
 
 \begin{definition}[\cbis]
 Input: A bipartite graph \(G\)\\
@@ -409,6 +428,7 @@ Output: The number of independent sets in \(G\)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\cdsp}
+\begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \tikzset{EdgeStyle/.style ={->, color = myorange}}
@@ -418,6 +438,7 @@ Output: The number of independent sets in \(G\)
 \Loop[dist=30pt, dir=NO](A)
 \Loop[dist=30pt, dir=NO](B)
 \end{tikzpicture}
+\end{center}
 
 \begin{definition} [\cdsp]
 Input: A partial order \(P\) \\
@@ -501,6 +522,49 @@ Let \(R\) be a relation and let \(L=(V, \wedge, \vee)\) be a distributive lattic
 Let \(\Gamma\) be a constraint language\\
 \(\Gamma\) is monotone if for every \(R\in \Gamma\), \(R\) is monotone
 \end{definition}
+
+\begin{theorem}
+If \(\Gamma\) is monotone
+\[\mathrm{\ccsp(}\Gamma\mathrm{)}\aple\mathrm{\cbis}\]
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{A Monotone Relation}
+\begin{example}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={->, color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\Vertices[unit=2]{line}{A,B,C}
+\Edges (A,B,C)
+\Loop[dist=30pt, dir=NO](A)
+\Loop[dist=30pt, dir=NO](B)
+\Loop[dist=30pt, dir=NO](C)
+\end{tikzpicture}
+\end{center}
+\pause
+\begin{eqnarray*}
+&&f : D \to \{0,1\}^2\\
+&&f(A) = (0, 0), f(B) = (0,1), f(C) = (1,1)
+\end{eqnarray*}
+\pause
+\[R_1 = \begin{pmatrix}
+A & A & B & B & C\\
+A & B & B & C & C\\
+\end{pmatrix} 
+\Rightarrow
+R_2 = \begin{pmatrix}
+0 & 0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 0 & 1 & 1 \\
+0 & 1 & 1 & 1 & 1 \\
+\end{pmatrix} \]
+\pause
+\[\mathrm{\ccsp(}R_1\mathrm{)}\aple\mathrm{\ccsp(}R_2\mathrm{)}\aple\mathrm{\cbis}\]
+\end{example}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -509,8 +573,264 @@ Let \(\Gamma\) be a constraint language\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frametitle{Reflexive Oriented Graphs}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={->,color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\begin{scope}[rotate=-135]
+\Vertices[unit=1.3]{circle}{A,B,C,D,E}
+\end{scope}
+\Edges(A,B,C,D,E)
+\Edge (B)(D)
+\Edge (E)(C)
+\Loop[dist=30pt, dir=WE](A)
+\Loop[dist=30pt, dir=EA](B)
+\Loop[dist=30pt, dir=EA](C)
+\Loop[dist=30pt, dir=NO](D)
+\Loop[dist=30pt, dir=WE](E)
+\end{tikzpicture}
+\end{center}
+\pause
+\begin{theorem}
+If \(H\) is a reflexive oriented graph, 
+\[\mathrm{\chom(}H\mathrm{)}\apge \mathrm{\cbis}\]
+\end{theorem}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Notations}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\node[inner sep=0,anchor=east,text width=5.7cm] (note1) at (0,3.5) {\(N_H(a,b) = \{a, b, x_1, x_2, x_3, \dotsc, x_t\}\)};
+\node[inner sep=0,anchor=east,text width=5.7cm] (note2) at (0,2) {\(|N_H(a,b)| = t + 2\)};
+\SetVertexMath
+\tikzset{VertexStyle/.style ={shape = rectangle}}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=1.2, y=3]{a}
+\Vertex[x=1.2, y=0]{b}
+\tikzset{VertexStyle/.style ={shape=circle, inner sep=0, minimum size=3pt, ball color = mygreen}}
+\Vertex[x=0.3, y=1.5]{x_1}
+\Vertex[x=1.0, y=1.5]{x_2}
+\Vertex[x=1.7, y=1.5]{x_3}
+\Vertex[x=2.7, y=1.5]{x_t}
+\tikzset{VertexStyle/.style ={shape = rectangle}}
+\Vertex[x=2.2, y=1.5]{...}
+\tikzset{EdgeStyle/.style ={->}}
+\Edge (a)(x_1)
+\Edge (a)(x_2)
+\Edge (a)(x_3)
+\Edge (a)(x_t)
+\Edge (x_1)(b)
+\Edge (x_2)(b)
+\Edge (x_3)(b)
+\Edge (x_t)(b)
+\Loop[dist=30pt, dir=NO](a)
+\Loop[dist=30pt, dir=SO](b)
+\tikzset{EdgeStyle/.style ={->, bend right = 90}}
+\Edge (a)(b)
+\end{tikzpicture}
+\end{center}
+\pause
+\[k(H) = \max_{a\sim b}\{|N_H(a,b)|\}\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\(k(H)=2\)}
+\[k(H) = 2 \Rightarrow N_H(a,b) = \{a, b\}\]
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (2,-2) {\(H\)};
+\tikzset{VertexStyle/.style ={shape=circle, inner sep=0, minimum size=3pt, ball color = mygreen}}
+\SetVertexMath
+\Vertices{circle}{A, B, C, D, E}
+\tikzset{EdgeStyle/.style ={->}}
+\Edges (A, B, D)
+\Edge (A)(E)
+\Edge (B)(C)
+\Edge (C)(E) 
+\Loop[dist=20pt,dir=ea](A)
+\Loop[dist=20pt,dir=no](B)
+\Loop[dist=20pt,dir=we](C)
+\Loop[dist=20pt,dir=we](D)
+\Loop[dist=20pt,dir=so](E)
+\end{tikzpicture}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (2.5,-.8) {\(H_0\)};
+\tikzset{VertexStyle/.style ={shape=circle, inner sep=0, minimum size=3pt, ball color = mygreen}}
+\SetVertexMath
+\Vertices[unit=2]{line}{T, F}
+\tikzset{EdgeStyle/.style ={->}}
+\Edge (T)(F) 
+\Loop[dist=20pt,dir=no](T)
+\Loop[dist=20pt,dir=no](F)
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\(k(H)=2\)}
+\[k(H) = 2 \Rightarrow N_H(a,b) = \{a, b\}\]
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\SetVertexMath
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (0,1.5) {\(G'\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=3]{u}
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = myorange}}
+\Vertex[x=0, y=1.5]{G}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=0]{v}
+\tikzset{EdgeStyle/.style ={->, bend right = 90}}
+\Edge (u)(v)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange}}
+\Edge(u)(G)
+\Edge(G)(v)
+\end{tikzpicture}
+\end{center}
+\[\hom(G',H) = |E(H)|.\hom(G,H_0) + |V(H)|\]
+\[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_0\mathrm{)} \apge \mathrm{\cbis}\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\(k(H)>2\)}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\SetVertexMath
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (0,1.5) {\(G'\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=3]{u}
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = myorange}}
+\Vertex[x=0, y=1.5]{G}
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = myblue}}
+\Vertex[x=2, y=1.5]{I}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=0]{v}
+\tikzset{EdgeStyle/.style ={->, bend right = 90}}
+\Edge (u)(v)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange}}
+\Edge(u)(G)
+\Edge(G)(v)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange, bend left}}
+\Edge(u)(I)
+\Edge(I)(v)
+\end{tikzpicture}
+\pause
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\node[inner sep=0,anchor=east,text width=1cm] (note1) at (2,1.5) {\(H_i\)};
+\SetVertexMath
+\tikzset{VertexStyle/.style ={shape = rectangle}}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=3]{a}
+\Vertex[x=0, y=0]{b}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = myorange, minimum size = 32pt}}
+\Vertex[x=0, y=1.5]{X}
+\tikzset{EdgeStyle/.style ={->}}
+\Loop[dist=30pt, dir=NO](a)
+\Loop[dist=30pt, dir=SO](b)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange}}
+\Edge (a)(X)
+\Edge (X)(b)
+\tikzset{EdgeStyle/.style ={->, bend right = 90}}
+\Edge (a)(b)
+\end{tikzpicture}
+\end{center}
+\begin{eqnarray*}
+&&\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_1 \cup H_2 \cup \dotsb H_t \mathrm{)}\\
+&&k(H_i) = k(H)
+\end{eqnarray*}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\(k(H)>2\)}
+If all \(H_i\) are isomorphisc
+\[\hom(G,H) = \hom(G,H_1)^t \Rightarrow \mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_1\mathrm{)}\]
+
+By Lov\'asz Theorem \\
+If \(H_i\) and \(H_j\) are not isomorphic there exists a graph \(Z\) such that
+\[\hom(H_i,Z) \neq \hom(H_j,Z)\]
+
+Without loss of generallity assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\SetVertexMath
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (0,1.5) {\(G'\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=3]{u}
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = myorange}}
+\Vertex[x=0, y=1.5]{G}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = myblue, inner sep=0}}
+\Vertex[x=1.5, y=1.5]{Z_1}
+\Vertex[x=2.3, y=1.5]{Z_2}
+\tikzset{VertexStyle/.style ={shape=rectangle}}
+\Vertex[x=3.0, y=1.5]{...}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = myblue, inner sep=0}}
+\Vertex[x=3.6, y=1.5]{Z_m}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=0]{v}
+\tikzset{EdgeStyle/.style ={->, bend right = 90}}
+\Edge (u)(v)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange}}
+\Edge(u)(G)
+\Edge(G)(v)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange, bend left}}
+\Edge(u)(Z_1)
+\Edge(u)(Z_2)
+\Edge(u)(Z_m)
+\Edge(Z_1)(v)
+\Edge(Z_2)(v)
+\Edge(Z_m)(v)
+\end{tikzpicture}
+\end{center}
+\[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_i\mathrm{)}\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\(k(H) > 2\)}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\node[inner sep=0,anchor=east,text width=1cm] (note1) at (2,1.5) {\(H\)};
+\SetVertexMath
+\tikzset{VertexStyle/.style ={shape = rectangle}}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertex[x=0, y=3]{a}
+\Vertex[x=0, y=0]{b}
+\tikzset{VertexStyle/.style ={shape=circle, ball color = myorange, minimum size = 32pt}}
+\Vertex[x=0, y=1.5]{X}
+\tikzset{EdgeStyle/.style ={->}}
+\Loop[dist=30pt, dir=NO](a)
+\Loop[dist=30pt, dir=SO](b)
+\tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange}}
+\Edge (a)(X)
+\Edge (X)(b)
+\tikzset{EdgeStyle/.style ={->, bend right = 90}}
+\Edge (a)(b)
+\end{tikzpicture}
+\end{center}
+\(d^-(u)\) is minimum in \(H\) by Extended Pinning Lemma
+\[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H - u\mathrm{)} \]
+\pause
+\[2 \le k(H - u) \le k(H) - 1\]
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monotone Reflexive Graphs}

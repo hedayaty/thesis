@@ -1,4 +1,5 @@
-default: main.pdf slides.pdf handout.pdf 4in1.pdf
+default: main.pdf slides.pdf 
+handout: handout.pdf 4in1.pdf
 
 include figs/Makefile
 LATEX=pdflatex --synctex=1 -halt-on-error 
