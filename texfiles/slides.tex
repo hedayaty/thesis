@@ -46,8 +46,8 @@
 \colorlet{myorange}{orange!80}
 \colorlet{myblue}{blue!80!black}
 \colorlet{myred}{red!60!black}
-\newcommand{\red}[1]{\only<2->{\textcolor{myred}{#1}}\only<1>{#1}}
-\newcommand{\green}[1]{\only<2->{\textcolor{mygreen}{#1}}\only<1>{#1}}
+\newcommand{\red}[1]{\textcolor<2->{myred}{#1}}
+\newcommand{\green}[1]{\textcolor<2->{mygreen}{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\pname}[1]{\textsc{#1}}
@@ -111,21 +111,27 @@
 
 \begin{frame}
 \frametitle{CSP}
-A CSP instance \(\mathcal{P} = (D, V, \mathcal{C})\)
+A \textcolor{mygreen}{constraint language} \(\Gamma\) is a set of relations
+\pause \onslide<3->{\(\Gamma = \{R_1,R_2\}\)}
+\vskip 12pt
+A CSP(\(\Gamma\)) instance \(\mathcal{P} = (D, V, \mathcal{C})\)
 \begin{itemize}
-\item \(D\) is a domain \onslide<2-> {\(\{1,2,3\}\)}
-\item \(V\) is a set of variables \onslide<2-> {\(\{x_1,x_2,x_3,x_4\}\)}
-\item \(\mathcal{C}\) is a set of constraints \onslide<2-> {\(\{\langle R_1, (x_1,x_2)\rangle, \langle R_2, (x_1, x_4, x_3)\rangle\} \)}
+\item \(D\) is a domain \onslide<3-> {\(\{1,2,3\}\)}
+\item \(V\) is a set of variables \onslide<3-> {\(\{x_1,x_2,x_3,x_4\}\)}
+\item \(\mathcal{C}\) is a set of constraints \\
+\onslide<3-> {\(\{\langle R_1, (x_1,x_2)\rangle, \langle R_2, (x_1, x_4, x_3)\rangle, \langle R_1, (x_2,x_4) \rangle \)\}}
 \end{itemize}
+\vskip 12pt
 \pause % for <2->
-\pause
-A Constraint Language \(\Gamma\) is the set of relations used in \(\mathcal{C}\)
-\vspace{1.2cm}
+\vskip 12pt
 
 \pause
 A solution \(\varphi\) for \(\mathcal{P}\) is an assignment of \(V\) to \(D\) satisfying all the constraints in \(\mathcal{C}\)
 \pause
-\[\varphi: x_1=1, x_2=3, x_3=1, x_4=2\]
+\begin{eqnarray*}
+&&\varphi(x_1)=1, \varphi(x_2)=3, \varphi(x_3)=1, \varphi(x_4)=2 \\
+&&(1,3) \in R_1, (1,2,2) \in R_2, (3,2) \in R_1
+\end{eqnarray*}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -145,9 +151,11 @@ The problem CSP(\(\Gamma\)) is either polynomial time solvable or NP-complete
 \frametitle{\tcoloring}
 The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
 \pause
-\[D=\{r,g,b\}\]
-\[R=\{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)\}\]
-\[x\sim y \Rightarrow \langle R, (x,y)\rangle \]
+\begin{eqnarray*}
+&&D=\{r,g,b\}\\
+&&R=\{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)\}\\
+&&x\sim y \Rightarrow \langle R, (x,y)\rangle \in \mathcal{C} \
+\end{eqnarray*}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,17 +163,20 @@ The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
 \frametitle{\tsat}
 \onslide<1->{The problem \tsat\ can be expressed with CSP(\(\Gamma\))}
 \pause
-\[D=\{T,F\}\]
-\[R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor z = T\}\]
-\[R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor z = T\}\]
-\[R_3=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor z = T\}\]
-\[R_4=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor \bar z = T\}\]
-\[R_5=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor z = T\}\]
-\[R_6=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor \bar z = T\}\]
-\[R_7=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor \bar z = T\}\]
-\[R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}\]
+\begin{eqnarray*}
+&&D=\{T,F\}\\
+&&\Gamma = \{R_1, R_2, R_3, R_4, R_5, R_6, R_7, R_8\}\\
+&&R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor z = T\}\\
+&&R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor z = T\}\\
+&&R_3=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor z = T\}\\
+&&R_4=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor \bar z = T\}\\
+&&R_5=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor z = T\}\\
+&&R_6=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor \bar z = T\}\\
+&&R_7=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor \bar z = T\}\\
+&&R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}
+\end{eqnarray*}
 \pause
-Note that \(R_1, R_2, R_5, R_8\) are sufficient for any \tsat
+Note that \(\Gamma' = \{R_1, R_2, R_5, R_8\}\) is sufficient for \tsat
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -223,9 +234,9 @@ A homomorphism is mapping from \(V(G) \to V(H)\) such that
 CSP generalizes graph homomorphism
 \pause
 
-A homomorphism \(h\) from \(G=(V_G, E_G)\) to \(H=(V_H, E_H)\) \\
+Any homomorphism \(h\) from \(G=(V_G, E_G)\) to \(H=(V_H, E_H)\) \\
 corresponds to \\
-A solution \(\varphi\) in \(\mathcal{P}=(D,V,\mathcal{C})\) with constraint language \(\Gamma\)
+a solution \(\varphi\) in \(\mathcal{P}=(D,V,\mathcal{C})\) of CSP(\(\Gamma\))
 \begin{itemize}
 \item \(D = V_H\)
 \item \(V = V_G\)
@@ -282,7 +293,7 @@ The set of functions expressible by the number of accepting paths of a polynomia
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{\ccsp\ Results}
+\frametitle{Major Results on \ccsp}
 \begin{theorem} [Creignou and Hermann 1996]
 Let \(\Gamma\) be a Boolean constraint language\\
 If \(\Gamma\) is affine, \ccsp(\(\Gamma\)) is polynomial time solvable\\
@@ -305,7 +316,7 @@ Otherwise \chom(\(H\)) is \cpc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{\ccsp\ Results Continued}
+\frametitle{Major Results on \ccsp\ Continued}
 \begin{theorem} [Bulatov 2008]
 \ccsp(\(\Gamma\)) is either polynomial time solvable or \cpc
 \end{theorem}
@@ -316,28 +327,29 @@ Bulatov's dichotomy property is in NP.
 \end{theorem}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Approximation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{FPRAS}
-\begin{definition} [Fully Polynomial Randomized Approximation Scheme]
+FPRAS is the efficient model for approximation
+\begin{block} {\(f \in \) FPRAS}
 There exists an algorithm \\
 Input: \(x\), \(\eps\) \\
 Output: \(y\) such that with probability \( > \frac{3}{4}\)
 \[\left|\frac{y-f(x)}{f(x)}\right| \le \eps\]
-Running time: polynomial in terms of \(|x|\) and \(\oneoepsp\)
-\end{definition}
+Running time: polynomial in terms of \(|x|\) and \(\oneoeps\)
+\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{APX}
 APX schemes are algorithms with approximation ratio \(\alpha\) \\
-
+\vskip 12pt
 \pause
+\begin{theorem}
+If there is an \(\alpha\)-APX for \ccsp(\(\Gamma\)), there an FPRAS for \ccsp(\(\Gamma\))
+\end{theorem}
+\vskip 12pt
 APX schemes are not used for \ccsp(\(\Gamma\))
 \end{frame}
 
@@ -392,15 +404,17 @@ These problems are \\
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (2.5,-.8) {\cisp};
 \tikzset{EdgeStyle/.style ={color = myorange}}
 \tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
-\Vertices[unit=1.5]{circle}{B,A}
+\Vertices[unit=2]{line}{A,B}
 \Edge (A)(B)
 \Loop[dist=30pt, dir=NO](A)
 \end{tikzpicture}
 \end{center}
-
-The problems \csat, \ctsat, \cdsat\ and \cisp\ are examples of this family
+\vskip 12pt
+\pause
+The problems \csat, \ctsat, and \cdsat\ are also in this family
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -461,19 +475,34 @@ Let \(\Gamma\) be a Boolean constraint language\\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Several Techniques Used For AP-reductions}
+\frametitle{Techniques For AP-reductions}
+Let \(A\) and \(B\) be two counting problems; \(B \aple A\) if
 \begin{itemize}
-\item Restrict input to connected structures
+\item \(B\) is same as \(A\) only the input is connected\\
 \pause
-\item Let \(A\) and \(B\) be two counting problems \\
-\(\varphi\) maps an instance \(\mathcal{P}\) of \(B\) to an instance of \(A\) such that
+\item both \(A\) and \(B\) have always at least one solution\\
+there is a function \(\varphi\) mapping an instance \(\mathcal{P}\) of \(B\) to an instance of \(A\) such that
 \[\#\mathcal{P} = a \cdot \#\varphi(\mathcal{P}) + b\]
-if both \(A\) and \(B\) have always at least one solution then \(B \aple A\)
-\pause
-\item Projections that preserve tuples
-\pause
-\item Pinning: the ability to tie a variable to a certain set of values
 \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Pinning}
+Pinning is the ability to tie a variable to a certain set of values
+\vskip 12pt
+\pause
+Let \(\Gamma\) be a constraint language over \(D\)\\
+Let \(R \in \Gamma\) and \(S \subseteq D\) 
+\pause
+\begin{lemma}
+If \(S\) is the set of reflexive vertices in \(R\)
+\[\mathrm{\ccsp(}\Gamma \cup \{S\}\mathrm{)} \aple \mathrm{\ccsp(}\Gamma\mathrm{)}\]
+\end{lemma}
+\begin{lemma}[Extended Pinning]
+if for some \(j\), for all \(a \in S\) TODO
+\[\mathrm{\ccsp(}\Gamma \cup \{S\}\mathrm{)} \aple \mathrm{\ccsp(}\Gamma\mathrm{)}\]
+\end{lemma}
 \end{frame}
 
 
@@ -502,7 +531,7 @@ x_2 & \green{1} & \green{2} & \green{3} & 1 & \green{2} & \green{3} & 1 & 2 & \g
 \frametitle{Maximization Theorem}
 \begin{theorem}
 If \(\Gamma\) max-implements \(R\)
-\[\mathrm{\#CSP(}\Gamma \cap \{R\}\mathrm{)} \aple \mathrm{\#CSP(}\Gamma\mathrm{)}\]
+\[\mathrm{\#CSP(}\Gamma \cup \{R\}\mathrm{)} \aple \mathrm{\#CSP(}\Gamma\mathrm{)}\]
 \end{theorem}
 \end{frame}
 
@@ -514,7 +543,7 @@ If \(\Gamma\) max-implements \(R\)
 \begin{frame}
 \frametitle{Monotone Relations}
 \begin{definition}[Monotone Relation]
-Let \(R\) be a relation and let \(L=(V, \wedge, \vee)\) be a distributive lattice\\
+Let \(R\) be a relation and let \(L=(D, \wedge, \vee)\) be a distributive lattice\\
 \(R\) is monotone if it is closed under operators \(\wedge\) and \(\vee\) 
 \end{definition}
 
@@ -547,7 +576,7 @@ If \(\Gamma\) is monotone
 \end{center}
 \pause
 \begin{eqnarray*}
-&&f : D \to \{0,1\}^2\\
+&&f : \{A,B,C\} \to \{0,1\}^2\\
 &&f(A) = (0, 0), f(B) = (0,1), f(C) = (1,1)
 \end{eqnarray*}
 \pause
@@ -635,7 +664,7 @@ If \(H\) is a reflexive oriented graph,
 \end{tikzpicture}
 \end{center}
 \pause
-\[k(H) = \max_{a\sim b}\{|N_H(a,b)|\}\]
+\[k(H) = \max_{a\to b}\{|N_H(a,b)|\}\]
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -755,14 +784,14 @@ If \(H\) is a reflexive oriented graph,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\(k(H)>2\)}
-If all \(H_i\) are isomorphisc
+If all \(H_i\) are isomorphic
 \[\hom(G,H) = \hom(G,H_1)^t \Rightarrow \mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_1\mathrm{)}\]
 
 By Lov\'asz Theorem \\
 If \(H_i\) and \(H_j\) are not isomorphic there exists a graph \(Z\) such that
 \[\hom(H_i,Z) \neq \hom(H_j,Z)\]
 
-Without loss of generallity assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
+Without loss of generality assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
