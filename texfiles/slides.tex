@@ -39,6 +39,7 @@
 \fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Includes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tkz-graph}
+\usepackage{amsmath}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -400,7 +401,7 @@ Problems \pname{\#Dual-SAT} and \pname{\#Match} are also in FPRAS
 \begin{frame}
 \frametitle{Problems Hard to Approximate}
 These problems are \\
-\cpc\ with respect to AP-reduction \\
+\cpc\ with respect to AP-reductions \\
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
@@ -492,17 +493,23 @@ there is a function \(\varphi\) mapping an instance \(\mathcal{P}\) of \(B\) to 
 Pinning is the ability to tie a variable to a certain set of values
 \vskip 12pt
 \pause
-Let \(\Gamma\) be a constraint language over \(D\)\\
-Let \(R \in \Gamma\) and \(S \subseteq D\) 
-\pause
-\begin{lemma}
-If \(S\) is the set of reflexive vertices in \(R\)
-\[\mathrm{\ccsp(}\Gamma \cup \{S\}\mathrm{)} \aple \mathrm{\ccsp(}\Gamma\mathrm{)}\]
-\end{lemma}
 \begin{lemma}[Extended Pinning]
-if for some \(j\), for all \(a \in S\) TODO
+Let \(\Gamma\) be a constraint language over \(D\)\\
+Let \(R \in \Gamma\), \(S \subseteq D\), \(1 \le j \le \mathrm{arity}(R)\)\\
+if, for any \(x \in S\), \(\mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] =x\} > \mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] \not\in S\}\) then
 \[\mathrm{\ccsp(}\Gamma \cup \{S\}\mathrm{)} \aple \mathrm{\ccsp(}\Gamma\mathrm{)}\]
 \end{lemma}
+\begin{exampleblock}{}
+\vspace{-18pt}
+\begin{eqnarray*}
+&& D=\{1,2,3,4\},~~~~\Gamma = \{R\},\\
+&&R= \begin{pmatrix}
+\textcolor{myblue}{1} & \textcolor{myblue}{1} & \textcolor{myblue}{1} & \textcolor{myblue}{2} & \textcolor{myblue}{2} & \textcolor{myblue}{2} & \textcolor{myred}{3} & \textcolor{myred}{4}\\
+2 & 3 & 4 & 1 & 2 & 3 & 1 & 2
+\end{pmatrix},\\
+&&S = \{1, 2\},~~~~j = 1.
+\end{eqnarray*}
+\end{exampleblock}
 \end{frame}
 
 
@@ -552,7 +559,7 @@ Let \(\Gamma\) be a constraint language\\
 \(\Gamma\) is monotone if for every \(R\in \Gamma\), \(R\) is monotone
 \end{definition}
 
-\begin{theorem}
+\begin{theorem} [Bulatov and Hedayaty 2009]
 If \(\Gamma\) is monotone
 \[\mathrm{\ccsp(}\Gamma\mathrm{)}\aple\mathrm{\cbis}\]
 \end{theorem}
@@ -577,9 +584,10 @@ If \(\Gamma\) is monotone
 \pause
 \begin{eqnarray*}
 &&f : \{A,B,C\} \to \{0,1\}^2\\
-&&f(A) = (0, 0), f(B) = (0,1), f(C) = (1,1)
+&&f(A) = \binom 00, f(B) = \binom 01, f(C) = \binom 11
 \end{eqnarray*}
 \pause
+\vspace{-12pt}
 \[R_1 = \begin{pmatrix}
 A & A & B & B & C\\
 A & B & B & C & C\\
@@ -589,7 +597,7 @@ R_2 = \begin{pmatrix}
 0 & 0 & 0 & 0 & 1 \\
 0 & 0 & 1 & 1 & 1 \\
 0 & 0 & 0 & 1 & 1 \\
-0 & 1 & 1 & 1 & 1 \\
+0 & 1 & 1 & 1 & 1
 \end{pmatrix} \]
 \pause
 \[\mathrm{\ccsp(}R_1\mathrm{)}\aple\mathrm{\ccsp(}R_2\mathrm{)}\aple\mathrm{\cbis}\]
@@ -761,18 +769,18 @@ If \(H\) is a reflexive oriented graph,
 \SetVertexMath
 \tikzset{VertexStyle/.style ={shape = rectangle}}
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
-\Vertex[x=0, y=3]{a}
-\Vertex[x=0, y=0]{b}
+\Vertex[x=0, y=3]{a_i}
+\Vertex[x=0, y=0]{b_i}
 \tikzset{VertexStyle/.style ={shape=circle, ball color = myorange, minimum size = 32pt}}
-\Vertex[x=0, y=1.5]{X}
+\Vertex[x=0, y=1.5]{X_i}
 \tikzset{EdgeStyle/.style ={->}}
-\Loop[dist=30pt, dir=NO](a)
-\Loop[dist=30pt, dir=SO](b)
+\Loop[dist=30pt, dir=NO](a_i)
+\Loop[dist=30pt, dir=SO](b_i)
 \tikzset{EdgeStyle/.style ={->, ultra thick, color=myorange}}
-\Edge (a)(X)
-\Edge (X)(b)
+\Edge (a_i)(X_i)
+\Edge (X_i)(b_i)
 \tikzset{EdgeStyle/.style ={->, bend right = 90}}
-\Edge (a)(b)
+\Edge (a_i)(b_i)
 \end{tikzpicture}
 \end{center}
 \begin{eqnarray*}
@@ -786,16 +794,18 @@ If \(H\) is a reflexive oriented graph,
 \frametitle{\(k(H)>2\)}
 If all \(H_i\) are isomorphic
 \[\hom(G,H) = \hom(G,H_1)^t \Rightarrow \mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_1\mathrm{)}\]
+\pause
 
 By Lov\'asz Theorem \\
 If \(H_i\) and \(H_j\) are not isomorphic there exists a graph \(Z\) such that
-\[\hom(H_i,Z) \neq \hom(H_j,Z)\]
+\[\hom(Z,H_i) \neq \hom(Z,H_j)\]
 
-Without loss of generality assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
+Without loss of generality assume \(\hom(Z,H_i) > \hom(Z,H_j)\)
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frametitle{Using Pinning}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=shade]
@@ -834,6 +844,7 @@ Without loss of generality assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\(k(H) > 2\)}
+\begin{minipage}{0.45\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=shade]
@@ -855,10 +866,15 @@ Without loss of generality assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
 \Edge (a)(b)
 \end{tikzpicture}
 \end{center}
-\(d^-(u)\) is minimum in \(H\) by Extended Pinning Lemma
+\end{minipage}
+\begin{minipage}{.45\linewidth}
+for any \(x \in V(H) - u\)
+ \[d^-(u) < d^(x)\]
+By Extended Pinning Lemma
 \[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H - u\mathrm{)} \]
 \pause
 \[2 \le k(H - u) \le k(H) - 1\]
+\end{minipage}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -867,7 +883,245 @@ Without loss of generality assume \(\hom(H_i,Z) > \hom(H_j,Z)\)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frametitle{Interval and Proper Interval Graphs}
+\begin{block}{Interval Graph}
+\begin{minipage}{0.55\linewidth}
+A graph representable by intervals\\
+Vertices \(\gets\) intervals \\
+Edges \(\gets\) Non-empty intersections
+\end{minipage}
+\begin{minipage}{0.35\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Empty]
+\SetVertexNoLabel
+\tikzset{VertexStyle/.style ={}}
+\Vertex[x=0, y=0]{A}
+\Vertex[x=3.8, y=0]{B}
+\Vertex[x=0.2, y=.5]{C}
+\Vertex[x=1.2, y=.5]{D}
+\Vertex[x=1.4, y=.5]{E}
+\Vertex[x=2.4, y=.5]{F}
+\Vertex[x=2.6, y=.5]{G}
+\Vertex[x=3.6, y=.5]{H}
+\tikzset{EdgeStyle/.style ={|-|, double}}
+\tikzset{LabelStyle/.style ={fill=none, below}}
+\Edge[label=A](A)(B)
+\tikzset{LabelStyle/.style ={fill=none, above}}
+\Edge[label=B](C)(D)
+\Edge[label=C](E)(F)
+\Edge[label=D](G)(H)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\end{block}
+\pause
+\begin{block}{Proper Interval Graph}
+\begin{minipage}{0.55\linewidth}
+A graph representable by intervals\\
+that are not subset of each other\\
+Vertices \(\gets\) intervals \\
+Edges \(\gets\) Non-empty intersections
+\end{minipage}
+\begin{minipage}{0.35\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Empty]
+\SetVertexNoLabel
+\tikzset{VertexStyle/.style ={}}
+\Vertex[x=1, y=0]{A}
+\Vertex[x=2.8, y=0]{B}
+\Vertex[x=0.5, y=.5]{C}
+\Vertex[x=1.8, y=.5]{D}
+\Vertex[x=2.0, y=.5]{E}
+\Vertex[x=3.3, y=.5]{F}
+\tikzset{EdgeStyle/.style ={|-|, double}}
+\tikzset{LabelStyle/.style ={fill=none, below}}
+\Edge[label=A](A)(B)
+\tikzset{LabelStyle/.style ={fill=none, above}}
+\Edge[label=B](C)(D)
+\Edge[label=C](E)(F)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\end{block}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Min-Max Characterizations}
+\begin{lemma}
+Interval graphs are closed under operator \(\wedge\) from a total order
+\end{lemma}
+\begin{exampleblock}{}
+\vspace{-6pt}
+\[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2)\]
+\end{exampleblock}
+\pause
+\begin{lemma}
+Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a total order
+\end{lemma}
+\begin{exampleblock}{}
+\vspace{-18pt}
+\[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2), (u_1 \vee u_2) \sim (v_1 \vee v_2)\]
+\end{exampleblock}
+\end{frame}
 
+\begin{frame}
+\frametitle{Examples}
+\begin{minipage}{0.29\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-.5) {\(H_1\)};
+\SetVertexNoLabel
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\Vertices[unit=1.2]{square}{A,B,C,D}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edge (A)(B)
+\Edge (A)(C)
+\Edge (A)(D)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\pause
+\begin{minipage}{0.69\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(H_2\)};
+\SetVertexNoLabel
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\begin{scope}[rotate=45]
+\Vertex[x=0, y=0]{A}
+\Vertex[x=0, y=1]{B}
+\Vertex[x=0, y=2]{C}
+\Vertex[x=1, y=0]{D}
+\Vertex[x=1, y=1]{E}
+\Vertex[x=1, y=2]{F}
+\Vertex[x=2, y=0]{G}
+\Vertex[x=2, y=1]{H}
+\Vertex[x=2, y=2]{I}
+\end{scope}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edge(A)(B)
+\Edge(A)(D)
+\Edge(A)(E)
+\Edge(B)(C)
+\Edge(B)(D)
+\Edge(B)(E)
+\Edge(C)(E)
+\Edge(C)(F)
+\Edge(B)(F)
+\Edge(D)(E)
+\Edge(D)(G)
+\Edge(D)(H)
+\Edge(E)(F)
+\Edge(E)(G)
+\Edge(E)(H)
+\Edge(E)(I)
+\Edge(F)(H)
+\Edge(F)(I)
+\Edge(G)(H)
+\Edge(H)(I)
+\onslide<3->{
+\tikzset{VertexStyle/.style ={shape=circle,ball color = myred,}}
+\Vertex[Node]{B}
+\Vertex[Node]{D}
+\Vertex[Node]{F}
+\Vertex[Node]{H}
+\tikzset{EdgeStyle/.style ={thick,color = myred,}}
+\Edges(B,F,H,D,B)
+}
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\pause
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Products}
+\begin{minipage}{0.19\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\SetVertexNoLabel
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-.5) {\(G_1\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\begin{scope}[rotate=135]
+\Vertices[unit=1.2]{line}{A,B}
+\end{scope}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edge(A)(B)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.29\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\SetVertexNoLabel
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(G_2\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\begin{scope}[rotate=45]
+\Vertices[unit=1.2]{line}{A,B,C}
+\end{scope}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edges (A,B,C)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\SetVertexNoLabel
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(G_1\times G_2\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\begin{scope}[rotate=45]
+\Vertices[unit=1.2]{line}{A,B,C}
+\Vertices[x=0, y=1.2, unit=1.2]{line}{D,E,F}
+\end{scope}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edges (A,B,C)
+\Edges (D,E,F)
+\Edge (A)(D)
+\Edge (B)(E)
+\Edge (C)(F)
+\Edge (B)(D)
+\Edge (C)(E)
+\Edge (A)(E)
+\Edge (B)(F)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
+\[u_1\sim v_1, u_2\sim v_2 \Rightarrow (u_1,u_2) \sim (v_1,v_2)\]
+\pause
+\begin{block}{}
+If \(G_1\) and \(G_2\) are monotone graphs, \(G_1\times G_2\) is a monotone graph
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Retractions}
+\begin{definition}[Retraction]
+\begin{minipage}{0.49\linewidth}
+Let \(G\) be a graph and \(H \subseteq G\)\\
+\(r: G\to H\) is a retraction if\\
+\(\forall v\in H : r(v) = v\)
+\end{minipage}
+\end{definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Generating Monotone Graphs}
+\end{frame}
 \end{document}
