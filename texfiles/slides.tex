@@ -50,6 +50,7 @@
 \newcommand{\red}[1]{\textcolor<2->{myred}{#1}}
 \newcommand{\green}[1]{\textcolor<2->{mygreen}{#1}}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Definitions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\pname}[1]{\textsc{#1}}
 \newcommand{\ccsp}{\#CSP}
@@ -113,7 +114,7 @@
 \begin{frame}
 \frametitle{CSP}
 A \textcolor{mygreen}{constraint language} \(\Gamma\) is a set of relations
-\pause \onslide<3->{\(\Gamma = \{R_1,R_2\}\)}
+\pause \onslide<3->{\(\{R_1,R_2\}\)}
 \vskip 12pt
 A CSP(\(\Gamma\)) instance \(\mathcal{P} = (D, V, \mathcal{C})\)
 \begin{itemize}
@@ -127,7 +128,7 @@ A CSP(\(\Gamma\)) instance \(\mathcal{P} = (D, V, \mathcal{C})\)
 \vskip 12pt
 
 \pause
-A solution \(\varphi\) for \(\mathcal{P}\) is an assignment of \(V\) to \(D\) satisfying all the constraints in \(\mathcal{C}\)
+A \textcolor{mygreen}{solution} \(\varphi\) for \(\mathcal{P}\) is an assignment of \(V\) to \(D\) satisfying all the constraints in \(\mathcal{C}\)
 \pause
 \begin{eqnarray*}
 &&\varphi(x_1)=1, \varphi(x_2)=3, \varphi(x_3)=1, \varphi(x_4)=2 \\
@@ -153,9 +154,9 @@ The problem CSP(\(\Gamma\)) is either polynomial time solvable or NP-complete
 The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
 \pause
 \begin{eqnarray*}
-&&D=\{r,g,b\}\\
-&&R=\{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)\}\\
-&&x\sim y \Rightarrow \langle R, (x,y)\rangle \in \mathcal{C} \
+&&D=\{r,g,b\},\\
+&&R=\{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)\},\\
+&&x\sim y \Rightarrow \langle R, (x,y)\rangle \in \mathcal{C}.
 \end{eqnarray*}
 \end{frame}
 
@@ -177,7 +178,7 @@ The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
 &&R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}
 \end{eqnarray*}
 \pause
-Note that \(\Gamma' = \{R_1, R_2, R_5, R_8\}\) is sufficient for \tsat
+Note that \(\Gamma' = \{R_1, R_2, R_5, R_8\}\) is sufficient to express \tsat
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -231,13 +232,13 @@ A homomorphism is mapping from \(V(G) \to V(H)\) such that
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{CSP and homomorphism}
+\frametitle{CSP and Homomorphism}
 CSP generalizes graph homomorphism
 \pause
 
-Any homomorphism \(h\) from \(G=(V_G, E_G)\) to \(H=(V_H, E_H)\) \\
+Any \textcolor{mygreen}{homomorphism \(h\)} from \(G=(V_G, E_G)\) to \(H=(V_H, E_H)\) \\
 corresponds to \\
-a solution \(\varphi\) in \(\mathcal{P}=(D,V,\mathcal{C})\) of CSP(\(\Gamma\))
+a \textcolor{mygreen}{solution \(\varphi\)} in \(\mathcal{P}=(D,V,\mathcal{C})\) of CSP(\(\Gamma\))
 \begin{itemize}
 \item \(D = V_H\)
 \item \(V = V_G\)
@@ -256,7 +257,7 @@ Decide if there exists a homomorphism from \(G\) to \(H\)
 
 \begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990]
 Let \(H\) be a graph\\
-If \(H\) is bipartite or has a loop, Hom(\(H\)) is polynomial time solvable\\
+If \(H\) is \textcolor{mygreen}{bipartite} or has a \textcolor{mygreen}{loop}, Hom(\(H\)) is polynomial time solvable\\
 Otherwise Hom(\(H\)) is NP-complete
 \end{theorem}
 \end{frame}
@@ -269,7 +270,7 @@ Input: an instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
 The number of solutions for \(\mathcal{P}\)
 \end{definition}
 
-The problems \ctcol\ and \ctsat\ can be expresses by \ccsp(\(\Gamma\))
+The problems \ctcol\ and \ctsat\ can be expressed as \ccsp(\(\Gamma\))
 \begin{definition} [The problem \chom(\(H\))]
 Input: a graph \(G\)\\
 The number of homomorphisms from \(G\) to \(H\)
@@ -296,8 +297,8 @@ The set of functions expressible by the number of accepting paths of a polynomia
 \begin{frame}
 \frametitle{Major Results on \ccsp}
 \begin{theorem} [Creignou and Hermann 1996]
-Let \(\Gamma\) be a Boolean constraint language\\
-If \(\Gamma\) is affine, \ccsp(\(\Gamma\)) is polynomial time solvable\\
+Let \(\Gamma\) be a \textcolor{mygreen}{Boolean} constraint language\\
+If \(\Gamma\) is \textcolor{mygreen}{affine}, \ccsp(\(\Gamma\)) is polynomial time solvable\\
 Otherwise \ccsp(\(\Gamma\)) is \cpc
 \end{theorem}
 
@@ -348,7 +349,8 @@ APX schemes are algorithms with approximation ratio \(\alpha\) \\
 \vskip 12pt
 \pause
 \begin{theorem}
-If there is an \(\alpha\)-APX for \ccsp(\(\Gamma\)), there an FPRAS for \ccsp(\(\Gamma\))
+If there is an \(\alpha\)-APX for \ccsp(\(\Gamma\)), then\\
+there an FPRAS for \ccsp(\(\Gamma\))
 \end{theorem}
 \vskip 12pt
 APX schemes are not used for \ccsp(\(\Gamma\))
@@ -358,18 +360,15 @@ APX schemes are not used for \ccsp(\(\Gamma\))
 \begin{frame}
 \frametitle{Approximation Preserving Reductions}
 \begin{definition}[AP-reduction]
-if \(f \aple g\) \\
+\(f \aple g\) if \\
 \[g \in FPRAS \Rightarrow f \in FPRAS\]
 \end{definition}
 
-\pause
-If \(f \aple g\) and \(g \aple f\) then \(f \apeq g\) or \\
-\(f\) and \(g\) are \textcolor{mygreen}{AP-interreducible}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Polynomial time Solvable}
+\frametitle{Examples of FPRAS}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
@@ -467,8 +466,8 @@ Output: The number of downsets in \(P\)
 \begin{theorem} [Dyer, Goldberg and Jerrum 2010]
 Let \(\Gamma\) be a Boolean constraint language\\
 \begin{itemize}
-\item if \(\Gamma\) is affine, \ccsp(\(\Gamma\)) is polynomial time solvable
-\item otherwise if \(\Gamma\) is monotone, \ccsp(\(\Gamma\)) is AP-interreducible with \cbis
+\item if \(\Gamma\) is \textcolor{mygreen}{affine}, \ccsp(\(\Gamma\)) is polynomial time solvable
+\item otherwise if \(\Gamma\) is \textcolor{mygreen}{monotone}, \ccsp(\(\Gamma\)) is AP-interreducible with \cbis
 \item otherwise \ccsp(\(\Gamma\)) is \cpc\ with respect to AP-reductions
 \end{itemize}
 \end{theorem}
@@ -479,9 +478,9 @@ Let \(\Gamma\) be a Boolean constraint language\\
 \frametitle{Techniques For AP-reductions}
 Let \(A\) and \(B\) be two counting problems; \(B \aple A\) if
 \begin{itemize}
-\item \(B\) is same as \(A\) only the input is connected\\
+\item \(B\) is same as \(A\) only the input must be connected\\
 \pause
-\item both \(A\) and \(B\) have always at least one solution\\
+\item both \(A\) and \(B\) have always at least one solution and \\
 there is a function \(\varphi\) mapping an instance \(\mathcal{P}\) of \(B\) to an instance of \(A\) such that
 \[\#\mathcal{P} = a \cdot \#\varphi(\mathcal{P}) + b\]
 \end{itemize}
@@ -529,7 +528,7 @@ x_2 & \green{1} & \green{2} & \green{3} & 1 & \green{2} & \green{3} & 1 & 2 & \g
 \pause
 \(7\) is the maximum number here \\
 \pause
-\(\mathcal{P}\) is a \textcolor{mygreen}{max-implementation} of \(R\) by \(\Gamma\)
+\(\mathcal{P}\) is a \textcolor{mygreen}{max-implementation} of \(R\) by \(\Gamma\) where
 \[R = \{(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3,3)\}\]
 \end{frame}
 
@@ -537,7 +536,7 @@ x_2 & \green{1} & \green{2} & \green{3} & 1 & \green{2} & \green{3} & 1 & 2 & \g
 \begin{frame}
 \frametitle{Maximization Theorem}
 \begin{theorem}
-If \(\Gamma\) max-implements \(R\)
+If \(\Gamma\) \textcolor{mygreen}{max-implements} \(R\) then
 \[\mathrm{\#CSP(}\Gamma \cup \{R\}\mathrm{)} \aple \mathrm{\#CSP(}\Gamma\mathrm{)}\]
 \end{theorem}
 \end{frame}
@@ -550,8 +549,8 @@ If \(\Gamma\) max-implements \(R\)
 \begin{frame}
 \frametitle{Monotone Relations}
 \begin{definition}[Monotone Relation]
-Let \(R\) be a relation and let \(L=(D, \wedge, \vee)\) be a distributive lattice\\
-\(R\) is monotone if it is closed under operators \(\wedge\) and \(\vee\) 
+Let \(R\) be a relation and let \(L=(D, \wedge, \vee)\) be a \textcolor{mygreen}{distributive lattice}\\
+\(R\) is \textcolor{mygreen}{monotone} if it is closed under operators \(\wedge\) and \(\vee\) 
 \end{definition}
 
 \begin{definition}[Monotone Lanaguage]
@@ -560,7 +559,7 @@ Let \(\Gamma\) be a constraint language\\
 \end{definition}
 
 \begin{theorem} [Bulatov and Hedayaty 2009]
-If \(\Gamma\) is monotone
+If \(\Gamma\) is monotone then
 \[\mathrm{\ccsp(}\Gamma\mathrm{)}\aple\mathrm{\cbis}\]
 \end{theorem}
 \end{frame}
@@ -631,7 +630,7 @@ R_2 = \begin{pmatrix}
 \end{center}
 \pause
 \begin{theorem}
-If \(H\) is a reflexive oriented graph, 
+If \(H\) is a reflexive oriented graph, then
 \[\mathrm{\chom(}H\mathrm{)}\apge \mathrm{\cbis}\]
 \end{theorem}
 \end{frame}
@@ -678,13 +677,12 @@ If \(H\) is a reflexive oriented graph,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\(k(H)=2\)}
-\[k(H) = 2 \Rightarrow N_H(a,b) = \{a, b\}\]
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \node[inner sep=0,anchor=east,text width=2cm] (note1) at (2,-2) {\(H\)};
-\tikzset{VertexStyle/.style ={shape=circle, inner sep=0, minimum size=3pt, ball color = mygreen}}
-\SetVertexMath
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=3pt, ball color = mygreen}}
+\SetVertexNoLabel
 \Vertices{circle}{A, B, C, D, E}
 \tikzset{EdgeStyle/.style ={->}}
 \Edges (A, B, D)
@@ -700,8 +698,8 @@ If \(H\) is a reflexive oriented graph,
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \node[inner sep=0,anchor=east,text width=2cm] (note1) at (2.5,-.8) {\(H_0\)};
-\tikzset{VertexStyle/.style ={shape=circle, inner sep=0, minimum size=3pt, ball color = mygreen}}
-\SetVertexMath
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=3pt, ball color = mygreen}}
+\SetVertexNoLabel
 \Vertices[unit=2]{line}{T, F}
 \tikzset{EdgeStyle/.style ={->}}
 \Edge (T)(F) 
@@ -749,7 +747,7 @@ If \(H\) is a reflexive oriented graph,
 \Vertex[x=0, y=3]{u}
 \tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = myorange}}
 \Vertex[x=0, y=1.5]{G}
-\tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = myblue}}
+\tikzset{VertexStyle/.style ={shape=circle, minimum size=40pt, ball color = blue!40}}
 \Vertex[x=2, y=1.5]{I}
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
 \Vertex[x=0, y=0]{v}
@@ -805,7 +803,7 @@ Without loss of generality assume \(\hom(Z,H_i) > \hom(Z,H_j)\)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Using Pinning}
+\frametitle{Resolving Non-Isomorphic Components}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=shade]
@@ -843,7 +841,7 @@ Without loss of generality assume \(\hom(Z,H_i) > \hom(Z,H_j)\)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{\(k(H) > 2\)}
+\frametitle{Using Pinning}
 \begin{minipage}{0.45\linewidth}
 \begin{center}
 \begin{tikzpicture}
@@ -868,12 +866,12 @@ Without loss of generality assume \(\hom(Z,H_i) > \hom(Z,H_j)\)
 \end{center}
 \end{minipage}
 \begin{minipage}{.45\linewidth}
-for any \(x \in V(H) - u\)
- \[d^-(u) < d^(x)\]
+for any \(x \in V(H) - a\)
+ \[d^-(a) < d^-(x)\]
 By Extended Pinning Lemma
-\[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H - u\mathrm{)} \]
+\[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H - a\mathrm{)} \]
 \pause
-\[2 \le k(H - u) \le k(H) - 1\]
+\[2 \le k(H - a) \le k(H) - 1\]
 \end{minipage}
 \end{frame}
 
@@ -887,7 +885,7 @@ By Extended Pinning Lemma
 \begin{block}{Interval Graph}
 \begin{minipage}{0.55\linewidth}
 A graph representable by intervals\\
-Vertices \(\gets\) intervals \\
+Vertices \(\gets\) Intervals \\
 Edges \(\gets\) Non-empty intersections
 \end{minipage}
 \begin{minipage}{0.35\linewidth}
@@ -920,7 +918,7 @@ Edges \(\gets\) Non-empty intersections
 \begin{minipage}{0.55\linewidth}
 A graph representable by intervals\\
 that are not subset of each other\\
-Vertices \(\gets\) intervals \\
+Vertices \(\gets\) Intervals \\
 Edges \(\gets\) Non-empty intersections
 \end{minipage}
 \begin{minipage}{0.35\linewidth}
@@ -1115,13 +1113,107 @@ If \(G_1\) and \(G_2\) are monotone graphs, \(G_1\times G_2\) is a monotone grap
 \begin{minipage}{0.49\linewidth}
 Let \(G\) be a graph and \(H \subseteq G\)\\
 \(r: G\to H\) is a retraction if\\
-\(\forall v\in H : r(v) = v\)
+\(\forall v\in H : r(v) = v\)\\
+\(u\sim v \Rightarrow r(u) \sim r(v)\)
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\SetVertexNoLabel
+%\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(G_1\times G_2\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\begin{scope}[rotate=45]
+\Vertex[x=0, y=0]{A}
+\Vertex[x=1.2, y=0]{B}
+\onslide<-2>{\Vertex[x=2.4, y=0]{C}}
+%\Vertices[unit=1.2]{line}{A,B,\only<3->{C}}
+\Vertices[x=0, y=1.2, unit=1.2]{line}{D,E,F}
+\end{scope}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edges (D,E,F)
+\Edge (A)(B)
+\Edge (A)(D)
+\Edge (B)(E)
+\Edge (B)(D)
+\onslide<-2>{
+\Edge (C)(F)
+\Edge (B)(C)
+\Edge (C)(E)
+}
+\Edge (A)(E)
+\Edge (B)(F)
+\only<2>{
+\tikzset{EdgeStyle/.style ={->,draw, bend right, color=myred}}
+\Edge(C)(E)
+}
+\end{tikzpicture}
+\end{center}
 \end{minipage}
 \end{definition}
+\pause
+\pause
+\pause
+\begin{lemma}
+Let \(G\) be a monotone graph\\
+Any retract \(H\) of \(G\) is also a monotone graph
+\end{lemma}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Generating Monotone Graphs}
+Generate monotone graphs as follows
+\begin{itemize}
+\item Take proper interval graphs \(G_1, G_2, \dotsc, G_k\)
+\pause
+\item Let \(G'=G_1\times G_2 \times \dotsb G_k\)
+\pause
+\item Let \(G^r\) be a retract of \(G'\)
+\end{itemize}
+\pause
+This does not generate all the monotone graphs
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\SetVertexMath
+\SetVertexNoLabel
+%\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(G_1\times G_2\)};
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
+\begin{scope}[rotate=45]
+\Vertex[x=0, y=0]{A}
+\Vertex[x=1.2, y=0]{B}
+\onslide<4>{\Vertex[x=2.4, y=0]{C}}
+%\Vertices[unit=1.2]{line}{A,B,\only<3->{C}}
+\Vertices[x=0, y=1.2, unit=1.2]{line}{D,E,F}
+\end{scope}
+\tikzset{EdgeStyle/.style ={-,draw}}
+\Edges (D,E,F)
+\Edge (A)(B)
+\Edge (A)(D)
+\Edge (B)(E)
+\Edge (B)(D)
+\onslide<4>{
+\Edge (C)(F)
+\Edge (B)(C)
+\Edge (C)(E)
+}
+\Edge (A)(E)
+%\Edge (B)(F)
+\only<4-5>{\Edge (B)(F)}
+\only<6>{
+\tikzset{EdgeStyle/.style ={-,dashed}}
+\Edge (B)(F)
+}
+\end{tikzpicture}
+\end{center}
+\pause
+\pause
+\pause
+\end{frame}
+
+\begin{frame}
+\Large Thanks You for Attention
 \end{frame}
 \end{document}
