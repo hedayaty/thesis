@@ -1,5 +1,5 @@
 default: main.pdf slides.pdf 
-handout: handout.pdf 4in1.pdf
+handout: handout.pdf 4in1.pdf 2in1.pdf
 
 include figs/Makefile
 LATEX=pdflatex --synctex=1 -halt-on-error 
@@ -29,6 +29,16 @@ handout.pdf: $(SLIDES) $(FIGS)
 \includepdf[pages=1-last,nup=2x2,landscape=true,frame=true,\
             noautoscale=false,scale=1,delta=5mm 5mm]{$<}\
 \end{document}"
+
+2in1.pdf: handout.pdf 
+	$(ENV) $(LATEX) -jobname 2in1 "\
+\documentclass[a4paper]{article}\
+\usepackage{pdfpages}\
+\begin{document}\
+\includepdf[pages=1-last,nup=1x2,landscape=false,frame=true,\
+            noautoscale=false,scale=1,delta=5mm 5mm]{$<}\
+\end{document}"
+
 
 clean:
 	rm main.aux  main.bbl  main.blg  main.log main.synctex.gz main.lof main.lot *.aux

@@ -30,16 +30,24 @@
 
 \setbeamertemplate{headline}
 {%
-  \leavevmode%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
-    \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1filll}{}%
-  \end{beamercolorbox}%
+  %\leavevmode%
+  %\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+  %  \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1filll}{}%
+  %\end{beamercolorbox}%
+}
+
+\AtBeginSection[]
+{
+   \begin{frame}
+       \frametitle{Outline}
+       \tableofcontents[currentsection]
+   \end{frame}
 }
 
 \fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Includes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tkz-graph}
-\usepackage{amsmath}
+\usepackage{verbatim}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -68,10 +76,10 @@
 \newcommand{\tsat}{3-SAT}
 \newcommand{\ctsat}{\#3-SAT}
 \newcommand{\cdsat}{\#2-SAT}
-\newcommand{\tcoloring}{\pname{3-Coloring}}
-\newcommand{\ctcol}{\pname{\#3-Coloring}}
-\newcommand{\cdcol}{\pname{\#2-Coloring}}
-\newcommand{\cisp}{\#IS}
+\newcommand{\tcoloring}{3-\pname{Coloring}}
+\newcommand{\ctcol}{\#3-\pname{Coloring}}
+\newcommand{\cdcol}{\#2-\pname{Coloring}}
+\newcommand{\cisp}{\#\pname{IS}}
 \newcommand{\cis}{\#\mathrm{IS}}
 \newcommand{\cds}{\#\mathrm{DS}}
 \newcommand{\impl}{\mathcal{P}}
@@ -112,16 +120,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{CSP}
-A \textcolor{mygreen}{constraint language} \(\Gamma\) is a set of relations
+\frametitle{CSP Instance}
+Any set of relations \(\Gamma\) is a \textcolor{mygreen}{constraint language}
 \pause \onslide<3->{\(\{R_1,R_2\}\)}
 \vskip 12pt
-A CSP(\(\Gamma\)) instance \(\mathcal{P} = (D, V, \mathcal{C})\)
+An instance of CSP(\(\Gamma\)) is \(\mathcal{P} = (D, V, \mathcal{C})\)
 \begin{itemize}
 \item \(D\) is a domain \onslide<3-> {\(\{1,2,3\}\)}
 \item \(V\) is a set of variables \onslide<3-> {\(\{x_1,x_2,x_3,x_4\}\)}
 \item \(\mathcal{C}\) is a set of constraints \\
-\onslide<3-> {\(\{\langle R_1, (x_1,x_2)\rangle, \langle R_2, (x_1, x_4, x_3)\rangle, \langle R_1, (x_2,x_4) \rangle \)\}}
+\onslide<3-> {\(\{\langle R_1, (x_1,x_2)\rangle, \langle R_2, (x_1, x_4, x_3)\rangle, \langle R_1, (x_2,x_4)\rangle \)\}}
 \end{itemize}
 \vskip 12pt
 \pause % for <2->
@@ -139,10 +147,11 @@ A \textcolor{mygreen}{solution} \(\varphi\) for \(\mathcal{P}\) is an assignment
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{The Problem CSP(\(\Gamma\))}
-\begin{definition} [The Problem CSP(\(\Gamma\))]
-Input: an instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
-Decide if \(\mathcal{P}\) has a solution
+\begin{definition} [The problem CSP(\(\Gamma\))]
+Input: An instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
+Output: Is it true that \(\mathcal{P}\) has a solution
 \end{definition}
+\vskip 24pt
 \begin{conj} [Feder and Vardi 1998]
 The problem CSP(\(\Gamma\)) is either polynomial time solvable or NP-complete
 \end{conj}
@@ -166,16 +175,16 @@ The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
 \onslide<1->{The problem \tsat\ can be expressed with CSP(\(\Gamma\))}
 \pause
 \begin{eqnarray*}
-&&D=\{T,F\}\\
-&&\Gamma = \{R_1, R_2, R_3, R_4, R_5, R_6, R_7, R_8\}\\
-&&R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor z = T\}\\
-&&R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor z = T\}\\
-&&R_3=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor z = T\}\\
-&&R_4=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor \bar z = T\}\\
-&&R_5=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor z = T\}\\
-&&R_6=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor \bar z = T\}\\
-&&R_7=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor \bar z = T\}\\
-&&R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}
+&&D=\{T,F\},\\
+&&\Gamma = \{R_1, R_2, R_3, R_4, R_5, R_6, R_7, R_8\},\\
+&&R_1=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor z = T\},\\
+&&R_2=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor z = T\},\\
+&&R_3=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor z = T\},\\
+&&R_4=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor y \lor \bar z = T\},\\
+&&R_5=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor z = T\},\\
+&&R_6=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor y \lor \bar z = T\},\\
+&&R_7=\{(x,y,z)\mid x,y,z\in \setof{T,F}, x \lor \bar y \lor \bar z = T\},\\
+&&R_8=\{(x,y,z)\mid x,y,z\in \setof{T,F}, \bar x \lor \bar y \lor \bar z = T\}.
 \end{eqnarray*}
 \pause
 Note that \(\Gamma' = \{R_1, R_2, R_5, R_8\}\) is sufficient to express \tsat
@@ -185,12 +194,14 @@ Note that \(\Gamma' = \{R_1, R_2, R_5, R_8\}\) is sufficient to express \tsat
 \begin{frame}
 \frametitle{Graph Homomorphism}
 \begin{definition} [Homomorphism]
-A homomorphism is mapping from \(V(G) \to V(H)\) such that
+A homomorphism from \(G\) to \(H\) is mapping \(h: V(G) \to V(H)\) \\such that
 \[x\sim y \Rightarrow h(x)\sim h(y)\]
 \end{definition}
 \pause
 \begin{center}
 \begin{tikzpicture}
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.8,-1.5) {\(G\)};
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (6.8,-1.5) {\(H\)};
 \GraphInit[vstyle=Shade]
 \SetVertexMath
 \tikzset{VertexStyle/.style ={shape=circle,ball color = myorange,}}
@@ -251,30 +262,15 @@ a \textcolor{mygreen}{solution \(\varphi\)} in \(\mathcal{P}=(D,V,\mathcal{C})\)
 \begin{frame}
 \frametitle{The Problem Hom(\(H\))}
 \begin{definition} [The problem Hom(\(H\))]
-Input: a graph \(G\)\\
-Decide if there exists a homomorphism from \(G\) to \(H\)
+Input: A graph \(G\)\\
+Output: Is it true there is a homomorphism from \(G\) to \(H\)
 \end{definition}
-
+\vskip 24pt
 \begin{theorem} [Hell and Ne\v{s}et\v{r}il 1990]
 Let \(H\) be a graph\\
-If \(H\) is \textcolor{mygreen}{bipartite} or has a \textcolor{mygreen}{loop}, Hom(\(H\)) is polynomial time solvable\\
-Otherwise Hom(\(H\)) is NP-complete
+If \(H\) is \textcolor{mygreen}{bipartite} or has a \textcolor{mygreen}{loop}, \(\mathrm{Hom(}H\mathrm{)} \in\) P\\
+Otherwise \(\mathrm{Hom(}H\mathrm{)} \in\) NP-Complete
 \end{theorem}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{\ccsp(\(\Gamma\))}
-\begin{definition} [The Problem \ccsp(\(\Gamma\))]
-Input: an instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
-The number of solutions for \(\mathcal{P}\)
-\end{definition}
-
-The problems \ctcol\ and \ctsat\ can be expressed as \ccsp(\(\Gamma\))
-\begin{definition} [The problem \chom(\(H\))]
-Input: a graph \(G\)\\
-The number of homomorphisms from \(G\) to \(H\)
-\end{definition}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,11 +280,55 @@ The number of homomorphisms from \(G\) to \(H\)
 The set of functions computable in polynomial time using deterministic Turing machine
 \end{definition}
 
+\vskip 36pt
 \begin{definition}[\cp]
 The set of functions expressible by the number of accepting paths of a polynomial time non-deterministic Turing machine
 \end{definition}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Problem \ccsp(\(\Gamma\))}
+\begin{definition} [The Problem \ccsp(\(\Gamma\))]
+Input: An instance \(\mathcal{P}\) with constraint language \(\Gamma\) \\
+Output: The number of solutions for \(\mathcal{P}\)
+\end{definition}
+
+\pause
+\vskip 12pt
+The problems \ctcol\ and \ctsat\ can be expressed as \ccsp(\(\Gamma\))
+\pause
+\vskip 12pt
+
+\begin{theorem} [Bulatov 2008]
+\ccsp(\(\Gamma\)) is either polynomial time solvable or \cpc
+\end{theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Problem \chom(\(H\))}
+%\begin{comment}
+\begin{definition} [The problem \chom(\(H\))]
+Input: A graph \(G\)\\
+Output: The number of homomorphisms from \(G\) to \(H\)
+\end{definition}
+\pause
+\vskip 36pt
+\begin{theorem} [Dyer and Greenhill 2000] 
+Let \(H\) be a graph\\
+If each connected component of \(H\) is 
+\begin{itemize}
+\item a complete reflexive graph
+\item a complete irreflexive bipartite graph
+\end{itemize}
+then \(\mathrm{\chom(}H\mathrm{)} \in\) FP\\
+Otherwise \(\mathrm{\chom(}H\mathrm{)} \in\) \#P-Complete
+\end{theorem}
+%\end{comment}
+\end{frame}
+
+\begin{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -298,8 +338,8 @@ The set of functions expressible by the number of accepting paths of a polynomia
 \frametitle{Major Results on \ccsp}
 \begin{theorem} [Creignou and Hermann 1996]
 Let \(\Gamma\) be a \textcolor{mygreen}{Boolean} constraint language\\
-If \(\Gamma\) is \textcolor{mygreen}{affine}, \ccsp(\(\Gamma\)) is polynomial time solvable\\
-Otherwise \ccsp(\(\Gamma\)) is \cpc
+If \(\Gamma\) is \textcolor{mygreen}{affine}, \(\mathrm{\ccsp(}\Gamma\mathrm{)} \in\) FP\\
+Otherwise \(\mathrm{\ccsp(}\Gamma\mathrm{)} \in \) \#P-Complete
 \end{theorem}
 
 \pause
@@ -311,8 +351,8 @@ If each connected component of \(H\) is
 \item a complete reflexive graph
 \item a complete irreflexive bipartite graph
 \end{itemize}
-\chom(\(H\)) is polynomial time solvable\\
-Otherwise \chom(\(H\)) is \cpc
+then \(\mathrm{\chom(}H\mathrm{)} \in\) FP\\
+Otherwise \(\mathrm{\chom(}H\mathrm{)} \in\) \#P-Complete
 \end{theorem}
 \end{frame}
 
@@ -323,21 +363,26 @@ Otherwise \chom(\(H\)) is \cpc
 \ccsp(\(\Gamma\)) is either polynomial time solvable or \cpc
 \end{theorem}
 \pause
-
+\vskip 24pt
 \begin{theorem}[Dyer and Richerby 2010]
 Bulatov's dichotomy property is in NP.
 \end{theorem}
 \end{frame}
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Approximation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{FPRAS}
 FPRAS is the efficient model for approximation
 \begin{block} {\(f \in \) FPRAS}
-There exists an algorithm \\
+There exists an algorithm with\\
 Input: \(x\), \(\eps\) \\
-Output: \(y\) such that with probability \( > \frac{3}{4}\)
-\[\left|\frac{y-f(x)}{f(x)}\right| \le \eps\]
+Output: \(y\) such that 
+\[Pr\left(\left|\frac{y-f(x)}{f(x)}\right| \le \eps\right) > \frac{3}{4}\]
 Running time: polynomial in terms of \(|x|\) and \(\oneoeps\)
 \end{block}
 \end{frame}
@@ -363,7 +408,9 @@ APX schemes are not used for \ccsp(\(\Gamma\))
 \(f \aple g\) if \\
 \[g \in FPRAS \Rightarrow f \in FPRAS\]
 \end{definition}
-
+\pause
+\vskip 12pt
+if \(f \aple g\) and \(g \aple f\) then \(f \apeq g\)
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -420,8 +467,10 @@ The problems \csat, \ctsat, and \cdsat\ are also in this family
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\cbis}
+\begin{minipage}{0.45\linewidth}
 \begin{center}
 \begin{tikzpicture}
+\node[inner sep=0,anchor=east,text width=1cm] (note1) at (1.5,-0.5) {\#BIS};
 \GraphInit[vstyle=Shade]
 \tikzset{EdgeStyle/.style ={color = myorange}}
 \tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
@@ -432,6 +481,20 @@ The problems \csat, \ctsat, and \cdsat\ are also in this family
 \Edges (A,C,B,D)
 \end{tikzpicture}
 \end{center}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=Shade]
+\tikzset{EdgeStyle/.style ={->, color = myorange}}
+\tikzset{VertexStyle/.style ={shape=circle,ball color = mygreen,}}
+\Vertices[unit=1]{circle}{B,A}
+\Edge (A)(B)
+\Loop[dist=30pt, dir=NO](A)
+\Loop[dist=30pt, dir=NO](B)
+\end{tikzpicture}
+\end{center}
+\end{minipage}
 
 \begin{definition}[\cbis]
 Input: A bipartite graph \(G\)\\
@@ -439,6 +502,7 @@ Output: The number of independent sets in \(G\)
 \end{definition}
 \end{frame}
 
+\begin{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\cdsp}
@@ -459,20 +523,22 @@ Input: A partial order \(P\) \\
 Output: The number of downsets in \(P\)
 \end{definition}
 \end{frame}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Trichotomy}
 \begin{theorem} [Dyer, Goldberg and Jerrum 2010]
-Let \(\Gamma\) be a Boolean constraint language\\
+Let \(\Gamma\) be a \textcolor{mygreen}{Boolean} constraint language\\
 \begin{itemize}
-\item if \(\Gamma\) is \textcolor{mygreen}{affine}, \ccsp(\(\Gamma\)) is polynomial time solvable
-\item otherwise if \(\Gamma\) is \textcolor{mygreen}{monotone}, \ccsp(\(\Gamma\)) is AP-interreducible with \cbis
-\item otherwise \ccsp(\(\Gamma\)) is \cpc\ with respect to AP-reductions
+\item if \(\Gamma\) is \textcolor{mygreen}{affine}, \(\mathrm{\ccsp(}\Gamma\mathrm{)} \in \) FPRAS
+\item otherwise if \(\Gamma\) is \textcolor{mygreen}{monotone}, \(\mathrm{\ccsp(}\Gamma\mathrm{)} \apeq \mathrm{\cbis}\)
+\item otherwise \(\mathrm{\ccsp(}\Gamma\mathrm{)} \apeq \mathrm{\csat}\) 
 \end{itemize}
 \end{theorem}
 \end{frame}
 
+\begin{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Techniques For AP-reductions}
@@ -485,6 +551,7 @@ there is a function \(\varphi\) mapping an instance \(\mathcal{P}\) of \(B\) to 
 \[\#\mathcal{P} = a \cdot \#\varphi(\mathcal{P}) + b\]
 \end{itemize}
 \end{frame}
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -492,22 +559,19 @@ there is a function \(\varphi\) mapping an instance \(\mathcal{P}\) of \(B\) to 
 Pinning is the ability to tie a variable to a certain set of values
 \vskip 12pt
 \pause
-\begin{lemma}[Extended Pinning]
-Let \(\Gamma\) be a constraint language over \(D\)\\
-Let \(R \in \Gamma\), \(S \subseteq D\), \(1 \le j \le \mathrm{arity}(R)\)\\
-if, for any \(x \in S\), \(\mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] =x\} > \mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] \not\in S\}\) then
-\[\mathrm{\ccsp(}\Gamma \cup \{S\}\mathrm{)} \aple \mathrm{\ccsp(}\Gamma\mathrm{)}\]
-\end{lemma}
-\begin{exampleblock}{}
+\begin{exampleblock}{Extended Pinning}
+%Let \(\Gamma\) be a constraint language over \(D\)\\
+%Let \(R \in \Gamma\), \(S \subseteq D\), \(1 \le j \le \mathrm{arity}(R)\)\\
+%if, for any \(x \in S\), \(\mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] =x\} > \mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] \not\in S\}\) then
 \vspace{-18pt}
 \begin{eqnarray*}
-&& D=\{1,2,3,4\},~~~~\Gamma = \{R\},\\
+&& D=\{1,2,3,4\},~~~~S = \{1, 2\},\\
 &&R= \begin{pmatrix}
 \textcolor{myblue}{1} & \textcolor{myblue}{1} & \textcolor{myblue}{1} & \textcolor{myblue}{2} & \textcolor{myblue}{2} & \textcolor{myblue}{2} & \textcolor{myred}{3} & \textcolor{myred}{4}\\
 2 & 3 & 4 & 1 & 2 & 3 & 1 & 2
-\end{pmatrix},\\
-&&S = \{1, 2\},~~~~j = 1.
+\end{pmatrix}.\\
 \end{eqnarray*}
+\[\mathrm{\ccsp(}\{R,S\}\mathrm{)} \aple \mathrm{\ccsp(}\{R\}\mathrm{)}\]
 \end{exampleblock}
 \end{frame}
 
@@ -516,13 +580,13 @@ if, for any \(x \in S\), \(\mathrm{\#}\{\mathbf{a} \mid \mathbf{a}[j] =x\} > \ma
 \begin{frame}
 \frametitle{Maximization}
 Let \(\mathcal{P} = (\{1,2,3\}, \{x_1,x_2,y_1,y_2,y_3\}, \mathcal{C})\) be an instance of CSP(\(\Gamma\))\\
-The number of solutions grouped by \(x_1, x_2\) are as follows
+%Suppose the number of solutions for \(\{y_1,y_2,y_3\}\) for each assignment of \(x_1, x_2\) are 
 \begin{eqnarray*}
 \begin{array}{c|ccccccccc}
 x_1 & \green{1} & \green{1} & \green{1} & 2 & \green{2} & \green{2} & 3 & 3 & \green{3}\\
 x_2 & \green{1} & \green{2} & \green{3} & 1 & \green{2} & \green{3} & 1 & 2 & \green{3}\\
 \hline
-\#  & \red{7} & \red{7} & \red{7} & 5 & \red{7} & \red{7} & 4 & 3 & \red{7}\\ 
+\#\{(y_1,y_2,y_3)\}  & \red{7} & \red{7} & \red{7} & 5 & \red{7} & \red{7} & 4 & 3 & \red{7}\\ 
 \end{array}
 \end{eqnarray*}
 \pause
@@ -552,11 +616,13 @@ If \(\Gamma\) \textcolor{mygreen}{max-implements} \(R\) then
 Let \(R\) be a relation and let \(L=(D, \wedge, \vee)\) be a \textcolor{mygreen}{distributive lattice}\\
 \(R\) is \textcolor{mygreen}{monotone} if it is closed under operators \(\wedge\) and \(\vee\) 
 \end{definition}
+\pause
 
 \begin{definition}[Monotone Lanaguage]
 Let \(\Gamma\) be a constraint language\\
 \(\Gamma\) is monotone if for every \(R\in \Gamma\), \(R\) is monotone
 \end{definition}
+\pause
 
 \begin{theorem} [Bulatov and Hedayaty 2009]
 If \(\Gamma\) is monotone then
@@ -637,7 +703,7 @@ If \(H\) is a reflexive oriented graph, then
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Notations}
+\frametitle{\(k(H)\)}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=shade]
@@ -697,7 +763,7 @@ If \(H\) is a reflexive oriented graph, then
 \end{tikzpicture}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
-\node[inner sep=0,anchor=east,text width=2cm] (note1) at (2.5,-.8) {\(H_0\)};
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (2.8,-.5) {\(H_0\)};
 \tikzset{VertexStyle/.style ={shape=circle, minimum size=3pt, ball color = mygreen}}
 \SetVertexNoLabel
 \Vertices[unit=2]{line}{T, F}
@@ -738,6 +804,7 @@ If \(H\) is a reflexive oriented graph, then
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\(k(H)>2\)}
+\begin{minipage}{0.45\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=shade]
@@ -760,7 +827,11 @@ If \(H\) is a reflexive oriented graph, then
 \Edge(u)(I)
 \Edge(I)(v)
 \end{tikzpicture}
+\end{center}
+\end{minipage}
 \pause
+\begin{minipage}{0.45\linewidth}
+\begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=shade]
 \node[inner sep=0,anchor=east,text width=1cm] (note1) at (2,1.5) {\(H_i\)};
@@ -781,8 +852,10 @@ If \(H\) is a reflexive oriented graph, then
 \Edge (a_i)(b_i)
 \end{tikzpicture}
 \end{center}
+\end{minipage}
 \begin{eqnarray*}
-&&\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_1 \cup H_2 \cup \dotsb H_t \mathrm{)}\\
+&&\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H'\mathrm{)}\\
+&&H' = H_1 \cup H_2 \cup \dotsb H_t\\
 &&k(H_i) = k(H)
 \end{eqnarray*}
 \end{frame}
@@ -790,15 +863,18 @@ If \(H\) is a reflexive oriented graph, then
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\(k(H)>2\)}
-If all \(H_i\) are isomorphic
-\[\hom(G,H) = \hom(G,H_1)^t \Rightarrow \mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_1\mathrm{)}\]
+We want to show for some \(i\)
+\[\mathrm{\chom(}H'\mathrm{)} \apge \mathrm{\chom(}H_i\mathrm{)}\]
+\pause
+\begin{itemize}
+\item If all \(H_i\) are isomorphic
+\[\hom(G,H') = \hom(G,H_1)^t \Rightarrow \mathrm{\chom(}H'\mathrm{)} \apge \mathrm{\chom(}H_1\mathrm{)}\]
 \pause
 
-By Lov\'asz Theorem \\
-If \(H_i\) and \(H_j\) are not isomorphic there exists a graph \(Z\) such that
+\item By Lov\'asz Theorem \\
+If \(H_i\) and \(H_j\) are not isomorphic then there exists a graph \(Z\) such that
 \[\hom(Z,H_i) \neq \hom(Z,H_j)\]
-
-Without loss of generality assume \(\hom(Z,H_i) > \hom(Z,H_j)\)
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -836,7 +912,7 @@ Without loss of generality assume \(\hom(Z,H_i) > \hom(Z,H_j)\)
 \Edge(Z_m)(v)
 \end{tikzpicture}
 \end{center}
-\[\mathrm{\chom(}H\mathrm{)} \apge \mathrm{\chom(}H_i\mathrm{)}\]
+\[\mathrm{\chom(}H'\mathrm{)} \apge \mathrm{\chom(}H_i\mathrm{)}\]
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -914,14 +990,15 @@ Edges \(\gets\) Non-empty intersections
 \end{minipage}
 \end{block}
 \pause
+\vskip 12pt
 \begin{block}{Proper Interval Graph}
-\begin{minipage}{0.55\linewidth}
+\begin{minipage}{0.54\linewidth}
 A graph representable by intervals\\
 that are not subset of each other\\
 Vertices \(\gets\) Intervals \\
 Edges \(\gets\) Non-empty intersections
 \end{minipage}
-\begin{minipage}{0.35\linewidth}
+\begin{minipage}{0.44\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Empty]
@@ -948,17 +1025,27 @@ Edges \(\gets\) Non-empty intersections
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Min-Max Characterizations}
-\begin{lemma}
+\begin{block}{}
 Interval graphs are closed under operator \(\wedge\) from a total order
-\end{lemma}
+\end{block}
 \begin{exampleblock}{}
 \vspace{-6pt}
 \[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2)\]
 \end{exampleblock}
 \pause
-\begin{lemma}
+\vskip 12pt
+\begin{block}{}
 Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a total order
-\end{lemma}
+\end{block}
+\begin{exampleblock}{}
+\vspace{-18pt}
+\[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2), (u_1 \vee u_2) \sim (v_1 \vee v_2)\]
+\end{exampleblock}
+\pause
+\vskip 12pt
+\begin{block}{}
+Monotone graphs are closed under operators \(\wedge\) and \(\vee\) from a distributive lattice
+\end{block}
 \begin{exampleblock}{}
 \vspace{-18pt}
 \[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2), (u_1 \vee u_2) \sim (v_1 \vee v_2)\]
@@ -972,7 +1059,7 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \SetVertexMath
-\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-.5) {\(H_1\)};
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.8,-.5) {\(H_1\)};
 \SetVertexNoLabel
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
 \Vertices[unit=1.2]{square}{A,B,C,D}
@@ -983,13 +1070,12 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \end{tikzpicture}
 \end{center}
 \end{minipage}
-\pause
 \begin{minipage}{0.69\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
 \SetVertexMath
-\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(H_2\)};
+\node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.8,-0.5) {\(H_2\)};
 \SetVertexNoLabel
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
 \begin{scope}[rotate=45]
@@ -1024,13 +1110,13 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \Edge(F)(I)
 \Edge(G)(H)
 \Edge(H)(I)
-\onslide<3->{
+\onslide<2->{
 \tikzset{VertexStyle/.style ={shape=circle,ball color = myred,}}
 \Vertex[Node]{B}
 \Vertex[Node]{D}
 \Vertex[Node]{F}
 \Vertex[Node]{H}
-\tikzset{EdgeStyle/.style ={thick,color = myred,}}
+\tikzset{EdgeStyle/.style ={ultra thick,color = myred,}}
 \Edges(B,F,H,D,B)
 }
 \end{tikzpicture}
@@ -1042,7 +1128,7 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Products}
-\begin{minipage}{0.19\linewidth}
+\begin{minipage}{0.20\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
@@ -1051,14 +1137,14 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-.5) {\(G_1\)};
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
 \begin{scope}[rotate=135]
-\Vertices[unit=1.2]{line}{A,B}
+\Vertices[unit=1]{line}{A,B}
 \end{scope}
 \tikzset{EdgeStyle/.style ={-,draw}}
 \Edge(A)(B)
 \end{tikzpicture}
 \end{center}
 \end{minipage}
-\begin{minipage}{0.29\linewidth}
+\begin{minipage}{0.30\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
@@ -1067,14 +1153,14 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(G_2\)};
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
 \begin{scope}[rotate=45]
-\Vertices[unit=1.2]{line}{A,B,C}
+\Vertices[unit=1]{line}{A,B,C}
 \end{scope}
 \tikzset{EdgeStyle/.style ={-,draw}}
 \Edges (A,B,C)
 \end{tikzpicture}
 \end{center}
 \end{minipage}
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}{0.30\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
@@ -1083,8 +1169,8 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \node[inner sep=0,anchor=east,text width=2cm] (note1) at (1.7,-0.5) {\(G_1\times G_2\)};
 \tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen}}
 \begin{scope}[rotate=45]
-\Vertices[unit=1.2]{line}{A,B,C}
-\Vertices[x=0, y=1.2, unit=1.2]{line}{D,E,F}
+\Vertices[unit=1]{line}{A,B,C}
+\Vertices[x=0, y=1, unit=1]{line}{D,E,F}
 \end{scope}
 \tikzset{EdgeStyle/.style ={-,draw}}
 \Edges (A,B,C)
@@ -1102,7 +1188,7 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \[u_1\sim v_1, u_2\sim v_2 \Rightarrow (u_1,u_2) \sim (v_1,v_2)\]
 \pause
 \begin{block}{}
-If \(G_1\) and \(G_2\) are monotone graphs, \(G_1\times G_2\) is a monotone graph
+Product of monotone graphs is a monotone graph
 \end{block}
 \end{frame}
 
@@ -1110,13 +1196,13 @@ If \(G_1\) and \(G_2\) are monotone graphs, \(G_1\times G_2\) is a monotone grap
 \begin{frame}
 \frametitle{Retractions}
 \begin{definition}[Retraction]
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}{0.59\linewidth}
 Let \(G\) be a graph and \(H \subseteq G\)\\
 \(r: G\to H\) is a retraction if\\
 \(\forall v\in H : r(v) = v\)\\
 \(u\sim v \Rightarrow r(u) \sim r(v)\)
 \end{minipage}
-\begin{minipage}{0.49\linewidth}
+\begin{minipage}{0.39\linewidth}
 \begin{center}
 \begin{tikzpicture}
 \GraphInit[vstyle=Shade]
@@ -1155,10 +1241,9 @@ Let \(G\) be a graph and \(H \subseteq G\)\\
 \pause
 \pause
 \pause
-\begin{lemma}
-Let \(G\) be a monotone graph\\
-Any retract \(H\) of \(G\) is also a monotone graph
-\end{lemma}
+\begin{block}{}
+Any retract of a monotone graph is a monotone graph
+\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1168,9 +1253,9 @@ Generate monotone graphs as follows
 \begin{itemize}
 \item Take proper interval graphs \(G_1, G_2, \dotsc, G_k\)
 \pause
-\item Let \(G'=G_1\times G_2 \times \dotsb G_k\)
+\item Take \(G'=G_1\times G_2 \times \dotsb G_k\)
 \pause
-\item Let \(G^r\) be a retract of \(G'\)
+\item Take \(G^r\) be a retract of \(G'\)
 \end{itemize}
 \pause
 This does not generate all the monotone graphs
@@ -1214,6 +1299,7 @@ This does not generate all the monotone graphs
 \end{frame}
 
 \begin{frame}
+\frametitle{Thank You}
 \Large Thanks You for Attention
 \end{frame}
 \end{document}
