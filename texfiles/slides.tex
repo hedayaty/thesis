@@ -161,7 +161,7 @@ The problem CSP(\(\Gamma\)) is either polynomial time solvable or NP-complete
 \begin{frame}
 \frametitle{\tcoloring}
 The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
-\pause
+\vskip 12pt
 \begin{eqnarray*}
 &&D=\{r,g,b\},\\
 &&R=\{(r,g),(r,b),(g,r),(g,b),(b,r), (b,g)\},\\
@@ -172,8 +172,7 @@ The problem \tcoloring\ can be expressed with CSP(\(\Gamma\))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{\tsat}
-\onslide<1->{The problem \tsat\ can be expressed with CSP(\(\Gamma\))}
-\pause
+The problem \tsat\ can be expressed with CSP(\(\Gamma\))
 \begin{eqnarray*}
 &&D=\{T,F\},\\
 &&\Gamma = \{R_1, R_2, R_3, R_4, R_5, R_6, R_7, R_8\},\\
@@ -313,8 +312,7 @@ The problems \ctcol\ and \ctsat\ can be expressed as \ccsp(\(\Gamma\))
 Input: A graph \(G\)\\
 Output: The number of homomorphisms from \(G\) to \(H\)
 \end{definition}
-\pause
-\vskip 36pt
+\vskip 24pt
 \begin{theorem} [Dyer and Greenhill 2000] 
 Let \(H\) be a graph\\
 If each connected component of \(H\) is 
@@ -558,7 +556,6 @@ there is a function \(\varphi\) mapping an instance \(\mathcal{P}\) of \(B\) to 
 \frametitle{Pinning}
 Pinning is the ability to tie a variable to a certain set of values
 \vskip 12pt
-\pause
 \begin{exampleblock}{Extended Pinning}
 %Let \(\Gamma\) be a constraint language over \(D\)\\
 %Let \(R \in \Gamma\), \(S \subseteq D\), \(1 \le j \le \mathrm{arity}(R)\)\\
@@ -1033,6 +1030,26 @@ Interval graphs are closed under operator \(\wedge\) from a total order
 \[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2)\]
 \end{exampleblock}
 \pause
+\begin{center}
+\begin{tikzpicture}
+\GraphInit[vstyle=shade]
+\SetVertexMath
+\tikzset{VertexStyle/.style ={shape=circle, ball color = mygreen, inner sep=0}}
+\Vertex[x=0, y=0]{u_1}
+\Vertex[x=1, y=0]{v_2}
+\Vertex[x=3, y=0]{u_2}
+\Vertex[x=4, y=0]{v_1}
+\tikzset{EdgeStyle/.style ={->}}
+\tikzset{EdgeStyle/.style ={-, color=myorange, bend left}}
+\Edge (u_1)(v_1)
+\Edge (v_2)(u_2)
+\tikzset{EdgeStyle/.style ={-, color=myred}}
+\only<3->{\Edge (u_1)(v_2)}
+\only<4->{\Edge (u_2)(v_1)}
+\end{tikzpicture}
+\end{center}
+\pause
+\pause
 \vskip 12pt
 \begin{block}{}
 Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a total order
@@ -1041,15 +1058,15 @@ Proper interval graphs are closed under operators \(\wedge\) and \(\vee\) from a
 \vspace{-18pt}
 \[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2), (u_1 \vee u_2) \sim (v_1 \vee v_2)\]
 \end{exampleblock}
-\pause
-\vskip 12pt
-\begin{block}{}
-Monotone graphs are closed under operators \(\wedge\) and \(\vee\) from a distributive lattice
-\end{block}
-\begin{exampleblock}{}
-\vspace{-18pt}
-\[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2), (u_1 \vee u_2) \sim (v_1 \vee v_2)\]
-\end{exampleblock}
+%\pause
+%\vskip 12pt
+%\begin{block}{}
+%Monotone graphs are closed under operators \(\wedge\) and \(\vee\) from a distributive lattice
+%\end{block}
+%\begin{exampleblock}{}
+%\vspace{-18pt}
+%\[u_1 \sim v_1, u_2 \sim v_2 \Rightarrow (u_1 \wedge u_2) \sim (v_1 \wedge v_2), (u_1 \vee u_2) \sim (v_1 \vee v_2)\]
+%\end{exampleblock}
 \end{frame}
 
 \begin{frame}
