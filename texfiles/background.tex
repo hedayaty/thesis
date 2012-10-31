@@ -308,13 +308,13 @@ the number of solutions for \(C\) by \(p(x)\) and the estimation for the
 number of solutions for \(C_x\)\@.
 
 \subsection*{Partition Functions}
-Let \mH\ be a graph. For a given graph \mG, a configuration of \mG\ is a mapping
-\(\sigma\) from \(V_G\) to
-\(V_H\). For a weight function \(w: V_H \cup E_H\to \mathbb{R}\), the weight of the configuration 
-\(\sigma\) is defined as
-\[w(\sigma)=\prod_{uv\in E_G}w(\sigma(u)\sigma(v))\prod_{v\in V_G}w(\sigma(v))\]
-The partition function \(Z_H(G,w)\) is the sum of the weights for all the configurations:
-\[Z_H(G,w)=\sum_{\sigma:V_G\to V_H}w(\sigma)\]
+Let \mH\ be a graph.% For a given graph \mG, a configuration of \mG\ is a homomorphism 
+%\(\sigma\) from \(V_G\) to
+\(V_H\). For a weight function \(w: V_H \cup E_H\to \mathbb{R}\), the weight of the homomorphism 
+\(h\) is defined as
+\[w(h)=\prod_{uv\in E_G}w(h(u)h(v))\prod_{v\in V_G}w(h(v))\]
+The partition function \(Z_H(G,w)\) is the sum of the weights for all the homomorphisms:
+\[Z_H(G,w)=\sum_{h:G\to H}w(h)\]
 
 Note that \(\hom(G,H)=Z_{H}(G,w)\) if \(w(v)=w(e)=1\) for all \(v,e\in H\)
 and \(w(e)=0\) for all \(e\not\in H\)\@. 
@@ -517,13 +517,13 @@ A \emph{Galois connection} between sets \(A\) and \(B\) is a pair of functions
 \(\fA:\pow{A} \to \pow{B}\) and \(\gB:\pow{B} \to \pow{A}\) 
 which maintain {\em antitony}, that is,
 \begin{align*}
-X \subseteq X' \implies \fA(X) \supseteq \fA(X') \\
-Y \subseteq Y' \implies \gB(Y) \supseteq \gB(Y') \\
+\forall~X,X' \subseteq A: X \subseteq X' \implies \fA(X) \supseteq \fA(X') \\
+\forall~Y,Y'\subseteq B: Y \subseteq Y' \implies \gB(Y) \supseteq \gB(Y') \\
 \end{align*}
 and {\em extensivity}, that is,
 \begin{align*}
-X \subseteq \gB(\fA(X)) \\
-Y \subseteq \fA(\gB(Y))
+\forall~X\subseteq A:X \subseteq \gB(\fA(X)) \\
+\forall~Y\subseteq B:Y \subseteq \fA(\gB(Y))
 \end{align*}
 
 Let \mR\ be a relation over domain \mD\ and \(f:D^n\to D\) a function of arity \mn\ over the
@@ -655,7 +655,7 @@ is polynomial time solvable; otherwise, it is \cpc\@.
 
 Previously, we mentioned the dichotomy theorem for complexity of \ccsp\ in  Section~\ref{sec:appl}.
 
-\begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}]
+\begin{theorem} [Dyer and Greenhill 2000 \cite{Dyer}] \label{thm:homd}
 For a graph \mH, if each component of \mH\ is a complete reflexive graph
 or a complete irreflexive bipartite graph then the problem \chom(\mH)  
 is polynomial time solvable; otherwise, it is \cpc\@.
@@ -720,7 +720,7 @@ the problem \ccsp(\mrelset) is polynomial time solvable if
 \end{theorem}
 
 Bulatov proved a dichotomy for all \mrelset\ but the decidability of being congruence
-singular remained open until Richerby and Dyer \cite{DyerR10} 
+singular remained open until Dyer  and Richerby \cite{DyerR10} 
 proved that being congruence singular can be verified in polynomial time.
 
 \begin{theorem} [Dyer and Richerby 2010 \cite{DyerR10}]
@@ -730,13 +730,14 @@ For a constraint language \mrelset, checking if \mrelset\ is congruence singular
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Weak Co-clones}
-In the previous section we showed the connection between polymorphisms and complexity 
-of the problems CSP(\mrelset) and \ccsp(\mrelset)\@. The existence of a similar relationship
-between polymorphism and complexity of approximate counting is still an open
-question. However, there are weaker tools that can be used for the approximate counting
-problems. Removing the existential quantifier from pp-definitions limits the 
-reduction to parsimonious reductions which preserve approximation.
-
+In the previous section, we showed that 
+complexity of the problems CSP(\mrelset) and \ccsp(\mrelset) depends on \(Pol(\relset)\)\@.
+Because of usage of existential quantifier in pp-definition,
+it is very unlikely that
+complexity of approximating the problem \ccsp(\mrelset) depends on \(Pol(\relset)\).
+However, for the approximating the problem \ccsp(\mrelset), we can use
+simpler tools. Pp-definitions without existential quantifier only imply
+parsimonious reductions which preserve approximation.
 
 For a domain \mD, any set of relations closed under conjunctions and
 containing \(EQV_D\), the binary equality relation over \mD,
@@ -781,12 +782,6 @@ maintain extensivity and antitony; hence, they form Galois connection between
 sets of relations and partial functions. Due to properties of Galois connections,
 for any constraint language \mrelset\ and any set of functions \(C\), the 
 sets \(Inv(C)\) and \(pPol(\relset)\) are a weak co-clone and a partial clone, respectively.
-
-Theorem \ref{trm:partial} indicates that weak co-clones are
-in charge of complexity of approximation of the problem \ccsp(\mrelset).
-The relation between weak co-clones and partial polymorphisms,
-implies that the complexity of approximation of the problem \ccsp(\mrelset)  
-depends on \(pPol(\relset)\)\@.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -836,7 +831,7 @@ that for any instance \(\probi=(D,V,\conset)\)
 of \ccsp(\mrelset), we have 
 \[\frac{1}{T(|\probi|)} \le \frac{\apxalg(\probi)}{\#\probi} \le T(|\probi|)\]
 Choose \(k\) a sufficiently large number whose value
-will be determined later. Let \(\probi'=(D, V,\conset'\) be \(k\) copies of \(\probi\) as
+will be determined later. Let \(\probi'=(D, V',\conset')\) be \(k\) copies of \(\probi\) as
 \[V'=\{x^i \mid 1 \le i \le k, x \in V\}\] and
 \[\conset'=\{\const{(x^i_{l_1},\dotsc, x^i_{l_t}), R} \mid 1 \le i \le k,
 \const{(x_{l_1},\dotsc, x_{l_t}), R} \in \conset\}\]
@@ -922,8 +917,8 @@ the problem \chom(\mH)
 may be easier than approximating the problem \chom(\mG)\@.
 
 Another interesting counting problem which can be approximated in polynomial time is 
-the problem \pname{\#Dual-SAT} defined as
-\pnndef %{\pname{\#Dual-SAT}}
+the problem \pname{\#DNF-SAT} defined as
+\pnndef %{\pname{\#DNF-SAT}}
 {A Boolean DNF (Disjunctive Normal Form) formula \(\varphi\)}
 {The number of satisfying assignments for \(\varphi\)}
 
@@ -932,7 +927,7 @@ Luby and Veli\v{c}kovic \cite{Luby} provided a deterministic algorithm for
 approximating the probability of a random assignment being satisfying. 
 Madras et al. \cite{Madras} provided a Monte-Carlo algorithm
 for this problem. Jerrum et al. \cite{JVV} provided an algorithm,depicted in Algorithm~\ref{alg:dnf},
-for sampling the problem \pname{Dual-SAT}. 
+for sampling the problem \pname{DNF-SAT}. 
 \begin{algorithm}[h]
 \begin{algorithmic}
 \WHILE {true}
@@ -942,11 +937,11 @@ for sampling the problem \pname{Dual-SAT}.
        \STATE With probability \(\frac{1}{N}\): output \(A\) and halt
 \ENDWHILE
 \end{algorithmic}
-\caption{An algorithm for sampling \pname{Dual-SAT}}\label{alg:dnf}
+\caption{An algorithm for sampling \pname{DNF-SAT}}\label{alg:dnf}
 \end{algorithm}
 
-Since the problem \pname{\#Dual-SAT} is self-reducible, Theorem~\ref{thm:selfred} implies
-that Algorithm~\ref{alg:dnf} can be used to find an approximate solution for\pname{Dual-SAT}\@.
+Since the problem \pname{\#DNF-SAT} is self-reducible, Theorem~\ref{thm:selfred} implies
+that Algorithm~\ref{alg:dnf} can be used to find an approximate solution for\pname{DNF-SAT}\@.
 
 Other common method used to approximate counting problems is using the Markov chain
 Monte-Carlo algorithms. Consider the following problems:
@@ -1075,8 +1070,9 @@ In this section we study the set of counting problems that are the hardest probl
 for the complexity of approximation. In other words every
 problem in \cp\ is AP-reducible to them.
 Existence of an FPRAS for any of these problems implies NP = RP where 
-RP is the set of problems that in polynomial time can be solved with probability
-greater than \(\frac{3}{4}\) using a randomized algorithm. The following theorem 
+a problem is in RP if there is a randomized algorithm that runs in polynomial time
+and if the answer is NO always rejects and if the answer is YES accepts
+with probability of at least \(\frac{3}{4}\). The following theorem 
 points us to the first set of problems in this complexity class.
 
 \begin{theorem} [Goldberg et al. \cite{Leslie03}] \label{thrm:npcp}
@@ -1186,6 +1182,7 @@ the problem \cbis\ and is defined as follows:
 {A bipartite graph \mG}
 {The number of independent sets in \mG}
 
+Note that by Theorem~\ref{thm:homd} exactly solving the problem \cbis\ is \cpc\@.
 Goldberg et al.~\cite{Leslie03} proved that the following problems are AP-interreducible with \cbis\@.
 
 \begin{figure}[h]
