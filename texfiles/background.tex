@@ -272,7 +272,7 @@ finds \(|\{y \mid (x,y) \in R\}|\)\@.
 Intuitively, a relation is said to be \emph{self-reducible} if solutions for an instance can be
 expressed in terms of solutions for a number of smaller instances of the same relation.
 Many of the relation such as the relation between a graph and a matching in that graph
-and relation between CNF(Conjunctive Normal Form) or DNF(Disjunctive Normal Form) formula and
+and relation between CNF (Conjunctive Normal Form) or DNF (Disjunctive Normal Form) formula and
 a satisfying truth assignment of that formula are self-reducible.
 
 \begin{theorem} [Jerrum et al. 1986 \cite{JVV}] \label{thm:selfred}
@@ -318,7 +318,7 @@ The partition function \(Z_H(G,w)\) is the sum of the weights for all the homomo
 
 Note that \(\hom(G,H)=Z_{H}(G,w)\) if \(w(v)=w(e)=1\) for all \(v,e\in H\)
 and \(w(e)=0\) for all \(e\not\in H\)\@. 
-The problem \pname{H-Partition} is defined as:
+The problem \pname{H-Partition} is defined follows.
 
 \pnndef%{\pname{H-Partition}}
 {A graph \(G\) and a weight function \(w\)}
@@ -732,10 +732,9 @@ For a constraint language \mrelset, checking if \mrelset\ is congruence singular
 \section{Weak Co-clones}
 In the previous section, we showed that 
 complexity of the problems CSP(\mrelset) and \ccsp(\mrelset) depends on \(Pol(\relset)\)\@.
-Because of usage of existential quantifier in pp-definition,
-it is very unlikely that
-complexity of approximating the problem \ccsp(\mrelset) depends on \(Pol(\relset)\).
-However, for the approximating the problem \ccsp(\mrelset), we can use
+Because existential quantifiers are allowed in pp-definition,
+it is very unlikely that the complexity of approximating \ccsp(\mrelset) depends on \(Pol(\relset)\).
+However, for the approximating \ccsp(\mrelset), we may be able to use
 simpler tools. Pp-definitions without existential quantifier only imply
 parsimonious reductions which preserve approximation.
 
@@ -829,12 +828,12 @@ the problem \ccsp(\mrelset) then there is an FPRAS it, as well.
 Let \(\apxalg\) be an algorithm and \(T\) be a polynomial function such
 that for any instance \(\probi=(D,V,\conset)\)
 of \ccsp(\mrelset), we have 
-\[\frac{1}{T(|\probi|)} \le \frac{\apxalg(\probi)}{\#\probi} \le T(|\probi|)\]
+\[\frac{1}{T(|\probi|)} \le \frac{\apxalg(\probi)}{\#\probi} \le T(|\probi|).\]
 Choose \(k\) a sufficiently large number whose value
 will be determined later. Let \(\probi'=(D, V',\conset')\) be \(k\) copies of \(\probi\) as
 \[V'=\{x^i \mid 1 \le i \le k, x \in V\}\] and
 \[\conset'=\{\const{(x^i_{l_1},\dotsc, x^i_{l_t}), R} \mid 1 \le i \le k,
-\const{(x_{l_1},\dotsc, x_{l_t}), R} \in \conset\}\]
+\const{(x_{l_1},\dotsc, x_{l_t}), R} \in \conset\}.\]
 By multiplication principle, \(\#\probi'=\#\probi^k\); \(\sqrt[k]{\apxalg(\probi')}\) is 
 an (\(1+\eps\))-approximation for \(\probi\)\@ if \(1+\eps > \sqrt[k]{T(|\probi|\cdot k)}\)\@.
 For that, it is sufficient for \(k\) to be greater than
@@ -917,7 +916,7 @@ the problem \chom(\mH)
 may be easier than approximating the problem \chom(\mG)\@.
 
 Another interesting counting problem which can be approximated in polynomial time is 
-the problem \pname{\#DNF-SAT} defined as
+the problem \pname{\#DNF-SAT} defined as\\
 \pnndef %{\pname{\#DNF-SAT}}
 {A Boolean DNF (Disjunctive Normal Form) formula \(\varphi\)}
 {The number of satisfying assignments for \(\varphi\)}
@@ -941,7 +940,7 @@ for sampling the problem \pname{DNF-SAT}.
 \end{algorithm}
 
 Since the problem \pname{\#DNF-SAT} is self-reducible, Theorem~\ref{thm:selfred} implies
-that Algorithm~\ref{alg:dnf} can be used to find an approximate solution for\pname{DNF-SAT}\@.
+that Algorithm~\ref{alg:dnf} can be used to find an approximate solution for \pname{DNF-SAT}\@.
 
 Other common method used to approximate counting problems is using the Markov chain
 Monte-Carlo algorithms. Consider the following problems:

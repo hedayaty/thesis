@@ -1,4 +1,5 @@
-default: main.pdf slides.pdf 
+default: main.pdf
+# slides.pdf 
 handout: handout.pdf 4in1.pdf 2in1.pdf
 
 include figs/Makefile

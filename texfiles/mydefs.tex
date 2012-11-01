@@ -2,6 +2,8 @@
 \usepackage{verbatim}
 \usepackage{paralist}
 \usepackage{algorithm,algorithmic}
+%\usepackage[nottoc,numbib]{tocbibind}
+
 \newcommand{\pname}[1]{\textsc{#1}}
 \newcommand{\ccsp}{\#CSP}
 \newcommand{\cccsp}{\#CSP\(_c\)}
@@ -99,17 +101,17 @@
 
 \theoremstyle{plain}% default
 \newtheorem{lemma}{Lemma}[section]
-\newtheorem{obs}{Observation}[section]
-\newtheorem{cor}{Corollary}[section]
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{obs}[lemma]{Observation}
+\newtheorem{cor}[lemma]{Corollary}
+\newtheorem{theorem}[lemma]{Theorem}
 \newtheorem*{rem}{Remark}
 
 \theoremstyle{definition}
-\newtheorem{example}{Example}[section]
-\newtheorem{problem}{Problem}[section]
-\newtheorem{conj}{Conjecture}[section]
-\newtheorem{defi}{Definition}[section]
-%\newtheorem{defi}{Definition}
+\newtheorem{example}[lemma]{Example}
+\newtheorem{problem}[lemma]{Problem}
+\newtheorem{conj}[lemma]{Conjecture}
+\newtheorem{defi}[lemma]{Definition}
+%\newtheorem{defi}[lemma]{Definition}
 
 
 %\newenvironment{proof}{{\bf Proof:\ }}{\hfill $\Box$\linebreak\vskip2mm}
