@@ -258,19 +258,21 @@ and this completes the proof.
 Let \(R=\{(1,2), (1,3), (1,4), (2,1), (2,2), (2,3), (3,1), (3,4)\}\) be a relation
 over domain \(D=\{1,2,3,4\}\) and  let \(S=\{1,2\}\)\@.
 
-The number of tupples \((1,x)\in R\) is 3, the number of tupples \((2,x) \in R\) 
-is also 3; however, the number of tupple \((x,y)\in R\) where \(x\in\{3,4\}\) is 2
+The number of tuples \((1,x)\in R\) is 3, the number of tuples \((2,x) \in R\) 
+is also 3; however, the number of tuple \((x,y)\in R\) where \(x\in\{3,4\}\) is 2
 which less than 3\@. By Lemma~\ref{lem:pinning}, \ccsp(\{R, S\}) is AP-reducible to
 \ccsp(\{R\})\@.
 
-We also prove that the problem \cisp\ is AP-reducible to the problem \ccsp(\(\{R,S\}\)).
+As an application, we can now use this fact to deduce 
+\[\mathrm{\cisp} \aple \mathrm{\ccsp(}\{R\}\mathrm{)}.\]
+We first show that \cisp\(\aple\)\ccsp(\(\{R,S\}\))\@.
 For any input graph \(G=(V,E)\) for the problem \cisp, take
 \(\probi = (\{1,2,3,4\}, V, \conset)\) as an instance of \ccsp(\(\{R,S\}\)) where
 \[\conset = \{\const{R, (x,y)}\mid xy \in E\} \cup \{\const{S, (x)} \mid x \in V\}.\]
 Let \(\varphi\) be a solution of \(\probi\)\@. For any vertex \(x \in V\), \(\varphi(x)\in \{1,2\}\)\@. Thus, for any edge \(xy\) in \mG, \((\varphi(x),\varphi(y))\in 
  \{(1,2),(2,1),(2,2)\}\). Hence, there is a one-to-one correspondence between s independent sets
  \mG\ and solutions of \(\probi\)\@. Thus,
- \[\mathrm{\ccsp(\cisp)} \aple \mathrm{\ccsp(}\{R,S\}\mathrm{)} \aple \mathrm{\ccsp(}
+ \[\mathrm{\cisp} \aple \mathrm{\ccsp(}\{R,S\}\mathrm{)} \aple \mathrm{\ccsp(}
  \{R\}\mathrm{)}\]
 \end{example}
 
@@ -296,11 +298,11 @@ of \mR\ if a tuple \(\varphi\) is in \mR\ if and only if \(\#\varphi = M\)\@.
 If \mR\ has a max-implementation over \mrelset, we say it is \emph{max-implementable} by \mrelset\@.
 
 \begin{example}
-Let \(\probi = (\{1,2,3\}, \{x_1,x_2,y_1,y_2,y_3\}, \conset\) be an instance
-of \ccsp(\mrelset)\@. Suppose the number of solutions of \(\probi\) for each possible
+Let \(\probi = (\{1,2,3\}, \{x_1,x_2,y_1,y_2,y_3\}, \conset)\) be an instance
+of \ccsp(\mrelset)\@. Suppose the numbers of solutions of \(\probi\) for each possible
 assignment of \(x_1, x_2\) are according to the Table~\ref{tab:maxi}\@.
-Here, the maximum possible value for the solutions, \(M\) in the definition, is 7;
-let \mR\ be the set of values for \(x_1,x_2\) such that
+Here, the maximum possible value for the solutions, \(M\) in the definition, is 7.
+Let \mR\ be the set of values for \(x_1,x_2\) such that
 the number of solutions of \(\probi\) is 7, that is 
 \[R = \{(1,1), (1,2), (1,3), (2,2), (2,3), (3,3)\}.\]
 Here, \(\probi\) is a max-implementation of the relation \mR\ by the constraint language 

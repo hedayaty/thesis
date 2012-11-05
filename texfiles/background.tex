@@ -475,7 +475,7 @@ There is no explicit constraint with scope \((x,y)\)\@; however, there is the im
 constraint \(\const{EQV_{01},(x,y)}\) where \(EQV_{01}=\setof{(0,0),(1,1)}\)\@.
 \end{example}
 
-\begin{defi}[pp-definition]
+\begin{defi}[pp-definition]\label{def:ppdef}
 Let \mrelset\ be a constraint language with domain \(D\) and 
 let \(R\) be a relation with the same domain.
 Relation \(R\) is said to be primitive positive (pp)-definable by \mrelset\
@@ -515,15 +515,15 @@ functions and is closed under superpositions (compositions). For a set of functi
 
 A \emph{Galois connection} between sets \(A\) and \(B\) is a pair of functions
 \(\fA:\pow{A} \to \pow{B}\) and \(\gB:\pow{B} \to \pow{A}\) 
-which maintain {\em antitony}, that is,
+which maintain {\em antitony}, that is, for every \(X,X'\subseteq A\) and every \(Y,Y'\subseteq B\) we have
 \begin{align*}
-\forall~X,X' \subseteq A: X \subseteq X' \implies \fA(X) \supseteq \fA(X') \\
-\forall~Y,Y'\subseteq B: Y \subseteq Y' \implies \gB(Y) \supseteq \gB(Y') \\
+X \subseteq X' \implies \fA(X) \supseteq \fA(X') \\
+Y \subseteq Y' \implies \gB(Y) \supseteq \gB(Y') \\
 \end{align*}
-and {\em extensivity}, that is,
+and {\em extensivity}, that is, for every \(X\subseteq A\) and every \(Y\subseteq B\) we have
 \begin{align*}
-\forall~X\subseteq A:X \subseteq \gB(\fA(X)) \\
-\forall~Y\subseteq B:Y \subseteq \fA(\gB(Y))
+X \subseteq \gB(\fA(X)) \\
+Y \subseteq \fA(\gB(Y))
 \end{align*}
 
 Let \mR\ be a relation over domain \mD\ and \(f:D^n\to D\) a function of arity \mn\ over the
@@ -731,12 +731,10 @@ For a constraint language \mrelset, checking if \mrelset\ is congruence singular
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Weak Co-clones}
 In the previous section, we showed that 
-complexity of the problems CSP(\mrelset) and \ccsp(\mrelset) depends on \(Pol(\relset)\)\@.
-Because existential quantifiers are allowed in pp-definition,
-it is very unlikely that the complexity of approximating \ccsp(\mrelset) depends on \(Pol(\relset)\).
-However, for the approximating \ccsp(\mrelset), we may be able to use
-simpler tools. Pp-definitions without existential quantifier only imply
-parsimonious reductions which preserve approximation.
+the complexity of the problems CSP(\mrelset) and \ccsp(\mrelset) depends on \(Pol(\relset)\)\@.
+However, it seems unlikely that a similar relation occurs for approximating \ccsp(\mrelset);
+in fact, pp-definitions with existential quantifiers allowed, as in Definition~\ref{def:ppdef},
+do not guarantee a reduction suitable for approximation.
 
 For a domain \mD, any set of relations closed under conjunctions and
 containing \(EQV_D\), the binary equality relation over \mD,

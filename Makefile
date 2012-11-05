@@ -10,7 +10,7 @@ TEXFILES=$(addsuffix .tex,$(addprefix texfiles/,$(TEXS)))
 ENV=TEXINPUTS=./texfiles/:
 SLIDES=texfiles/slides.tex
 
-main.pdf: $(TEXFILES) $(FIGS) myrefs.bib mydict.txt
+main.pdf: $(TEXFILES) $(FIGS) myrefs.bib mydict.txt csthesis.sty
 	$(ENV) $(LATEX) $<
 	bibtex $(@:.pdf=) > bibtex.log
 	$(ENV) $(LATEX) $< > /dev/null
@@ -42,7 +42,7 @@ handout.pdf: $(SLIDES) $(FIGS)
 
 
 clean:
-	rm main.aux  main.bbl  main.blg  main.log main.synctex.gz main.lof main.lot *.aux
+	rm *.aux  *.bbl  *.blg  *.log *.synctex.gz *.lof *.lot 
 	make -C figs cleanfigs
 
 fixdict:
