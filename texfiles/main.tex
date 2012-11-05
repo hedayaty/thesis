@@ -41,6 +41,7 @@
 \include{next}
 \include{conc}
 
+
 %%%  appendices, if any
 \begin{appendices}
 %\include{appone}
@@ -48,7 +49,20 @@
 \end{appendices}
 
 %%%%%%  bibliography
-\include{bibl}
+%\include{bibl}
+
+\nocite{*}     % everything cited automatically
+
+\renewcommand{\baselinestretch}{\tighttextstretch} %% get smaller spacing
+\normalsize
+
+\clearpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}   %% dash under repeated name, von ignored
+%\typeout{Bibliography}
+\bibliography{myrefs}
+\renewcommand{\baselinestretch}{\textstretch} %% get normal spacing
+\normalsize
 
 %%%%%%  index
 \include{ind}
